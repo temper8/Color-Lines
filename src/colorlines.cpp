@@ -15,7 +15,7 @@ win_delete_request_cb(void *data, Evas_Object *obj, void *event_info)
 static void
 win_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	appdata_s *ad = data;
+	appdata_s *ad = (appdata_s *)data;
 	/* Let window go to hide state. */
 	elm_win_lower(ad->win);
 }
@@ -67,7 +67,7 @@ app_create(void *data)
 		Initialize UI resources and application's data
 		If this function returns true, the main loop of application starts
 		If this function returns false, the application is terminated */
-	appdata_s *ad = data;
+	appdata_s *ad = (appdata_s *)data;
 
 	create_base_gui(ad);
 

@@ -14,6 +14,9 @@ class TDrawingView: public TView {
 public:
 	TDrawingView();
 	virtual ~TDrawingView();
+
+private:
+	virtual void CreateContent();
 };
 
 #endif /* TDRAWINGVIEW_H_ */

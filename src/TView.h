@@ -21,6 +21,8 @@ public:
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
+private:
+	void CreateWin(const char *pkg_name);
 };
 
 #endif /* TVIEW_H_ */

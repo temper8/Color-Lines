@@ -36,20 +36,7 @@ win_back_cb(void *data, Evas_Object *obj, void *event_info)
 }
 
 void TView::Create(){
-	/* Window */
-	/* Create and initialize elm_win.
-	   elm_win is mandatory to manipulate window. */
-	win = elm_win_util_standard_add(PACKAGE, PACKAGE);
-	elm_win_autodel_set(win, EINA_TRUE);
-
-	if (elm_win_wm_rotation_supported_get(win)) {
-		int rots[4] = { 0, 90, 180, 270 };
-		elm_win_wm_rotation_available_rotations_set(win, (const int *)(&rots), 4);
-	}
-
-	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
-	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, win_back_cb, this);
-
+	CreateWin(PACKAGE);
 	/* Conformant */
 	/* Create and initialize elm_conformant.
 	   elm_conformant is mandatory for base gui to have proper size
@@ -71,4 +58,22 @@ void TView::Create(){
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);
+}
+
+
+void TView::CreateWin(const char *pkg_name){
+	/* Window */
+	/* Create and initialize elm_win.
+	   elm_win is mandatory to manipulate window. */
+	win = elm_win_util_standard_add(pkg_name, pkg_name);
+	elm_win_autodel_set(win, EINA_TRUE);
+
+	if (elm_win_wm_rotation_supported_get(win)) {
+		int rots[4] = { 0, 90, 180, 270 };
+		elm_win_wm_rotation_available_rotations_set(win, (const int *)(&rots), 4);
+	}
+
+	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
+	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, win_back_cb, this);
+
 }

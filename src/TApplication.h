@@ -23,6 +23,7 @@
 #define PACKAGE "org.tizen.colorlines"
 #endif
 
+class TView;
 
 class TApplication {
 public:
@@ -35,13 +36,11 @@ public:
 public:
 	static TApplication *Instance;
 	static void Initialize(int argc, char *argv[]);
-	static int Run();
+	static int Run(TView* view);
 
-
+	TView* myView;
 	void create_base_gui();
-	Evas_Object *win;
-	Evas_Object *conform;
-	Evas_Object *label;
+
 
 };
 

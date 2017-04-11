@@ -8,10 +8,19 @@
 #ifndef TVIEW_H_
 #define TVIEW_H_
 
+#include <app.h>
+#include <Elementary.h>
+#include <system_settings.h>
+#include <efl_extension.h>
+
 class TView {
 public:
 	TView();
 	virtual ~TView();
+	void Create();
+	Evas_Object *win;
+	Evas_Object *conform;
+	Evas_Object *label;
 };
 
 #endif /* TVIEW_H_ */

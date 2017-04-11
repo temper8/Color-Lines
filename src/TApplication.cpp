@@ -21,15 +21,6 @@ TApplication::~TApplication() {
 	// TODO Auto-generated destructor stub
 }
 
-
-
-
-void TApplication::create_base_gui() {
-
-}
-
-
-
 static bool
 app_create(void *data)
 {

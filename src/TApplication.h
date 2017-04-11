@@ -39,8 +39,6 @@ public:
 	static int Run(TView* view);
 
 	TView* myView;
-	void create_base_gui();
-
 
 };
 

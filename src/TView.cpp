@@ -56,6 +56,13 @@ void TView::CreateContent(){
 
 }
 
+void win_resize_cb(void *data, Evas *e , Evas_Object *obj , void *event_info)
+{
+	// window resize event
+	TView *view = (TView *)data;
+	view->Resize();
+}
+
 void TView::CreateWin(const char *pkg_name){
 	/* Window */
 	/* Create and initialize elm_win.
@@ -70,6 +77,7 @@ void TView::CreateWin(const char *pkg_name){
 
 	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
 	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, win_back_cb, this);
+	evas_object_event_callback_add(win, EVAS_CALLBACK_RESIZE, win_resize_cb, NULL);
 
 	/* Conformant */
 	/* Create and initialize elm_conformant.

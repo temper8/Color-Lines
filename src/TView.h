@@ -18,12 +18,19 @@ public:
 	TView();
 	virtual ~TView();
 	void Create();
+
+public:
+
 	Evas_Object *win;
 	Evas_Object *conform;
 	Evas_Object *label;
+
+	virtual void Resize() {};
+
 private:
 	void CreateWin(const char *pkg_name);
 	virtual void CreateContent();
+
 };
 
 #endif /* TVIEW_H_ */

@@ -23,6 +23,7 @@ public:
 	Evas_Object *label;
 private:
 	void CreateWin(const char *pkg_name);
+	void CreateContent();
 };
 
 #endif /* TVIEW_H_ */

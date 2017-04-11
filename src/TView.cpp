@@ -36,30 +36,25 @@ win_back_cb(void *data, Evas_Object *obj, void *event_info)
 }
 
 void TView::Create(){
-	CreateWin(PACKAGE);
-	/* Conformant */
-	/* Create and initialize elm_conformant.
-	   elm_conformant is mandatory for base gui to have proper size
-	   when indicator or virtual keypad is visible. */
-	conform = elm_conformant_add(win);
-	elm_win_indicator_mode_set(win, ELM_WIN_INDICATOR_SHOW);
-	elm_win_indicator_opacity_set(win, ELM_WIN_INDICATOR_OPAQUE);
-	evas_object_size_hint_weight_set(conform, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_win_resize_object_add(win, conform);
-	evas_object_show(conform);
 
-	/* Label */
-	/* Create an actual view of the base gui.
-	   Modify this part to change the view. */
-	label = elm_label_add(conform);
-	elm_object_text_set(label, "<align=center>Hello View</align>");
-	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_content_set(conform, label);
+	CreateWin(PACKAGE);
+
+	CreateContent();
 
 	/* Show window after base gui is set up */
 	evas_object_show(win);
 }
 
+void TView::CreateContent(){
+	/* Label */
+	/* Create an actual view of the base gui.
+	   Modify this part to change the view. */
+	label = elm_label_add(conform);
+	elm_object_text_set(label, "<align=center>Hello Basic View</align>");
+	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_content_set(conform, label);
+
+}
 
 void TView::CreateWin(const char *pkg_name){
 	/* Window */
@@ -75,5 +70,16 @@ void TView::CreateWin(const char *pkg_name){
 
 	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
 	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, win_back_cb, this);
+
+	/* Conformant */
+	/* Create and initialize elm_conformant.
+	   elm_conformant is mandatory for base gui to have proper size
+	   when indicator or virtual keypad is visible. */
+	conform = elm_conformant_add(win);
+	elm_win_indicator_mode_set(win, ELM_WIN_INDICATOR_SHOW);
+	elm_win_indicator_opacity_set(win, ELM_WIN_INDICATOR_OPAQUE);
+	evas_object_size_hint_weight_set(conform, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_win_resize_object_add(win, conform);
+	evas_object_show(conform);
 
 }

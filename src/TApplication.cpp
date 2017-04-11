@@ -161,12 +161,11 @@ ui_app_low_memory(app_event_info_h event_info, void *user_data)
 
 
 
-void TApplication::Initialize() {
+void TApplication::Initialize(int argc, char *argv[]) {
 	new TApplication();
 
-	int ret = 0;
-
-
+	Instance->my_argc = argc;
+	Instance->my_argv = argv;
 	app_event_handler_h handlers[5] = {NULL, };
 
 	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, Instance);
@@ -176,7 +175,7 @@ void TApplication::Initialize() {
 	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, Instance);
 }
 
-int TApplication::Run(int argc, char *argv[]) {
+int TApplication::Run() {
 
 	int ret = 0;
 
@@ -188,7 +187,7 @@ int TApplication::Run(int argc, char *argv[]) {
 	event_callback.resume = app_resume;
 	event_callback.app_control = app_control;
 
-	ret = ui_app_main(argc, argv, &event_callback, Instance);
+	ret = ui_app_main(Instance->my_argc, Instance->my_argv, &event_callback, Instance);
 	if (ret != APP_ERROR_NONE) {
 		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
 	}

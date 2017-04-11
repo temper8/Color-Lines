@@ -29,10 +29,13 @@ public:
 	TApplication();
 	virtual ~TApplication();
 
+	int my_argc;
+	char **my_argv;
+
 public:
 	static TApplication *Instance;
-	static void Initialize();
-	static int Run(int argc, char *argv[]);
+	static void Initialize(int argc, char *argv[]);
+	static int Run();
 
 
 	void create_base_gui();

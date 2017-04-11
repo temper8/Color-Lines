@@ -12,8 +12,8 @@ int
 main(int argc, char *argv[])
 {
 	int ret = 0;
-	TApplication::Initialize();
-	ret = TApplication::Run(argc,argv);
+	TApplication::Initialize(argc,argv);
+	ret = TApplication::Run();
 	return ret;
 
 }

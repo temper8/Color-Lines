@@ -17,6 +17,9 @@ public:
 
 public:
 	virtual void CairoDrawing();
+    int squareSize;
+    int left_margin,top_margin;
+    void DrawBoard();
 };
 
 #endif /* TBOARDVIEW_H_ */

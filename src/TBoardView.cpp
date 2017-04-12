@@ -13,6 +13,7 @@ TBoardView::TBoardView() {
 	left_margin = 20;
 	top_margin = 100;
 	linesBoard = new TLinesBoard(9,9);
+	linesBoard->initRandom();
 }
 
 TBoardView::~TBoardView() {
@@ -45,7 +46,7 @@ void TBoardView::CairoDrawing(){
 
 	DrawBoard();
 
-	Test7Colors();
+	DrawBalls();
 
 
 	/* Render stacked cairo APIs on cairo context's surface */
@@ -53,6 +54,13 @@ void TBoardView::CairoDrawing(){
 
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(img, 0, 0, myWidth, myHeight);
+
+}
+
+void TBoardView::DrawBalls() {
+	for(int i=1; i<= linesBoard->sizeX; i++)
+	  for(int j=1; j<= linesBoard->sizeY; j++)
+		  DrawBall(i,j,linesBoard->square[i][j]);
 
 }
 
@@ -125,9 +133,6 @@ void TBoardView::DrawBall(int x, int y, int color){
 	int xx = x*squareSize - squareSize / 2 + left_margin;
 	int yy = y*squareSize - squareSize / 2 + top_margin;
 	int  r = 3*squareSize / 8;
-	//  myCanvas.Pen.Color:= ballsColor[color];
-//	  myCanvas.Brush.Color:=ballsColor[color];
-//	  myCanvas.Ellipse(xx-r,yy-r,xx+r,yy+r);
 
 	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
 

@@ -6,6 +6,8 @@
  */
 
 #include "TLinesBoard.h"
+#include <cstdlib>
+
 
 TLinesBoard::TLinesBoard(int x, int y) {
 	// TODO Auto-generated constructor stub
@@ -17,3 +19,12 @@ TLinesBoard::~TLinesBoard() {
 	// TODO Auto-generated destructor stub
 }
 
+void TLinesBoard::initRandom(){
+	for(int i=1; i<= sizeX; i++)
+	  for(int j=1; j<= sizeY; j++) {
+	      square[i][j] = 0;
+	      int rnd =  rand() % 30;
+	      if (rnd<8)
+	    	  square[i][j] =  1 + rnd;
+	  }
+}

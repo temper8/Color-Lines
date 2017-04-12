@@ -27,7 +27,7 @@ public:
     void DrawTopText();
     void DrawBall(int x, int y, int color);
     void Test7Colors();
-
+    void DrawBalls();
 private:
     void SetColor(int color);
 };

@@ -25,9 +25,10 @@ public:
 	unsigned char *pixels;
 
 	virtual void Resize(int width, int height);
-
+	void CairoDrawing();
 private:
 	virtual void CreateContent();
+	int myWidth, myHeight;
 };
 
 #endif /* TDRAWINGVIEW_H_ */

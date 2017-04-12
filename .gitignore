@@ -1,5 +1,7 @@
 /Debug/
 /SA_Report/
 .sign/
+crash-info/
 .sdk_delta.info
 .rds_delta
+.package-stamp

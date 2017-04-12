@@ -25,6 +25,7 @@ public:
     TLinesBoard* linesBoard;
     void DrawBoard();
     void DrawTopText();
+    void DrawBall(int x, int y, int color);
 };
 
 #endif /* TBOARDVIEW_H_ */

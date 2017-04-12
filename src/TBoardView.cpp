@@ -45,6 +45,13 @@ void TBoardView::CairoDrawing(){
 
 	DrawBoard();
 
+	DrawBall(3,5,1);
+
+	DrawBall(5,3,2);
+
+	DrawBall(7,8,3);
+
+
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 
@@ -85,6 +92,22 @@ void TBoardView::DrawBoard(){
 	 				 cairo_line_to(cairo, left_margin  + BoardWidth, squareSize*i + top_margin);
 	 	  }
 	 cairo_stroke(cairo);
+}
+
+void TBoardView:: DrawBall(int x, int y, int color){
+	if (color == 0) return;
+
+	int xx = x*squareSize - squareSize / 2 + left_margin;
+	int yy = y*squareSize - squareSize / 2 + top_margin;
+	int  r = 3*squareSize / 8;
+	//  myCanvas.Pen.Color:= ballsColor[color];
+//	  myCanvas.Brush.Color:=ballsColor[color];
+//	  myCanvas.Ellipse(xx-r,yy-r,xx+r,yy+r);
+
+	cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
+	cairo_fill(cairo);
 }
 
 void TBoardView::DrawTopText() {

@@ -9,11 +9,22 @@
 #define TDRAWINGVIEW_H_
 
 #include "TView.h"
+#include <cairo.h>
 
 class TDrawingView: public TView {
 public:
 	TDrawingView();
 	virtual ~TDrawingView();
+
+public:
+	Evas_Object *img;
+	Evas_Coord width;
+	Evas_Coord height;
+	cairo_t *cairo;
+	cairo_surface_t *surface;
+	unsigned char *pixels;
+
+	virtual void Resize(int width, int height);
 
 private:
 	virtual void CreateContent();

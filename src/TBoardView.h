@@ -10,6 +10,7 @@
 
 #include "TDrawingView.h"
 
+class TLinesBoard;
 class TBoardView: public TDrawingView {
 public:
 	TBoardView();
@@ -17,8 +18,11 @@ public:
 
 public:
 	virtual void CairoDrawing();
+
     int squareSize;
     int left_margin,top_margin;
+
+    TLinesBoard* linesBoard;
     void DrawBoard();
     void DrawTopText();
 };

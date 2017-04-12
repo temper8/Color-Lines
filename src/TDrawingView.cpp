@@ -16,11 +16,31 @@ TDrawingView::~TDrawingView() {
 	// TODO Auto-generated destructor stub
 }
 
+Evas_Event_Flags _mouse_cb(void *data, void *event)
+{
+	TDrawingView *v = (TDrawingView *) data;
+
+    // Get structure describing mouse event
+   // Elm_Gesture_Taps_Info *move = (Elm_Gesture_Taps_Info *) event;
+
+    //dlog_print(DLOG_DEBUG, LOG_TAG, "> _mouse_cb() x:%d y:%d", move->x, move->y);
+
+	v->OnClick(10,10);
+
+	return EVAS_EVENT_FLAG_ON_HOLD;
+}
+
 void TDrawingView::CreateContent(){
 
 	/* Create image */
-	img = evas_object_image_filled_add(evas_object_evas_get(conform));
-	evas_object_show(img);
+	image = evas_object_image_filled_add(evas_object_evas_get(conform));
+	evas_object_show(image);
+
+    // Add gesture layer
+
+    Evas_Object *gesture_layer = elm_gesture_layer_add(conform);
+    elm_gesture_layer_attach(gesture_layer, image);
+    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_START, _mouse_cb, this);
 
 }
 
@@ -44,12 +64,12 @@ void TDrawingView::Resize(int width, int height) {
 		//evas_object_geometry_get(obj, NULL, NULL, &s_info.width, &s_info.height);
 
 		/* Set image size */
-		evas_object_image_size_set(img, width, height);
-		evas_object_resize(img, width, height);
-		evas_object_show(img);
+		evas_object_image_size_set(image, width, height);
+		evas_object_resize(image, width, height);
+		evas_object_show(image);
 
 		/* Create new cairo canvas for resized window */
-		pixels = (unsigned char*)evas_object_image_data_get(img, 1);
+		pixels = (unsigned char*)evas_object_image_data_get(image, 1);
 		surface = cairo_image_surface_create_for_data(pixels,
 						CAIRO_FORMAT_ARGB32, width, height, width * 4);
 		cairo = cairo_create(surface);
@@ -90,6 +110,6 @@ void TDrawingView::CairoDrawing(){
 	cairo_surface_flush(surface);
 
 	/* Display cairo drawing on screen */
-	evas_object_image_data_update_add(img, 0, 0, myWidth, myHeight);
+	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 
 }

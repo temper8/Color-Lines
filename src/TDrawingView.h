@@ -17,7 +17,7 @@ public:
 	virtual ~TDrawingView();
 
 public:
-	Evas_Object *img;
+	Evas_Object *image;
 	Evas_Coord width;
 	Evas_Coord height;
 	cairo_t *cairo;
@@ -26,6 +26,7 @@ public:
 
 	virtual void Resize(int width, int height);
 	virtual void CairoDrawing();
+	virtual void OnClick(int x, int y) {};
 protected:
 	virtual void CreateContent();
 	int myWidth, myHeight;

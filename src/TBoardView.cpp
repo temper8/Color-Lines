@@ -20,6 +20,11 @@ TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
+void TBoardView::OnClick(int x, int y) {
+	linesBoard->initRandom();
+	CairoDrawing();
+};
+
 void TBoardView::CairoDrawing(){
 	cairo_set_source_rgb(cairo, 0.5, 0.5, 1.0);
 	cairo_paint(cairo);
@@ -53,7 +58,7 @@ void TBoardView::CairoDrawing(){
 	cairo_surface_flush(surface);
 
 	/* Display cairo drawing on screen */
-	evas_object_image_data_update_add(img, 0, 0, myWidth, myHeight);
+	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 
 }
 

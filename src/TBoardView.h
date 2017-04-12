@@ -14,6 +14,9 @@ class TBoardView: public TDrawingView {
 public:
 	TBoardView();
 	virtual ~TBoardView();
+
+public:
+	virtual void CairoDrawing();
 };
 
 #endif /* TBOARDVIEW_H_ */

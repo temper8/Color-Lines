@@ -25,8 +25,8 @@ public:
 	unsigned char *pixels;
 
 	virtual void Resize(int width, int height);
-	void CairoDrawing();
-private:
+	virtual void CairoDrawing();
+protected:
 	virtual void CreateContent();
 	int myWidth, myHeight;
 };

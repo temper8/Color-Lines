@@ -26,6 +26,10 @@ public:
     void DrawBoard();
     void DrawTopText();
     void DrawBall(int x, int y, int color);
+    void Test7Colors();
+
+private:
+    void SetColor(int color);
 };
 
 #endif /* TBOARDVIEW_H_ */

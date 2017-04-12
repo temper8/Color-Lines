@@ -45,11 +45,7 @@ void TBoardView::CairoDrawing(){
 
 	DrawBoard();
 
-	DrawBall(3,5,1);
-
-	DrawBall(5,3,2);
-
-	DrawBall(7,8,3);
+	Test7Colors();
 
 
 	/* Render stacked cairo APIs on cairo context's surface */
@@ -60,6 +56,22 @@ void TBoardView::CairoDrawing(){
 
 }
 
+void TBoardView::Test7Colors(){
+
+	DrawBall(3,5,1);
+
+	DrawBall(5,3,2);
+
+	DrawBall(7,8,3);
+
+	DrawBall(2,7,4);
+
+	DrawBall(7,2,5);
+
+	DrawBall(8,7,6);
+
+	DrawBall(4,5,7);
+}
 
 void TBoardView::DrawBoard(){
 
@@ -93,8 +105,21 @@ void TBoardView::DrawBoard(){
 	 	  }
 	 cairo_stroke(cairo);
 }
-
-void TBoardView:: DrawBall(int x, int y, int color){
+void TBoardView::SetColor(int color){
+	switch (color) {
+	case 0: cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0); break;
+	case 1: cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9); break;
+	case 2: cairo_set_source_rgba(cairo, 0.2, 1.0, 0.2, 0.9); break;
+	case 3: cairo_set_source_rgba(cairo, 0.2, 0.2, 1.0, 0.9); break;
+	case 4: cairo_set_source_rgba(cairo, 1.0, 1.0, 0.2, 0.9); break;
+	case 5: cairo_set_source_rgba(cairo, 1.0, 0.0, 1.0, 0.9); break;
+	case 6: cairo_set_source_rgba(cairo, 0.0, 1.0, 1.0, 0.9); break;
+	case 7: cairo_set_source_rgba(cairo, 1.0, 1.0, 1.0, 0.9); break;
+	defalut:
+	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0);
+	}
+}
+void TBoardView::DrawBall(int x, int y, int color){
 	if (color == 0) return;
 
 	int xx = x*squareSize - squareSize / 2 + left_margin;
@@ -104,7 +129,9 @@ void TBoardView:: DrawBall(int x, int y, int color){
 //	  myCanvas.Brush.Color:=ballsColor[color];
 //	  myCanvas.Ellipse(xx-r,yy-r,xx+r,yy+r);
 
-	cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	SetColor(color);
 
 	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
 	cairo_fill(cairo);

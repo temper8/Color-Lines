@@ -8,12 +8,14 @@
 #include "colorlines.h"
 #include "TApplication.h"
 #include "TDrawingView.h"
+#include "TBoardView.h"
 
 int main(int argc, char *argv[])
 {
 	int ret = 0;
 	TApplication::Initialize(argc,argv);
-	ret = TApplication::Run(new TDrawingView());
+	ret = TApplication::Run(new TBoardView());
+//	ret = TApplication::Run(new TDrawingView());
 //	ret = TApplication::Run(new TView());
 	return ret;
 

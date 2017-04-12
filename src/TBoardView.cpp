@@ -10,8 +10,8 @@
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
-	left_margin = 20;
-	top_margin = 100;
+	mx = 250;
+	my = 250;
 	linesBoard = new TLinesBoard(9,9);
 	linesBoard->initRandom();
 }
@@ -21,6 +21,8 @@ TBoardView::~TBoardView() {
 }
 
 void TBoardView::OnClick(int x, int y) {
+	mx=x;
+	my=y;
 	linesBoard->initRandom();
 	CairoDrawing();
 };
@@ -44,7 +46,7 @@ void TBoardView::CairoDrawing(){
 
 	/* Draw a circle radius 10 on center point (x,y)
 	   this circle displays the text start point */
-	cairo_arc(cairo, 250, 250, 60.0, 0, 2*M_PI);
+	cairo_arc(cairo, mx, my, 60.0, 0, 2*M_PI);
 
 	/* Fill a circle with configured color before (blue) */
 	cairo_fill(cairo);

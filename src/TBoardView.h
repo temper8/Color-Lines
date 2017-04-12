@@ -33,6 +33,7 @@ public:
 
 private:
     void SetColor(int color);
+    int mx,my;
 };
 
 #endif /* TBOARDVIEW_H_ */

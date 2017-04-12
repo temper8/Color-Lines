@@ -16,16 +16,16 @@ TDrawingView::~TDrawingView() {
 	// TODO Auto-generated destructor stub
 }
 
-Evas_Event_Flags _mouse_cb(void *data, void *event)
+Evas_Event_Flags mouse_cb(void *data, void *event)
 {
 	TDrawingView *v = (TDrawingView *) data;
 
     // Get structure describing mouse event
-   // Elm_Gesture_Taps_Info *move = (Elm_Gesture_Taps_Info *) event;
+    Elm_Gesture_Taps_Info *tap_info = (Elm_Gesture_Taps_Info *) event;
 
     //dlog_print(DLOG_DEBUG, LOG_TAG, "> _mouse_cb() x:%d y:%d", move->x, move->y);
 
-	v->OnClick(10,10);
+	v->OnClick(tap_info->x,tap_info->y);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -40,7 +40,7 @@ void TDrawingView::CreateContent(){
 
     Evas_Object *gesture_layer = elm_gesture_layer_add(conform);
     elm_gesture_layer_attach(gesture_layer, image);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_START, _mouse_cb, this);
+    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_END, mouse_cb, this);
 
 }
 

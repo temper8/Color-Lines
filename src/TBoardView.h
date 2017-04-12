@@ -20,6 +20,7 @@ public:
     int squareSize;
     int left_margin,top_margin;
     void DrawBoard();
+    void DrawTopText();
 };
 
 #endif /* TBOARDVIEW_H_ */

@@ -13,6 +13,8 @@ TLinesBoard::TLinesBoard(int x, int y) {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
+	selBall.x = 0;
+	selBall.y = 0;
 }
 
 TLinesBoard::~TLinesBoard() {

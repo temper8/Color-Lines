@@ -23,7 +23,30 @@ TBoardView::~TBoardView() {
 void TBoardView::OnClick(int x, int y) {
 	mx=x;
 	my=y;
-	linesBoard->initRandom();
+
+	int xx =(x-left_margin) / squareSize + 1;
+	int yy =(y-top_margin) / squareSize + 1;
+
+    if (linesBoard->square[xx][yy] > 0) {
+    	linesBoard->selBall.x = xx;
+    	linesBoard->selBall.x = yy;
+    	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
+        my=(yy-1)*squareSize + top_margin + squareSize / 2;
+    	  //DrawSquare(xx,yy, true);
+    }
+    else {
+    	if (linesBoard->selBall.x == 0) {
+        	mx=100;
+        	my=100;
+    	}
+    	else {
+    		linesBoard->selBall.x = 0;
+    		mx=(xx-1)*squareSize + left_margin + squareSize / 2;
+    		my=(yy-1)*squareSize + top_margin + squareSize / 2;
+    	}
+
+    }
+	//linesBoard->initRandom();
 	CairoDrawing();
 };
 
@@ -46,7 +69,7 @@ void TBoardView::CairoDrawing(){
 
 	/* Draw a circle radius 10 on center point (x,y)
 	   this circle displays the text start point */
-	cairo_arc(cairo, mx, my, 60.0, 0, 2*M_PI);
+	cairo_arc(cairo, mx, my, 40.0, 0, 2*M_PI);
 
 	/* Fill a circle with configured color before (blue) */
 	cairo_fill(cairo);

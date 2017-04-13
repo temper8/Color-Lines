@@ -8,7 +8,6 @@
 #include "TLinesBoard.h"
 #include <cstdlib>
 
-
 TLinesBoard::TLinesBoard(int x, int y) {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
@@ -29,4 +28,85 @@ void TLinesBoard::initRandom(){
 	      if (rnd<8)
 	    	  square[i][j] =  1 + rnd;
 	  }
+}
+
+
+void TLinesBoard::initSearch(TPoint src, TPoint dst){
+
+     for(int i=1; i< 11; i++)
+		for(int j=1; j< 1; j++) {
+			if (square[i][j] > 0)sf[i][j] = 100;
+	      else sf[i][j] = 0;
+		}
+
+
+     for(int i=1; i< 11; i++) {
+         sf[sizeX+1][i] = 100;
+         sf[0][i] = 100;
+         sf[i][sizeY+1] = 100;
+         sf[i][0] = 100;
+     }
+
+     counter = 1;
+     std::vector<TPoint> list;
+     //SetLength(list, 1);
+     //list[0] = s;
+     list.push_back(src);
+     sf[src.x][src.y] = counter;
+     FillNeighbors(list);
+}
+
+void TLinesBoard::FillNeighbors( std::vector<TPoint> list){
+
+
+	std::vector<TPoint> newList;
+
+	int n = 0;
+	int x = list[0].x;
+	int y = list[0].y;
+	int c = sf[x][y] + 1;
+
+	for ( TPoint p : list ) {
+		int x = p.x;
+		int y = p.y;
+		if (sf[x-1][y] == 0) {
+		    sf[x-1][y] = c;
+		    TPoint np;
+		    np.x = x-1;
+		    np.y = y;
+		    newList.push_back(np);
+			n = n + 1;
+		}
+
+		if (sf[x+1][y] == 0) {
+				    sf[x+1][y] = c;
+				    TPoint np;
+				    np.x = x+1;
+				    np.y = y;
+				    newList.push_back(np);
+					n = n + 1;
+				}
+		if (sf[x][y-1] == 0) {
+				    sf[x][y-1] = c;
+				    TPoint np;
+				    np.x = x;
+				    np.y = y-1;
+				    newList.push_back(np);
+					n = n + 1;
+				}
+		if (sf[x][y+1] == 0) {
+				    sf[x][y+1] = c;
+				    TPoint np;
+				    np.x = x;
+				    np.y = y+1;
+				    newList.push_back(np);
+					n = n + 1;
+				}
+
+	}
+	if (n>0) FillNeighbors(newList);
+}
+
+int TLinesBoard::searchPath(TPoint src, TPoint dst){
+
 }

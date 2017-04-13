@@ -8,6 +8,9 @@
 #ifndef TLINESBOARD_H_
 #define TLINESBOARD_H_
 
+#include <vector>
+
+
 struct TPoint
 {
     int x;
@@ -21,10 +24,15 @@ public:
 
 public:
 	TPoint selBall;
+	TPoint destSquare;
 	int sizeX, sizeY;
 	int square[10][10];
+	int sf[10][10];
+	int counter;
 	void initRandom();
-
+	void initSearch(TPoint src, TPoint dst);
+	int searchPath(TPoint src, TPoint dst);
+	void FillNeighbors( std::vector<TPoint> list);
 };
 
 #endif /* TLINESBOARD_H_ */

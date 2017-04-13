@@ -40,9 +40,11 @@ void TBoardView::OnClick(int x, int y) {
         	my=100;
     	}
     	else {
-    		linesBoard->selBall.x = 0;
+    		//linesBoard->selBall.x = 0;
     		mx=(xx-1)*squareSize + left_margin + squareSize / 2;
     		my=(yy-1)*squareSize + top_margin + squareSize / 2;
+    		linesBoard->destSquare.x = xx;
+    		linesBoard->destSquare.y = yy;
     	}
 
     }

@@ -26,7 +26,7 @@ public:
 	TPoint selBall;
 	TPoint destSquare;
 	int sizeX, sizeY;
-	int square[10][10];
+	int square[11][11];
 	int sf[11][11];
 	int counter;
 	std::vector<TPoint> path;

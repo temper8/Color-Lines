@@ -91,7 +91,7 @@ void TBoardView::CairoDrawing(){
 
 	DrawBalls();
 
-	DrawSF();
+//	DrawSF();
 
 	DrawPath();
 	/* Render stacked cairo APIs on cairo context's surface */
@@ -188,17 +188,24 @@ void TBoardView::DrawBall(int x, int y, int color){
 }
 
 void TBoardView::DrawPath(){
-	for ( TPoint p : linesBoard->path )
-		DrawPathBall(p.x, p.y);
+	if (linesBoard->path.size()>0) {
+		TPoint p = linesBoard->path.front();
+		int color =  linesBoard->square[p.x][p.y];
+		for ( TPoint p : linesBoard->path )
+			DrawPathBall(p.x, p.y, color);
+	}
+
 }
 
-void TBoardView::DrawPathBall(int x, int y){
+void TBoardView::DrawPathBall(int x, int y, int color){
 
 	int xx = x*squareSize - squareSize / 2 + left_margin;
 	int yy = y*squareSize - squareSize / 2 + top_margin;
 	int  r = 3*squareSize / 16;
 
-	cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
+	//cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
+
+	SetColor(color);
 
 	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
 	cairo_fill(cairo);

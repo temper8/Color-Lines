@@ -34,8 +34,8 @@ void TLinesBoard::initRandom(){
 void TLinesBoard::initSearch(TPoint src, TPoint dst){
 
      for(int i=1; i< 11; i++)
-		for(int j=1; j< 1; j++) {
-			if (square[i][j] > 0)sf[i][j] = 100;
+		for(int j=1; j< 11; j++) {
+			if (square[i][j] > 0) sf[i][j] = 100;
 	      else sf[i][j] = 0;
 		}
 

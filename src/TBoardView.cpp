@@ -29,7 +29,7 @@ void TBoardView::OnClick(int x, int y) {
 
     if (linesBoard->square[xx][yy] > 0) {
     	linesBoard->selBall.x = xx;
-    	linesBoard->selBall.x = yy;
+    	linesBoard->selBall.y = yy;
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
     	  //DrawSquare(xx,yy, true);
@@ -40,11 +40,13 @@ void TBoardView::OnClick(int x, int y) {
         	my=100;
     	}
     	else {
-    		//linesBoard->selBall.x = 0;
+
     		mx=(xx-1)*squareSize + left_margin + squareSize / 2;
     		my=(yy-1)*squareSize + top_margin + squareSize / 2;
     		linesBoard->destSquare.x = xx;
     		linesBoard->destSquare.y = yy;
+    		linesBoard->initSearch(linesBoard->selBall,linesBoard->destSquare);
+    		linesBoard->selBall.x = 0;
     	}
 
     }
@@ -80,7 +82,7 @@ void TBoardView::CairoDrawing(){
 
 	DrawBalls();
 
-
+	DrawSF();
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 
@@ -190,5 +192,28 @@ void TBoardView::DrawTopText() {
     cairo_text_path(cairo, text);
     cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
     cairo_fill(cairo);
+
+}
+
+void TBoardView::DrawSF() {
+
+	char text[100] = {0};
+
+	cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+
+	cairo_set_font_size(cairo, 28);
+	cairo_set_source_rgb(cairo, 0.0, 0.0, 0.0);
+
+	for(int i=0; i< 11; i++)
+	  for(int j=0; j< 11; j++) {
+			int xx = i*squareSize  - squareSize  + left_margin;
+			int yy = j*squareSize  - squareSize / 2 + top_margin;
+			cairo_move_to(cairo, xx, yy);
+			sprintf(text, "%d", linesBoard->sf[i][j]);
+			cairo_text_path(cairo, text);
+			cairo_fill(cairo);
+	  }
+
+
 
 }

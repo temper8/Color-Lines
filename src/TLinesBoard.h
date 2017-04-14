@@ -27,7 +27,7 @@ public:
 	TPoint destSquare;
 	int sizeX, sizeY;
 	int square[10][10];
-	int sf[10][10];
+	int sf[11][11];
 	int counter;
 	void initRandom();
 	void initSearch(TPoint src, TPoint dst);

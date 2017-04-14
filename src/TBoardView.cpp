@@ -30,6 +30,7 @@ void TBoardView::OnClick(int x, int y) {
     if (linesBoard->square[xx][yy] > 0) {
     	linesBoard->selBall.x = xx;
     	linesBoard->selBall.y = yy;
+    	linesBoard->path.clear();
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
     	  //DrawSquare(xx,yy, true);
@@ -46,7 +47,15 @@ void TBoardView::OnClick(int x, int y) {
     		linesBoard->destSquare.x = xx;
     		linesBoard->destSquare.y = yy;
     		linesBoard->initSearch(linesBoard->selBall,linesBoard->destSquare);
-    		linesBoard->selBall.x = 0;
+            if (linesBoard->searchPath(linesBoard->selBall,linesBoard->destSquare) >0) {
+            	linesBoard->square[xx][yy] = linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y];
+            	linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y] = 0;
+                //CheckLines();
+                //addNewBalls();
+
+                linesBoard->selBall.x = 0;
+            }
+
     	}
 
     }
@@ -83,6 +92,8 @@ void TBoardView::CairoDrawing(){
 	DrawBalls();
 
 	DrawSF();
+
+	DrawPath();
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 
@@ -171,6 +182,23 @@ void TBoardView::DrawBall(int x, int y, int color){
 	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
 
 	SetColor(color);
+
+	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
+	cairo_fill(cairo);
+}
+
+void TBoardView::DrawPath(){
+	for ( TPoint p : linesBoard->path )
+		DrawPathBall(p.x, p.y);
+}
+
+void TBoardView::DrawPathBall(int x, int y){
+
+	int xx = x*squareSize - squareSize / 2 + left_margin;
+	int yy = y*squareSize - squareSize / 2 + top_margin;
+	int  r = 3*squareSize / 16;
+
+	cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
 
 	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
 	cairo_fill(cairo);

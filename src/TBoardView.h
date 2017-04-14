@@ -29,6 +29,8 @@ public:
     void Test7Colors();
     void DrawBalls();
     void DrawSF();
+    void DrawPathBall(int x, int y);
+    void DrawPath();
     virtual void OnClick(int x, int y);
 
 private:

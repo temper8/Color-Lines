@@ -49,8 +49,6 @@ void TLinesBoard::initSearch(TPoint src, TPoint dst){
 
      counter = 1;
      std::vector<TPoint> list;
-     //SetLength(list, 1);
-     //list[0] = s;
      list.push_back(src);
      sf[src.x][src.y] = counter;
      FillNeighbors(list);
@@ -108,5 +106,48 @@ void TLinesBoard::FillNeighbors( std::vector<TPoint> list){
 }
 
 int TLinesBoard::searchPath(TPoint src, TPoint dst){
+
+ path.clear();
+
+ int x =dst.x;
+ int y =dst.y;
+ int nn = sf[x][y];
+ if (nn > 0) {
+	    path.push_back(dst);
+	    int n=nn;
+	    for (int i = 0; i<nn; i++){
+	    	  if (sf[x-1][y] == n-1){
+				    TPoint np;
+				    np.x = x-1;
+				    np.y = y;
+				    path.push_back(np);
+	                x = x-1;
+	    	  }
+	    	  else if (sf[x+1][y] == n-1){
+				    TPoint np;
+				    np.x = x+1;
+				    np.y = y;
+				    path.push_back(np);
+	                x = x+1;
+	    	  }
+	    	  else if (sf[x][y-1] == n-1) {
+				    TPoint np;
+				    np.x = x;
+				    np.y = y-1;
+				    path.push_back(np);
+	                y = y-1;
+	    	  }
+	    	  else if (sf[x][y+1] == n-1) {
+				    TPoint np;
+				    np.x = x;
+				    np.y = y+1;
+				    path.push_back(np);
+	                y = y+1;
+	    	  }
+              n = sf[x][y];
+	    }
+  }
+
+ return nn;
 
 }

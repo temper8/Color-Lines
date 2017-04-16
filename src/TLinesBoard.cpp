@@ -24,9 +24,9 @@ void TLinesBoard::initRandom(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      square[i][j] = 0;
-	      int rnd =  rand() % 30;
-	      if (rnd<8)
-	    	  square[i][j] =  1 + rnd;
+	      int rnd =  rand() % 25;
+	      if (rnd<7)
+	    	  square[i][j] = 1 + rnd;
 	  }
 }
 
@@ -112,10 +112,11 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
  int x =dst.x;
  int y =dst.y;
  int nn = sf[x][y];
+
  if (nn > 0) {
 	    path.push_back(dst);
 	    int n=nn;
-	    for (int i = 0; i<nn; i++){
+	    for (int i = 1; i<nn; i++){
 	    	  if (sf[x-1][y] == n-1){
 				    TPoint np;
 				    np.x = x-1;

@@ -46,10 +46,14 @@ void TBoardView::OnClick(int x, int y) {
     		my=(yy-1)*squareSize + top_margin + squareSize / 2;
     		linesBoard->destSquare.x = xx;
     		linesBoard->destSquare.y = yy;
+    		int sx = linesBoard->selBall.x;
+    		int sy = linesBoard->selBall.y;
     		linesBoard->initSearch(linesBoard->selBall,linesBoard->destSquare);
             if (linesBoard->searchPath(linesBoard->selBall,linesBoard->destSquare) >0) {
-            	linesBoard->square[xx][yy] = linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y];
-            	linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y] = 0;
+            	//linesBoard->square[xx][yy] = linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y];
+            	//linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y] = 0;
+            	linesBoard->square[xx][yy] = linesBoard->square[sx][sy];
+            	linesBoard->square[sx][sy] = 0;
                 //CheckLines();
                 //addNewBalls();
 
@@ -168,8 +172,9 @@ void TBoardView::SetColor(int color){
 	case 5: cairo_set_source_rgba(cairo, 1.0, 0.0, 1.0, 0.9); break;
 	case 6: cairo_set_source_rgba(cairo, 0.0, 1.0, 1.0, 0.9); break;
 	case 7: cairo_set_source_rgba(cairo, 1.0, 1.0, 1.0, 0.9); break;
-	defalut:
-	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0);
+
+	default:
+	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
 	}
 }
 void TBoardView::DrawBall(int x, int y, int color){
@@ -244,7 +249,7 @@ void TBoardView::DrawSF() {
 			int xx = i*squareSize  - squareSize  + left_margin;
 			int yy = j*squareSize  - squareSize / 2 + top_margin;
 			cairo_move_to(cairo, xx, yy);
-			sprintf(text, "%d", linesBoard->sf[i][j]);
+			sprintf(text, "%d", linesBoard->square[i][j]);
 			cairo_text_path(cairo, text);
 			cairo_fill(cairo);
 	  }

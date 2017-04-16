@@ -202,10 +202,40 @@ void TLinesBoard::checkVertLine(int x, int y){
 }
 
 void TLinesBoard::checkDiag1Line(int x, int y){
+	int color = square[x][y];
+	int xx =x+1;
+	int yy =y+1;
+	  while (square[xx][yy] == color)
+	  	  {	xx++;  yy++; }
+
+	  int len = xx-x;
+	  if (len >4) {
+		  for (int i = 0; i<len; i++) {
+			    TPoint np;
+			    np.x = x+i;
+			    np.y = y+i;
+			    clearBalls.push_back(np);
+		  }
+	  }
 
 }
-void TLinesBoard::checkDiag2Line(int x, int y){
 
+void TLinesBoard::checkDiag2Line(int x, int y){
+	int color = square[x][y];
+	int xx =x+1;
+	int yy =y-1;
+	  while (square[xx][yy] == color)
+	  	  {  xx++;  yy--;  }
+
+	  int len = xx-x;
+	  if (len >4) {
+		  for (int i = 0; i<len; i++) {
+			    TPoint np;
+			    np.x = x+i;
+			    np.y = y-i;
+			    clearBalls.push_back(np);
+		  }
+	  }
 }
 
 

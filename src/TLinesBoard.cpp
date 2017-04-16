@@ -172,9 +172,23 @@ void TLinesBoard::CheckLines(){
 void TLinesBoard::checkHorzLine(int x, int y){
 
 }
-void TLinesBoard::checkVertLine(int x, int y){
 
+void TLinesBoard::checkVertLine(int x, int y){
+	int color = square[x][y];
+	int yy =y+1;
+	  while (square[x][yy] == color)
+	        yy =yy+1;
+	  int len = yy-y;
+	  if (len >4) {
+		  for (int i = 0; i<len; i++) {
+			    TPoint np;
+			    np.x = x;
+			    np.y = y+i;
+			    clearBalls.push_back(np);
+		  }
+	  }
 }
+
 void TLinesBoard::checkDiag1Line(int x, int y){
 
 }

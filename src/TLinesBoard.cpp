@@ -153,6 +153,32 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
 }
 
 void TLinesBoard::CheckLines(){
+ clearBalls.clear();
+ for(int x = 1; x<=sizeX; x++)
+ for(int y = 1; y<=sizeY; y++){
+   if ( square[x][y]>0){
+	   checkHorzLine(x,y);
+       checkVertLine(x,y);
+       checkDiag1Line(x,y);
+       checkDiag2Line(x,y);
+   }
+ }
+
+ for ( TPoint p : clearBalls )
+	 square[p.x][p.y] = 0;
+
+}
+
+void TLinesBoard::checkHorzLine(int x, int y){
+
+}
+void TLinesBoard::checkVertLine(int x, int y){
+
+}
+void TLinesBoard::checkDiag1Line(int x, int y){
+
+}
+void TLinesBoard::checkDiag2Line(int x, int y){
 
 }
 

@@ -36,7 +36,12 @@ public:
 	void addNewBalls();
 
 private:
+	std::vector<TPoint> clearBalls;
 	void FillNeighbors( std::vector<TPoint> list);
+	void checkHorzLine(int x, int y);
+    void checkVertLine(int x, int y);
+    void checkDiag1Line(int x, int y);
+    void checkDiag2Line(int x, int y);
 };
 
 #endif /* TLINESBOARD_H_ */

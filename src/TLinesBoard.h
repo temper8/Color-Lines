@@ -32,6 +32,8 @@ public:
 	void initRandom();
 	void initSearch(TPoint src, TPoint dst);
 	int searchPath(TPoint src, TPoint dst);
+
+private:
 	void FillNeighbors( std::vector<TPoint> list);
 };
 

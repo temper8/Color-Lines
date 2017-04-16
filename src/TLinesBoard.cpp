@@ -151,3 +151,12 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
  return nn;
 
 }
+
+void TLinesBoard::CheckLines(){
+
+}
+
+
+void TLinesBoard::addNewBalls(){
+
+}

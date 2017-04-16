@@ -56,8 +56,8 @@ void TBoardView::OnClick(int x, int y) {
 
             	linesBoard->square[xx][yy] = linesBoard->square[selBall.x][selBall.y];
             	linesBoard->square[selBall.x][selBall.y] = 0;
-                //CheckLines();
-                //addNewBalls();
+            	linesBoard->CheckLines();
+            	linesBoard->addNewBalls();
 
                 selBall.x = 0;
             }

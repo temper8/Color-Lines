@@ -9,6 +9,7 @@
 #define TBOARDVIEW_H_
 
 #include "TDrawingView.h"
+#include "TLinesBoard.h"
 
 class TLinesBoard;
 class TBoardView: public TDrawingView {
@@ -36,6 +37,8 @@ public:
 private:
     void SetColor(int color);
     int mx,my;
+	TPoint selBall;
+	TPoint destSquare;
 };
 
 #endif /* TBOARDVIEW_H_ */

@@ -6,7 +6,7 @@
  */
 
 #include "TBoardView.h"
-#include "TLinesBoard.h"
+
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
@@ -14,6 +14,8 @@ TBoardView::TBoardView() {
 	my = 250;
 	linesBoard = new TLinesBoard(9,9);
 	linesBoard->initRandom();
+	selBall.x = 0;
+	selBall.y = 0;
 }
 
 TBoardView::~TBoardView() {
@@ -28,15 +30,15 @@ void TBoardView::OnClick(int x, int y) {
 	int yy =(y-top_margin) / squareSize + 1;
 
     if (linesBoard->square[xx][yy] > 0) {
-    	linesBoard->selBall.x = xx;
-    	linesBoard->selBall.y = yy;
+    	selBall.x = xx;
+    	selBall.y = yy;
     	linesBoard->path.clear();
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
     	  //DrawSquare(xx,yy, true);
     }
     else {
-    	if (linesBoard->selBall.x == 0) {
+    	if (selBall.x == 0) {
         	mx=100;
         	my=100;
     	}
@@ -44,20 +46,20 @@ void TBoardView::OnClick(int x, int y) {
 
     		mx=(xx-1)*squareSize + left_margin + squareSize / 2;
     		my=(yy-1)*squareSize + top_margin + squareSize / 2;
-    		linesBoard->destSquare.x = xx;
-    		linesBoard->destSquare.y = yy;
-    		int sx = linesBoard->selBall.x;
-    		int sy = linesBoard->selBall.y;
-    		linesBoard->initSearch(linesBoard->selBall,linesBoard->destSquare);
-            if (linesBoard->searchPath(linesBoard->selBall,linesBoard->destSquare) >0) {
-            	//linesBoard->square[xx][yy] = linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y];
-            	//linesBoard->square[linesBoard->selBall.x][linesBoard->selBall.y] = 0;
-            	linesBoard->square[xx][yy] = linesBoard->square[sx][sy];
-            	linesBoard->square[sx][sy] = 0;
+
+    		destSquare.x = xx;
+    		destSquare.y = yy;
+
+    		linesBoard->initSearch(selBall,destSquare);
+
+            if (linesBoard->searchPath(selBall,destSquare) >0) {
+
+            	linesBoard->square[xx][yy] = linesBoard->square[selBall.x][selBall.y];
+            	linesBoard->square[selBall.x][selBall.y] = 0;
                 //CheckLines();
                 //addNewBalls();
 
-                linesBoard->selBall.x = 0;
+                selBall.x = 0;
             }
 
     	}
@@ -162,6 +164,7 @@ void TBoardView::DrawBoard(){
 	 	  }
 	 cairo_stroke(cairo);
 }
+
 void TBoardView::SetColor(int color){
 	switch (color) {
 	case 0: cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0); break;
@@ -177,6 +180,7 @@ void TBoardView::SetColor(int color){
 	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
 	}
 }
+
 void TBoardView::DrawBall(int x, int y, int color){
 	if (color == 0) return;
 

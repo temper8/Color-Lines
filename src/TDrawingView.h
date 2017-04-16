@@ -11,6 +11,7 @@
 #include "TView.h"
 #include <cairo.h>
 
+
 class TDrawingView: public TView {
 public:
 	TDrawingView();
@@ -27,9 +28,13 @@ public:
 	virtual void Resize(int width, int height);
 	virtual void CairoDrawing();
 	virtual void OnClick(int x, int y) {};
+
 protected:
+
 	virtual void CreateContent();
 	int myWidth, myHeight;
+
+
 };
 
 #endif /* TDRAWINGVIEW_H_ */

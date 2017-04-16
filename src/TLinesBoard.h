@@ -23,8 +23,7 @@ public:
 	virtual ~TLinesBoard();
 
 public:
-	TPoint selBall;
-	TPoint destSquare;
+
 	int sizeX, sizeY;
 	int square[11][11];
 	int sf[11][11];

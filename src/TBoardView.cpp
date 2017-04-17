@@ -67,9 +67,8 @@ void TBoardView::OnClick(int x, int y) {
 
             	linesBoard->square[xx][yy] = linesBoard->square[selBall.x][selBall.y];
             	linesBoard->square[selBall.x][selBall.y] = 0;
-            	linesBoard->CheckLines();
-            	linesBoard->addNewBalls();
-
+            	if (linesBoard->checkLines() == 0 )
+            			linesBoard->addNewBalls();
                 selBall.x = 0;
             }
 
@@ -166,7 +165,7 @@ void TBoardView::DrawBoard(){
 	squareSize = BoardWidth / linesBoard->sizeX;
 
 
-	 cairo_set_source_rgb(cairo, 1.0,0.0,0.5);
+	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);
 
 	 cairo_set_line_width(cairo, 1);
 

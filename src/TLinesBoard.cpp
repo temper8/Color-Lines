@@ -152,7 +152,7 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
 
 }
 
-void TLinesBoard::CheckLines(){
+int TLinesBoard::checkLines(){
  clearBalls.clear();
  for(int x = 1; x<=sizeX; x++)
  for(int y = 1; y<=sizeY; y++){
@@ -166,7 +166,7 @@ void TLinesBoard::CheckLines(){
 
  for ( TPoint p : clearBalls )
 	 square[p.x][p.y] = 0;
-
+ return clearBalls.size();
 }
 
 void TLinesBoard::checkHorzLine(int x, int y){

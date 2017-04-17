@@ -32,7 +32,7 @@ public:
 	void initRandom();
 	void initSearch(TPoint src, TPoint dst);
 	int searchPath(TPoint src, TPoint dst);
-	void CheckLines();
+	int checkLines();
 	bool addNewBalls();
 
 private:

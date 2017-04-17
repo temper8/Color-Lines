@@ -158,18 +158,28 @@ void TBoardView::DrawBoard(){
 	top_margin = ( myHeight - BoardHeight)/2;
 
 //	  myCanvas.Brush.Color:=clLtGray;
-	cairo_set_source_rgba(cairo, 0.3, 0.3, 0.3, 0.3);
-	cairo_rectangle (cairo, left_margin, top_margin, BoardWidth, BoardHeight);
-	cairo_fill (cairo);
+	cairo_set_source_rgba(cairo, 0.3, 0.3, 0.3, 0.6);
+//	cairo_rectangle (cairo, left_margin, top_margin, BoardWidth, BoardHeight);
+//	cairo_fill (cairo);
 
 	squareSize = BoardWidth / linesBoard->sizeX;
+	cairo_set_line_width(cairo, 3);
+
+	for (int x = 0; x< linesBoard->sizeX; x++)
+		for (int y = 0; y< linesBoard->sizeX; y++) {
+			int xx = x*squareSize  + left_margin;
+			int yy = y*squareSize  + top_margin ;
+			cairo_rectangle (cairo, xx, yy, squareSize - 3 ,squareSize - 3);
+			cairo_fill (cairo);
+			//cairo_stroke(cairo);
+		}
 
 
 	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);
 
 	 cairo_set_line_width(cairo, 1);
 
-
+/*
 	 for(int i = 0; i<linesBoard->sizeX; i++) {
 				 cairo_move_to(cairo, left_margin + squareSize*i, top_margin);
 				 cairo_line_to(cairo, left_margin + squareSize*i, BoardHeight+top_margin);
@@ -180,6 +190,7 @@ void TBoardView::DrawBoard(){
 	 				 cairo_line_to(cairo, left_margin  + BoardWidth, squareSize*i + top_margin);
 	 	  }
 	 cairo_stroke(cairo);
+	 */
 }
 
 void TBoardView::SetColor(int color){
@@ -243,13 +254,14 @@ void TBoardView::DrawTopText() {
     cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 
    // if (ad->win_w == 720) {
-        cairo_set_font_size(cairo, 30);
+        cairo_set_font_size(cairo, 50);
         cairo_move_to(cairo, 50.0, 45.0);
    /* } else {
         cairo_set_font_size(ad->cr, 22);
         cairo_move_to(ad->cr, 30.0, 25.0);
     }*/
-    sprintf(text, "w = %d h = %d",myWidth, myHeight);
+   // sprintf(text, "w = %d h = %d",myWidth, myHeight);
+    sprintf(text, "score = %d ",linesBoard->score);
     cairo_text_path(cairo, text);
     cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
     cairo_fill(cairo);

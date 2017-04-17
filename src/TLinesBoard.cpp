@@ -12,7 +12,7 @@ TLinesBoard::TLinesBoard(int x, int y) {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
-
+	score = 0;
 }
 
 TLinesBoard::~TLinesBoard() {
@@ -166,6 +166,7 @@ int TLinesBoard::checkLines(){
 
  for ( TPoint p : clearBalls )
 	 square[p.x][p.y] = 0;
+ score +=clearBalls.size();
  return clearBalls.size();
 }
 

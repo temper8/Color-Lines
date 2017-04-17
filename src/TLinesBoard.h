@@ -28,6 +28,7 @@ public:
 	int square[11][11];
 	int sf[11][11];
 	int counter;
+	int score;
 	std::vector<TPoint> path;
 	void initRandom();
 	void initSearch(TPoint src, TPoint dst);

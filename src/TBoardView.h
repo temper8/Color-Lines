@@ -39,6 +39,8 @@ private:
     int mx,my;
 	TPoint selBall;
 	TPoint destSquare;
+
+	cairo_surface_t *bg_image;
 };
 
 #endif /* TBOARDVIEW_H_ */

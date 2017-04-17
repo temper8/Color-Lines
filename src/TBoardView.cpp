@@ -7,6 +7,7 @@
 
 #include "TBoardView.h"
 
+#define BUFLEN 500
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
@@ -16,6 +17,16 @@ TBoardView::TBoardView() {
 	linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
+
+	//  Load bg image, create surface from bg image
+
+	char buff[BUFLEN];
+    char *path = app_get_shared_resource_path();
+
+    snprintf(buff, 300, "%s%s", path, "pat2.png");
+    bg_image = cairo_image_surface_create_from_png(buff);
+    free(path);
+
 }
 
 TBoardView::~TBoardView() {
@@ -72,6 +83,13 @@ void TBoardView::OnClick(int x, int y) {
 void TBoardView::CairoDrawing(){
 	cairo_set_source_rgb(cairo, 0.5, 0.5, 1.0);
 	cairo_paint(cairo);
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+
+	cairo_set_source(cairo, pattern1);
+	cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
+	cairo_rectangle(cairo, 0, 0, myWidth, myHeight);
+	cairo_fill(cairo);
 
 //	cairo_set_line_width (cairo, 0.1);
 //	cairo_set_source_rgb (cairo, 0, 0, 0);

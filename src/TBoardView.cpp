@@ -115,7 +115,7 @@ void TBoardView::CairoDrawing(){
 	DrawBalls();
 
 //	DrawSF();
-
+	DrawGradienBall();
 	DrawPath();
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
@@ -158,7 +158,7 @@ void TBoardView::DrawBoard(){
 	top_margin = ( myHeight - BoardHeight)/2;
 
 //	  myCanvas.Brush.Color:=clLtGray;
-	cairo_set_source_rgba(cairo, 0.3, 0.3, 0.3, 0.6);
+	cairo_set_source_rgba(cairo, 0.8, 0.8, 0.8, 0.5);
 //	cairo_rectangle (cairo, left_margin, top_margin, BoardWidth, BoardHeight);
 //	cairo_fill (cairo);
 
@@ -208,7 +208,28 @@ void TBoardView::SetColor(int color){
 	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
 	}
 }
+void  TBoardView::DrawGradienBall(){
 
+	int xx = 100;
+	int yy = 100;
+	int  r = 3*3*squareSize / 8;
+
+	cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_linear(0, 0, r, 0);
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (xx - r/6, yy - r/3, r/6 , xx, yy, r);
+
+
+	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, 0.2, 0.65, 0.1);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, 0.4, 0.9, 0.2);
+
+	cairo_set_source(cairo, pattern1);
+	//SetColor(color);
+
+	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
+	cairo_fill(cairo);
+}
 void TBoardView::DrawBall(int x, int y, int color){
 	if (color == 0) return;
 

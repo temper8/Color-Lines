@@ -29,6 +29,7 @@ public:
     void DrawBall(int x, int y, int color);
     void Test7Colors();
     void DrawBalls();
+    void DrawGradienBall();
     void DrawSF();
     void DrawPathBall(int x, int y, int color);
     void DrawPath();

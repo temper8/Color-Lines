@@ -208,10 +208,40 @@ void TBoardView::SetColor(int color){
 	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
 	}
 }
+
+void TBoardView::SetPattern(int x,int y, int radius, int color){
+
+	double r,g,b;
+	switch (color) {
+	case 0: r = 0.0; g = 0.0, b = 0.0; break;
+	case 1: r = 1.0; g = 0.2, b = 0.2; break;
+	case 2: r = 0.2; g = 1.0, b = 0.2; break;
+	case 3: r = 0.2; g = 0.2, b = 1.0; break;
+	case 4: r = 1.0; g = 1.0, b = 0.2; break;
+	case 5: r = 1.0; g = 0.0, b = 1.0; break;
+	case 6: r = 0.0; g = 1.0, b = 1.0; break;
+	case 7: r = 1.0; g = 1.0, b = 1.0; break;
+
+	default:
+		r = 0.0; g = 0.0, b = 0.0;
+
+	}
+	//cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
+
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - radius/2, y - radius, radius/2 , x, y, 3*radius);
+
+
+	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r/2, g/2, b/2);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, r, g, b);
+
+	cairo_set_source(cairo, pattern1);
+
+}
 void  TBoardView::DrawGradienBall(){
 
 	int xx = 100;
-	int yy = 100;
+	int yy = 140;
 	int  r = 3*3*squareSize / 8;
 
 	cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
@@ -230,6 +260,7 @@ void  TBoardView::DrawGradienBall(){
 	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
 	cairo_fill(cairo);
 }
+
 void TBoardView::DrawBall(int x, int y, int color){
 	if (color == 0) return;
 
@@ -239,7 +270,8 @@ void TBoardView::DrawBall(int x, int y, int color){
 
 	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
 
-	SetColor(color);
+	//SetColor(color);
+	SetPattern(xx,yy, r, color);
 
 	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
 	cairo_fill(cairo);

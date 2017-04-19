@@ -387,8 +387,11 @@ void TBoardView::DrawPath(double pos){
 	double dx = M_PI/linesBoard->path.size();
 	for (int i = 0; i<linesBoard->path.size(); i++ ) {
 		p =  linesBoard->path[i];
-		double xx = p.x*squareSize - squareSize / 2 + left_margin;
-		double yy = p.y*squareSize - squareSize / 2 + top_margin;
+		double xx = (p.x-1)*squareSize  + left_margin;
+		double yy = (p.y-1)*squareSize  + top_margin ;
+		DrawSquare(xx, yy);
+		xx = xx + squareSize / 2;
+		yy = yy + squareSize / 2;
 		double r = cos(dx*i - M_PI*pos);
 		if (r<0) r = 0; else r = r*r;
 		DrawBall(xx, yy, r, color);

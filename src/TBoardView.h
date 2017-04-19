@@ -26,7 +26,7 @@ public:
     TLinesBoard* linesBoard;
     void DrawBoard();
     void DrawTopText();
-    void DrawBall(int x, int y, int color);
+    void DrawBall(double x, double y, int color);
     void Test7Colors();
     void DrawBalls();
     void DrawGradienBall();
@@ -37,7 +37,7 @@ public:
 
 private:
     void SetColor(int color);
-    void SetPattern(int x,int y, int r, int color);
+    void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
     int mx,my;
 	TPoint selBall;

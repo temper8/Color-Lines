@@ -156,8 +156,12 @@ void TBoardView::CairoDrawing(){
 
 void TBoardView::DrawBalls() {
 	for(int i=1; i<= linesBoard->sizeX; i++)
-	  for(int j=1; j<= linesBoard->sizeY; j++)
-		  DrawBall(i,j,linesBoard->square[i][j]);
+	  for(int j=1; j<= linesBoard->sizeY; j++){
+			double x = i*squareSize - squareSize / 2 + left_margin;
+			double y = j*squareSize - squareSize / 2 + top_margin;
+			DrawBall(x,y,linesBoard->square[i][j]);
+	  }
+
 
 }
 
@@ -253,7 +257,7 @@ void TBoardView::SetColor(int color){
 	}
 }
 
-void TBoardView::SetPattern(int x,int y, int radius, int color){
+void TBoardView::SetPattern(double x,double y, int radius, int color){
 
 	double r,g,b;
 	switch (color) {
@@ -305,19 +309,18 @@ void  TBoardView::DrawGradienBall(){
 	cairo_fill(cairo);
 }
 
-void TBoardView::DrawBall(int x, int y, int color){
+void TBoardView::DrawBall(double x, double y, int color){
 	if (color == 0) return;
 
-	int xx = x*squareSize - squareSize / 2 + left_margin;
-	int yy = y*squareSize - squareSize / 2 + top_margin;
+
 	int  r = 3*squareSize / 8;
 
 	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
 
 	//SetColor(color);
-	SetPattern(xx,yy, r, color);
+	SetPattern(x,y, r, color);
 
-	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
+	cairo_arc(cairo, x, y, r, 0, 2*M_PI);
 	cairo_fill(cairo);
 }
 

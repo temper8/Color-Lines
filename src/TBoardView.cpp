@@ -74,6 +74,26 @@ void TBoardView::DeleteAnimator(){
 	   ecore_animator_del(animator);
 }
 
+void TBoardView::MoveBall(double pos) {
+
+}
+
+Eina_Bool move_ball(void *data, double pos)
+{
+   TBoardView *bv = (TBoardView *) data;
+   bv->MoveBall(pos);
+   return EINA_TRUE;
+}
+
+void TBoardView::CreateMoveBallAnimator(){
+	if (animator != NULL)
+	  	   ecore_animator_del(animator);
+	ecore_animator_timeline_add (5.0, move_ball, this);
+}
+void TBoardView::DeleteMoveBallAnimator(){
+
+}
+
 void TBoardView::OnClick(int x, int y) {
 	mx=x;
 	my=y;

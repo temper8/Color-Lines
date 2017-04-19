@@ -46,11 +46,14 @@ private:
 
 	void CreateAnimator();
 	void DeleteAnimator();
+	void CreateMoveBallAnimator();
+	void DeleteMoveBallAnimator();
 	Ecore_Animator *animator;
 	cairo_surface_t *bg_image;
 public:
 	double tick;
 	void RefreshBall();
+	void MoveBall(double pos);
 };
 
 #endif /* TBOARDVIEW_H_ */

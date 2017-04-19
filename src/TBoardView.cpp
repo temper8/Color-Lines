@@ -33,6 +33,34 @@ TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
+Eina_Bool _refresh_graphic(void *data)
+{
+	TBoardView *bv = (TBoardView *) data;
+    bv->RefreshBall();
+    return EINA_TRUE;
+}
+void TBoardView::RefreshBall(){
+ if (selBall.x !=0) {
+	 double y = selBall.y + 40*sin(tick);
+	 double x = selBall.x + 40*cos(tick);
+	 tick +=0.01;
+		cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	  cairo_arc(cairo, x+200, y+200, 30, 0, 2*M_PI);
+	  cairo_fill(cairo);
+      cairo_surface_flush(surface);
+
+	  /* Display cairo drawing on screen */
+	  evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+
+ }
+
+}
+void TBoardView::CreateAnimator(){
+  tick = 0;
+  animator = ecore_animator_add(_refresh_graphic, this);
+}
+
 void TBoardView::OnClick(int x, int y) {
 	mx=x;
 	my=y;
@@ -46,6 +74,7 @@ void TBoardView::OnClick(int x, int y) {
     	linesBoard->path.clear();
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
+        CreateAnimator();
     	  //DrawSquare(xx,yy, true);
     }
     else {
@@ -170,7 +199,6 @@ void TBoardView::DrawBoard(){
 			int xx = x*squareSize  + left_margin;
 			int yy = y*squareSize  + top_margin ;
 
-			//cairo_set_source_rgba(cairo, r, g, b, 1.0);
 			SetPatternForSquare(xx + squareSize /2, yy + squareSize/2, squareSize);
 			cairo_rectangle (cairo, xx, yy, squareSize, squareSize);
 			cairo_fill (cairo);

@@ -43,7 +43,12 @@ private:
 	TPoint selBall;
 	TPoint destSquare;
 
+	void CreateAnimator();
+	Ecore_Animator *animator;
 	cairo_surface_t *bg_image;
+public:
+	double tick;
+	void RefreshBall();
 };
 
 #endif /* TBOARDVIEW_H_ */

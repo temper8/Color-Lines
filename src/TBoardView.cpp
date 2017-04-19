@@ -180,7 +180,7 @@ void TBoardView::CairoDrawing(){
 
 //	DrawSF();
 	DrawGradienBall();
-	DrawPath();
+	DrawPath(0.5);
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 
@@ -380,7 +380,20 @@ void TBoardView::DrawPath(){
 
 }
 
-
+void TBoardView::DrawPath(double pos){
+	if (linesBoard->path.size() == 0) return;
+	TPoint p = linesBoard->path.front();
+	int color =  linesBoard->square[p.x][p.y];
+	double dx = M_PI/linesBoard->path.size();
+	for (int i = 0; i<linesBoard->path.size(); i++ ) {
+		p =  linesBoard->path[i];
+		double xx = p.x*squareSize - squareSize / 2 + left_margin;
+		double yy = p.y*squareSize - squareSize / 2 + top_margin;
+		double r = cos(dx*i - M_PI*pos);
+		if (r<0) r = 0; else r = r*r;
+		DrawBall(xx, yy, r, color);
+	}
+}
 
 void TBoardView::DrawTopText() {
 

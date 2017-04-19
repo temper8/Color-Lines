@@ -33,6 +33,7 @@ public:
     void DrawGradienBall();
     void DrawSF();
     void DrawPath();
+    void DrawPath(double pos);
     virtual void OnClick(int x, int y);
 
 private:

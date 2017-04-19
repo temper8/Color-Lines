@@ -169,7 +169,10 @@ void TBoardView::DrawBoard(){
 		for (int y = 0; y< linesBoard->sizeX; y++) {
 			int xx = x*squareSize  + left_margin;
 			int yy = y*squareSize  + top_margin ;
-			cairo_rectangle (cairo, xx, yy, squareSize - 3 ,squareSize - 3);
+
+			//cairo_set_source_rgba(cairo, r, g, b, 1.0);
+			SetPatternForSquare(xx + squareSize /2, yy + squareSize/2, squareSize);
+			cairo_rectangle (cairo, xx, yy, squareSize, squareSize);
 			cairo_fill (cairo);
 			//cairo_stroke(cairo);
 		}
@@ -191,6 +194,19 @@ void TBoardView::DrawBoard(){
 	 	  }
 	 cairo_stroke(cairo);
 	 */
+}
+
+void TBoardView::SetPatternForSquare(int x, int y, int r){
+
+    double r1 = 1.0; double r2 = 1.0;
+    double g1 = 242.0/255.0; double g2 = 217.0/255.0;
+    double b1 = 204.0/255.0; double b2 = 102.0/255.0;
+
+    cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - r/4 , y - r/4  , r/2.5 , x, y, 1.5*r);
+	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r1, g1, b1);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, r2, g2, b2);
+
+	cairo_set_source(cairo, pattern1);
 }
 
 void TBoardView::SetColor(int color){

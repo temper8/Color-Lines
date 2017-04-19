@@ -38,6 +38,7 @@ public:
 private:
     void SetColor(int color);
     void SetPattern(int x,int y, int r, int color);
+    void SetPatternForSquare(int x, int y, int r);
     int mx,my;
 	TPoint selBall;
 	TPoint destSquare;

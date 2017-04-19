@@ -7,6 +7,8 @@
 
 #include "TBoardView.h"
 
+#include <cmath>
+
 #define BUFLEN 500
 
 TBoardView::TBoardView() {
@@ -44,11 +46,12 @@ void TBoardView::RefreshBall(){
 
 		double x = (selBall.x-1)*squareSize  + left_margin;
 		double y = (selBall.y-1)*squareSize  + top_margin;
-	 tick +=0.2;
+	 tick +=0.15;
 
 	  DrawSquare(x,y);
 	  x = x + squareSize / 2 ;
-	  y = y + squareSize / 2 + 4*(1+sin(tick));
+	  y = y + squareSize / 2 + 9*(1-std::abs(sin(tick)));
+	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	  DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
 
       cairo_surface_flush(surface);
@@ -61,7 +64,14 @@ void TBoardView::RefreshBall(){
 }
 void TBoardView::CreateAnimator(){
   tick = 0;
+  if (animator != NULL)
+  	   ecore_animator_del(animator);
   animator = ecore_animator_add(_refresh_graphic, this);
+}
+
+void TBoardView::DeleteAnimator(){
+	if (animator != NULL)
+	   ecore_animator_del(animator);
 }
 
 void TBoardView::OnClick(int x, int y) {
@@ -77,6 +87,7 @@ void TBoardView::OnClick(int x, int y) {
     	linesBoard->path.clear();
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
+
         CreateAnimator();
     	  //DrawSquare(xx,yy, true);
     }
@@ -84,6 +95,7 @@ void TBoardView::OnClick(int x, int y) {
     	if (selBall.x == 0) {
         	mx=100;
         	my=100;
+        	DeleteAnimator();
     	}
     	else {
 
@@ -96,7 +108,7 @@ void TBoardView::OnClick(int x, int y) {
     		linesBoard->initSearch(selBall,destSquare);
 
             if (linesBoard->searchPath(selBall,destSquare) >0) {
-
+            	DeleteAnimator();
             	linesBoard->square[xx][yy] = linesBoard->square[selBall.x][selBall.y];
             	linesBoard->square[selBall.x][selBall.y] = 0;
             	if (linesBoard->checkLines() == 0 )

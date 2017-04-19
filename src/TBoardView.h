@@ -45,6 +45,7 @@ private:
 	TPoint destSquare;
 
 	void CreateAnimator();
+	void DeleteAnimator();
 	Ecore_Animator *animator;
 	cairo_surface_t *bg_image;
 public:

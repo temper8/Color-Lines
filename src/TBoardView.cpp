@@ -348,17 +348,21 @@ void  TBoardView::DrawGradienBall(){
 }
 
 void TBoardView::DrawBall(double x, double y, int color){
+	DrawBall(x,y,1,color);
+}
+
+void TBoardView::DrawBall(double x, double y, double r, int color){
 	if (color == 0) return;
 
 
-	int  r = 3*squareSize / 8;
+	double  radius = r * 3*squareSize / 8;
 
 	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
 
 	//SetColor(color);
-	SetPattern(x,y, r, color);
+	SetPattern(x,y, radius, color);
 
-	cairo_arc(cairo, x, y, r, 0, 2*M_PI);
+	cairo_arc(cairo, x, y, radius, 0, 2*M_PI);
 	cairo_fill(cairo);
 }
 

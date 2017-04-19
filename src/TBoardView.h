@@ -27,6 +27,7 @@ public:
     void DrawBoard();
     void DrawTopText();
     void DrawBall(double x, double y, int color);
+    void DrawBall(double x, double y, double r, int color);
     void Test7Colors();
     void DrawBalls();
     void DrawGradienBall();

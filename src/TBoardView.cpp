@@ -41,13 +41,16 @@ Eina_Bool _refresh_graphic(void *data)
 }
 void TBoardView::RefreshBall(){
  if (selBall.x !=0) {
-	 double y = selBall.y + 40*sin(tick);
-	 double x = selBall.x + 40*cos(tick);
-	 tick +=0.01;
-		cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
 
-	  cairo_arc(cairo, x+200, y+200, 30, 0, 2*M_PI);
-	  cairo_fill(cairo);
+		double x = (selBall.x-1)*squareSize  + left_margin;
+		double y = (selBall.y-1)*squareSize  + top_margin;
+	 tick +=0.2;
+
+	  DrawSquare(x,y);
+	  x = x + squareSize / 2 ;
+	  y = y + squareSize / 2 + 4*(1+sin(tick));
+	  DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
+
       cairo_surface_flush(surface);
 
 	  /* Display cairo drawing on screen */
@@ -182,6 +185,12 @@ void TBoardView::Test7Colors(){
 	DrawBall(4,5,7);
 }
 
+void TBoardView::DrawSquare(double x, double y){
+	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize);
+	cairo_rectangle (cairo, x, y, squareSize, squareSize);
+	cairo_fill (cairo);
+}
+
 void TBoardView::DrawBoard(){
 
 	int BoardWidth = myWidth - 40;
@@ -200,13 +209,10 @@ void TBoardView::DrawBoard(){
 
 	for (int x = 0; x< linesBoard->sizeX; x++)
 		for (int y = 0; y< linesBoard->sizeX; y++) {
-			int xx = x*squareSize  + left_margin;
-			int yy = y*squareSize  + top_margin ;
+			double xx = x*squareSize  + left_margin;
+			double yy = y*squareSize  + top_margin ;
+			DrawSquare(xx, yy);
 
-			SetPatternForSquare(xx + squareSize /2, yy + squareSize/2, squareSize);
-			cairo_rectangle (cairo, xx, yy, squareSize, squareSize);
-			cairo_fill (cairo);
-			//cairo_stroke(cairo);
 		}
 
 

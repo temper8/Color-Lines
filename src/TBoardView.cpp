@@ -75,7 +75,9 @@ void TBoardView::DeleteAnimator(){
 }
 
 void TBoardView::MoveBall(double pos) {
-
+	DrawPath(pos);
+    cairo_surface_flush(surface);
+	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 }
 
 Eina_Bool move_ball(void *data, double pos)
@@ -128,7 +130,7 @@ void TBoardView::OnClick(int x, int y) {
     		linesBoard->initSearch(selBall,destSquare);
 
             if (linesBoard->searchPath(selBall,destSquare) >0) {
-            	DeleteAnimator();
+            	CreateMoveBallAnimator();
             	linesBoard->square[xx][yy] = linesBoard->square[selBall.x][selBall.y];
             	linesBoard->square[selBall.x][selBall.y] = 0;
             	if (linesBoard->checkLines() == 0 )
@@ -180,7 +182,7 @@ void TBoardView::CairoDrawing(){
 
 //	DrawSF();
 	DrawGradienBall();
-	DrawPath(0.5);
+	//DrawPath(0.5);
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 

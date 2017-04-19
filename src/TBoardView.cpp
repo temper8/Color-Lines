@@ -394,7 +394,7 @@ void TBoardView::DrawPath(double pos){
 		DrawSquare(xx, yy);
 		xx = xx + squareSize / 2;
 		yy = yy + squareSize / 2;
-		double r = cos(dx*i - M_PI*pos);
+		double r = cos(dx*i - M_PI*(1-1.5*pos));
 		if (r<0) r = 0; else r = r*r;
 		DrawBall(xx, yy, r, color);
 	}

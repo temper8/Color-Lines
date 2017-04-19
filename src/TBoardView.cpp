@@ -90,7 +90,7 @@ Eina_Bool move_ball(void *data, double pos)
 void TBoardView::CreateMoveBallAnimator(){
 	if (animator != NULL)
 	  	   ecore_animator_del(animator);
-	ecore_animator_timeline_add (5.0, move_ball, this);
+	ecore_animator_timeline_add (1.5, move_ball, this);
 }
 void TBoardView::DeleteMoveBallAnimator(){
 

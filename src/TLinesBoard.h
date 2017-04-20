@@ -36,8 +36,10 @@ public:
 	int checkLines();
 	std::vector<TPoint> addNewBalls();
 
-private:
 	std::vector<TPoint> clearBalls;
+     int clearBallsColor;
+private:
+
 	void FillNeighbors( std::vector<TPoint> list);
 	void checkHorzLine(int x, int y);
     void checkVertLine(int x, int y);

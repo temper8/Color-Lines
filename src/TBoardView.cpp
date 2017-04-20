@@ -104,14 +104,23 @@ Eina_Bool appearance_new_ball(void *data, double pos)
    return EINA_TRUE;
 }
 
+Eina_Bool disappearance_lines(void *data, double pos)
+{
+   TBoardView *bv = (TBoardView *) data;
+   bv->DisappearanceLines(pos);
+   return EINA_TRUE;
+}
+
 void TBoardView::OnEndMoveBall(){
 	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
 	linesBoard->square[selBall.x][selBall.y] = 0;
-	if (linesBoard->checkLines() == 0 )
-	{
+	if (linesBoard->checkLines() == 0 )	{
 		    NewBalls = linesBoard->addNewBalls();
 			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
 
+	}
+	else {
+		ecore_animator_timeline_add (1.0, disappearance_lines, this);
 	}
 	//CairoDrawing();
     selBall.x = 0;
@@ -124,6 +133,22 @@ void TBoardView::AppearanceNewBall(double pos) {
 		double yy = p.y*squareSize - squareSize / 2 + top_margin;
 		int color =  linesBoard->square[p.x][p.y];
 		DrawBall(xx, yy,  pos, color);
+	}
+    cairo_surface_flush(surface);
+	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+}
+
+void TBoardView::DisappearanceLines(double pos){
+
+	for ( TPoint p : linesBoard->clearBalls ){
+		double x = (p.x-1)*squareSize  + left_margin;
+		double y = (p.y-1)*squareSize  + top_margin;
+	    DrawSquare(x,y);
+
+		double xx = p.x*squareSize - squareSize / 2 + left_margin;
+		double yy = p.y*squareSize - squareSize / 2 + top_margin;
+		int color =  linesBoard->square[p.x][p.y];
+		DrawBall(xx, yy,  1-pos, linesBoard->clearBallsColor);
 	}
     cairo_surface_flush(surface);
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);

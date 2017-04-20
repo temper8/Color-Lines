@@ -164,8 +164,11 @@ int TLinesBoard::checkLines(){
    }
  }
 
- for ( TPoint p : clearBalls )
+ for ( TPoint p : clearBalls ) {
+	 clearBallsColor = square[p.x][p.y];
 	 square[p.x][p.y] = 0;
+ }
+
  score +=clearBalls.size();
  return clearBalls.size();
 }

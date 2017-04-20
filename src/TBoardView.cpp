@@ -190,7 +190,7 @@ void TBoardView::CairoDrawing(){
 	DrawBalls();
 
 //	DrawSF();
-	DrawGradienBall();
+	//DrawGradienBall();
 	//DrawPath(0.5);
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
@@ -404,7 +404,7 @@ void TBoardView::DrawPath(double pos){
 		xx = xx + squareSize / 2;
 		yy = yy + squareSize / 2;
 		double r = cos(dx*i - M_PI*(1-1.5*pos));
-		if (r<0) r = 0; else r = 0.5*r;
+		if (r<0) r = 0.0; else r = 0.5*r;
 
 		DrawBall(xx, yy, r, color);
 	}

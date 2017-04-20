@@ -55,6 +55,7 @@ public:
 	double tick;
 	void RefreshBall();
 	void MoveBall(double pos);
+	void OnEndMoveBall();
 };
 
 #endif /* TBOARDVIEW_H_ */

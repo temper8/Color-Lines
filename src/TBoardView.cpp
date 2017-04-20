@@ -78,6 +78,7 @@ void TBoardView::MoveBall(double pos) {
 	DrawPath(pos);
     cairo_surface_flush(surface);
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+	if (pos == 1.0) OnEndMoveBall();
 }
 
 Eina_Bool move_ball(void *data, double pos)
@@ -90,10 +91,22 @@ Eina_Bool move_ball(void *data, double pos)
 void TBoardView::CreateMoveBallAnimator(){
 	if (animator != NULL)
 	  	   ecore_animator_del(animator);
-	ecore_animator_timeline_add (1.5, move_ball, this);
+	ecore_animator_timeline_add (1.0, move_ball, this);
 }
 void TBoardView::DeleteMoveBallAnimator(){
 
+}
+
+void TBoardView::OnEndMoveBall(){
+	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
+	linesBoard->square[selBall.x][selBall.y] = 0;
+	if (linesBoard->checkLines() == 0 )
+	{
+			linesBoard->addNewBalls();
+
+	}
+	CairoDrawing();
+    selBall.x = 0;
 }
 
 void TBoardView::OnClick(int x, int y) {
@@ -131,11 +144,7 @@ void TBoardView::OnClick(int x, int y) {
 
             if (linesBoard->searchPath(selBall,destSquare) >0) {
             	CreateMoveBallAnimator();
-            	linesBoard->square[xx][yy] = linesBoard->square[selBall.x][selBall.y];
-            	linesBoard->square[selBall.x][selBall.y] = 0;
-            	if (linesBoard->checkLines() == 0 )
-            			linesBoard->addNewBalls();
-                selBall.x = 0;
+
             }
 
     	}
@@ -384,7 +393,7 @@ void TBoardView::DrawPath(){
 
 void TBoardView::DrawPath(double pos){
 	if (linesBoard->path.size() == 0) return;
-	TPoint p = linesBoard->path.front();
+	TPoint p = linesBoard->path.back();
 	int color =  linesBoard->square[p.x][p.y];
 	double dx = M_PI/linesBoard->path.size();
 	for (int i = 0; i<linesBoard->path.size(); i++ ) {
@@ -395,9 +404,17 @@ void TBoardView::DrawPath(double pos){
 		xx = xx + squareSize / 2;
 		yy = yy + squareSize / 2;
 		double r = cos(dx*i - M_PI*(1-1.5*pos));
-		if (r<0) r = 0; else r = r*r;
+		if (r<0) r = 0; else r = 0.5*r;
+
 		DrawBall(xx, yy, r, color);
 	}
+	if (pos>0.5) {
+		TPoint p = linesBoard->path.front();
+		double xx = (p.x-1)*squareSize  + squareSize / 2 + left_margin;
+		double yy = (p.y-1)*squareSize  + squareSize / 2 + top_margin;
+		DrawBall(xx, yy, 1, color);
+	}
+
 }
 
 void TBoardView::DrawTopText() {

@@ -52,10 +52,12 @@ private:
 	Ecore_Animator *animator;
 	cairo_surface_t *bg_image;
 public:
+	std::vector<TPoint> NewBalls;
 	double tick;
 	void RefreshBall();
 	void MoveBall(double pos);
 	void OnEndMoveBall();
+	void AppearanceNewBall(double pos);
 };
 
 #endif /* TBOARDVIEW_H_ */

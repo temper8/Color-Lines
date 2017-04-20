@@ -34,7 +34,7 @@ public:
 	void initSearch(TPoint src, TPoint dst);
 	int searchPath(TPoint src, TPoint dst);
 	int checkLines();
-	bool addNewBalls();
+	std::vector<TPoint> addNewBalls();
 
 private:
 	std::vector<TPoint> clearBalls;

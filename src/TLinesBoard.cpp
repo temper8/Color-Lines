@@ -240,8 +240,9 @@ void TLinesBoard::checkDiag2Line(int x, int y){
 }
 
 
-bool TLinesBoard::addNewBalls(){
+std::vector<TPoint> TLinesBoard::addNewBalls(){
 	std::vector<TPoint> emptySquares;
+	std::vector<TPoint> newBalls;
 
 	for(int x = 1; x<=sizeX; x++)
 	for(int y = 1; y<=sizeY; y++){
@@ -265,10 +266,19 @@ bool TLinesBoard::addNewBalls(){
          square[emptySquares[new1].x][emptySquares[new1].y] = rand() % 7 +1;
          square[emptySquares[new2].x][emptySquares[new2].y] = rand() % 7 +1;
          square[emptySquares[new3].x][emptySquares[new3].y] = rand() % 7 +1;
-
-		return true;
+         TPoint nb;
+         nb.x = emptySquares[new1].x;
+         nb.y = emptySquares[new1].y;
+         newBalls.push_back(nb);
+         nb.x = emptySquares[new2].x;
+         nb.y = emptySquares[new2].y;
+         newBalls.push_back(nb);
+         nb.x = emptySquares[new3].x;
+         nb.y = emptySquares[new3].y;
+         newBalls.push_back(nb);
+		return newBalls;
 	}
 	else {
-		return false;
+		return newBalls;
 	}
 }

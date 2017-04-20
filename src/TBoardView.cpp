@@ -97,16 +97,36 @@ void TBoardView::DeleteMoveBallAnimator(){
 
 }
 
+Eina_Bool appearance_new_ball(void *data, double pos)
+{
+   TBoardView *bv = (TBoardView *) data;
+   bv->AppearanceNewBall(pos);
+   return EINA_TRUE;
+}
+
 void TBoardView::OnEndMoveBall(){
 	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
 	linesBoard->square[selBall.x][selBall.y] = 0;
 	if (linesBoard->checkLines() == 0 )
 	{
-			linesBoard->addNewBalls();
+		    NewBalls = linesBoard->addNewBalls();
+			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
 
 	}
-	CairoDrawing();
+	//CairoDrawing();
     selBall.x = 0;
+}
+
+void TBoardView::AppearanceNewBall(double pos) {
+
+	for ( TPoint p : NewBalls ){
+		double xx = p.x*squareSize - squareSize / 2 + left_margin;
+		double yy = p.y*squareSize - squareSize / 2 + top_margin;
+		int color =  linesBoard->square[p.x][p.y];
+		DrawBall(xx, yy,  pos, color);
+	}
+    cairo_surface_flush(surface);
+	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 }
 
 void TBoardView::OnClick(int x, int y) {

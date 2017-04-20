@@ -15,7 +15,7 @@ TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
 	mx = 250;
 	my = 250;
-	linesBoard = new TLinesBoard(9,9);
+	linesBoard = new TLinesBoard(7,11);
 	linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
@@ -265,17 +265,19 @@ void TBoardView::DrawSquare(double x, double y){
 void TBoardView::DrawBoard(){
 
 	int BoardWidth = myWidth - 40;
-	int BoardHeight = BoardWidth;
+
 
 	left_margin = ( myWidth - BoardWidth)/2;
+
+	squareSize = BoardWidth / linesBoard->sizeX;
+	int BoardHeight = squareSize * linesBoard->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
 
 
-	squareSize = BoardWidth / linesBoard->sizeX;
 	cairo_set_line_width(cairo, 3);
 
 	for (int x = 0; x< linesBoard->sizeX; x++)
-		for (int y = 0; y< linesBoard->sizeX; y++) {
+		for (int y = 0; y< linesBoard->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
 			DrawSquare(xx, yy);

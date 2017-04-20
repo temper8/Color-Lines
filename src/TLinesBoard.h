@@ -25,8 +25,8 @@ public:
 public:
 
 	int sizeX, sizeY;
-	int square[11][11];
-	int sf[11][11];
+	int square[12][12];
+	int sf[12][12];
 	int counter;
 	int score;
 	std::vector<TPoint> path;

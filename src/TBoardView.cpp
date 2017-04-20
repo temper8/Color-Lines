@@ -147,7 +147,7 @@ void TBoardView::DisappearanceLines(double pos){
 
 		double xx = p.x*squareSize - squareSize / 2 + left_margin;
 		double yy = p.y*squareSize - squareSize / 2 + top_margin;
-		int color =  linesBoard->square[p.x][p.y];
+		//int color =  linesBoard->square[p.x][p.y];
 		DrawBall(xx, yy,  1-pos, linesBoard->clearBallsColor);
 	}
     cairo_surface_flush(surface);

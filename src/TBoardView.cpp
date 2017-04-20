@@ -210,25 +210,7 @@ void TBoardView::CairoDrawing(){
 	cairo_rectangle(cairo, 0, 0, myWidth, myHeight);
 	cairo_fill(cairo);
 
-//	cairo_set_line_width (cairo, 0.1);
-//	cairo_set_source_rgb (cairo, 0, 0, 0);
-//	cairo_rectangle (cairo, 50,50, 100, 100);
-//	cairo_stroke (cairo);
-
-//	cairo_set_source_rgb (cairo, 0, 0, 0);
-//	cairo_rectangle (cairo, 25, 25, 50, 50);
-//	cairo_fill (cairo);
-
 	DrawTopText();
-	 /* Set blue color with opacity 0.3 value */
-	 cairo_set_source_rgba(cairo, 0.2, 0.2, 1.0, 0.3);
-
-	/* Draw a circle radius 10 on center point (x,y)
-	   this circle displays the text start point */
-	cairo_arc(cairo, mx, my, 40.0, 0, 2*M_PI);
-
-	/* Fill a circle with configured color before (blue) */
-	cairo_fill(cairo);
 
 	DrawBoard();
 
@@ -238,6 +220,7 @@ void TBoardView::CairoDrawing(){
 	//DrawGradienBall();
 	//DrawPath(0.5);
 	/* Render stacked cairo APIs on cairo context's surface */
+
 	cairo_surface_flush(surface);
 
 	/* Display cairo drawing on screen */
@@ -287,10 +270,6 @@ void TBoardView::DrawBoard(){
 	left_margin = ( myWidth - BoardWidth)/2;
 	top_margin = ( myHeight - BoardHeight)/2;
 
-//	  myCanvas.Brush.Color:=clLtGray;
-	cairo_set_source_rgba(cairo, 0.8, 0.8, 0.8, 0.5);
-//	cairo_rectangle (cairo, left_margin, top_margin, BoardWidth, BoardHeight);
-//	cairo_fill (cairo);
 
 	squareSize = BoardWidth / linesBoard->sizeX;
 	cairo_set_line_width(cairo, 3);
@@ -308,18 +287,6 @@ void TBoardView::DrawBoard(){
 
 	 cairo_set_line_width(cairo, 1);
 
-/*
-	 for(int i = 0; i<linesBoard->sizeX; i++) {
-				 cairo_move_to(cairo, left_margin + squareSize*i, top_margin);
-				 cairo_line_to(cairo, left_margin + squareSize*i, BoardHeight+top_margin);
-	  }
-
-	 for(int i = 0; i<linesBoard->sizeX; i++) {
-	 				 cairo_move_to(cairo, left_margin, squareSize*i + top_margin);
-	 				 cairo_line_to(cairo, left_margin  + BoardWidth, squareSize*i + top_margin);
-	 	  }
-	 cairo_stroke(cairo);
-	 */
 }
 
 void TBoardView::SetPatternForSquare(int x, int y, int r){
@@ -368,8 +335,6 @@ void TBoardView::SetPattern(double x,double y, int radius, int color){
 		r = 0.0; g = 0.0, b = 0.0;
 
 	}
-	//cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
-
 
 	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - radius/2, y - radius, radius/2 , x, y, 3*radius);
 

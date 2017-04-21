@@ -238,19 +238,13 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
          if (new1<=new3) new3 = new3 + 1;
          if (new2<=new3) new3 = new3 + 1;
 
-         square[emptySquares[new1].x][emptySquares[new1].y] = rand() % 7 +1;
-         square[emptySquares[new2].x][emptySquares[new2].y] = rand() % 7 +1;
-         square[emptySquares[new3].x][emptySquares[new3].y] = rand() % 7 +1;
-         TPoint nb;
-         nb.x = emptySquares[new1].x;
-         nb.y = emptySquares[new1].y;
-         newBalls.push_back(nb);
-         nb.x = emptySquares[new2].x;
-         nb.y = emptySquares[new2].y;
-         newBalls.push_back(nb);
-         nb.x = emptySquares[new3].x;
-         nb.y = emptySquares[new3].y;
-         newBalls.push_back(nb);
+         newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, rand() % 7 +1);
+         newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, rand() % 7 +1);
+         newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, rand() % 7 +1);
+
+         for (TPoint p :newBalls ) {
+        	 square[p.x][p.y] = p.color;
+         }
 		return newBalls;
 	}
 	else {

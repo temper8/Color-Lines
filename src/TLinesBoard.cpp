@@ -13,6 +13,10 @@ TLinesBoard::TLinesBoard(int x, int y) {
 	sizeX = x;
 	sizeY = y;
 	score = 0;
+	for(int i=1; i<= sizeX; i++)
+	for(int j=1; j<= sizeY; j++)
+	      square[i][j] = 0;
+	initBalls = false;
 }
 
 TLinesBoard::~TLinesBoard() {
@@ -23,12 +27,26 @@ void TLinesBoard::initRandom(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      square[i][j] = 0;
-	      int rnd =  rand() % 25;
+	      int rnd =  rand() % 35;
 	      if (rnd<7)
 	    	  square[i][j] = 1 + rnd;
 	  }
 }
 
+std::vector<TPoint> TLinesBoard::AddRandomBalls(){
+	std::vector<TPoint> newBalls;
+	for(int i=1; i<= sizeX; i++)
+	  for(int j=1; j<= sizeY; j++) {
+	      square[i][j] = 0;
+	      int rnd =  rand() % 35;
+	      if (rnd<7){
+	    	  square[i][j] = 1 + rnd;
+	      	  newBalls.emplace_back(i, j, rnd +1);
+	      }
+	  }
+	initBalls = true;
+	return newBalls;
+}
 
 void TLinesBoard::initSearch(TPoint src, TPoint dst){
 

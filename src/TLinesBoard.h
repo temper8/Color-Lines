@@ -33,8 +33,10 @@ public:
 	int sf[12][12];
 	int counter;
 	int score;
+	bool initBalls;
 	std::vector<TPoint> path;
 	void initRandom();
+	std::vector<TPoint> AddRandomBalls();
 	void initSearch(TPoint src, TPoint dst);
 	int searchPath(TPoint src, TPoint dst);
 	int checkLines();

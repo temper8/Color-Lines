@@ -11,6 +11,15 @@
 
 #define BUFLEN 500
 
+static Eina_Bool
+add_random_balls(void *data)
+{
+	TBoardView *bv = (TBoardView *) data;
+	bv->AddRandomBalls();
+
+   return EINA_FALSE;
+}
+
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
 	mx = 250;
@@ -28,7 +37,7 @@ TBoardView::TBoardView() {
     snprintf(buff, 300, "%s%s", path, "pat2.png");
     bg_image = cairo_image_surface_create_from_png(buff);
     free(path);
-
+    ecore_timer_add(0.5, add_random_balls, this);
 }
 
 TBoardView::~TBoardView() {
@@ -208,7 +217,7 @@ void TBoardView::CairoDrawing(){
 
 	DrawBoard();
 
-	DrawBalls();
+	if (linesBoard->initBalls) DrawBalls();
 
 //	DrawSF();
 	//DrawGradienBall();
@@ -221,7 +230,10 @@ void TBoardView::CairoDrawing(){
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 
 }
-
+void TBoardView::AddRandomBalls(){
+    NewBalls = linesBoard->AddRandomBalls();
+	ecore_animator_timeline_add (1.0, appearance_new_ball, this);
+}
 void TBoardView::DrawBalls() {
 	for(int i=1; i<= linesBoard->sizeX; i++)
 	  for(int j=1; j<= linesBoard->sizeY; j++){

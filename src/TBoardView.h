@@ -30,6 +30,7 @@ public:
     void DrawBall(double x, double y, double r, int color);
     void DrawBall(TPoint p, double r, int color);
     void DrawBall(TPoint p, double r);
+    void AddRandomBalls();
     void Test7Colors();
     void DrawBalls();
     void DrawGradienBall();

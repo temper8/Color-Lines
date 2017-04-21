@@ -15,6 +15,8 @@ struct TPoint
 {
     int x;
     int y;
+    TPoint(int p_x, int p_y) :x(p_x), y(p_y) {};
+    TPoint() : x(0),y(0) {};
 };
 
 class TLinesBoard {

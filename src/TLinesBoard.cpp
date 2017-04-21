@@ -117,17 +117,18 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
 	    int n=nn;
 	    for (int i = 1; i<nn; i++){
 	    	  if (sf[x-1][y] == n-1){
-				    TPoint np;
-				    np.x = x-1;
-				    np.y = y;
-				    path.push_back(np);
+				  //  TPoint np(0,0);
+				  //  np.x = x-1;
+				  //  np.y = y;
+				    path.emplace_back(x-1,y);
 	                x = x-1;
 	    	  }
 	    	  else if (sf[x+1][y] == n-1){
-				    TPoint np;
-				    np.x = x+1;
-				    np.y = y;
-				    path.push_back(np);
+				    //TPoint np;
+				    //np.x = x+1;
+				    //np.y = y;
+				    //path.push_back(np);
+				    path.emplace_back(x+1,y);
 	                x = x+1;
 	    	  }
 	    	  else if (sf[x][y-1] == n-1) {

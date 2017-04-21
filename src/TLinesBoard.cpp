@@ -153,7 +153,6 @@ int TLinesBoard::checkLines(){
  }
 
  for ( TPoint p : clearBalls ) {
-	 clearBallsColor = square[p.x][p.y];
 	 square[p.x][p.y] = 0;
  }
 
@@ -169,7 +168,7 @@ void TLinesBoard::checkHorzLine(int x, int y){
 	  int len = xx-x;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    clearBalls.emplace_back(x+i,y);
+			    clearBalls.emplace_back(x+i, y, color);
 		  }
 	  }
 }
@@ -182,7 +181,7 @@ void TLinesBoard::checkVertLine(int x, int y){
 	  int len = yy-y;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    clearBalls.emplace_back(x, y+i);
+			    clearBalls.emplace_back(x, y+i, color);
 		  }
 	  }
 }
@@ -197,7 +196,7 @@ void TLinesBoard::checkDiag1Line(int x, int y){
 	  int len = xx-x;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    clearBalls.emplace_back(x+i, y+i);
+			    clearBalls.emplace_back(x+i, y+i, color);
 		  }
 	  }
 
@@ -213,8 +212,7 @@ void TLinesBoard::checkDiag2Line(int x, int y){
 	  int len = xx-x;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    TPoint np;
-			    clearBalls.emplace_back(x+i,y-i);
+			    clearBalls.emplace_back(x+i,y-i, color);
 		  }
 	  }
 }

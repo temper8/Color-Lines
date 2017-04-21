@@ -140,14 +140,12 @@ void TBoardView::AppearanceNewBall(double pos) {
 void TBoardView::DisappearanceLines(double pos){
 
 	for ( TPoint p : linesBoard->clearBalls ){
-		double x = (p.x-1)*squareSize  + left_margin;
-		double y = (p.y-1)*squareSize  + top_margin;
-	    DrawSquare(x,y);
+	    DrawSquare(p);
 
 		double xx = p.x*squareSize - squareSize / 2 + left_margin;
 		double yy = p.y*squareSize - squareSize / 2 + top_margin;
 		//int color =  linesBoard->square[p.x][p.y];
-		DrawBall(xx, yy,  1-pos, linesBoard->clearBallsColor);
+		DrawBall(p,  1-pos);
 	}
     cairo_surface_flush(surface);
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
@@ -331,6 +329,12 @@ void TBoardView::SetPattern(double x,double y, int radius, int color){
 
 }
 
+void TBoardView::DrawBall(TPoint p, double r){
+	double x = p.x*squareSize - squareSize / 2 + left_margin;
+	double y = p.y*squareSize - squareSize / 2 + top_margin;
+	DrawBall(x, y, r, p.color);
+}
+
 void TBoardView::DrawBall(TPoint p, double r, int color){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
@@ -372,8 +376,6 @@ void TBoardView::DrawPath(){
 
 void TBoardView::DrawPath(double pos){
 	if (linesBoard->path.size() == 0) return;
-	//TPoint p = linesBoard->path.back();
-	//int color =  linesBoard->square[p.x][p.y];
 	double dx = M_PI/linesBoard->path.size();
 	for (int i = 0; i<linesBoard->path.size(); i++ ) {
 		TPoint p  =  linesBoard->path[i];

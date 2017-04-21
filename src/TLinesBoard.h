@@ -41,7 +41,7 @@ public:
 	std::vector<TPoint> addNewBalls();
 
 	std::vector<TPoint> clearBalls;
-     int clearBallsColor;
+
 private:
 
 	void FillNeighbors( std::vector<TPoint> list);

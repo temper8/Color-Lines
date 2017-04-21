@@ -256,6 +256,12 @@ void TBoardView::Test7Colors(){
 	DrawBall(4,5,7);
 }
 
+void TBoardView::DrawSquare(TPoint p){
+	double x = (p.x-1)*squareSize  + left_margin;
+	double y = (p.y-1)*squareSize  + top_margin;
+	DrawSquare(x, y);
+}
+
 void TBoardView::DrawSquare(double x, double y){
 	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize);
 	cairo_rectangle (cairo, x, y, squareSize, squareSize);
@@ -370,6 +376,12 @@ void  TBoardView::DrawGradienBall(){
 	cairo_fill(cairo);
 }
 
+void TBoardView::DrawBall(TPoint p, double r, int color){
+	double x = p.x*squareSize - squareSize / 2 + left_margin;
+	double y = p.y*squareSize - squareSize / 2 + top_margin;
+	DrawBall(x, y, r, color);
+}
+
 void TBoardView::DrawBall(double x, double y, int color){
 	DrawBall(x,y,1,color);
 }
@@ -410,21 +422,17 @@ void TBoardView::DrawPath(double pos){
 	double dx = M_PI/linesBoard->path.size();
 	for (int i = 0; i<linesBoard->path.size(); i++ ) {
 		p =  linesBoard->path[i];
-		double xx = (p.x-1)*squareSize  + left_margin;
-		double yy = (p.y-1)*squareSize  + top_margin ;
-		DrawSquare(xx, yy);
-		xx = xx + squareSize / 2;
-		yy = yy + squareSize / 2;
+
+		DrawSquare(p);
+
 		double r = cos(dx*i - M_PI*(1-1.5*pos));
 		if (r<0) r = 0.0; else r = 0.5*r;
 
-		DrawBall(xx, yy, r, color);
+		DrawBall(p, r, color);
 	}
 	if (pos>0.5) {
 		TPoint p = linesBoard->path.front();
-		double xx = (p.x-1)*squareSize  + squareSize / 2 + left_margin;
-		double yy = (p.y-1)*squareSize  + squareSize / 2 + top_margin;
-		DrawBall(xx, yy, 1, color);
+		DrawBall(p, 1, color);
 	}
 
 }

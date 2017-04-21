@@ -28,6 +28,7 @@ public:
     void DrawTopText();
     void DrawBall(double x, double y, int color);
     void DrawBall(double x, double y, double r, int color);
+    void DrawBall(TPoint p, double r, int color);
     void Test7Colors();
     void DrawBalls();
     void DrawGradienBall();
@@ -41,6 +42,7 @@ private:
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
     void DrawSquare(double x, double y);
+    void DrawSquare(TPoint p);
     int mx,my;
 	TPoint selBall;
 	TPoint destSquare;

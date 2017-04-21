@@ -235,11 +235,7 @@ void TBoardView::DrawBalls() {
 			double y = j*squareSize - squareSize / 2 + top_margin;
 			DrawBall(x,y,linesBoard->square[i][j]);
 	  }
-
-
 }
-
-
 
 void TBoardView::DrawSquare(TPoint p){
 	double x = (p.x-1)*squareSize  + left_margin;
@@ -257,13 +253,11 @@ void TBoardView::DrawBoard(){
 
 	int BoardWidth = myWidth - 40;
 
-
 	left_margin = ( myWidth - BoardWidth)/2;
 
 	squareSize = BoardWidth / linesBoard->sizeX;
 	int BoardHeight = squareSize * linesBoard->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
-
 
 	cairo_set_line_width(cairo, 3);
 
@@ -272,14 +266,10 @@ void TBoardView::DrawBoard(){
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
 			DrawSquare(xx, yy);
-
 		}
 
-
 	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);
-
 	 cairo_set_line_width(cairo, 1);
-
 }
 
 void TBoardView::SetPatternForSquare(int x, int y, int r){
@@ -337,28 +327,6 @@ void TBoardView::SetPattern(double x,double y, int radius, int color){
 
 	cairo_set_source(cairo, pattern1);
 
-}
-void  TBoardView::DrawGradienBall(){
-
-	int xx = 100;
-	int yy = 140;
-	int  r = 3*3*squareSize / 8;
-
-	cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
-
-	//cairo_pattern_t *pattern1 = cairo_pattern_create_linear(0, 0, r, 0);
-
-	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (xx - r/6, yy - r/3, r/6 , xx, yy, r);
-
-
-	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, 0.2, 0.65, 0.1);
-	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, 0.4, 0.9, 0.2);
-
-	cairo_set_source(cairo, pattern1);
-	//SetColor(color);
-
-	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
-	cairo_fill(cairo);
 }
 
 void TBoardView::DrawBall(TPoint p, double r, int color){
@@ -482,4 +450,27 @@ void TBoardView::Test7Colors(){
 	DrawBall(8,7,6);
 
 	DrawBall(4,5,7);
+}
+
+void  TBoardView::DrawGradienBall(){
+
+	int xx = 100;
+	int yy = 140;
+	int  r = 3*3*squareSize / 8;
+
+	cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_linear(0, 0, r, 0);
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (xx - r/6, yy - r/3, r/6 , xx, yy, r);
+
+
+	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, 0.2, 0.65, 0.1);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, 0.4, 0.9, 0.2);
+
+	cairo_set_source(cairo, pattern1);
+	//SetColor(color);
+
+	cairo_arc(cairo, xx, yy, r, 0, 2*M_PI);
+	cairo_fill(cairo);
 }

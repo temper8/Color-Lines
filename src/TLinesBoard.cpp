@@ -117,32 +117,19 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
 	    int n=nn;
 	    for (int i = 1; i<nn; i++){
 	    	  if (sf[x-1][y] == n-1){
-				  //  TPoint np(0,0);
-				  //  np.x = x-1;
-				  //  np.y = y;
 				    path.emplace_back(x-1,y);
 	                x = x-1;
 	    	  }
 	    	  else if (sf[x+1][y] == n-1){
-				    //TPoint np;
-				    //np.x = x+1;
-				    //np.y = y;
-				    //path.push_back(np);
 				    path.emplace_back(x+1,y);
 	                x = x+1;
 	    	  }
 	    	  else if (sf[x][y-1] == n-1) {
-				    TPoint np;
-				    np.x = x;
-				    np.y = y-1;
-				    path.push_back(np);
+				    path.emplace_back(x, y-1);
 	                y = y-1;
 	    	  }
 	    	  else if (sf[x][y+1] == n-1) {
-				    TPoint np;
-				    np.x = x;
-				    np.y = y+1;
-				    path.push_back(np);
+				    path.emplace_back(x, y+1);
 	                y = y+1;
 	    	  }
               n = sf[x][y];
@@ -182,10 +169,7 @@ void TLinesBoard::checkHorzLine(int x, int y){
 	  int len = xx-x;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    TPoint np;
-			    np.x = x+i;
-			    np.y = y;
-			    clearBalls.push_back(np);
+			    clearBalls.emplace_back(x+i,y);
 		  }
 	  }
 }
@@ -198,10 +182,7 @@ void TLinesBoard::checkVertLine(int x, int y){
 	  int len = yy-y;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    TPoint np;
-			    np.x = x;
-			    np.y = y+i;
-			    clearBalls.push_back(np);
+			    clearBalls.emplace_back(x, y+i);
 		  }
 	  }
 }
@@ -216,10 +197,7 @@ void TLinesBoard::checkDiag1Line(int x, int y){
 	  int len = xx-x;
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
-			    TPoint np;
-			    np.x = x+i;
-			    np.y = y+i;
-			    clearBalls.push_back(np);
+			    clearBalls.emplace_back(x+i, y+i);
 		  }
 	  }
 
@@ -236,9 +214,7 @@ void TLinesBoard::checkDiag2Line(int x, int y){
 	  if (len >4) {
 		  for (int i = 0; i<len; i++) {
 			    TPoint np;
-			    np.x = x+i;
-			    np.y = y-i;
-			    clearBalls.push_back(np);
+			    clearBalls.emplace_back(x+i,y-i);
 		  }
 	  }
 }
@@ -251,10 +227,7 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
 	for(int x = 1; x<=sizeX; x++)
 	for(int y = 1; y<=sizeY; y++){
 	   if ( square[x][y] == 0){
-		    TPoint np;
-		    np.x = x;
-		    np.y = y;
-		   emptySquares.push_back(np);
+		   emptySquares.emplace_back(x,y);
 	   }
 	 }
 

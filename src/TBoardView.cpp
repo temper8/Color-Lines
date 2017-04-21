@@ -239,22 +239,7 @@ void TBoardView::DrawBalls() {
 
 }
 
-void TBoardView::Test7Colors(){
 
-	DrawBall(3,5,1);
-
-	DrawBall(5,3,2);
-
-	DrawBall(7,8,3);
-
-	DrawBall(2,7,4);
-
-	DrawBall(7,2,5);
-
-	DrawBall(8,7,6);
-
-	DrawBall(4,5,7);
-}
 
 void TBoardView::DrawSquare(TPoint p){
 	double x = (p.x-1)*squareSize  + left_margin;
@@ -457,6 +442,10 @@ void TBoardView::DrawTopText() {
 
 }
 
+//
+// test functions
+//
+
 void TBoardView::DrawSF() {
 
 	char text[100] = {0};
@@ -476,6 +465,21 @@ void TBoardView::DrawSF() {
 			cairo_fill(cairo);
 	  }
 
+}
 
+void TBoardView::Test7Colors(){
 
+	DrawBall(3,5,1);
+
+	DrawBall(5,3,2);
+
+	DrawBall(7,8,3);
+
+	DrawBall(2,7,4);
+
+	DrawBall(7,2,5);
+
+	DrawBall(8,7,6);
+
+	DrawBall(4,5,7);
 }

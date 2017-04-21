@@ -112,8 +112,7 @@ Eina_Bool disappearance_lines(void *data, double pos)
 }
 
 void TBoardView::OnEndMoveBall(){
-	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
-	linesBoard->square[selBall.x][selBall.y] = 0;
+
 	if (linesBoard->checkLines() == 0 )	{
 		    NewBalls = linesBoard->addNewBalls();
 			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
@@ -123,7 +122,7 @@ void TBoardView::OnEndMoveBall(){
 		ecore_animator_timeline_add (1.0, disappearance_lines, this);
 	}
 	//CairoDrawing();
-    selBall.x = 0;
+
 }
 
 void TBoardView::AppearanceNewBall(double pos) {
@@ -164,7 +163,7 @@ void TBoardView::OnClick(int x, int y) {
     if (linesBoard->square[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
-    	linesBoard->path.clear();
+
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
 
@@ -188,6 +187,9 @@ void TBoardView::OnClick(int x, int y) {
     		linesBoard->initSearch(selBall,destSquare);
 
             if (linesBoard->searchPath(selBall,destSquare) >0) {
+            	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
+            	linesBoard->square[selBall.x][selBall.y] = 0;
+            	 selBall.x = 0;
             	CreateMoveBallAnimator();
 
             }

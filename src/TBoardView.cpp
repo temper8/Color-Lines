@@ -129,6 +129,7 @@ void TBoardView::AppearanceNewBall(double pos) {
 
 	for ( TPoint p : NewBalls )
 		DrawBall(p,  pos);
+
 	cairo_surface_flush(surface);
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 }
@@ -139,6 +140,7 @@ void TBoardView::DisappearanceLines(double pos){
 	    DrawSquare(p);
 		DrawBall(p,  1-pos);
 	}
+
     cairo_surface_flush(surface);
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 }

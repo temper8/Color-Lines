@@ -68,35 +68,23 @@ void TLinesBoard::FillNeighbors( std::vector<TPoint> list){
 		int y = p.y;
 		if (sf[x-1][y] == 0) {
 		    sf[x-1][y] = c;
-		    TPoint np;
-		    np.x = x-1;
-		    np.y = y;
-		    newList.push_back(np);
+		    newList.emplace_back(x-1, y);
 			n = n + 1;
 		}
 
 		if (sf[x+1][y] == 0) {
 				    sf[x+1][y] = c;
-				    TPoint np;
-				    np.x = x+1;
-				    np.y = y;
-				    newList.push_back(np);
+				    newList.emplace_back(x+1, y);
 					n = n + 1;
 				}
 		if (sf[x][y-1] == 0) {
 				    sf[x][y-1] = c;
-				    TPoint np;
-				    np.x = x;
-				    np.y = y-1;
-				    newList.push_back(np);
+				    newList.emplace_back(x, y-1);
 					n = n + 1;
 				}
 		if (sf[x][y+1] == 0) {
 				    sf[x][y+1] = c;
-				    TPoint np;
-				    np.x = x;
-				    np.y = y+1;
-				    newList.push_back(np);
+				    newList.emplace_back(x, y+1);
 					n = n + 1;
 				}
 

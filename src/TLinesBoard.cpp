@@ -111,25 +111,25 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
  int x =dst.x;
  int y =dst.y;
  int nn = sf[x][y];
-
+ int color =  square[src.x][src.y];
  if (nn > 0) {
-	    path.push_back(dst);
+	    path.emplace_back(dst.x, dst.y, color);
 	    int n=nn;
 	    for (int i = 1; i<nn; i++){
 	    	  if (sf[x-1][y] == n-1){
-				    path.emplace_back(x-1,y);
+				    path.emplace_back(x-1, y, color);
 	                x = x-1;
 	    	  }
 	    	  else if (sf[x+1][y] == n-1){
-				    path.emplace_back(x+1,y);
+				    path.emplace_back(x+1, y, color);
 	                x = x+1;
 	    	  }
 	    	  else if (sf[x][y-1] == n-1) {
-				    path.emplace_back(x, y-1);
+				    path.emplace_back(x, y-1, color);
 	                y = y-1;
 	    	  }
 	    	  else if (sf[x][y+1] == n-1) {
-				    path.emplace_back(x, y+1);
+				    path.emplace_back(x, y+1, color);
 	                y = y+1;
 	    	  }
               n = sf[x][y];

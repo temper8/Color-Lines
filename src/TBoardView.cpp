@@ -370,22 +370,22 @@ void TBoardView::DrawPath(){
 
 void TBoardView::DrawPath(double pos){
 	if (linesBoard->path.size() == 0) return;
-	TPoint p = linesBoard->path.back();
-	int color =  linesBoard->square[p.x][p.y];
+	//TPoint p = linesBoard->path.back();
+	//int color =  linesBoard->square[p.x][p.y];
 	double dx = M_PI/linesBoard->path.size();
 	for (int i = 0; i<linesBoard->path.size(); i++ ) {
-		p =  linesBoard->path[i];
+		TPoint p  =  linesBoard->path[i];
 
 		DrawSquare(p);
 
 		double r = cos(dx*i - M_PI*(1-1.5*pos));
 		if (r<0) r = 0.0; else r = 0.5*r;
 
-		DrawBall(p, r, color);
+		DrawBall(p, r, p.color);
 	}
 	if (pos>0.5) {
 		TPoint p = linesBoard->path.front();
-		DrawBall(p, 1, color);
+		DrawBall(p, 1, p.color);
 	}
 
 }

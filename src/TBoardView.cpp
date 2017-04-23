@@ -24,7 +24,7 @@ TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
 	mx = 250;
 	my = 250;
-	linesBoard = new TLinesBoard(7,11);
+	linesBoard = new TLinesBoard(8,11);
 	linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;

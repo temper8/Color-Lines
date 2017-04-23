@@ -279,11 +279,15 @@ void TBoardView::DrawBoard(){
 }
 
 void TBoardView::SetPatternForSquare(int x, int y, int r){
+//  gold
+//  double r1 = 1.0; double r2 = 1.0;
+//  double g1 = 242.0/255.0; double g2 = 217.0/255.0;
+//  double b1 = 204.0/255.0; double b2 = 102.0/255.0;
 
-    double r1 = 1.0; double r2 = 1.0;
-    double g1 = 242.0/255.0; double g2 = 217.0/255.0;
-    double b1 = 204.0/255.0; double b2 = 102.0/255.0;
-
+	// sepiya
+	  double r2 = 159.0/255.0; double r1 = 191.0/255.0;
+	  double g2 = 142.0/255.0; double g1 = 178.0/255.0;
+	  double b2 = 126.0/255.0; double b1 = 165.0/255.0;
     cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - r/4 , y - r/4  , r/2.5 , x, y, 1.5*r);
 	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r1, g1, b1);
 	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, r2, g2, b2);

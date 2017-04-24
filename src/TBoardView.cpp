@@ -34,7 +34,7 @@ TBoardView::TBoardView() {
 	char buff[BUFLEN];
     char *path = app_get_shared_resource_path();
 
-    snprintf(buff, 300, "%s%s", path, "pat2.png");
+    snprintf(buff, 300, "%s%s", path, "pat7.png");
     bg_image = cairo_image_surface_create_from_png(buff);
     free(path);
     ecore_timer_add(0.5, add_random_balls, this);
@@ -248,16 +248,28 @@ void TBoardView::DrawSquare(TPoint p){
 	double y = (p.y-1)*squareSize  + top_margin;
 	DrawSquare(x, y);
 }
-
+void TBoardView::DrawRoundRectangle(double x, double y, double w, double h, double r){
+	cairo_move_to (cairo, x+r, y);
+	cairo_rel_line_to (cairo, w-2*r, 0);
+	cairo_rel_line_to (cairo, r, r);
+	cairo_rel_line_to (cairo, 0, h-2*r);
+	cairo_rel_line_to (cairo, -r, r);
+	cairo_rel_line_to (cairo, -w+2*r, 0);
+	cairo_rel_line_to (cairo, -r, -r);
+	cairo_rel_line_to (cairo, 0, -h+2*r);
+	cairo_close_path (cairo);
+}
 void TBoardView::DrawSquare(double x, double y){
-	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize);
-	cairo_rectangle (cairo, x, y, squareSize, squareSize);
+	//SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
+	cairo_set_source_rgba(cairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 1.0);
+	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	//cairo_rectangle (cairo, x+2, y+2, squareSize-4, squareSize-4);
 	cairo_fill (cairo);
 }
 
 void TBoardView::DrawBoard(){
 
-	int BoardWidth = myWidth - 40;
+	int BoardWidth = myWidth - 20;
 
 	left_margin = ( myWidth - BoardWidth)/2;
 

@@ -59,7 +59,7 @@ void TBoardView::ShowPopup() {
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_text_set(popup,"This Popup has content area and action area, action area has two buttons OK and Cancel.");
+	elm_object_text_set(popup,"Game rules<br>The player can move one ball per turn, and the player may only move a ball to a particular place if there is a path (linked set of vertical and horizontal empty cells) between the current position of the ball and the desired destination. The goal is to remove balls by forming lines (horizontal, vertical or diagonal) of at least five balls of the same colour. If the player does form such lines of at least five balls of the same colour, the balls in those lines disappear, and he gains one turn, i.e. he can move another ball. If not, three new balls are added, and the game continues until the board is full.");
 
 	/* ok button */
 	btn = elm_button_add(popup);

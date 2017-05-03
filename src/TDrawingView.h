@@ -28,6 +28,7 @@ public:
 	virtual void Resize(int width, int height);
 	virtual void CairoDrawing();
 	virtual void OnClick(int x, int y) {};
+	virtual void ShowPopup() {};
 
 protected:
 

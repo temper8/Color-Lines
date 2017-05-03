@@ -44,6 +44,41 @@ TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
+static void
+popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *popup = (Evas_Object*)data;
+	evas_object_del(popup);
+}
+
+void TBoardView::ShowPopup() {
+	Evas_Object *popup, *btn;
+
+	/* popup */
+	popup = elm_popup_add(win);
+	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
+	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
+	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_text_set(popup,"This Popup has content area and action area, action area has two buttons OK and Cancel.");
+
+	/* ok button */
+	btn = elm_button_add(popup);
+	elm_object_style_set(btn, "popup");
+	elm_object_text_set(btn, "New Game");
+	elm_object_part_content_set(popup, "button1", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, popup);
+
+	/* cancel button */
+	btn = elm_button_add(popup);
+	elm_object_style_set(btn, "popup");
+	elm_object_text_set(btn, "Exit");
+	elm_object_part_content_set(popup, "button2", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, popup);
+
+	evas_object_show(popup);
+}
+
+
 Eina_Bool _refresh_graphic(void *data)
 {
 	TBoardView *bv = (TBoardView *) data;

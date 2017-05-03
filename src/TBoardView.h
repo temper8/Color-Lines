@@ -69,6 +69,8 @@ public:
 	void OnEndMoveBall();
 	void AppearanceNewBall(double pos);
 	void DisappearanceLines(double pos);
+
+	virtual void ShowPopup();
 };
 
 #endif /* TBOARDVIEW_H_ */

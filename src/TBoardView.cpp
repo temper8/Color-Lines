@@ -99,13 +99,13 @@ void TBoardView::ShowPopup() {
 }
 
 
-Eina_Bool _refresh_graphic(void *data)
+Eina_Bool jumping_ball(void *data)
 {
 	TBoardView *bv = (TBoardView *) data;
-    bv->RefreshBall();
+    bv->JumpingBall();
     return EINA_TRUE;
 }
-void TBoardView::RefreshBall(){
+void TBoardView::JumpingBall(){
  if (selBall.x !=0) {
 
 		double x = (selBall.x-1)*squareSize  + left_margin;
@@ -130,7 +130,7 @@ void TBoardView::CreateAnimator(){
   tick = 0;
   if (animator != NULL)
   	   ecore_animator_del(animator);
-  animator = ecore_animator_add(_refresh_graphic, this);
+  animator = ecore_animator_add(jumping_ball, this);
 }
 
 void TBoardView::DeleteAnimator(){

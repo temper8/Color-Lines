@@ -64,7 +64,7 @@ private:
 public:
 	std::vector<TPoint> NewBalls;
 	double tick;
-	void RefreshBall();
+	void JumpingBall();
 	void MoveBall(double pos);
 	void OnEndMoveBall();
 	void AppearanceNewBall(double pos);

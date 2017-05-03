@@ -46,7 +46,7 @@ private:
     void SetPatternForSquare(int x, int y, int r);
 
     void DrawHeader();
-
+    void DrawScore(double x, double y, int score);
     void DrawSquare(double x, double y);
     void DrawSquare(TPoint p);
 

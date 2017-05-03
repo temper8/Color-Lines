@@ -445,7 +445,21 @@ void TBoardView::DrawHeader() {
 	cairo_rectangle(cairo, 0, 0, myWidth, HeaderHeight);
 	cairo_fill(cairo);
 
-	DrawTopText();
+	DrawScore(10,45,linesBoard->score);
+	DrawScore(650,45,linesBoard->score);
+}
+
+void TBoardView::DrawScore(double x, double y, int score){
+	char text[16] = {0};
+    cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+
+    cairo_set_font_size(cairo, 50);
+    cairo_move_to(cairo, x, y);
+
+    sprintf(text, "%d",score);
+    cairo_text_path(cairo, text);
+    cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
+    cairo_fill(cairo);
 }
 
 void TBoardView::DrawTopText() {

@@ -44,16 +44,19 @@ TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
+static Evas_Object *popup = NULL;
+
 static void
 popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	Evas_Object *popup = (Evas_Object*)data;
+	//Evas_Object *popup = (Evas_Object*)data;
 	evas_object_del(popup);
+	popup = NULL;
 }
 
 void TBoardView::ShowPopup() {
-	Evas_Object *popup, *btn;
-
+	Evas_Object *btn;
+    if (popup != NULL) return;
 	/* popup */
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);

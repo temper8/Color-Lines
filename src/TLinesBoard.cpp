@@ -12,16 +12,20 @@ TLinesBoard::TLinesBoard(int x, int y) {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
+	newGame();
+}
+
+TLinesBoard::~TLinesBoard() {
+	// TODO Auto-generated destructor stub
+}
+
+void TLinesBoard::newGame() {
 	score = 0;
 	for(int i=1; i<= sizeX; i++)
 	for(int j=1; j<= sizeY; j++)
 	      square[i][j] = 0;
 	initBalls = false;
 	randThreeBalls();
-}
-
-TLinesBoard::~TLinesBoard() {
-	// TODO Auto-generated destructor stub
 }
 
 void TLinesBoard::randThreeBalls(){

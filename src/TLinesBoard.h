@@ -46,6 +46,8 @@ public:
 
 	std::vector<TPoint> clearBalls;
 
+	void newGame();
+
 private:
 
 	void FillNeighbors( std::vector<TPoint> list);

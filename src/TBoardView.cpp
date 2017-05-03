@@ -46,6 +46,23 @@ TBoardView::~TBoardView() {
 
 static Evas_Object *popup = NULL;
 
+void TBoardView::NewGame(){
+	linesBoard->newGame();
+	selBall.x = 0;
+	selBall.y = 0;
+	ecore_timer_add(0.5, add_random_balls, this);
+}
+
+static void
+popup_new_game_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	evas_object_del(popup);
+	popup = NULL;
+
+	TBoardView *bv = (TBoardView*)data;
+	bv->NewGame();
+}
+
 static void
 popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -69,7 +86,7 @@ void TBoardView::ShowPopup() {
 	elm_object_style_set(btn, "popup");
 	elm_object_text_set(btn, "New Game");
 	elm_object_part_content_set(popup, "button1", btn);
-	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, popup);
+	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
 
 	/* cancel button */
 	btn = elm_button_add(popup);

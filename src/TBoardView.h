@@ -71,6 +71,7 @@ public:
 	void DisappearanceLines(double pos);
 
 	virtual void ShowPopup();
+	void NewGame();
 };
 
 #endif /* TBOARDVIEW_H_ */

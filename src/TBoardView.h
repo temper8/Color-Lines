@@ -44,8 +44,13 @@ private:
     void SetColor(int color);
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
+
+    void DrawHeader();
+
     void DrawSquare(double x, double y);
     void DrawSquare(TPoint p);
+
+
     int mx,my;
 	TPoint selBall;
 	TPoint destSquare;

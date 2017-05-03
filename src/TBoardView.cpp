@@ -34,7 +34,7 @@ TBoardView::TBoardView() {
 	char buff[BUFLEN];
     char *path = app_get_shared_resource_path();
 
-    snprintf(buff, 300, "%s%s", path, "pat7.png");
+    snprintf(buff, 300, "%s%s", path, "pat9.png");
     bg_image = cairo_image_surface_create_from_png(buff);
     free(path);
     ecore_timer_add(0.5, add_random_balls, this);
@@ -213,7 +213,9 @@ void TBoardView::CairoDrawing(){
 	cairo_rectangle(cairo, 0, 0, myWidth, myHeight);
 	cairo_fill(cairo);
 
-	DrawTopText();
+
+	DrawHeader();
+
 
 	DrawBoard();
 
@@ -260,11 +262,25 @@ void TBoardView::DrawRoundRectangle(double x, double y, double w, double h, doub
 	cairo_close_path (cairo);
 }
 void TBoardView::DrawSquare(double x, double y){
-	//SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
-	cairo_set_source_rgba(cairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 1.0);
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+
+	cairo_set_source(cairo, pattern1);
+	cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
 	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
-	//cairo_rectangle (cairo, x+2, y+2, squareSize-4, squareSize-4);
+	cairo_fill(cairo);
+
+
+	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
+	//cairo_set_source_rgba(cairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
+	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
 	cairo_fill (cairo);
+	//cairo_set_source_rgba(cairo, 250.0/255.0, 250.0/255.0, 250.0/255.0, 1.0);
+	//cairo_rectangle (cairo, x+2, y+2, squareSize-4, squareSize-4);
+	//DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	//cairo_set_line_width(cairo, 1);
+	//cairo_stroke(cairo);
+	//cairo_fill (cairo);
 }
 
 void TBoardView::DrawBoard(){
@@ -301,8 +317,8 @@ void TBoardView::SetPatternForSquare(int x, int y, int r){
 	  double g2 = 142.0/255.0; double g1 = 178.0/255.0;
 	  double b2 = 126.0/255.0; double b1 = 165.0/255.0;
     cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - r/4 , y - r/4  , r/2.5 , x, y, 1.5*r);
-	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r1, g1, b1);
-	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, r2, g2, b2);
+	cairo_pattern_add_color_stop_rgba(pattern1, 1.0, r1, g1, b1, 0.8);
+	cairo_pattern_add_color_stop_rgba(pattern1, 0.0, r2, g2, b2, 0.5);
 
 	cairo_set_source(cairo, pattern1);
 }
@@ -414,6 +430,22 @@ void TBoardView::DrawPath(double pos){
 		DrawBall(p, 1, p.color);
 	}
 
+}
+
+void TBoardView::DrawHeader() {
+
+	int HeaderHeight = 80;
+
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	//cairo_set_source(cairo, pattern1);
+	//cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
+
+	cairo_set_source_rgb(cairo, 255.0/255.0, 217.0/255.0, 102.0/255.0);
+
+	cairo_rectangle(cairo, 0, 0, myWidth, HeaderHeight);
+	cairo_fill(cairo);
+
+	DrawTopText();
 }
 
 void TBoardView::DrawTopText() {

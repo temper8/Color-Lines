@@ -108,25 +108,23 @@ Eina_Bool jumping_ball(void *data)
 void TBoardView::JumpingBall(){
  if (selBall.x !=0) {
 
-		double x = (selBall.x-1)*squareSize  + left_margin;
-		double y = (selBall.y-1)*squareSize  + top_margin;
-	 tick +=0.15;
+	double x = (selBall.x-1)*squareSize  + left_margin;
+	double y = (selBall.y-1)*squareSize  + top_margin;
 
-	  DrawSquare(x,y);
-	  x = x + squareSize / 2 ;
-	  y = y + squareSize / 2 + 9*(1-std::abs(sin(tick)));
+	tick +=0.15;
+    DrawSquare(x,y);
+	x = x + squareSize / 2 ;
+	y = y + squareSize / 2 + 9*(1-std::abs(sin(tick)));
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
-	  DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
+	DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
 
-      cairo_surface_flush(surface);
+    cairo_surface_flush(surface);
 
-	  /* Display cairo drawing on screen */
-	  evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
-
+	/* Display cairo drawing on screen */
+	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
  }
-
 }
-void TBoardView::CreateAnimator(){
+void TBoardView::StartJumpingBallAnimator(){
   tick = 0;
   if (animator != NULL)
   	   ecore_animator_del(animator);
@@ -223,7 +221,7 @@ void TBoardView::OnClick(int x, int y) {
     	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
         my=(yy-1)*squareSize + top_margin + squareSize / 2;
 
-        CreateAnimator();
+        StartJumpingBallAnimator();
     	  //DrawSquare(xx,yy, true);
     }
     else {

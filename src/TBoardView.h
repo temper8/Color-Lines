@@ -55,7 +55,7 @@ private:
 	TPoint selBall;
 	TPoint destSquare;
 
-	void CreateAnimator();
+	void StartJumpingBallAnimator();
 	void DeleteAnimator();
 	void CreateMoveBallAnimator();
 	void DeleteMoveBallAnimator();

@@ -434,7 +434,7 @@ void TBoardView::DrawPath(double pos){
 
 void TBoardView::DrawHeader() {
 
-	int HeaderHeight = 80;
+	int HeaderHeight = squareSize+20;
 
 	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
 	//cairo_set_source(cairo, pattern1);
@@ -445,8 +445,13 @@ void TBoardView::DrawHeader() {
 	cairo_rectangle(cairo, 0, 0, myWidth, HeaderHeight);
 	cairo_fill(cairo);
 
-	DrawScore(10,45,linesBoard->score);
-	DrawScore(650,45,linesBoard->score);
+	DrawScore(10,65,linesBoard->score);
+	DrawScore(650,65,linesBoard->score);
+	for (int i = 0; i<3; i++) {
+		double x = 200 + 1.2*squareSize*i;
+		DrawSquare(x, 10);
+		DrawBall(x + squareSize/2, 10 + squareSize/2,  1, rand()%7+1);
+	}
 }
 
 void TBoardView::DrawScore(double x, double y, int score){

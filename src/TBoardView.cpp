@@ -462,6 +462,12 @@ void TBoardView::DrawScore(double x, double y, int score){
     cairo_fill(cairo);
 }
 
+
+
+//
+// test functions
+//
+
 void TBoardView::DrawTopText() {
 
 	char text[100] = {0};
@@ -481,10 +487,6 @@ void TBoardView::DrawTopText() {
     cairo_fill(cairo);
 
 }
-
-//
-// test functions
-//
 
 void TBoardView::DrawSF() {
 

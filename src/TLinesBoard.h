@@ -33,6 +33,8 @@ public:
 	int sf[12][12];
 	int counter;
 	int score;
+	int threeBalls[3];
+	void randThreeBalls();
 	bool initBalls;
 	std::vector<TPoint> path;
 	void initRandom();

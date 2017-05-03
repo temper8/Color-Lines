@@ -448,9 +448,9 @@ void TBoardView::DrawHeader() {
 	DrawScore(10,65,linesBoard->score);
 	DrawScore(650,65,linesBoard->score);
 	for (int i = 0; i<3; i++) {
-		double x = 200 + 1.2*squareSize*i;
+		double x = 200 + 1.1*squareSize*i;
 		DrawSquare(x, 10);
-		DrawBall(x + squareSize/2, 10 + squareSize/2,  1, rand()%7+1);
+		DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->threeBalls[i]);
 	}
 }
 

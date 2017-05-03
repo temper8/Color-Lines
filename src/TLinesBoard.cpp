@@ -17,10 +17,16 @@ TLinesBoard::TLinesBoard(int x, int y) {
 	for(int j=1; j<= sizeY; j++)
 	      square[i][j] = 0;
 	initBalls = false;
+	randThreeBalls();
 }
 
 TLinesBoard::~TLinesBoard() {
 	// TODO Auto-generated destructor stub
+}
+
+void TLinesBoard::randThreeBalls(){
+	for (int i=0;i<3;i++)
+		threeBalls[i] =  rand() % 7 +1;
 }
 
 void TLinesBoard::initRandom(){
@@ -244,13 +250,16 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
          if (new1<=new3) new3 = new3 + 1;
          if (new2<=new3) new3 = new3 + 1;
 
-         newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, rand() % 7 +1);
-         newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, rand() % 7 +1);
-         newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, rand() % 7 +1);
+         newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, threeBalls[0]);
+         newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, threeBalls[1]);
+         newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, threeBalls[2]);
 
          for (TPoint p :newBalls ) {
         	 square[p.x][p.y] = p.color;
          }
+
+         randThreeBalls();
+
 		return newBalls;
 	}
 	else {

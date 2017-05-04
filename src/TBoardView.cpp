@@ -50,6 +50,7 @@ void TBoardView::NewGame(){
 	linesBoard->newGame();
 	selBall.x = 0;
 	selBall.y = 0;
+	CairoDrawing();
 	ecore_timer_add(0.5, add_random_balls, this);
 }
 

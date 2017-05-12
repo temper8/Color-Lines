@@ -23,6 +23,13 @@ public:
         return *this;
     }
 
+    TPreferenceInt& operator= (const TPreferenceInt& right){
+        value = right.value;
+        update();
+        return *this;
+    }
+
+
     operator int() const {
         return value;
     }

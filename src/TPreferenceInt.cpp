@@ -22,3 +22,10 @@ int TPreferenceInt::Value(){
 void TPreferenceInt::Add(int a){
 	value += a;
 }
+
+
+
+TPreferenceInt& operator+=(TPreferenceInt& left, const int& right) {
+    left.value += right;
+    return left;
+}

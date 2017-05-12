@@ -14,8 +14,16 @@ public:
 	virtual ~TPreferenceInt();
     int Value();
     void Add(int a);
+
+    friend TPreferenceInt& operator+=(TPreferenceInt& left, const int& right);
+
+    operator int() const {
+        return value;
+    }
+
+
 private:
-  char *myKey;
+  const char *myKey;
   int value;
 };
 

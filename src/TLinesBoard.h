@@ -10,6 +10,7 @@
 
 #include <vector>
 
+#include "TPreferenceInt.h"
 
 struct TPoint
 {
@@ -32,7 +33,7 @@ public:
 	int square[12][12];
 	int sf[12][12];
 	int counter;
-	int score;
+	TPreferenceInt score;
 	int threeBalls[3];
 	void randThreeBalls();
 	bool initBalls;

@@ -540,7 +540,7 @@ void TBoardView::DrawTopText() {
         cairo_move_to(ad->cr, 30.0, 25.0);
     }*/
    // sprintf(text, "w = %d h = %d",myWidth, myHeight);
-    sprintf(text, "score = %d ",linesBoard->score);
+    sprintf(text, "score = %d ",(int)linesBoard->score);
     cairo_text_path(cairo, text);
     cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
     cairo_fill(cairo);

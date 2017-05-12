@@ -41,11 +41,12 @@ TPreferenceInt::~TPreferenceInt() {
 	// TODO Auto-generated destructor stub
 }
 
-TPreferenceInt& operator+=(TPreferenceInt& left, const int& right) {
+TPreferenceInt& operator+= (TPreferenceInt& left, const int& right) {
     left.value += right;
-    left.update();
+    if (right!=0) left.update();
     return left;
 }
+
 
 void TPreferenceInt::update(){
 	preference_set_int(myKey, value);

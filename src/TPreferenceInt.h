@@ -15,7 +15,13 @@ public:
 
 	void update();
 
-    friend TPreferenceInt& operator+=(TPreferenceInt& left, const int& right);
+    friend TPreferenceInt& operator+= (TPreferenceInt& left, const int& right);
+
+    TPreferenceInt& operator= (const int& right){
+        value = right;
+        update();
+        return *this;
+    }
 
     operator int() const {
         return value;

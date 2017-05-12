@@ -13,6 +13,7 @@ public:
 	TPreferenceInt(const char *key);
 	virtual ~TPreferenceInt();
 
+	void update();
 
     friend TPreferenceInt& operator+=(TPreferenceInt& left, const int& right);
 

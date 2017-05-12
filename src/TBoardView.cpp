@@ -182,6 +182,7 @@ void TBoardView::OnEndMoveBall(){
 
 	}
 	else {
+		DrawHeader();
 		ecore_animator_timeline_add (1.0, disappearance_lines, this);
 	}
 	//CairoDrawing();

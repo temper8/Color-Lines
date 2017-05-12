@@ -34,6 +34,7 @@ public:
 	int sf[12][12];
 	int counter;
 	TPreferenceInt score;
+	TPreferenceInt record;
 	int threeBalls[3];
 	void randThreeBalls();
 	bool initBalls;

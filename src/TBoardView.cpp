@@ -499,7 +499,7 @@ void TBoardView::DrawHeader() {
 	cairo_rectangle(cairo, 0, 0, myWidth, HeaderHeight);
 	cairo_fill(cairo);
 
-	DrawScore(10,65,linesBoard->score);
+	DrawScore(10,65,linesBoard->record);
 	DrawScore(650,65,linesBoard->score);
 	for (int i = 0; i<3; i++) {
 		double x = 200 + 1.1*squareSize*i;

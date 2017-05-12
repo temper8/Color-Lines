@@ -8,7 +8,7 @@
 #include "TLinesBoard.h"
 #include <cstdlib>
 
-TLinesBoard::TLinesBoard(int x, int y): score("score") {
+TLinesBoard::TLinesBoard(int x, int y): score("score"), record("record") {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
@@ -185,6 +185,9 @@ int TLinesBoard::checkLines(){
  }
 
  score +=clearBalls.size();
+
+ if (score>record) record = score;
+
  return clearBalls.size();
 }
 

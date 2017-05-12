@@ -48,6 +48,7 @@ public:
 	std::vector<TPoint> clearBalls;
 
 	void newGame();
+	void restoreGame();
 
 private:
 

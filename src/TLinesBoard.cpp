@@ -12,7 +12,10 @@ TLinesBoard::TLinesBoard(int x, int y): score("score") {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
-	newGame();
+	if (score == 0)
+		newGame();
+	else restoreGame();
+
 }
 
 TLinesBoard::~TLinesBoard() {
@@ -21,6 +24,15 @@ TLinesBoard::~TLinesBoard() {
 
 void TLinesBoard::newGame() {
 	score = 0;
+	for(int i=1; i<= sizeX; i++)
+	for(int j=1; j<= sizeY; j++)
+	      square[i][j] = 0;
+	initBalls = false;
+	randThreeBalls();
+}
+
+void TLinesBoard::restoreGame() {
+	//score = 0;
 	for(int i=1; i<= sizeX; i++)
 	for(int j=1; j<= sizeY; j++)
 	      square[i][j] = 0;

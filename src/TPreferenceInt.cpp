@@ -9,9 +9,11 @@
 
 #include <app_preference.h>
 
+#define LOG_TAG "Color Lines"
+
 #include <dlog.h>
 
-#define LOG_TAG "Color Lines"
+
 
 TPreferenceInt::TPreferenceInt(const char *key): myKey(key), value(0) {
 	// TODO Auto-generated constructor stub

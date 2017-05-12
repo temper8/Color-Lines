@@ -7,9 +7,9 @@
 
 #include "TDrawingView.h"
 
-TDrawingView::TDrawingView() {
+TDrawingView::TDrawingView():surface(NULL) {
 	// TODO Auto-generated constructor stub
-	surface = NULL;
+
 }
 
 TDrawingView::~TDrawingView() {

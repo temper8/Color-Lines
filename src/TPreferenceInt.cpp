@@ -15,14 +15,6 @@ TPreferenceInt::~TPreferenceInt() {
 	// TODO Auto-generated destructor stub
 }
 
-int TPreferenceInt::Value(){
- return value;
-}
-
-void TPreferenceInt::Add(int a){
-	value += a;
-}
-
 
 
 TPreferenceInt& operator+=(TPreferenceInt& left, const int& right) {

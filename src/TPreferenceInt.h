@@ -12,8 +12,7 @@ class TPreferenceInt {
 public:
 	TPreferenceInt(const char *key);
 	virtual ~TPreferenceInt();
-    int Value();
-    void Add(int a);
+
 
     friend TPreferenceInt& operator+=(TPreferenceInt& left, const int& right);
 

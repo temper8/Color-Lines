@@ -9,6 +9,9 @@
 #define TLINESBOARD_H_
 
 #include <vector>
+//#include <array>
+
+#include "TArray2D.h"
 
 #include "TPreferenceInt.h"
 
@@ -30,7 +33,9 @@ public:
 public:
 
 	int sizeX, sizeY;
-	int square[12][12];
+	TArray2D square;
+	 //std::array<std::array<int, 12>, 12> square;
+	//int square[12][12];
 	int sf[12][12];
 	int counter;
 	TPreferenceInt score;

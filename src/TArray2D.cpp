@@ -17,7 +17,7 @@ TArray2D::~TArray2D() {
 }
 
 void TArray2D::clear(){
-
+	   for(auto &i: array) for(auto &k: i) k = 0;
 }
 
 void TArray2D::save(){

@@ -24,6 +24,7 @@ TLinesBoard::~TLinesBoard() {
 
 void TLinesBoard::newGame() {
 	score = 0;
+	square.clear();
 	for(int i=1; i<= sizeX; i++)
 	for(int j=1; j<= sizeY; j++)
 	      square[i][j] = 0;

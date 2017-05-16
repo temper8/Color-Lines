@@ -46,14 +46,12 @@ void TArray2D::load(){
 	}
 
 	if (existing) {
-		char** s_value;
-		ret = preference_get_string(key, s_value);
+		char *str;
+		ret = preference_get_string(key, &str);
 		if (ret == PREFERENCE_ERROR_NONE) {
-			//value = i_value;
-			dlog_print(DLOG_DEBUG, LOG_TAG, "get key %s value = %s.", key, *s_value);
-			int ii = 0;
-			char *str = *s_value;
-			for(auto &i: array) for(auto &k: i) k = (int)str[ii++] - 48;
+			dlog_print(DLOG_DEBUG, LOG_TAG, "get key %s value = %s.", key, str);
+			int i = 0;
+			for(auto &row: array) for(auto &k: row) k = (int)str[i++] - 48;
 		}
 	}
 }

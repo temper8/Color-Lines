@@ -29,6 +29,7 @@ void TLinesBoard::newGame() {
 	for(int j=1; j<= sizeY; j++)
 	      square[i][j] = 0;
 	initBalls = false;
+	initRandom();
 	randThreeBalls();
 }
 
@@ -37,8 +38,9 @@ void TLinesBoard::restoreGame() {
 	for(int i=1; i<= sizeX; i++)
 	for(int j=1; j<= sizeY; j++)
 	      square[i][j] = 0;
-	initBalls = false;
-	randThreeBalls();
+	square.load();
+	initBalls = true;
+	//randThreeBalls();
 }
 
 void TLinesBoard::randThreeBalls(){
@@ -60,11 +62,11 @@ std::vector<TPoint> TLinesBoard::AddRandomBalls(){
 	std::vector<TPoint> newBalls;
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
-	      square[i][j] = 0;
-	      int rnd =  rand() % 35;
-	      if (rnd<7){
-	    	  square[i][j] = 1 + rnd;
-	      	  newBalls.emplace_back(i, j, rnd +1);
+	      //square[i][j] = 0;
+	      //int rnd =  rand() % 35;
+	      if (square[i][j]>0){
+	    	//  square[i][j] = 1 + rnd;
+	      	  newBalls.emplace_back(i, j, square[i][j]);
 	      }
 	  }
 	initBalls = true;
@@ -277,7 +279,7 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
          for (TPoint p :newBalls ) {
         	 square[p.x][p.y] = p.color;
          }
-
+         square.save();
          randThreeBalls();
 
 		return newBalls;

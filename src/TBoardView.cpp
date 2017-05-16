@@ -25,7 +25,7 @@ TBoardView::TBoardView() {
 	mx = 250;
 	my = 250;
 	linesBoard = new TLinesBoard(8,11);
-	linesBoard->initRandom();
+	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
 

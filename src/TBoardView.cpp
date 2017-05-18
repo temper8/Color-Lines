@@ -107,7 +107,7 @@ void TBoardView::JumpingBall(){
 	double y = (selBall.y-1)*squareSize  + top_margin;
 
 	tick +=0.15;
-    DrawSquare(x,y);
+	graphics.DrawSquare(x,y);
 	x = x + squareSize / 2 ;
 	y = y + squareSize / 2 + 9*(1-std::abs(sin(tick)));
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
@@ -281,7 +281,7 @@ void TBoardView::DrawBalls() {
 void TBoardView::DrawSquare(TPoint p){
 	double x = (p.x-1)*squareSize  + left_margin;
 	double y = (p.y-1)*squareSize  + top_margin;
-	DrawSquare(x, y);
+	graphics.DrawSquare(x, y);
 }
 
 
@@ -302,7 +302,7 @@ void TBoardView::DrawBoard(){
 		for (int y = 0; y< linesBoard->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-			DrawSquare(xx, yy);
+			graphics.DrawSquare(xx, yy);
 		}
 
 	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);

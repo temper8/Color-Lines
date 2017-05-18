@@ -15,9 +15,10 @@ class TGraphics {
 public:
 	TGraphics();
 	virtual ~TGraphics();
+	void setParentImage(Evas_Object *image) {myImage = image; };
 
 private:
-	Evas_Object *image;
+	Evas_Object *myImage;
 	Evas_Coord width;
 	Evas_Coord height;
 	cairo_t *cairo;

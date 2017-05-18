@@ -10,6 +10,7 @@
 
 #include "TView.h"
 #include <cairo.h>
+#include "TGraphics.h"
 
 
 class TDrawingView: public TView {
@@ -18,6 +19,9 @@ public:
 	virtual ~TDrawingView();
 
 public:
+
+	TGraphics graphics;
+
 	Evas_Object *image;
 	Evas_Coord width;
 	Evas_Coord height;

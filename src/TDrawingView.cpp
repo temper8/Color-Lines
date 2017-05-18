@@ -46,6 +46,8 @@ void TDrawingView::CreateContent(){
 	image = evas_object_image_filled_add(evas_object_evas_get(conform));
 	evas_object_show(image);
 
+	graphics.setParentImage(image);
+
     // Add gesture layer
 
     Evas_Object *gesture_layer = elm_gesture_layer_add(conform);

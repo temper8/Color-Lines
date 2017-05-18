@@ -364,19 +364,10 @@ void TBoardView::DrawPath(double pos){
 
 void TBoardView::DrawHeader() {
 
-	int HeaderHeight = squareSize+20;
+	graphics.DrawHeaderBG();
 
-	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
-	//cairo_set_source(cairo, pattern1);
-	//cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
-
-	cairo_set_source_rgb(cairo, 255.0/255.0, 217.0/255.0, 102.0/255.0);
-
-	cairo_rectangle(cairo, 0, 0, myWidth, HeaderHeight);
-	cairo_fill(cairo);
-
-	DrawScore(10,65,linesBoard->record);
-	DrawScore(650,65,linesBoard->score);
+	graphics.DrawScore(10,65,linesBoard->record);
+	graphics.DrawScore(650,65,linesBoard->score);
 	for (int i = 0; i<3; i++) {
 		double x = 200 + 1.1*squareSize*i;
 		graphics.DrawSquare(x, 10);

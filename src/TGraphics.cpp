@@ -217,4 +217,15 @@ void TGraphics::DrawScore(double x, double y, int score){
     cairo_fill(cairo);
 }
 
+void TGraphics::DrawHeaderBG(){
+	int HeaderHeight = squareSize+20;
 
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	//cairo_set_source(cairo, pattern1);
+	//cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
+
+	cairo_set_source_rgb(cairo, 255.0/255.0, 217.0/255.0, 102.0/255.0);
+
+	cairo_rectangle(cairo, 0, 0, myWidth, HeaderHeight);
+	cairo_fill(cairo);
+}

@@ -17,6 +17,8 @@ public:
 	virtual ~TGraphics();
 	void setParentImage(Evas_Object *image) {myImage = image; };
 
+	void Initialize(int width, int height);
+
 private:
 	Evas_Object *myImage;
 	Evas_Coord width;

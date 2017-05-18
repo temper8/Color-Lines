@@ -60,6 +60,9 @@ void TDrawingView::CreateContent(){
 void TDrawingView::Resize(int width, int height) {
 	myWidth = width;
 	myHeight = height;
+
+	graphics.Initialize(width, height);
+
 	if (surface) {
 		/* Destroy previous cairo canvas */
 		cairo_surface_destroy(surface);

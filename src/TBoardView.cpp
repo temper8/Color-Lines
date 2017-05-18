@@ -113,10 +113,9 @@ void TBoardView::JumpingBall(){
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
 
-    cairo_surface_flush(surface);
 
-	/* Display cairo drawing on screen */
-	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+	graphics.Flush();
+
  }
 }
 void TBoardView::StartJumpingBallAnimator(){
@@ -133,8 +132,7 @@ void TBoardView::DeleteAnimator(){
 
 void TBoardView::MoveBall(double pos) {
 	DrawPath(pos);
-    cairo_surface_flush(surface);
-	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+	graphics.Flush();
 	if (pos == 1.0) OnEndMoveBall();
 }
 
@@ -188,8 +186,7 @@ void TBoardView::AppearanceNewBall(double pos) {
 	for ( TPoint p : NewBalls )
 		DrawBall(p,  pos);
 
-	cairo_surface_flush(surface);
-	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+	graphics.Flush();
 }
 
 void TBoardView::DisappearanceLines(double pos){
@@ -199,8 +196,7 @@ void TBoardView::DisappearanceLines(double pos){
 		DrawBall(p,  1-pos);
 	}
 
-    cairo_surface_flush(surface);
-	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
+	graphics.Flush();
 }
 
 void TBoardView::OnClick(int x, int y) {
@@ -274,11 +270,7 @@ void TBoardView::CairoDrawing(){
 	//DrawGradienBall();
 	//DrawPath(0.5);
 
-	/* Render stacked cairo APIs on cairo context's surface */
-	cairo_surface_flush(surface);
-	/* Display cairo drawing on screen */
-	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
-
+	graphics.Flush();
 }
 
 void TBoardView::AddRandomBalls(){

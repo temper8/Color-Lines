@@ -6,6 +6,11 @@
  */
 
 #include "TGraphics.h"
+#include <app.h>
+//#include <Elementary.h>
+//#include <system_settings.h>
+//#include <efl_extension.h>
+
 
 #define BUFLEN 500
 
@@ -20,8 +25,8 @@ TGraphics::~TGraphics() {
 
 void TGraphics::Initialize(int width, int height){
 
-//	myWidth = width;
-//	myHeight = height;
+	myWidth = width;
+	myHeight = height;
 
 	if (surface) {
 		/* Destroy previous cairo canvas */
@@ -62,4 +67,12 @@ void TGraphics::LoadBgImage(){
     snprintf(buff, 300, "%s%s", path, "pat9.png");
     bg_image = cairo_image_surface_create_from_png(buff);
     free(path);
+}
+
+void TGraphics::Flush(){
+
+	/* Render stacked cairo APIs on cairo context's surface */
+	cairo_surface_flush(surface);
+	/* Display cairo drawing on screen */
+	evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);
 }

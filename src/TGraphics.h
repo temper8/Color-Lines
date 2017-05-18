@@ -21,6 +21,8 @@ public:
 
 	void LoadBgImage();
 
+	void Flush();
+
 private:
 	Evas_Object *myImage;
 	Evas_Coord width;
@@ -28,6 +30,10 @@ private:
 	cairo_t *cairo;
 	cairo_surface_t *surface;
 	unsigned char *pixels;
+
+	int myWidth, myHeight;
+
+	cairo_surface_t *bg_image;
 };
 
 #endif /* TGRAPHICS_H_ */

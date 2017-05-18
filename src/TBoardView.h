@@ -60,7 +60,7 @@ private:
 	void CreateMoveBallAnimator();
 	void DeleteMoveBallAnimator();
 	Ecore_Animator *animator;
-	cairo_surface_t *bg_image;
+
 public:
 	std::vector<TPoint> NewBalls;
 	double tick;

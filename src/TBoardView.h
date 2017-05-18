@@ -25,17 +25,17 @@ public:
 
     TLinesBoard* linesBoard;
     void DrawBoard();
-    void DrawTopText();
+  //  void DrawTopText();
     void DrawBall(double x, double y, int color);
     void DrawBall(double x, double y, double r, int color);
     void DrawBall(TPoint p, double r, int color);
     void DrawBall(TPoint p, double r);
    // void DrawRoundRectangle(double x, double y, double w, double h, double r);
     void AddRandomBalls();
-    void Test7Colors();
+  //  void Test7Colors();
     void DrawBalls();
-    void DrawGradienBall();
-    void DrawSF();
+  //  void DrawGradienBall();
+  //  void DrawSF();
     void DrawPath();
     void DrawPath(double pos);
     virtual void OnClick(int x, int y);

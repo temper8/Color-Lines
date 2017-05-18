@@ -9,7 +9,7 @@
 
 #include <cmath>
 
-#define BUFLEN 500
+
 
 static Eina_Bool
 add_random_balls(void *data)
@@ -29,14 +29,8 @@ TBoardView::TBoardView() {
 	selBall.x = 0;
 	selBall.y = 0;
 
-	//  Load bg image, create surface from bg image
+    graphics.LoadBgImage();
 
-	char buff[BUFLEN];
-    char *path = app_get_shared_resource_path();
-
-    snprintf(buff, 300, "%s%s", path, "pat9.png");
-    bg_image = cairo_image_surface_create_from_png(buff);
-    free(path);
     ecore_timer_add(0.5, add_random_balls, this);
 }
 
@@ -279,14 +273,14 @@ void TBoardView::CairoDrawing(){
 //	DrawSF();
 	//DrawGradienBall();
 	//DrawPath(0.5);
+
 	/* Render stacked cairo APIs on cairo context's surface */
-
 	cairo_surface_flush(surface);
-
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(image, 0, 0, myWidth, myHeight);
 
 }
+
 void TBoardView::AddRandomBalls(){
     NewBalls = linesBoard->AddRandomBalls();
 	ecore_animator_timeline_add (1.0, appearance_new_ball, this);

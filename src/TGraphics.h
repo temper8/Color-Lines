@@ -19,6 +19,8 @@ public:
 
 	void Initialize(int width, int height);
 
+	void LoadBgImage();
+
 private:
 	Evas_Object *myImage;
 	Evas_Coord width;

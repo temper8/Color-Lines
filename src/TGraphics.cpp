@@ -7,6 +7,8 @@
 
 #include "TGraphics.h"
 
+#define BUFLEN 500
+
 TGraphics::TGraphics() {
 	// TODO Auto-generated constructor stub
 
@@ -48,4 +50,16 @@ void TGraphics::Initialize(int width, int height){
 		cairo = cairo_create(surface);
 
 	}
+}
+
+
+void TGraphics::LoadBgImage(){
+	//  Load bg image, create surface from bg image
+
+	char buff[BUFLEN];
+    char *path = app_get_shared_resource_path();
+
+    snprintf(buff, 300, "%s%s", path, "pat9.png");
+    bg_image = cairo_image_surface_create_from_png(buff);
+    free(path);
 }

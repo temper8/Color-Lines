@@ -294,6 +294,7 @@ void TBoardView::DrawRoundRectangle(double x, double y, double w, double h, doub
 	cairo_rel_line_to (cairo, 0, -h+2*r);
 	cairo_close_path (cairo);
 }
+
 void TBoardView::DrawSquare(double x, double y){
 
 	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);

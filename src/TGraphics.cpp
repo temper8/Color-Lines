@@ -14,7 +14,7 @@
 
 #define BUFLEN 500
 
-TGraphics::TGraphics() {
+TGraphics::TGraphics():surface(NULL) {
 	// TODO Auto-generated constructor stub
 
 }

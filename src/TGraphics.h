@@ -27,6 +27,9 @@ public:
     void DrawRoundRectangle(double x, double y, double w, double h, double r);
     void DrawSquare(double x, double y);
 
+    void SetPatternForSquare(int x, int y, int r);
+    void SetColor(int color);
+
 private:
 	Evas_Object *myImage;
 	Evas_Coord width;

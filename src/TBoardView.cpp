@@ -309,39 +309,6 @@ void TBoardView::DrawBoard(){
 	 cairo_set_line_width(cairo, 1);
 }
 
-void TBoardView::SetPatternForSquare(int x, int y, int r){
-//  gold
-//  double r1 = 1.0; double r2 = 1.0;
-//  double g1 = 242.0/255.0; double g2 = 217.0/255.0;
-//  double b1 = 204.0/255.0; double b2 = 102.0/255.0;
-
-	// sepiya
-	  double r2 = 159.0/255.0; double r1 = 191.0/255.0;
-	  double g2 = 142.0/255.0; double g1 = 178.0/255.0;
-	  double b2 = 126.0/255.0; double b1 = 165.0/255.0;
-    cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - r/4 , y - r/4  , r/2.5 , x, y, 1.5*r);
-	cairo_pattern_add_color_stop_rgba(pattern1, 1.0, r1, g1, b1, 0.8);
-	cairo_pattern_add_color_stop_rgba(pattern1, 0.0, r2, g2, b2, 0.5);
-
-	cairo_set_source(cairo, pattern1);
-}
-
-void TBoardView::SetColor(int color){
-	switch (color) {
-	case 0: cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0); break;
-	case 1: cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9); break;
-	case 2: cairo_set_source_rgba(cairo, 0.2, 1.0, 0.2, 0.9); break;
-	case 3: cairo_set_source_rgba(cairo, 0.2, 0.2, 1.0, 0.9); break;
-	case 4: cairo_set_source_rgba(cairo, 1.0, 1.0, 0.2, 0.9); break;
-	case 5: cairo_set_source_rgba(cairo, 1.0, 0.0, 1.0, 0.9); break;
-	case 6: cairo_set_source_rgba(cairo, 0.0, 1.0, 1.0, 0.9); break;
-	case 7: cairo_set_source_rgba(cairo, 1.0, 1.0, 1.0, 0.9); break;
-
-	default:
-	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
-	}
-}
-
 void TBoardView::SetPattern(double x,double y, int radius, int color){
 
 	double r,g,b;

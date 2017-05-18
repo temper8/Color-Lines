@@ -384,20 +384,6 @@ void TBoardView::DrawHeader() {
 	}
 }
 
-void TBoardView::DrawScore(double x, double y, int score){
-	char text[16] = {0};
-    cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-
-    cairo_set_font_size(cairo, 50);
-    cairo_move_to(cairo, x, y);
-
-    sprintf(text, "%d",score);
-    cairo_text_path(cairo, text);
-    cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
-    cairo_fill(cairo);
-}
-
-
 
 //
 // test functions

@@ -326,20 +326,7 @@ void TBoardView::DrawBall(double x, double y, int color){
 	DrawBall(x,y,1,color);
 }
 
-void TBoardView::DrawBall(double x, double y, double r, int color){
-	if (color == 0) return;
 
-
-	double  radius = r * 3*squareSize / 8;
-
-	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
-
-	//SetColor(color);
-	SetPattern(x,y, radius, color);
-
-	cairo_arc(cairo, x, y, radius, 0, 2*M_PI);
-	cairo_fill(cairo);
-}
 
 void TBoardView::DrawPath(){
 	if (linesBoard->path.size()>0) {
@@ -392,7 +379,7 @@ void TBoardView::DrawHeader() {
 	DrawScore(650,65,linesBoard->score);
 	for (int i = 0; i<3; i++) {
 		double x = 200 + 1.1*squareSize*i;
-		DrawSquare(x, 10);
+		graphics.DrawSquare(x, 10);
 		DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->threeBalls[i]);
 	}
 }

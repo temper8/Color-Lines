@@ -26,6 +26,7 @@ public:
 
     void DrawRoundRectangle(double x, double y, double w, double h, double r);
     void DrawSquare(double x, double y);
+    void DrawBall(double x, double y, double r, int color);
 
     void SetPatternForSquare(int x, int y, int r);
     void SetPattern(double x,double y, int radius, int color);

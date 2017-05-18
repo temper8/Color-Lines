@@ -188,3 +188,17 @@ void TGraphics::SetColor(int color){
 	}
 }
 
+void TGraphics::DrawBall(double x, double y, double r, int color){
+
+	if (color == 0) return;
+
+	double  radius = r * 3*squareSize / 8;
+
+	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	//SetColor(color);
+	SetPattern(x,y, radius, color);
+
+	cairo_arc(cairo, x, y, radius, 0, 2*M_PI);
+	cairo_fill(cairo);
+}

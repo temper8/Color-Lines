@@ -24,6 +24,9 @@ public:
 	void Flush();
     void FillBackgroud();
 
+    void DrawRoundRectangle(double x, double y, double w, double h, double r);
+    void DrawSquare(double x, double y);
+
 private:
 	Evas_Object *myImage;
 	Evas_Coord width;

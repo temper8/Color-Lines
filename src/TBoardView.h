@@ -30,7 +30,7 @@ public:
     void DrawBall(double x, double y, double r, int color);
     void DrawBall(TPoint p, double r, int color);
     void DrawBall(TPoint p, double r);
-    void DrawRoundRectangle(double x, double y, double w, double h, double r);
+   // void DrawRoundRectangle(double x, double y, double w, double h, double r);
     void AddRandomBalls();
     void Test7Colors();
     void DrawBalls();
@@ -47,7 +47,7 @@ private:
 
     void DrawHeader();
     void DrawScore(double x, double y, int score);
-    void DrawSquare(double x, double y);
+ //   void DrawSquare(double x, double y);
     void DrawSquare(TPoint p);
 
 

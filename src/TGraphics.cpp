@@ -91,3 +91,36 @@ void TGraphics::FillBackgroud(){
 
 }
 
+void TGraphics::DrawRoundRectangle(double x, double y, double w, double h, double r){
+	cairo_move_to (cairo, x+r, y);
+	cairo_rel_line_to (cairo, w-2*r, 0);
+	cairo_rel_line_to (cairo, r, r);
+	cairo_rel_line_to (cairo, 0, h-2*r);
+	cairo_rel_line_to (cairo, -r, r);
+	cairo_rel_line_to (cairo, -w+2*r, 0);
+	cairo_rel_line_to (cairo, -r, -r);
+	cairo_rel_line_to (cairo, 0, -h+2*r);
+	cairo_close_path (cairo);
+}
+
+void TGraphics::DrawSquare(double x, double y){
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+
+	cairo_set_source(cairo, pattern1);
+	cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
+	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	cairo_fill(cairo);
+
+
+	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
+	//cairo_set_source_rgba(cairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
+	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	cairo_fill (cairo);
+	//cairo_set_source_rgba(cairo, 250.0/255.0, 250.0/255.0, 250.0/255.0, 1.0);
+	//cairo_rectangle (cairo, x+2, y+2, squareSize-4, squareSize-4);
+	//DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	//cairo_set_line_width(cairo, 1);
+	//cairo_stroke(cairo);
+	//cairo_fill (cairo);
+}

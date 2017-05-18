@@ -22,6 +22,7 @@ public:
 	void LoadBgImage();
 
 	void Flush();
+    void FillBackgroud();
 
 private:
 	Evas_Object *myImage;

@@ -248,16 +248,8 @@ void TBoardView::OnClick(int x, int y) {
 };
 
 void TBoardView::CairoDrawing(){
-	cairo_set_source_rgb(cairo, 0.5, 0.5, 1.0);
-	cairo_paint(cairo);
 
-	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
-
-	cairo_set_source(cairo, pattern1);
-	cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
-	cairo_rectangle(cairo, 0, 0, myWidth, myHeight);
-	cairo_fill(cairo);
-
+	graphics.FillBackgroud();
 
 	DrawHeader();
 

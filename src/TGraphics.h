@@ -28,7 +28,10 @@ public:
     void DrawSquare(double x, double y);
 
     void SetPatternForSquare(int x, int y, int r);
+    void SetPattern(double x,double y, int radius, int color);
     void SetColor(int color);
+
+    int squareSize;
 
 private:
 	Evas_Object *myImage;

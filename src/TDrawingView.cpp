@@ -63,35 +63,8 @@ void TDrawingView::Resize(int width, int height) {
 
 	graphics.Initialize(width, height);
 
-	if (surface) {
-		/* Destroy previous cairo canvas */
-		cairo_surface_destroy(surface);
-		cairo_destroy(cairo);
-		surface = NULL;
-		cairo = NULL;
-	}
+	CairoDrawing();
 
-	/* When window resize event occurred
-		If no cairo surface exist or destroyed
-		Create cairo surface with resized Window size */
-	if (!surface) {
-		/* Get screen size */
-		//evas_object_geometry_get(obj, NULL, NULL, &s_info.width, &s_info.height);
-
-		/* Set image size */
-		evas_object_image_size_set(image, width, height);
-		evas_object_resize(image, width, height);
-		evas_object_show(image);
-
-		/* Create new cairo canvas for resized window */
-		pixels = (unsigned char*)evas_object_image_data_get(image, 1);
-		surface = cairo_image_surface_create_for_data(pixels,
-						CAIRO_FORMAT_ARGB32, width, height, width * 4);
-		cairo = cairo_create(surface);
-
-		/* Show cairo text */
-		CairoDrawing();
-	}
 }
 
 

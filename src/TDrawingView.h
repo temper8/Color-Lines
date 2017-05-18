@@ -25,9 +25,9 @@ public:
 	Evas_Object *image;
 	Evas_Coord width;
 	Evas_Coord height;
-	cairo_t *cairo;
-	cairo_surface_t *surface;
-	unsigned char *pixels;
+	//cairo_t *cairo;
+	//cairo_surface_t *surface;
+	//unsigned char *pixels;
 
 	virtual void Resize(int width, int height);
 	virtual void CairoDrawing();

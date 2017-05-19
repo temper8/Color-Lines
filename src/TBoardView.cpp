@@ -367,8 +367,9 @@ void TBoardView::DrawHeader() {
 
 	graphics.DrawScore(10,65,linesBoard->record);
 	graphics.DrawScore(650,65,linesBoard->score);
+	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {
-		double x = 200 + 1.1*squareSize*i;
+		double x = dx + 1.1*squareSize*i;
 		graphics.DrawSquare(x, 10);
 		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->threeBalls[i]);
 	}

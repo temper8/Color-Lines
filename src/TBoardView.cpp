@@ -100,6 +100,7 @@ Eina_Bool jumping_ball(void *data)
     bv->JumpingBall();
     return EINA_TRUE;
 }
+
 void TBoardView::JumpingBall(){
  if (selBall.x !=0) {
 
@@ -263,10 +264,6 @@ void TBoardView::CairoDrawing(){
 
 	if (linesBoard->initBalls) DrawBalls();
 
-//	DrawSF();
-	//DrawGradienBall();
-	//DrawPath(0.5);
-
 	graphics.Flush();
 }
 
@@ -299,17 +296,12 @@ void TBoardView::DrawBoard(){
 	int BoardHeight = squareSize * linesBoard->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
 
-//	cairo_set_line_width(cairo, 3);
-
 	for (int x = 0; x< linesBoard->sizeX; x++)
 		for (int y = 0; y< linesBoard->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
 			graphics.DrawSquare(xx, yy);
 		}
-
-//	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);
-//	 cairo_set_line_width(cairo, 1);
 }
 
 

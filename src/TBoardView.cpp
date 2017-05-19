@@ -293,10 +293,11 @@ void TBoardView::DrawBoard(){
 	left_margin = ( myWidth - BoardWidth)/2;
 
 	squareSize = BoardWidth / linesBoard->sizeX;
+	graphics.squareSize = squareSize;
 	int BoardHeight = squareSize * linesBoard->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
 
-	cairo_set_line_width(cairo, 3);
+//	cairo_set_line_width(cairo, 3);
 
 	for (int x = 0; x< linesBoard->sizeX; x++)
 		for (int y = 0; y< linesBoard->sizeY; y++) {
@@ -305,25 +306,25 @@ void TBoardView::DrawBoard(){
 			graphics.DrawSquare(xx, yy);
 		}
 
-	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);
-	 cairo_set_line_width(cairo, 1);
+//	 cairo_set_source_rgb(cairo, 0.5,0.5,0.5);
+//	 cairo_set_line_width(cairo, 1);
 }
 
 
 void TBoardView::DrawBall(TPoint p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-	DrawBall(x, y, r, p.color);
+	graphics.DrawBall(x, y, r, p.color);
 }
 
 void TBoardView::DrawBall(TPoint p, double r, int color){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-	DrawBall(x, y, r, color);
+	graphics.DrawBall(x, y, r, color);
 }
 
 void TBoardView::DrawBall(double x, double y, int color){
-	DrawBall(x,y,1,color);
+	graphics.DrawBall(x,y,1,color);
 }
 
 
@@ -335,7 +336,7 @@ void TBoardView::DrawPath(){
 		for ( TPoint p : linesBoard->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;
-			DrawBall(xx, yy,  0.4, color);
+			graphics.DrawBall(xx, yy,  0.4, color);
 		}
 
 	}
@@ -371,7 +372,7 @@ void TBoardView::DrawHeader() {
 	for (int i = 0; i<3; i++) {
 		double x = 200 + 1.1*squareSize*i;
 		graphics.DrawSquare(x, 10);
-		DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->threeBalls[i]);
+		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->threeBalls[i]);
 	}
 }
 

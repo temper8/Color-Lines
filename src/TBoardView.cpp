@@ -267,14 +267,14 @@ void TBoardView::DrawSquare(TPoint p){
 
 void TBoardView::CalcViewMarkup(){
 
-	int BoardWidth = myWidth - 20;
+	double BoardWidth = myWidth - 20;
 
 	left_margin = ( myWidth - BoardWidth)/2;
 
 	squareSize = BoardWidth / linesBoard->sizeX;
 	graphics.squareSize = squareSize;
 
-	int BoardHeight = squareSize * linesBoard->sizeY;
+	double BoardHeight = squareSize * linesBoard->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
 }
 

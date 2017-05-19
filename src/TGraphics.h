@@ -34,12 +34,12 @@ public:
     void SetPattern(double x,double y, int radius, int color);
     void SetColor(int color);
 
-    int squareSize;
+    double squareSize;
 
 private:
 	Evas_Object *myImage;
-	Evas_Coord width;
-	Evas_Coord height;
+	//Evas_Coord width;
+	//Evas_Coord height;
 	cairo_t *cairo;
 	cairo_surface_t *surface;
 	unsigned char *pixels;

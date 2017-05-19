@@ -22,8 +22,7 @@ add_random_balls(void *data)
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
-	mx = 250;
-	my = 250;
+
 	linesBoard = new TLinesBoard(8,11);
 	//linesBoard->initRandom();
 	selBall.x = 0;
@@ -126,7 +125,7 @@ void TBoardView::StartJumpingBallAnimator(){
   JumpingAnimator = ecore_animator_add(jumping_ball, this);
 }
 
-void TBoardView::DeleteAnimator(){
+void TBoardView::DeleteJumpingBallAnimator(){
 	if (JumpingAnimator != NULL)
 	   ecore_animator_del(JumpingAnimator);
 }
@@ -145,10 +144,9 @@ Eina_Bool move_ball(void *data, double pos)
 }
 
 void TBoardView::CreateMoveBallAnimator(){
-//	if (animator != NULL)
-//	  	   ecore_animator_del(animator);
 	ecore_animator_timeline_add (1.0, move_ball, this);
 }
+
 void TBoardView::DeleteMoveBallAnimator(){
 
 }
@@ -178,8 +176,6 @@ void TBoardView::OnEndMoveBall(){
 		DrawHeader();
 		ecore_animator_timeline_add (1.0, disappearance_lines, this);
 	}
-	//CairoDrawing();
-
 }
 
 void TBoardView::AppearanceNewBall(double pos) {
@@ -201,8 +197,6 @@ void TBoardView::DisappearanceLines(double pos){
 }
 
 void TBoardView::OnClick(int x, int y) {
-	mx=x;
-	my=y;
 
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
@@ -211,22 +205,10 @@ void TBoardView::OnClick(int x, int y) {
     	selBall.x = xx;
     	selBall.y = yy;
 
-    	mx=(xx-1)*squareSize + left_margin + squareSize / 2;
-        my=(yy-1)*squareSize + top_margin + squareSize / 2;
-
         StartJumpingBallAnimator();
-    	  //DrawSquare(xx,yy, true);
     }
     else {
-    	if (selBall.x == 0) {
-        	mx=100;
-        	my=100;
-
-    	}
-    	else {
-
-    		mx=(xx-1)*squareSize + left_margin + squareSize / 2;
-    		my=(yy-1)*squareSize + top_margin + squareSize / 2;
+    	if (selBall.x > 0)  {
 
     		destSquare.x = xx;
     		destSquare.y = yy;
@@ -237,16 +219,14 @@ void TBoardView::OnClick(int x, int y) {
             	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
             	linesBoard->square[selBall.x][selBall.y] = 0;
             	 selBall.x = 0;
-            	 DeleteAnimator();
-            	CreateMoveBallAnimator();
+            	 DeleteJumpingBallAnimator();
+            	 CreateMoveBallAnimator();
 
             }
 
     	}
 
     }
-	//linesBoard->initRandom();
-	//CairoDrawing();
 };
 
 void TBoardView::AddRandomBalls(){

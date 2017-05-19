@@ -54,12 +54,12 @@ private:
     void DrawSquare(TPoint p);
 
 
-    int mx,my;
+ //   int mx,my;
 	TPoint selBall;
 	TPoint destSquare;
 
 	void StartJumpingBallAnimator();
-	void DeleteAnimator();
+	void DeleteJumpingBallAnimator();
 	void CreateMoveBallAnimator();
 	void DeleteMoveBallAnimator();
 	Ecore_Animator *JumpingAnimator;

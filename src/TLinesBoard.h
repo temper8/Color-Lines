@@ -41,6 +41,8 @@ public:
 	TPreferenceInt score;
 	TPreferenceInt record;
 	int threeBalls[3];
+
+	bool OutOfBoundary(int x, int y);
 	void randThreeBalls();
 	bool initBalls;
 	std::vector<TPoint> path;

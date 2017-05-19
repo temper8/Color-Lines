@@ -22,6 +22,14 @@ TLinesBoard::~TLinesBoard() {
 	// TODO Auto-generated destructor stub
 }
 
+bool TLinesBoard::OutOfBoundary(int x, int y){
+	if (x<1) return true;
+	if (y<1) return true;
+	if (x>sizeX) return true;
+	if (y>sizeY) return true;
+	return false;
+}
+
 void TLinesBoard::newGame() {
 	score = 0;
 	square.clear();

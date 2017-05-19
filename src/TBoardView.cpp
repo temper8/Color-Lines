@@ -201,6 +201,8 @@ void TBoardView::OnClick(int x, int y) {
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
 
+	if (linesBoard->OutOfBoundary(xx, yy)) return;
+
     if (linesBoard->square[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;

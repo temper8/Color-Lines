@@ -257,8 +257,9 @@ void TBoardView::CairoDrawing(){
 
 	graphics.FillBackgroud();
 
-	DrawHeader();
+	CalcViewMarkup();
 
+	DrawHeader();
 
 	DrawBoard();
 
@@ -283,9 +284,7 @@ void TBoardView::DrawSquare(TPoint p){
 	graphics.DrawSquare(x, y);
 }
 
-
-
-void TBoardView::DrawBoard(){
+void TBoardView::CalcViewMarkup(){
 
 	int BoardWidth = myWidth - 20;
 
@@ -293,8 +292,13 @@ void TBoardView::DrawBoard(){
 
 	squareSize = BoardWidth / linesBoard->sizeX;
 	graphics.squareSize = squareSize;
+
 	int BoardHeight = squareSize * linesBoard->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
+}
+
+
+void TBoardView::DrawBoard(){
 
 	for (int x = 0; x< linesBoard->sizeX; x++)
 		for (int y = 0; y< linesBoard->sizeY; y++) {

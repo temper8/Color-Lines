@@ -24,6 +24,9 @@ public:
     int left_margin,top_margin;
 
     TLinesBoard* linesBoard;
+
+    void CalcViewMarkup();
+
     void DrawBoard();
 
     void DrawBall(double x, double y, int color);
@@ -37,6 +40,7 @@ public:
 
     void DrawPath();
     void DrawPath(double pos);
+
     virtual void OnClick(int x, int y);
 
 private:

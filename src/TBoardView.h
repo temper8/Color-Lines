@@ -62,7 +62,7 @@ private:
 	void DeleteAnimator();
 	void CreateMoveBallAnimator();
 	void DeleteMoveBallAnimator();
-	Ecore_Animator *animator;
+	Ecore_Animator *JumpingAnimator;
 
 public:
 	std::vector<TPoint> NewBalls;

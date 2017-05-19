@@ -121,14 +121,14 @@ void TBoardView::JumpingBall(){
 }
 void TBoardView::StartJumpingBallAnimator(){
   tick = 0;
-  if (animator != NULL)
-  	   ecore_animator_del(animator);
-  animator = ecore_animator_add(jumping_ball, this);
+  if (JumpingAnimator != NULL)
+  	   ecore_animator_del(JumpingAnimator);
+  JumpingAnimator = ecore_animator_add(jumping_ball, this);
 }
 
 void TBoardView::DeleteAnimator(){
-	if (animator != NULL)
-	   ecore_animator_del(animator);
+	if (JumpingAnimator != NULL)
+	   ecore_animator_del(JumpingAnimator);
 }
 
 void TBoardView::MoveBall(double pos) {
@@ -145,8 +145,8 @@ Eina_Bool move_ball(void *data, double pos)
 }
 
 void TBoardView::CreateMoveBallAnimator(){
-	if (animator != NULL)
-	  	   ecore_animator_del(animator);
+//	if (animator != NULL)
+//	  	   ecore_animator_del(animator);
 	ecore_animator_timeline_add (1.0, move_ball, this);
 }
 void TBoardView::DeleteMoveBallAnimator(){
@@ -221,7 +221,7 @@ void TBoardView::OnClick(int x, int y) {
     	if (selBall.x == 0) {
         	mx=100;
         	my=100;
-        	DeleteAnimator();
+
     	}
     	else {
 
@@ -237,6 +237,7 @@ void TBoardView::OnClick(int x, int y) {
             	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
             	linesBoard->square[selBall.x][selBall.y] = 0;
             	 selBall.x = 0;
+            	 DeleteAnimator();
             	CreateMoveBallAnimator();
 
             }
@@ -245,7 +246,7 @@ void TBoardView::OnClick(int x, int y) {
 
     }
 	//linesBoard->initRandom();
-	CairoDrawing();
+	//CairoDrawing();
 };
 
 void TBoardView::AddRandomBalls(){
@@ -365,8 +366,8 @@ void TBoardView::DrawHeader() {
 
 	graphics.DrawHeaderBG();
 
-	graphics.DrawScore(10,65,linesBoard->record);
-	graphics.DrawScore(650,65,linesBoard->score);
+	graphics.DrawScore(20,60,linesBoard->record);
+	graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {
 		double x = dx + 1.1*squareSize*i;

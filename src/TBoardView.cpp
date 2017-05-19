@@ -247,6 +247,11 @@ void TBoardView::OnClick(int x, int y) {
 	CairoDrawing();
 };
 
+void TBoardView::AddRandomBalls(){
+    NewBalls = linesBoard->AddRandomBalls();
+	ecore_animator_timeline_add (1.0, appearance_new_ball, this);
+}
+
 void TBoardView::CairoDrawing(){
 
 	graphics.FillBackgroud();
@@ -265,10 +270,7 @@ void TBoardView::CairoDrawing(){
 	graphics.Flush();
 }
 
-void TBoardView::AddRandomBalls(){
-    NewBalls = linesBoard->AddRandomBalls();
-	ecore_animator_timeline_add (1.0, appearance_new_ball, this);
-}
+
 void TBoardView::DrawBalls() {
 	for(int i=1; i<= linesBoard->sizeX; i++)
 	  for(int j=1; j<= linesBoard->sizeY; j++){

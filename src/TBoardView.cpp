@@ -57,17 +57,21 @@ popup_new_game_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 	bv->NewGame();
 }
 
-static void
-popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+void popup_exit_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	//Evas_Object *popup = (Evas_Object*)data;
 	evas_object_del(popup);
 	popup = NULL;
+	ui_app_exit();
 }
 
 void TBoardView::ShowPopup() {
 	Evas_Object *btn;
-    if (popup != NULL) return;
+    if (popup != NULL) {
+    	evas_object_del(popup);
+    	popup = NULL;
+    	return;
+    }
 	/* popup */
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
@@ -87,7 +91,7 @@ void TBoardView::ShowPopup() {
 	elm_object_style_set(btn, "popup");
 	elm_object_text_set(btn, "Exit");
 	elm_object_part_content_set(popup, "button2", btn);
-	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, popup);
+	evas_object_smart_callback_add(btn, "clicked", popup_exit_btn_clicked_cb, popup);
 
 	evas_object_show(popup);
 }

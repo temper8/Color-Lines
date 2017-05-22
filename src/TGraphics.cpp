@@ -213,7 +213,7 @@ void TGraphics::DrawScore(double x, double y, const char* caption, int score, in
     double x2 = x;
 
     cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(cairo, 5*squareSize/8);
+    cairo_set_font_size(cairo, 5*squareSize/7);
 	cairo_text_extents_t extents;
 	cairo_text_extents (cairo, text, &extents);
 	if (aling == 1) {
@@ -227,7 +227,7 @@ void TGraphics::DrawScore(double x, double y, const char* caption, int score, in
 
 
 	cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(cairo, 3*squareSize/8);
+    cairo_set_font_size(cairo, 3*squareSize/7);
 	cairo_text_extents (cairo, caption, &extents);
     if (aling == 1) {
     		x1 = x1 - extents.width;

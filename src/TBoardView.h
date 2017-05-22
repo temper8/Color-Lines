@@ -18,6 +18,9 @@ public:
 	virtual ~TBoardView();
 
 public:
+
+	std::string helpText;
+
 	virtual void CairoDrawing();
 
 	double squareSize;
@@ -44,6 +47,7 @@ public:
     virtual void OnClick(int x, int y);
 
 private:
+    void loadHelp();
     void SetColor(int color);
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);

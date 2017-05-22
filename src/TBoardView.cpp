@@ -9,6 +9,9 @@
 
 #include <cmath>
 
+#include <fstream>
+#include <sstream>      // std::stringstream, std::stringbuf
+
 
 
 static Eina_Bool
@@ -22,6 +25,7 @@ add_random_balls(void *data)
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
+	loadHelp();
 
 	linesBoard = new TLinesBoard(8,11);
 	//linesBoard->initRandom();
@@ -45,6 +49,19 @@ void TBoardView::NewGame(){
 	selBall.y = 0;
 	CairoDrawing();
 	ecore_timer_add(0.5, add_random_balls, this);
+}
+
+void TBoardView::loadHelp() {
+    auto filename = "my-file.txt";
+
+    std::ifstream t(filename);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
+    if (buffer.str().length()>0)
+    	helpText = buffer.str();
+    else {
+    	helpText = "Game rules<br>Oops, an error occurred.";
+    }
 }
 
 static void
@@ -77,7 +94,8 @@ void TBoardView::ShowPopup() {
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_text_set(popup,"Game rules<br>The player can move one ball per turn, and the player may only move a ball to a particular place if there is a path (linked set of vertical and horizontal empty cells) between the current position of the ball and the desired destination. The goal is to remove balls by forming lines (horizontal, vertical or diagonal) of at least five balls of the same colour. If the player does form such lines of at least five balls of the same colour, the balls in those lines disappear, and he gains one turn, i.e. he can move another ball. If not, three new balls are added, and the game continues until the board is full.");
+	elm_object_text_set(popup, helpText.c_str());
+	//elm_object_text_set(popup,"Game rules<br>The player can move one ball per turn, and the player may only move a ball to a particular place if there is a path (linked set of vertical and horizontal empty cells) between the current position of the ball and the desired destination. The goal is to remove balls by forming lines (horizontal, vertical or diagonal) of at least five balls of the same colour. If the player does form such lines of at least five balls of the same colour, the balls in those lines disappear, and he gains one turn, i.e. he can move another ball. If not, three new balls are added, and the game continues until the board is full.");
 
 	/* ok button */
 	btn = elm_button_add(popup);

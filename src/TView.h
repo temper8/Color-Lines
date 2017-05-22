@@ -26,6 +26,8 @@ public:
 	Evas_Object *label;
 
 	virtual void Resize(int width, int height) {};
+	virtual void callbackMore() = 0;
+	virtual void callbackBack() = 0;
 
 private:
 	void CreateWin(const char *pkg_name);

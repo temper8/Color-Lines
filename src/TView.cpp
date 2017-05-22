@@ -27,13 +27,23 @@ win_delete_request_cb(void *data, Evas_Object *obj, void *event_info)
 	ui_app_exit();
 }
 
-static void
-win_back_cb(void *data, Evas_Object *obj, void *event_info)
+
+void callback_back(void *data, Evas_Object *obj, void *event_info)
 {
 	TView *view = (TView *)data;
 	/* Let window go to hide state. */
-	elm_win_lower(view->win);
+	view->callbackBack();
+
 }
+
+void callback_more(void *data, Evas_Object *obj, void *event_info)
+{
+	TView *view = (TView *)data;
+	/* Let window go to hide state. */
+	view->callbackMore();
+
+}
+
 
 void TView::Create(){
 
@@ -82,7 +92,9 @@ void TView::CreateWin(const char *pkg_name){
 	}
 
 	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
-	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, win_back_cb, this);
+	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, callback_back, this);
+	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, callback_more, this);
+
 	evas_object_event_callback_add(win, EVAS_CALLBACK_RESIZE, win_resize_cb, this);
 
 	/* Conformant */

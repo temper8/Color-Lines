@@ -34,6 +34,9 @@ public:
 	virtual void OnClick(int x, int y) {};
 	virtual void ShowPopup() {};
 
+	virtual void callbackMore();
+	virtual void callbackBack();
+
 protected:
 
 	virtual void CreateContent();

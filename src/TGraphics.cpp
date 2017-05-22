@@ -203,26 +203,41 @@ void TGraphics::DrawBall(double x, double y, double r, int color){
 	cairo_fill(cairo);
 }
 
-void TGraphics::DrawScore(double x, double y, const char* caption, int score){
+
+void TGraphics::DrawScore(double x, double y, const char* caption, int score, int aling){
+
 	char text[16] = {0};
+    sprintf(text, "%0*d",4, score);
+
+    double x1 = x;
+    double x2 = x;
+
+    cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size(cairo, 5*squareSize/8);
+	cairo_text_extents_t extents;
+	cairo_text_extents (cairo, text, &extents);
+	if (aling == 1) {
+	    x2 = x2 - extents.width;
+	}
+	double yy = y - extents.height - 8;
+    cairo_move_to(cairo, x2, y);
+    cairo_text_path(cairo, text);
+    cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
+    cairo_fill(cairo);
+
 
 	cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-
-    cairo_set_font_size(cairo, 30);
-    cairo_move_to(cairo, x, y);
+    cairo_set_font_size(cairo, 3*squareSize/8);
+	cairo_text_extents (cairo, caption, &extents);
+    if (aling == 1) {
+    		x1 = x1 - extents.width;
+    }
+    cairo_move_to(cairo, x1, yy);
     cairo_text_path(cairo, caption);
     cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
     cairo_fill(cairo);
 
-    cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 
-    cairo_set_font_size(cairo, 50);
-    cairo_move_to(cairo, x, y + 50);
-
-    sprintf(text, "%0*d",4, score);
-    cairo_text_path(cairo, text);
-    cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
-    cairo_fill(cairo);
 }
 
 void TGraphics::DrawScore(double x, double y, int score){

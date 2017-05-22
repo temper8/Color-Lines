@@ -28,6 +28,7 @@ public:
     void DrawSquare(double x, double y);
     void DrawBall(double x, double y, double r, int color);
     void DrawScore(double x, double y, int score);
+    void DrawScore(double x, double y, const char* caption, int score);
     void DrawHeaderBG();
 
     void SetPatternForSquare(int x, int y, int r);

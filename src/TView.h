@@ -19,6 +19,9 @@ public:
 	virtual ~TView();
 	void Create();
 
+	friend void callback_back(void *data, Evas_Object *obj, void *event_info);
+	friend void callback_more(void *data, Evas_Object *obj, void *event_info);
+
 public:
 
 	Evas_Object *win;
@@ -26,6 +29,9 @@ public:
 	Evas_Object *label;
 
 	virtual void Resize(int width, int height) {};
+
+private:
+
 	virtual void callbackMore() = 0;
 	virtual void callbackBack() = 0;
 

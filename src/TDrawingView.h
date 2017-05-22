@@ -18,6 +18,8 @@ public:
 	TDrawingView();
 	virtual ~TDrawingView();
 
+
+
 public:
 
 	TGraphics graphics;
@@ -33,6 +35,9 @@ public:
 	virtual void CairoDrawing();
 	virtual void OnClick(int x, int y) {};
 	virtual void ShowPopup() {};
+
+
+private:
 
 	virtual void callbackMore();
 	virtual void callbackBack();

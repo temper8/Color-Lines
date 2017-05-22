@@ -351,8 +351,8 @@ void TBoardView::DrawHeader() {
 	//graphics.DrawScore(20,60,linesBoard->record);
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
-	graphics.DrawScore(20, squareSize + 10,"Best", linesBoard->record, 0);
-	graphics.DrawScore(myWidth - 20 , squareSize + 10,"Score", linesBoard->score, 1);
+	graphics.DrawScore(left_margin, squareSize + 8,"Best", linesBoard->record, 0);
+	graphics.DrawScore(myWidth - left_margin , squareSize + 8,"Score", linesBoard->score, 1);
 
 	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {

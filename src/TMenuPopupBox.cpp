@@ -25,7 +25,14 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	/* box */
 	box = elm_box_add(myPopup);
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_box_padding_set(box, 16, 32);
+	elm_box_padding_set(box, 16, 16);
+
+	Evas_Object *rect_1 = evas_object_rectangle_add(myPopup);
+	evas_object_color_set(rect_1, 200, 0, 0, 255);
+	evas_object_size_hint_weight_set(rect_1, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(rect_1, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(rect_1);
+	elm_box_pack_end(box, rect_1);
 
 
 	/* ok button */
@@ -35,8 +42,8 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	//elm_object_part_content_set(myPopup, "button1", btn);
 //	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
-	evas_object_size_hint_min_set(btn, 300, 100);
-	evas_object_size_hint_align_set(btn, ELM_NOTIFY_ALIGN_FILL, 0.5);
+	evas_object_size_hint_min_set(btn, 300, 80);
+	evas_object_size_hint_align_set(btn, 0.5, 0.5);
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
 
@@ -47,7 +54,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	//elm_object_part_content_set(myPopup, "button1", btn);
 //	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
-	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn,  0.5, 0.5);
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
@@ -59,7 +66,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	//elm_object_part_content_set(myPopup, "button1", btn);
 //	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
-	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn,  0.5, 0.5);
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
@@ -72,10 +79,17 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 //	elm_object_part_content_set(myPopup, "button2", btn);
 //	evas_object_smart_callback_add(btn, "clicked", popup_exit_btn_clicked_cb, popup);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
-	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn, 0.5, 0.5);
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
+
+	Evas_Object *rect_2 = evas_object_rectangle_add(myPopup);
+	evas_object_color_set(rect_2, 200, 0, 0, 255);
+	evas_object_size_hint_weight_set(rect_2, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(rect_2, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(rect_2);
+	elm_box_pack_end(box, rect_2);
 
 	evas_object_size_hint_min_set(box, 350, 192);
 	//elm_object_part_content_set(myPopup, "elm.swallow.content", box);

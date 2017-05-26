@@ -12,7 +12,7 @@
 #include <fstream>
 #include <sstream>      // std::stringstream, std::stringbuf
 
-#include "TExitPopup.h"
+#include "TExitPopupBox.h"
 
 
 static Eina_Bool
@@ -79,7 +79,7 @@ void testResult(int r) {
 
 void TBoardView::callbackBack(){
 //	ShowPopup();
-	myTPopup = new TExitPopup(win);
+	myTPopup = new TExitPopupBox(win);
 	myTPopup->result = [](int r) { if (r==1) ui_app_exit(); };//testResult;
 	myTPopup->show();
 }

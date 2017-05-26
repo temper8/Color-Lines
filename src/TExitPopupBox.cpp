@@ -5,7 +5,7 @@
  *      Author: Alex
  */
 
-#include "TExitPopup.h"
+#include "TExitPopupBox.h"
 
 
 void popup_new_yes_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -24,7 +24,7 @@ void popup_new_game_cancel_clicked_cb(void *data, Evas_Object *obj, void *event_
 	if (pp->result!=nullptr) pp->result(2);
 }
 
-TExitPopup::TExitPopup(Evas_Object *win):TPopupBox(win) {
+TExitPopupBox::TExitPopupBox(Evas_Object *win):TPopupBox(win) {
 	// TODO Auto-generated constructor stub
 	/* popup */
 	myPopup = elm_popup_add(myWin);
@@ -54,7 +54,7 @@ TExitPopup::TExitPopup(Evas_Object *win):TPopupBox(win) {
 
 }
 
-TExitPopup::~TExitPopup() {
+TExitPopupBox::~TExitPopupBox() {
 	// TODO Auto-generated destructor stub
 }
 

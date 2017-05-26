@@ -116,10 +116,7 @@ void popup_exit_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 	ui_app_exit();
 }
 
-void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	evas_object_del(obj);
-}
+
 
 void TBoardView::ShowPopup() {
 	Evas_Object *btn;
@@ -135,7 +132,7 @@ void TBoardView::ShowPopup() {
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, 0.5);
 	elm_object_text_set(popup, helpText.c_str());
 
-	evas_object_smart_callback_add(popup, "block,clicked", popup_block_clicked_cb, NULL);
+	//evas_object_smart_callback_add(popup, "block,clicked", popup_block_clicked_cb, NULL);
 
 	/* ok button */
 	btn = elm_button_add(popup);

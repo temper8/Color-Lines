@@ -47,6 +47,8 @@ public:
 
     virtual void OnClick(int x, int y);
 
+    void closePopupBox();
+
 private:
 
     TPopupBox* myTPopup;

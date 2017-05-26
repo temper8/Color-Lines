@@ -69,7 +69,9 @@ void TBoardView::loadHelp() {
     	helpText = "Game rules<br>Oops, an error occurred.";
     }
 }
-
+void TBoardView::closePopupBox(){
+	myTPopup = NULL;
+}
 void TBoardView::callbackMore(){
 	//ShowPopup();
 	myTPopup = new TMenuPopupBox(this);
@@ -79,9 +81,9 @@ void TBoardView::callbackMore(){
 											case 2: ((TBoardView*)v)->NewGame(); break;
 											case 3: break;
 											case 4: ui_app_exit(); break;
-
-										}
-					    };//testResult;
+											}
+										((TBoardView*)v)->closePopupBox();
+										};//testResult;
 	myTPopup->show();
 }
 

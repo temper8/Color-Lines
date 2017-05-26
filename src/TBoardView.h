@@ -51,7 +51,7 @@ public:
 
 private:
 
-    TPopupBox* myTPopup;
+    TPopupBox* myPopupBox;
 	virtual void callbackMore();
 	virtual void callbackBack();
 

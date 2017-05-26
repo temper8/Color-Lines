@@ -25,7 +25,7 @@ add_random_balls(void *data)
    return EINA_FALSE;
 }
 
-TBoardView::TBoardView(): myTPopup(NULL) {
+TBoardView::TBoardView(): myPopupBox(NULL) {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 
@@ -70,12 +70,12 @@ void TBoardView::loadHelp() {
     }
 }
 void TBoardView::closePopupBox(){
-	myTPopup = NULL;
+	myPopupBox = NULL;
 }
 void TBoardView::callbackMore(){
 	//ShowPopup();
-	myTPopup = new TMenuPopupBox(this);
-	myTPopup->result = [](TView* v, int r) {
+	myPopupBox = new TMenuPopupBox(this);
+	myPopupBox->result = [](TView* v, int r) {
 										switch(r) {
 											case 1: break;
 											case 2: ((TBoardView*)v)->NewGame(); break;
@@ -84,7 +84,7 @@ void TBoardView::callbackMore(){
 											}
 										((TBoardView*)v)->closePopupBox();
 										};//testResult;
-	myTPopup->show();
+	myPopupBox->show();
 }
 
 void testResult(int r) {
@@ -93,9 +93,9 @@ void testResult(int r) {
 
 void TBoardView::callbackBack(){
 //	ShowPopup();
-	myTPopup = new TExitPopupBox(this);
-	myTPopup->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
-	myTPopup->show();
+	myPopupBox = new TExitPopupBox(this);
+	myPopupBox->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+	myPopupBox->show();
 }
 
 

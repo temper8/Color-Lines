@@ -72,9 +72,15 @@ void TBoardView::loadHelp() {
 void TBoardView::callbackMore(){
 	ShowPopup();
 }
+
+void testResult(int r) {
+	if (r==1) ui_app_exit();
+}
+
 void TBoardView::callbackBack(){
 //	ShowPopup();
 	myTPopup = new TExitPopup(win);
+	myTPopup->result = testResult;
 	myTPopup->show();
 }
 

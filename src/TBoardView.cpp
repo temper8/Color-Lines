@@ -12,6 +12,7 @@
 #include <fstream>
 #include <sstream>      // std::stringstream, std::stringbuf
 
+#include "TExitPopup.h"
 
 
 static Eina_Bool
@@ -23,7 +24,7 @@ add_random_balls(void *data)
    return EINA_FALSE;
 }
 
-TBoardView::TBoardView() {
+TBoardView::TBoardView(): myTPopup(NULL) {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 
@@ -72,7 +73,9 @@ void TBoardView::callbackMore(){
 	ShowPopup();
 }
 void TBoardView::callbackBack(){
-	ShowPopup();
+//	ShowPopup();
+	myTPopup = new TExitPopup(win);
+	myTPopup->show();
 }
 
 

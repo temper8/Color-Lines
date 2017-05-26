@@ -11,8 +11,9 @@
 #include "TPopup.h"
 
 class TExitPopup: public TPopup {
+
 public:
-	TExitPopup();
+	TExitPopup(Evas_Object *win);
 	virtual ~TExitPopup();
 };
 

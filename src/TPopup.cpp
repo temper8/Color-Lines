@@ -7,7 +7,7 @@
 
 #include "TPopup.h"
 
-TPopup::TPopup() {
+TPopup::TPopup(Evas_Object *win):myPopup(NULL), myWin(win) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -22,5 +22,7 @@ void TPopup::close() {
 
 
 void TPopup::show() {
-
+if (myPopup != NULL) {
+	evas_object_show(myPopup);
+}
 }

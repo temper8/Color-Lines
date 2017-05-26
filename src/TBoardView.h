@@ -11,7 +11,7 @@
 #include "TDrawingView.h"
 #include "TLinesBoard.h"
 
-class TPopup;
+class TPopupBox;
 class TLinesBoard;
 class TBoardView: public TDrawingView {
 public:
@@ -49,7 +49,7 @@ public:
 
 private:
 
-    TPopup* myTPopup;
+    TPopupBox* myTPopup;
 	virtual void callbackMore();
 	virtual void callbackBack();
 

@@ -5,24 +5,24 @@
  *      Author: Alex
  */
 
-#include "TPopup.h"
+#include "TPopupBox.h"
 
-TPopup::TPopup(Evas_Object *win):myPopup(NULL), myWin(win), result(nullptr) {
+TPopupBox::TPopupBox(Evas_Object *win):myPopup(NULL), myWin(win), result(nullptr) {
 	// TODO Auto-generated constructor stub
 
 }
 
-TPopup::~TPopup() {
+TPopupBox::~TPopupBox() {
 	// TODO Auto-generated destructor stub
 }
 
-void TPopup::close() {
+void TPopupBox::close() {
 	evas_object_del(myPopup);
 	myPopup = NULL;
 }
 
 
-void TPopup::show() {
+void TPopupBox::show() {
 if (myPopup != NULL) {
 	evas_object_show(myPopup);
 }

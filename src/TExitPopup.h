@@ -8,9 +8,9 @@
 #ifndef TEXITPOPUP_H_
 #define TEXITPOPUP_H_
 
-#include "TPopup.h"
+#include "TPopupBox.h"
 
-class TExitPopup: public TPopup {
+class TExitPopup: public TPopupBox {
 
 public:
 	TExitPopup(Evas_Object *win);

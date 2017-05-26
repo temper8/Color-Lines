@@ -1,21 +1,21 @@
 /*
- * TPopup.h
+ * TPopupBox.h
  *
  *  Created on: May 26, 2017
  *      Author: Alex
  */
 
-#ifndef TPOPUP_H_
-#define TPOPUP_H_
+#ifndef TPOPUPBOX_H_
+#define TPOPUPBOX_H_
 
 #include <functional>
 
 #include <Elementary.h>
 
-class TPopup {
+class TPopupBox {
 public:
-	TPopup(Evas_Object *win);
-	virtual ~TPopup();
+	TPopupBox(Evas_Object *win);
+	virtual ~TPopupBox();
 
 	void close();
 	void show();
@@ -27,4 +27,4 @@ protected:
 	Evas_Object *myWin;
 };
 
-#endif /* TPOPUP_H_ */
+#endif /* TPOPUPBOX_H_ */

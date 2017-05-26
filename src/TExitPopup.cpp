@@ -10,7 +10,7 @@
 
 void popup_new_yes_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	TPopup *pp = (TPopup*)data;
+	TPopupBox *pp = (TPopupBox*)data;
 	pp->close();
 
 	if (pp->result!=nullptr) pp->result(1);
@@ -18,13 +18,13 @@ void popup_new_yes_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info
 
 void popup_new_game_cancel_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	TPopup *pp = (TPopup*)data;
+	TPopupBox *pp = (TPopupBox*)data;
 	pp->close();
 
 	if (pp->result!=nullptr) pp->result(2);
 }
 
-TExitPopup::TExitPopup(Evas_Object *win):TPopup(win) {
+TExitPopup::TExitPopup(Evas_Object *win):TPopupBox(win) {
 	// TODO Auto-generated constructor stub
 	/* popup */
 	myPopup = elm_popup_add(myWin);

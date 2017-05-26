@@ -80,7 +80,7 @@ void testResult(int r) {
 void TBoardView::callbackBack(){
 //	ShowPopup();
 	myTPopup = new TExitPopup(win);
-	myTPopup->result = testResult;
+	myTPopup->result = [](int r) { if (r==1) ui_app_exit(); };//testResult;
 	myTPopup->show();
 }
 

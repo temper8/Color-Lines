@@ -70,19 +70,21 @@ void TBoardView::loadHelp() {
     }
 }
 void TBoardView::closePopupBox(){
+	delete myPopupBox;
 	myPopupBox = NULL;
 }
 void TBoardView::callbackMore(){
 	//ShowPopup();
+	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox(this);
 	myPopupBox->result = [](TView* v, int r) {
+										((TBoardView*)v)->closePopupBox();
 										switch(r) {
 											case 1: break;
 											case 2: ((TBoardView*)v)->NewGame(); break;
 											case 3: break;
 											case 4: ui_app_exit(); break;
 											}
-										((TBoardView*)v)->closePopupBox();
 										};//testResult;
 	myPopupBox->show();
 }
@@ -93,6 +95,7 @@ void testResult(int r) {
 
 void TBoardView::callbackBack(){
 //	ShowPopup();
+	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TExitPopupBox(this);
 	myPopupBox->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
 	myPopupBox->show();

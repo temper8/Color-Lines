@@ -14,6 +14,7 @@ TPopupBox::TPopupBox(TView *view):myPopup(NULL), myView(view), result(nullptr) {
 
 TPopupBox::~TPopupBox() {
 	// TODO Auto-generated destructor stub
+	close();
 }
 
 void TPopupBox::close() {

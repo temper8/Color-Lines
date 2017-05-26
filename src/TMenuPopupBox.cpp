@@ -12,34 +12,35 @@
 void popup_btn1_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
-	pp->close();
+//	pp->close();
 	pp->sendResult(1);
 }
 
 void popup_btn2_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
-	pp->close();
+//	pp->close();
 	pp->sendResult(2);
 }
 
 void popup_btn3_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
-	pp->close();
+//	pp->close();
 	pp->sendResult(3);
 }
 
 void popup_btn4_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
-	pp->close();
+//	pp->close();
 	pp->sendResult(4);
 }
 
 void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	evas_object_del(obj);
+	TPopupBox *pp = (TPopupBox*)data;
+	pp->sendResult(1);
 }
 
 TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
@@ -53,7 +54,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 //	elm_object_text_set(myPopup, helpText.c_str());
 
-	evas_object_smart_callback_add(myPopup, "block,clicked", popup_block_clicked_cb, NULL);
+	evas_object_smart_callback_add(myPopup, "block,clicked", popup_block_clicked_cb, this);
 
 	/* box */
 	box = elm_box_add(myPopup);

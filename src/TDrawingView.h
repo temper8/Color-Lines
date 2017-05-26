@@ -39,8 +39,7 @@ public:
 
 private:
 
-	virtual void callbackMore();
-	virtual void callbackBack();
+
 
 protected:
 

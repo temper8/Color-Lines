@@ -31,13 +31,6 @@ Evas_Event_Flags mouse_cb(void *data, void *event)
 }
 
 
-void TDrawingView::callbackMore(){
-	ShowPopup();
-}
-void TDrawingView::callbackBack(){
-	ShowPopup();
-}
-
 
 void TDrawingView::CreateContent(){
 

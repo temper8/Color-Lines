@@ -47,6 +47,11 @@ public:
     virtual void OnClick(int x, int y);
 
 private:
+
+	virtual void callbackMore();
+	virtual void callbackBack();
+
+
     void loadHelp();
     void SetColor(int color);
     void SetPattern(double x,double y, int r, int color);

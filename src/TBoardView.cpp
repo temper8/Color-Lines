@@ -68,6 +68,15 @@ void TBoardView::loadHelp() {
     }
 }
 
+void TBoardView::callbackMore(){
+	ShowPopup();
+}
+void TBoardView::callbackBack(){
+	ShowPopup();
+}
+
+
+
 static void
 popup_new_game_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -102,7 +111,7 @@ void TBoardView::ShowPopup() {
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
-	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, 0.5);
 	elm_object_text_set(popup, helpText.c_str());
 
 	evas_object_smart_callback_add(popup, "block,clicked", popup_block_clicked_cb, NULL);
@@ -120,6 +129,8 @@ void TBoardView::ShowPopup() {
 	elm_object_text_set(btn, "Exit");
 	elm_object_part_content_set(popup, "button2", btn);
 	evas_object_smart_callback_add(btn, "clicked", popup_exit_btn_clicked_cb, popup);
+
+
 
 	evas_object_show(popup);
 }

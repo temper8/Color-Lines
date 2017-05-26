@@ -14,7 +14,7 @@ void popup_new_yes_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info
 	TPopupBox *pp = (TPopupBox*)data;
 	pp->close();
 
-	if (pp->result!=nullptr) pp->result(1);
+	pp->sendResult(1);
 }
 
 void popup_new_game_cancel_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -22,8 +22,9 @@ void popup_new_game_cancel_clicked_cb(void *data, Evas_Object *obj, void *event_
 	TPopupBox *pp = (TPopupBox*)data;
 	pp->close();
 
-	if (pp->result!=nullptr) pp->result(2);
+	pp->sendResult(2);
 }
+
 
 TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub

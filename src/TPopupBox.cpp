@@ -21,9 +21,12 @@ void TPopupBox::close() {
 	myPopup = NULL;
 }
 
-
 void TPopupBox::show() {
 if (myPopup != NULL) {
 	evas_object_show(myPopup);
 }
+}
+
+void TPopupBox::sendResult(int r){
+	if (result!=nullptr) result(myView, r);
 }

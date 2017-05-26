@@ -21,7 +21,8 @@ public:
 	void close();
 	void show();
 
-	std::function<void(int)> result;
+	void sendResult(int r);
+	std::function<void(TView*, int)> result;
 
 protected:
 	Evas_Object *myPopup;

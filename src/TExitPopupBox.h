@@ -15,6 +15,7 @@ class TExitPopupBox: public TPopupBox {
 public:
 	TExitPopupBox(TView *view);
 	virtual ~TExitPopupBox();
+
 };
 
 #endif /* TEXITPOPUPBOX_H_ */

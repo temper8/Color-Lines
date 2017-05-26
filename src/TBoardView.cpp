@@ -13,6 +13,7 @@
 #include <sstream>      // std::stringstream, std::stringbuf
 
 #include "TExitPopupBox.h"
+#include "TMenuPopupBox.h"
 
 
 static Eina_Bool
@@ -70,7 +71,10 @@ void TBoardView::loadHelp() {
 }
 
 void TBoardView::callbackMore(){
-	ShowPopup();
+	//ShowPopup();
+	myTPopup = new TMenuPopupBox(this);
+	myTPopup->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+	myTPopup->show();
 }
 
 void testResult(int r) {

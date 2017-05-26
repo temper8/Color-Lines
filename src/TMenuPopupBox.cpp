@@ -11,6 +11,75 @@
 
 TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
+	Evas_Object *btn;
+	Evas_Object *box;
+	/* popup */
+	myPopup = elm_popup_add(myView->win);
+	elm_popup_align_set(myPopup, 0.5, 0.5);
+//	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
+	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+//	elm_object_text_set(myPopup, helpText.c_str());
+
+//	evas_object_smart_callback_add(myPopup, "block,clicked", popup_block_clicked_cb, NULL);
+
+	/* box */
+	box = elm_box_add(myPopup);
+	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_box_padding_set(box, 16, 32);
+
+
+	/* ok button */
+	btn = elm_button_add(myPopup);
+	elm_object_style_set(btn, "default");
+	elm_object_text_set(btn, "Continue");
+	//elm_object_part_content_set(myPopup, "button1", btn);
+//	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
+	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
+	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_align_set(btn, ELM_NOTIFY_ALIGN_FILL, 0.5);
+	evas_object_show(btn);
+	elm_box_pack_end(box, btn);
+
+	/* ok button */
+	btn = elm_button_add(myPopup);
+	elm_object_style_set(btn, "default");
+	elm_object_text_set(btn, "New Game");
+	//elm_object_part_content_set(myPopup, "button1", btn);
+//	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
+	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
+	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_align_set(btn,  0.5, 0.5);
+	evas_object_show(btn);
+	elm_box_pack_end(box, btn);
+
+	/* ok button */
+	btn = elm_button_add(myPopup);
+	elm_object_style_set(btn, "default");
+	elm_object_text_set(btn, "Game Rules");
+	//elm_object_part_content_set(myPopup, "button1", btn);
+//	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
+	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
+	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_align_set(btn,  0.5, 0.5);
+	evas_object_show(btn);
+	elm_box_pack_end(box, btn);
+
+
+	/* cancel button */
+	btn = elm_button_add(myPopup);
+	elm_object_style_set(btn, "default");
+	elm_object_text_set(btn, "Exit");
+//	elm_object_part_content_set(myPopup, "button2", btn);
+//	evas_object_smart_callback_add(btn, "clicked", popup_exit_btn_clicked_cb, popup);
+	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
+	evas_object_size_hint_min_set(btn, 300, 100);
+	evas_object_size_hint_align_set(btn, 0.5, 0.5);
+	evas_object_show(btn);
+	elm_box_pack_end(box, btn);
+
+	evas_object_size_hint_min_set(box, 350, 192);
+	//elm_object_part_content_set(myPopup, "elm.swallow.content", box);
+	elm_object_content_set(myPopup, box);
 
 }
 

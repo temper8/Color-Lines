@@ -30,7 +30,7 @@ TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
 	/* popup */
 	myPopup = elm_popup_add(myView->win);
-	elm_popup_align_set(myPopup, 0.6, 0.5);
+	elm_popup_align_set(myPopup, 0.5, 0.5);
 //	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, 0.5);
 	elm_object_part_text_set(myPopup, "title,text", "Are you sure you want exit?");

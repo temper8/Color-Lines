@@ -73,7 +73,15 @@ void TBoardView::loadHelp() {
 void TBoardView::callbackMore(){
 	//ShowPopup();
 	myTPopup = new TMenuPopupBox(this);
-	myTPopup->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+	myTPopup->result = [](TView* v, int r) {
+										switch(r) {
+											case 1: break;
+											case 2: ((TBoardView*)v)->NewGame(); break;
+											case 3: break;
+											case 4: ui_app_exit(); break;
+
+										}
+					    };//testResult;
 	myTPopup->show();
 }
 

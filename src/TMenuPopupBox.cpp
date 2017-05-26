@@ -9,6 +9,35 @@
 
 #include "TView.h"
 
+void popup_btn1_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	TPopupBox *pp = (TPopupBox*)data;
+	pp->close();
+	pp->sendResult(1);
+}
+
+void popup_btn2_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	TPopupBox *pp = (TPopupBox*)data;
+	pp->close();
+	pp->sendResult(2);
+}
+
+void popup_btn3_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	TPopupBox *pp = (TPopupBox*)data;
+	pp->close();
+	pp->sendResult(3);
+}
+
+void popup_btn4_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	TPopupBox *pp = (TPopupBox*)data;
+	pp->close();
+	pp->sendResult(4);
+}
+
+
 TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
 	Evas_Object *btn;
@@ -39,8 +68,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "Continue");
-	//elm_object_part_content_set(myPopup, "button1", btn);
-//	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn1_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
 	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn, 0.5, 0.5);
@@ -51,8 +79,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "New Game");
-	//elm_object_part_content_set(myPopup, "button1", btn);
-//	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn2_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
 	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn,  0.5, 0.5);
@@ -63,8 +90,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "Game Rules");
-	//elm_object_part_content_set(myPopup, "button1", btn);
-//	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn3_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
 	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn,  0.5, 0.5);
@@ -76,8 +102,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "Exit");
-//	elm_object_part_content_set(myPopup, "button2", btn);
-//	evas_object_smart_callback_add(btn, "clicked", popup_exit_btn_clicked_cb, popup);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn4_clicked_cb, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
 	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn, 0.5, 0.5);

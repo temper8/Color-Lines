@@ -12,9 +12,10 @@
 
 #include <Elementary.h>
 
+class TView;
 class TPopupBox {
 public:
-	TPopupBox(Evas_Object *win);
+	TPopupBox(TView *view);
 	virtual ~TPopupBox();
 
 	void close();
@@ -24,7 +25,7 @@ public:
 
 protected:
 	Evas_Object *myPopup;
-	Evas_Object *myWin;
+	TView *myView;
 };
 
 #endif /* TPOPUPBOX_H_ */

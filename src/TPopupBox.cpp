@@ -7,7 +7,7 @@
 
 #include "TPopupBox.h"
 
-TPopupBox::TPopupBox(Evas_Object *win):myPopup(NULL), myWin(win), result(nullptr) {
+TPopupBox::TPopupBox(TView *view):myPopup(NULL), myView(view), result(nullptr) {
 	// TODO Auto-generated constructor stub
 
 }

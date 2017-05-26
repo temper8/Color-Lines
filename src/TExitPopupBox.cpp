@@ -7,6 +7,7 @@
 
 #include "TExitPopupBox.h"
 
+#include "TView.h"
 
 void popup_new_yes_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -24,10 +25,10 @@ void popup_new_game_cancel_clicked_cb(void *data, Evas_Object *obj, void *event_
 	if (pp->result!=nullptr) pp->result(2);
 }
 
-TExitPopupBox::TExitPopupBox(Evas_Object *win):TPopupBox(win) {
+TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
 	/* popup */
-	myPopup = elm_popup_add(myWin);
+	myPopup = elm_popup_add(myView->win);
 	elm_popup_align_set(myPopup, 0.6, 0.5);
 //	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, 0.5);

@@ -13,7 +13,7 @@
 class TExitPopupBox: public TPopupBox {
 
 public:
-	TExitPopupBox(Evas_Object *win);
+	TExitPopupBox(TView *view);
 	virtual ~TExitPopupBox();
 };
 

@@ -7,7 +7,7 @@
 
 #include "TPopup.h"
 
-TPopup::TPopup(Evas_Object *win):myPopup(NULL), myWin(win) {
+TPopup::TPopup(Evas_Object *win):myPopup(NULL), myWin(win), result(nullptr) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -17,7 +17,8 @@ TPopup::~TPopup() {
 }
 
 void TPopup::close() {
-
+	evas_object_del(myPopup);
+	myPopup = NULL;
 }
 
 

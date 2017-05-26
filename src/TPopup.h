@@ -8,6 +8,8 @@
 #ifndef TPOPUP_H_
 #define TPOPUP_H_
 
+#include <functional>
+
 #include <Elementary.h>
 
 class TPopup {
@@ -17,6 +19,8 @@ public:
 
 	void close();
 	void show();
+
+	std::function<void(int)> result;
 
 protected:
 	Evas_Object *myPopup;

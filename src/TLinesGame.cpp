@@ -5,7 +5,8 @@
  *      Author: Alex
  */
 
-#include "TLinesBoard.h"
+#include "TLinesGame.h"
+
 #include <cstdlib>
 
 TBallsHolder::TBallsHolder(): holder("BallsHolder") {
@@ -32,7 +33,7 @@ void TBallsHolder::save(){
 }
 
 
-TLinesBoard::TLinesBoard(int x, int y): counterGames("counterGames"), score("score"), record("record") {
+TLinesGame::TLinesGame(int x, int y): counterGames("counterGames"), score("score"), record("record") {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
@@ -42,11 +43,11 @@ TLinesBoard::TLinesBoard(int x, int y): counterGames("counterGames"), score("sco
 
 }
 
-TLinesBoard::~TLinesBoard() {
+TLinesGame::~TLinesGame() {
 	// TODO Auto-generated destructor stub
 }
 
-bool TLinesBoard::OutOfBoundary(int x, int y){
+bool TLinesGame::OutOfBoundary(int x, int y){
 	if (x<1) return true;
 	if (y<1) return true;
 	if (x>sizeX) return true;
@@ -54,7 +55,7 @@ bool TLinesBoard::OutOfBoundary(int x, int y){
 	return false;
 }
 
-void TLinesBoard::newGame() {
+void TLinesGame::newGame() {
 	counterGames+=1;
 	score = 0;
 	board.clear();
@@ -63,7 +64,7 @@ void TLinesBoard::newGame() {
     ballsHolder.genNewBalls();
 }
 
-void TLinesBoard::restoreGame() {
+void TLinesGame::restoreGame() {
 	//score = 0;
 	board.load();
 	initBalls = false;
@@ -71,7 +72,7 @@ void TLinesBoard::restoreGame() {
 }
 
 
-void TLinesBoard::initPlayingField(){
+void TLinesGame::initPlayingField(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      board[i][j] = 0;
@@ -81,7 +82,7 @@ void TLinesBoard::initPlayingField(){
 	  }
 }
 
-std::vector<TPoint> TLinesBoard::AddRandomBalls(){
+std::vector<TPoint> TLinesGame::AddRandomBalls(){
 	std::vector<TPoint> newBalls;
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
@@ -96,7 +97,7 @@ std::vector<TPoint> TLinesBoard::AddRandomBalls(){
 	return newBalls;
 }
 
-void TLinesBoard::initSearch(TPoint src, TPoint dst){
+void TLinesGame::initSearch(TPoint src, TPoint dst){
 
      for(int i=1; i< 12; i++)
 		for(int j=1; j< 12; j++) {
@@ -119,7 +120,7 @@ void TLinesBoard::initSearch(TPoint src, TPoint dst){
      FillNeighbors(list);
 }
 
-void TLinesBoard::FillNeighbors( std::vector<TPoint> list){
+void TLinesGame::FillNeighbors( std::vector<TPoint> list){
 
 
 	std::vector<TPoint> newList;
@@ -158,7 +159,7 @@ void TLinesBoard::FillNeighbors( std::vector<TPoint> list){
 	if (n>0) FillNeighbors(newList);
 }
 
-int TLinesBoard::searchPath(TPoint src, TPoint dst){
+int TLinesGame::searchPath(TPoint src, TPoint dst){
 
  path.clear();
 
@@ -194,7 +195,7 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
 
 }
 
-int TLinesBoard::checkLines(){
+int TLinesGame::checkLines(){
  clearBalls.clear();
  for(int x = 1; x<=sizeX; x++)
  for(int y = 1; y<=sizeY; y++){
@@ -217,7 +218,7 @@ int TLinesBoard::checkLines(){
  return clearBalls.size();
 }
 
-void TLinesBoard::checkHorzLine(int x, int y){
+void TLinesGame::checkHorzLine(int x, int y){
 	int color = board[x][y];
 	int xx =x+1;
 	  while (board[xx][y] == color)
@@ -230,7 +231,7 @@ void TLinesBoard::checkHorzLine(int x, int y){
 	  }
 }
 
-void TLinesBoard::checkVertLine(int x, int y){
+void TLinesGame::checkVertLine(int x, int y){
 	int color = board[x][y];
 	int yy =y+1;
 	  while (board[x][yy] == color)
@@ -243,7 +244,7 @@ void TLinesBoard::checkVertLine(int x, int y){
 	  }
 }
 
-void TLinesBoard::checkDiag1Line(int x, int y){
+void TLinesGame::checkDiag1Line(int x, int y){
 	int color = board[x][y];
 	int xx =x+1;
 	int yy =y+1;
@@ -259,7 +260,7 @@ void TLinesBoard::checkDiag1Line(int x, int y){
 
 }
 
-void TLinesBoard::checkDiag2Line(int x, int y){
+void TLinesGame::checkDiag2Line(int x, int y){
 	int color = board[x][y];
 	int xx =x+1;
 	int yy =y-1;
@@ -275,7 +276,7 @@ void TLinesBoard::checkDiag2Line(int x, int y){
 }
 
 
-std::vector<TPoint> TLinesBoard::addNewBalls(){
+std::vector<TPoint> TLinesGame::addNewBalls(){
 	std::vector<TPoint> emptySquares;
 	std::vector<TPoint> newBalls;
 

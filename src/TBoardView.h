@@ -9,10 +9,10 @@
 #define TBOARDVIEW_H_
 
 #include "TDrawingView.h"
-#include "TLinesBoard.h"
+#include "TLinesGame.h"
 
 class TPopupBox;
-class TLinesBoard;
+class TLinesGame;
 class TBoardView: public TDrawingView {
 public:
 	TBoardView();
@@ -27,7 +27,7 @@ public:
 	double squareSize;
 	double left_margin,top_margin;
 
-    TLinesBoard* linesBoard;
+    TLinesGame* linesGame;
 
     void CalcViewMarkup();
 

@@ -1,12 +1,12 @@
 /*
- * TLinesBoard.h
+ * TLinesGame.h
  *
  *  Created on: Apr 12, 2017
  *      Author: Alex
  */
 
-#ifndef TLINESBOARD_H_
-#define TLINESBOARD_H_
+#ifndef TLINESGAME_H_
+#define TLINESGAME_H_
 
 #include <vector>
 
@@ -37,10 +37,10 @@ private:
 	TPreferenceInt holder;
 };
 
-class TLinesBoard {
+class TLinesGame {
 public:
-	TLinesBoard(int x,int y);
-	virtual ~TLinesBoard();
+	TLinesGame(int x,int y);
+	virtual ~TLinesGame();
 
 public:
 
@@ -80,4 +80,4 @@ private:
     void checkDiag2Line(int x, int y);
 };
 
-#endif /* TLINESBOARD_H_ */
+#endif /* TLINESGAME_H_ */

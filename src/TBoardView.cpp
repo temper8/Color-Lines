@@ -29,7 +29,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 
-	linesBoard = new TLinesBoard(8,11);
+	linesGame = new TLinesGame(8,11);
 	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
@@ -46,7 +46,7 @@ TBoardView::~TBoardView() {
 
 
 void TBoardView::NewGame(){
-	linesBoard->newGame();
+	linesGame->newGame();
 	selBall.x = 0;
 	selBall.y = 0;
 	CairoDrawing();
@@ -126,7 +126,7 @@ void TBoardView::JumpingBall(){
 	x = x + squareSize / 2 ;
 	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
-	DrawBall(x,y,linesBoard->board[selBall.x][selBall.y]);
+	DrawBall(x,y,linesGame->board[selBall.x][selBall.y]);
 	graphics.Flush();
  }
 }
@@ -180,8 +180,8 @@ Eina_Bool disappearance_lines(void *data, double pos)
 
 void TBoardView::OnEndMoveBall(){
 
-	if (linesBoard->checkLines() == 0 )	{
-		    NewBalls = linesBoard->addNewBalls();
+	if (linesGame->checkLines() == 0 )	{
+		    NewBalls = linesGame->addNewBalls();
 			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
 
 	}
@@ -201,7 +201,7 @@ void TBoardView::AppearanceNewBall(double pos) {
 
 void TBoardView::DisappearanceLines(double pos){
 
-	for ( TPoint p : linesBoard->clearBalls ){
+	for ( TPoint p : linesGame->clearBalls ){
 	    DrawSquare(p);
 		DrawBall(p,  1-pos);
 	}
@@ -214,9 +214,9 @@ void TBoardView::OnClick(int x, int y) {
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
 
-	if (linesBoard->OutOfBoundary(xx, yy)) return;
+	if (linesGame->OutOfBoundary(xx, yy)) return;
 
-    if (linesBoard->board[xx][yy] > 0) {
+    if (linesGame->board[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
 
@@ -228,11 +228,11 @@ void TBoardView::OnClick(int x, int y) {
     		destSquare.x = xx;
     		destSquare.y = yy;
 
-    		linesBoard->initSearch(selBall,destSquare);
+    		linesGame->initSearch(selBall,destSquare);
 
-            if (linesBoard->searchPath(selBall,destSquare) >0) {
-            	linesBoard->board[destSquare.x][destSquare.y] = linesBoard->board[selBall.x][selBall.y];
-            	linesBoard->board[selBall.x][selBall.y] = 0;
+            if (linesGame->searchPath(selBall,destSquare) >0) {
+            	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+            	linesGame->board[selBall.x][selBall.y] = 0;
             	 selBall.x = 0;
             	 DeleteJumpingBallAnimator();
             	 CreateMoveBallAnimator();
@@ -245,7 +245,7 @@ void TBoardView::OnClick(int x, int y) {
 };
 
 void TBoardView::AddRandomBalls(){
-    NewBalls = linesBoard->AddRandomBalls();
+    NewBalls = linesGame->AddRandomBalls();
 	ecore_animator_timeline_add (1.0, appearance_new_ball, this);
 }
 
@@ -259,18 +259,18 @@ void TBoardView::CairoDrawing(){
 
 	DrawBoard();
 
-	if (linesBoard->initBalls) DrawBalls();
+	if (linesGame->initBalls) DrawBalls();
 
 	graphics.Flush();
 }
 
 
 void TBoardView::DrawBalls() {
-	for(int i=1; i<= linesBoard->sizeX; i++)
-	  for(int j=1; j<= linesBoard->sizeY; j++){
+	for(int i=1; i<= linesGame->sizeX; i++)
+	  for(int j=1; j<= linesGame->sizeY; j++){
 			double x = i*squareSize - squareSize / 2 + left_margin;
 			double y = j*squareSize - squareSize / 2 + top_margin;
-			DrawBall(x,y,linesBoard->board[i][j]);
+			DrawBall(x,y,linesGame->board[i][j]);
 	  }
 }
 
@@ -286,18 +286,18 @@ void TBoardView::CalcViewMarkup(){
 
 	left_margin = ( myWidth - BoardWidth)/2;
 
-	squareSize = BoardWidth / linesBoard->sizeX;
+	squareSize = BoardWidth / linesGame->sizeX;
 	graphics.squareSize = squareSize;
 
-	double BoardHeight = squareSize * linesBoard->sizeY;
+	double BoardHeight = squareSize * linesGame->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
 }
 
 
 void TBoardView::DrawBoard(){
 
-	for (int x = 0; x< linesBoard->sizeX; x++)
-		for (int y = 0; y< linesBoard->sizeY; y++) {
+	for (int x = 0; x< linesGame->sizeX; x++)
+		for (int y = 0; y< linesGame->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
 			graphics.DrawSquare(xx, yy);
@@ -324,10 +324,10 @@ void TBoardView::DrawBall(double x, double y, int color){
 
 
 void TBoardView::DrawPath(){
-	if (linesBoard->path.size()>0) {
-		TPoint p = linesBoard->path.front();
-		int color =  linesBoard->board[p.x][p.y];
-		for ( TPoint p : linesBoard->path ){
+	if (linesGame->path.size()>0) {
+		TPoint p = linesGame->path.front();
+		int color =  linesGame->board[p.x][p.y];
+		for ( TPoint p : linesGame->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;
 			graphics.DrawBall(xx, yy,  0.4, color);
@@ -338,10 +338,10 @@ void TBoardView::DrawPath(){
 }
 
 void TBoardView::DrawPath(double pos){
-	if (linesBoard->path.size() == 0) return;
-	double dx = M_PI/linesBoard->path.size();
-	for (int i = 0; i<linesBoard->path.size(); i++ ) {
-		TPoint p  =  linesBoard->path[i];
+	if (linesGame->path.size() == 0) return;
+	double dx = M_PI/linesGame->path.size();
+	for (int i = 0; i<linesGame->path.size(); i++ ) {
+		TPoint p  =  linesGame->path[i];
 
 		DrawSquare(p);
 
@@ -351,7 +351,7 @@ void TBoardView::DrawPath(double pos){
 		DrawBall(p, r, p.color);
 	}
 	if (pos>0.5) {
-		TPoint p = linesBoard->path.front();
+		TPoint p = linesGame->path.front();
 		DrawBall(p, 1, p.color);
 	}
 
@@ -364,14 +364,14 @@ void TBoardView::DrawHeader() {
 	//graphics.DrawScore(20,60,linesBoard->record);
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
-	graphics.DrawScore(left_margin, squareSize + 8,"Best", linesBoard->record, 0);
-	graphics.DrawScore(myWidth - left_margin , squareSize + 8,"Score", linesBoard->score, 1);
+	graphics.DrawScore(left_margin, squareSize + 8,"Best", linesGame->record, 0);
+	graphics.DrawScore(myWidth - left_margin , squareSize + 8,"Score", linesGame->score, 1);
 
 	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {
 		double x = dx + 1.1*squareSize*i;
 		graphics.DrawSquare(x, 10);
-		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->ballsHolder.balls[i]);
+		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesGame->ballsHolder.balls[i]);
 	}
 }
 

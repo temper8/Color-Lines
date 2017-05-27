@@ -56,7 +56,7 @@ bool TLinesBoard::OutOfBoundary(int x, int y){
 
 void TLinesBoard::newGame() {
 	score = 0;
-	square.clear();
+	board.clear();
 	initBalls = false;
 	initPlayingField();
     ballsHolder.genNewBalls();
@@ -64,7 +64,7 @@ void TLinesBoard::newGame() {
 
 void TLinesBoard::restoreGame() {
 	//score = 0;
-	square.load();
+	board.load();
 	initBalls = true;
 	//randThreeBalls();
 }
@@ -73,10 +73,10 @@ void TLinesBoard::restoreGame() {
 void TLinesBoard::initPlayingField(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
-	      square[i][j] = 0;
+	      board[i][j] = 0;
 	      int rnd =  rand() % 35;
 	      if (rnd<7)
-	    	  square[i][j] = 1 + rnd;
+	    	  board[i][j] = 1 + rnd;
 	  }
 }
 
@@ -86,9 +86,9 @@ std::vector<TPoint> TLinesBoard::AddRandomBalls(){
 	  for(int j=1; j<= sizeY; j++) {
 	      //square[i][j] = 0;
 	      //int rnd =  rand() % 35;
-	      if (square[i][j]>0){
+	      if (board[i][j]>0){
 	    	//  square[i][j] = 1 + rnd;
-	      	  newBalls.emplace_back(i, j, square[i][j]);
+	      	  newBalls.emplace_back(i, j, board[i][j]);
 	      }
 	  }
 	initBalls = true;
@@ -99,7 +99,7 @@ void TLinesBoard::initSearch(TPoint src, TPoint dst){
 
      for(int i=1; i< 12; i++)
 		for(int j=1; j< 12; j++) {
-			if (square[i][j] > 0) sf[i][j] = 100;
+			if (board[i][j] > 0) sf[i][j] = 100;
 	      else sf[i][j] = 0;
 		}
 
@@ -164,7 +164,7 @@ int TLinesBoard::searchPath(TPoint src, TPoint dst){
  int x =dst.x;
  int y =dst.y;
  int nn = sf[x][y];
- int color =  square[src.x][src.y];
+ int color =  board[src.x][src.y];
  if (nn > 0) {
 	    path.emplace_back(dst.x, dst.y, color);
 	    int n=nn;
@@ -197,7 +197,7 @@ int TLinesBoard::checkLines(){
  clearBalls.clear();
  for(int x = 1; x<=sizeX; x++)
  for(int y = 1; y<=sizeY; y++){
-   if ( square[x][y]>0){
+   if ( board[x][y]>0){
 	   checkHorzLine(x,y);
        checkVertLine(x,y);
        checkDiag1Line(x,y);
@@ -206,7 +206,7 @@ int TLinesBoard::checkLines(){
  }
 
  for ( TPoint p : clearBalls ) {
-	 square[p.x][p.y] = 0;
+	 board[p.x][p.y] = 0;
  }
 
  score +=clearBalls.size();
@@ -217,9 +217,9 @@ int TLinesBoard::checkLines(){
 }
 
 void TLinesBoard::checkHorzLine(int x, int y){
-	int color = square[x][y];
+	int color = board[x][y];
 	int xx =x+1;
-	  while (square[xx][y] == color)
+	  while (board[xx][y] == color)
 	        xx =xx+1;
 	  int len = xx-x;
 	  if (len >4) {
@@ -230,9 +230,9 @@ void TLinesBoard::checkHorzLine(int x, int y){
 }
 
 void TLinesBoard::checkVertLine(int x, int y){
-	int color = square[x][y];
+	int color = board[x][y];
 	int yy =y+1;
-	  while (square[x][yy] == color)
+	  while (board[x][yy] == color)
 	        yy =yy+1;
 	  int len = yy-y;
 	  if (len >4) {
@@ -243,10 +243,10 @@ void TLinesBoard::checkVertLine(int x, int y){
 }
 
 void TLinesBoard::checkDiag1Line(int x, int y){
-	int color = square[x][y];
+	int color = board[x][y];
 	int xx =x+1;
 	int yy =y+1;
-	  while (square[xx][yy] == color)
+	  while (board[xx][yy] == color)
 	  	  {	xx++;  yy++; }
 
 	  int len = xx-x;
@@ -259,10 +259,10 @@ void TLinesBoard::checkDiag1Line(int x, int y){
 }
 
 void TLinesBoard::checkDiag2Line(int x, int y){
-	int color = square[x][y];
+	int color = board[x][y];
 	int xx =x+1;
 	int yy =y-1;
-	  while (square[xx][yy] == color)
+	  while (board[xx][yy] == color)
 	  	  {  xx++;  yy--;  }
 
 	  int len = xx-x;
@@ -280,7 +280,7 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
 
 	for(int x = 1; x<=sizeX; x++)
 	for(int y = 1; y<=sizeY; y++){
-	   if ( square[x][y] == 0){
+	   if ( board[x][y] == 0){
 		   emptySquares.emplace_back(x,y);
 	   }
 	 }
@@ -299,9 +299,9 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
          newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, ballsHolder.balls[2]);
 
          for (TPoint p :newBalls ) {
-        	 square[p.x][p.y] = p.color;
+        	 board[p.x][p.y] = p.color;
          }
-         square.save();
+         board.save();
          ballsHolder.genNewBalls();
 
 		return newBalls;

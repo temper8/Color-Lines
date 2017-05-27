@@ -126,7 +126,7 @@ void TBoardView::JumpingBall(){
 	x = x + squareSize / 2 ;
 	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
-	DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
+	DrawBall(x,y,linesBoard->board[selBall.x][selBall.y]);
 	graphics.Flush();
  }
 }
@@ -216,7 +216,7 @@ void TBoardView::OnClick(int x, int y) {
 
 	if (linesBoard->OutOfBoundary(xx, yy)) return;
 
-    if (linesBoard->square[xx][yy] > 0) {
+    if (linesBoard->board[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
 
@@ -231,8 +231,8 @@ void TBoardView::OnClick(int x, int y) {
     		linesBoard->initSearch(selBall,destSquare);
 
             if (linesBoard->searchPath(selBall,destSquare) >0) {
-            	linesBoard->square[destSquare.x][destSquare.y] = linesBoard->square[selBall.x][selBall.y];
-            	linesBoard->square[selBall.x][selBall.y] = 0;
+            	linesBoard->board[destSquare.x][destSquare.y] = linesBoard->board[selBall.x][selBall.y];
+            	linesBoard->board[selBall.x][selBall.y] = 0;
             	 selBall.x = 0;
             	 DeleteJumpingBallAnimator();
             	 CreateMoveBallAnimator();
@@ -270,7 +270,7 @@ void TBoardView::DrawBalls() {
 	  for(int j=1; j<= linesBoard->sizeY; j++){
 			double x = i*squareSize - squareSize / 2 + left_margin;
 			double y = j*squareSize - squareSize / 2 + top_margin;
-			DrawBall(x,y,linesBoard->square[i][j]);
+			DrawBall(x,y,linesBoard->board[i][j]);
 	  }
 }
 
@@ -326,7 +326,7 @@ void TBoardView::DrawBall(double x, double y, int color){
 void TBoardView::DrawPath(){
 	if (linesBoard->path.size()>0) {
 		TPoint p = linesBoard->path.front();
-		int color =  linesBoard->square[p.x][p.y];
+		int color =  linesBoard->board[p.x][p.y];
 		for ( TPoint p : linesBoard->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;

@@ -45,7 +45,7 @@ public:
 public:
 
 	int sizeX, sizeY;
-	TBoard square;
+	TBoard board;
 	 //std::array<std::array<int, 12>, 12> square;
 	//int square[12][12];
 	int sf[12][12];

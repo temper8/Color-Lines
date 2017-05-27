@@ -68,7 +68,6 @@ private:
     void DrawSquare(TPoint p);
 
 
- //   int mx,my;
 	TPoint selBall;
 	TPoint destSquare;
 
@@ -87,7 +86,6 @@ public:
 	void AppearanceNewBall(double pos);
 	void DisappearanceLines(double pos);
 
-	virtual void ShowPopup();
 	void NewGame();
 };
 

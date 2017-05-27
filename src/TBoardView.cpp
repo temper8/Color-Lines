@@ -74,7 +74,6 @@ void TBoardView::closePopupBox(){
 	myPopupBox = NULL;
 }
 void TBoardView::callbackMore(){
-	//ShowPopup();
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox(this);
 	myPopupBox->result = [](TView* v, int r) {
@@ -94,7 +93,6 @@ void testResult(int r) {
 }
 
 void TBoardView::callbackBack(){
-//	ShowPopup();
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TExitPopupBox(this);
 	myPopupBox->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
@@ -107,61 +105,6 @@ void TBoardView::showHelp(){
 	myPopupBox->show();
 }
 
-
-static void
-popup_new_game_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	evas_object_del(popup);
-	popup = NULL;
-
-	TBoardView *bv = (TBoardView*)data;
-	bv->NewGame();
-}
-
-void popup_exit_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	//Evas_Object *popup = (Evas_Object*)data;
-	evas_object_del(popup);
-	popup = NULL;
-	ui_app_exit();
-}
-
-
-
-void TBoardView::ShowPopup() {
-	Evas_Object *btn;
-    if (popup != NULL) {
-    	evas_object_del(popup);
-    	popup = NULL;
-    	return;
-    }
-	/* popup */
-	popup = elm_popup_add(win);
-	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
-	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
-	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, 0.5);
-	elm_object_text_set(popup, helpText.c_str());
-
-	//evas_object_smart_callback_add(popup, "block,clicked", popup_block_clicked_cb, NULL);
-
-	/* ok button */
-	btn = elm_button_add(popup);
-	elm_object_style_set(btn, "popup");
-	elm_object_text_set(btn, "New Game");
-	elm_object_part_content_set(popup, "button1", btn);
-	evas_object_smart_callback_add(btn, "clicked", popup_new_game_btn_clicked_cb, this);
-
-	/* cancel button */
-	btn = elm_button_add(popup);
-	elm_object_style_set(btn, "popup");
-	elm_object_text_set(btn, "Exit");
-	elm_object_part_content_set(popup, "button2", btn);
-	evas_object_smart_callback_add(btn, "clicked", popup_exit_btn_clicked_cb, popup);
-
-
-
-	evas_object_show(popup);
-}
 
 
 Eina_Bool jumping_ball(void *data)

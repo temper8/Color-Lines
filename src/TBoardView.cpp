@@ -37,13 +37,13 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
     graphics.LoadBgImage();
 
     ecore_timer_add(0.5, add_random_balls, this);
+
 }
 
 TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
-static Evas_Object *popup = NULL;
 
 void TBoardView::NewGame(){
 	linesBoard->newGame();
@@ -69,10 +69,12 @@ void TBoardView::loadHelp() {
     	helpText = "Game rules<br>Oops, an error occurred.";
     }
 }
+
 void TBoardView::closePopupBox(){
 	delete myPopupBox;
 	myPopupBox = NULL;
 }
+
 void TBoardView::callbackMore(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox(this);
@@ -106,7 +108,6 @@ void TBoardView::showHelp(){
 }
 
 
-
 Eina_Bool jumping_ball(void *data)
 {
 	TBoardView *bv = (TBoardView *) data;
@@ -126,12 +127,10 @@ void TBoardView::JumpingBall(){
 	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	DrawBall(x,y,linesBoard->square[selBall.x][selBall.y]);
-
-
 	graphics.Flush();
-
  }
 }
+
 void TBoardView::StartJumpingBallAnimator(){
   tick = 0;
   if (JumpingAnimator != NULL)

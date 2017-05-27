@@ -8,6 +8,11 @@
 #include "TLinesBoard.h"
 #include <cstdlib>
 
+void TBallsHolder::genNewBalls(){
+	for (int i=0;i<3;i++)
+		balls[i] =  rand() % 7 +1;
+}
+
 TLinesBoard::TLinesBoard(int x, int y): score("score"), record("record") {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
@@ -35,7 +40,7 @@ void TLinesBoard::newGame() {
 	square.clear();
 	initBalls = false;
 	initRandom();
-	randThreeBalls();
+    ballsHolder.genNewBalls();
 }
 
 void TLinesBoard::restoreGame() {
@@ -45,10 +50,6 @@ void TLinesBoard::restoreGame() {
 	//randThreeBalls();
 }
 
-void TLinesBoard::randThreeBalls(){
-	for (int i=0;i<3;i++)
-		threeBalls[i] =  rand() % 7 +1;
-}
 
 void TLinesBoard::initRandom(){
 	for(int i=1; i<= sizeX; i++)
@@ -274,15 +275,15 @@ std::vector<TPoint> TLinesBoard::addNewBalls(){
          if (new1<=new3) new3 = new3 + 1;
          if (new2<=new3) new3 = new3 + 1;
 
-         newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, threeBalls[0]);
-         newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, threeBalls[1]);
-         newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, threeBalls[2]);
+         newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, ballsHolder.balls[0]);
+         newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, ballsHolder.balls[1]);
+         newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, ballsHolder.balls[2]);
 
          for (TPoint p :newBalls ) {
         	 square[p.x][p.y] = p.color;
          }
          square.save();
-         randThreeBalls();
+         ballsHolder.genNewBalls();
 
 		return newBalls;
 	}

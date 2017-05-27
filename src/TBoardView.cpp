@@ -429,7 +429,7 @@ void TBoardView::DrawHeader() {
 	for (int i = 0; i<3; i++) {
 		double x = dx + 1.1*squareSize*i;
 		graphics.DrawSquare(x, 10);
-		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->threeBalls[i]);
+		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesBoard->ballsHolder.balls[i]);
 	}
 }
 

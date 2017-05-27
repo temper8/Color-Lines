@@ -25,6 +25,13 @@ struct TPoint
     TPoint() : x(0), y(0), color(0) {};
 };
 
+class TBallsHolder {
+public:
+	TBallsHolder() {};
+	int balls[3];
+	void genNewBalls();
+};
+
 class TLinesBoard {
 public:
 	TLinesBoard(int x,int y);
@@ -40,7 +47,7 @@ public:
 	int counter;
 	TPreferenceInt score;
 	TPreferenceInt record;
-	int threeBalls[3];
+	TBallsHolder ballsHolder;
 
 	bool OutOfBoundary(int x, int y);
 	void randThreeBalls();

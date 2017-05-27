@@ -82,7 +82,7 @@ void TBoardView::callbackMore(){
 										switch(r) {
 											case 1: break;
 											case 2: ((TBoardView*)v)->NewGame(); break;
-											case 3: break;
+											case 3: ((TBoardView*)v)->showHelp(); break;
 											case 4: ui_app_exit(); break;
 											}
 										};//testResult;
@@ -101,6 +101,9 @@ void TBoardView::callbackBack(){
 	myPopupBox->show();
 }
 
+void TBoardView::showHelp(){
+
+}
 
 
 static void

@@ -48,6 +48,7 @@ public:
     virtual void OnClick(int x, int y);
 
     void closePopupBox();
+    void showHelp();
 
 private:
 

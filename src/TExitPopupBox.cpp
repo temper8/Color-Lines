@@ -9,23 +9,6 @@
 
 #include "TView.h"
 
-void popup_new_yes_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	TPopupBox *pp = (TPopupBox*)data;
-	pp->close();
-
-	pp->sendResult(1);
-}
-
-void popup_new_game_cancel_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	TPopupBox *pp = (TPopupBox*)data;
-	pp->close();
-
-	pp->sendResult(2);
-}
-
-
 TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
 	/* popup */

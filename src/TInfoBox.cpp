@@ -32,7 +32,7 @@ TInfoBox::TInfoBox(TView *view, const char* text):TPopupBox(view) {
 
 	/* ok button */
 	btn = elm_button_add(myPopup);
-	elm_object_style_set(btn, "popup");
+	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "Continue");
 	elm_object_part_content_set(myPopup, "button1", btn);
 	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, this);

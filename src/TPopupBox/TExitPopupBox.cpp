@@ -7,7 +7,7 @@
 
 #include "TExitPopupBox.h"
 
-#include "TView.h"
+#include "..\TView.h"
 
 TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub

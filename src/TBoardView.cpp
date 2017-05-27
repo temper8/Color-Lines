@@ -12,9 +12,9 @@
 #include <fstream>
 #include <sstream>      // std::stringstream, std::stringbuf
 
-#include "TExitPopupBox.h"
-#include "TMenuPopupBox.h"
-#include "TInfoBox.h"
+#include "TPopupBox\TExitPopupBox.h"
+#include "TPopupBox\TMenuPopupBox.h"
+#include "TPopupBox\TInfoBox.h"
 
 static Eina_Bool
 add_random_balls(void *data)

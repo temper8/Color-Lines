@@ -211,9 +211,12 @@ int TLinesGame::checkLines(){
 	 board[p.x][p.y] = 0;
  }
 
+ board.save();
+
  score +=clearBalls.size();
 
  if (score>record) record = score;
+
 
  return clearBalls.size();
 }

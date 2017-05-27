@@ -16,6 +16,7 @@ public:
 	void update();
 
     friend TPreferenceInt& operator+= (TPreferenceInt& left, const int& right);
+    friend TPreferenceInt& operator++ (TPreferenceInt& i);
 
     TPreferenceInt& operator= (const int& right){
         value = right;

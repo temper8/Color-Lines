@@ -49,6 +49,13 @@ TPreferenceInt& operator+= (TPreferenceInt& left, const int& right) {
     return left;
 }
 
+//TODO don't work ((( i++
+TPreferenceInt& operator++ (TPreferenceInt& i) {
+    i.value++;
+    i.update();
+  return i;
+}
+
 
 void TPreferenceInt::update(){
 	preference_set_int(myKey, value);

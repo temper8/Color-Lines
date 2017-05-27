@@ -32,11 +32,11 @@ void TBallsHolder::save(){
 }
 
 
-TLinesBoard::TLinesBoard(int x, int y): score("score"), record("record") {
+TLinesBoard::TLinesBoard(int x, int y): counterGames("counterGames"), score("score"), record("record") {
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
-	if (score == 0)
+	if (counterGames == 0)
 		newGame();
 	else restoreGame();
 
@@ -55,6 +55,7 @@ bool TLinesBoard::OutOfBoundary(int x, int y){
 }
 
 void TLinesBoard::newGame() {
+	counterGames+=1;
 	score = 0;
 	board.clear();
 	initBalls = false;
@@ -65,7 +66,7 @@ void TLinesBoard::newGame() {
 void TLinesBoard::restoreGame() {
 	//score = 0;
 	board.load();
-	initBalls = true;
+	initBalls = false;
 	//randThreeBalls();
 }
 

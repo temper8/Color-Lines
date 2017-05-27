@@ -50,6 +50,7 @@ public:
 	//int square[12][12];
 	int sf[12][12];
 	int counter;
+	TPreferenceInt counterGames;
 	TPreferenceInt score;
 	TPreferenceInt record;
 	TBallsHolder ballsHolder;

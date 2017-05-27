@@ -14,7 +14,7 @@
 
 #include "TExitPopupBox.h"
 #include "TMenuPopupBox.h"
-
+#include "TInfoBox.h"
 
 static Eina_Bool
 add_random_balls(void *data)
@@ -102,7 +102,9 @@ void TBoardView::callbackBack(){
 }
 
 void TBoardView::showHelp(){
-
+	myPopupBox = new TInfoBox(this,helpText.c_str());
+	myPopupBox->result = [](TView* v, int r) { ((TBoardView*)v)->closePopupBox(); };
+	myPopupBox->show();
 }
 
 

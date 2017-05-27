@@ -27,9 +27,14 @@ struct TPoint
 
 class TBallsHolder {
 public:
-	TBallsHolder() {};
+	TBallsHolder();
 	int balls[3];
 	void genNewBalls();
+	void load();
+	void save();
+
+private:
+	TPreferenceInt holder;
 };
 
 class TLinesBoard {

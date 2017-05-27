@@ -8,10 +8,29 @@
 #include "TLinesBoard.h"
 #include <cstdlib>
 
+TBallsHolder::TBallsHolder(): holder("BallsHolder") {
+	if (holder == 0 )
+		genNewBalls();
+	else
+		load();
+};
+
 void TBallsHolder::genNewBalls(){
 	for (int i=0;i<3;i++)
 		balls[i] =  rand() % 7 +1;
+	save();
 }
+
+void TBallsHolder::load(){
+	balls[0] = holder % 10;
+	balls[1] = (holder/10) % 10;
+	balls[2] = holder/100;
+}
+
+void TBallsHolder::save(){
+	holder = 100*balls[2] + 10*balls[1] + balls[0];
+}
+
 
 TLinesBoard::TLinesBoard(int x, int y): score("score"), record("record") {
 	// TODO Auto-generated constructor stub

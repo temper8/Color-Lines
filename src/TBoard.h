@@ -1,19 +1,19 @@
 /*
- * TArray2D.h
+ * TBoard.h
  *
  *  Created on: May 15, 2017
  *      Author: Alex
  */
 
-#ifndef TARRAY2D_H_
-#define TARRAY2D_H_
+#ifndef TBOARD_H_
+#define TBOARD_H_
 
 #include <array>
 
-class TArray2D {
+class TBoard {
 public:
-	TArray2D();
-	virtual ~TArray2D();
+	TBoard();
+	virtual ~TBoard();
 
 	void clear();
 	void save();
@@ -24,4 +24,4 @@ private:
 	std::array<std::array<int, 12>, 12> array;
 };
 
-#endif /* TARRAY2D_H_ */
+#endif /* TBOARD_H_ */

@@ -58,7 +58,7 @@ void TLinesBoard::newGame() {
 	score = 0;
 	square.clear();
 	initBalls = false;
-	initRandom();
+	initPlayingField();
     ballsHolder.genNewBalls();
 }
 
@@ -70,7 +70,7 @@ void TLinesBoard::restoreGame() {
 }
 
 
-void TLinesBoard::initRandom(){
+void TLinesBoard::initPlayingField(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      square[i][j] = 0;

@@ -9,9 +9,9 @@
 #define TLINESBOARD_H_
 
 #include <vector>
-//#include <array>
 
-#include "TArray2D.h"
+#include "TBoard.h"
+//#include <array>
 
 #include "TPreferenceInt.h"
 
@@ -45,7 +45,7 @@ public:
 public:
 
 	int sizeX, sizeY;
-	TArray2D square;
+	TBoard square;
 	 //std::array<std::array<int, 12>, 12> square;
 	//int square[12][12];
 	int sf[12][12];
@@ -58,7 +58,7 @@ public:
 	void randThreeBalls();
 	bool initBalls;
 	std::vector<TPoint> path;
-	void initRandom();
+	void initPlayingField();
 	std::vector<TPoint> AddRandomBalls();
 	void initSearch(TPoint src, TPoint dst);
 	int searchPath(TPoint src, TPoint dst);

@@ -5,7 +5,7 @@
  *      Author: Alex
  */
 
-#include "TArray2D.h"
+#include "TBoard.h"
 
 #include <app_preference.h>
 
@@ -14,29 +14,29 @@
 #include <dlog.h>
 
 
-static const char *key = "Array2D";
+static const char *key = "Board";
 
-TArray2D::TArray2D() {
+TBoard::TBoard() {
 	// TODO Auto-generated constructor stub
 
 }
 
-TArray2D::~TArray2D() {
+TBoard::~TBoard() {
 	// TODO Auto-generated destructor stub
 }
 
-void TArray2D::clear(){
+void TBoard::clear(){
 	   for(auto &i: array) for(auto &k: i) k = 0;
 }
 
-void TArray2D::save(){
+void TBoard::save(){
 	std::string out_str;
 	for(auto &i: array) for(auto &k: i) out_str = out_str + std::to_string(k);
 	preference_set_string(key, out_str.c_str());
 	dlog_print(DLOG_DEBUG, LOG_TAG, "out key %s out_str = %s.", key, out_str.c_str());
 }
 
-void TArray2D::load(){
+void TBoard::load(){
 	bool existing;
 	int ret = preference_is_existing(key, &existing);
 	if (ret != PREFERENCE_ERROR_NONE) {

@@ -7,6 +7,8 @@
 
 #include "TGameOverBox.h"
 
+#include "..\TView.h"
+
 TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
 	// TODO Auto-generated constructor stub

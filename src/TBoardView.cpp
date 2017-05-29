@@ -15,6 +15,7 @@
 #include "TPopupBox\TExitPopupBox.h"
 #include "TPopupBox\TMenuPopupBox.h"
 #include "TPopupBox\TInfoBox.h"
+#include "TPopupBox\TGameOverBox.h"
 
 static Eina_Bool
 add_random_balls(void *data)
@@ -183,6 +184,16 @@ void TBoardView::OnEndMoveBall(){
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
 			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
+			if (linesGame->gameOver()) {
+				ecore_timer_add(1.0, [](void *data)	{
+							TBoardView *bv = (TBoardView *) data;
+							bv->myPopupBox = new TGameOverBox(bv);
+							bv->myPopupBox->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+							bv->myPopupBox->show();
+						   return EINA_FALSE; }
+				, this);
+
+			}
 
 	}
 	else {

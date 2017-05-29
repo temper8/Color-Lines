@@ -70,6 +70,7 @@ public:
 
 	void newGame();
 	void restoreGame();
+	bool gameOver();
 
 private:
 

@@ -278,6 +278,16 @@ void TLinesGame::checkDiag2Line(int x, int y){
 	  }
 }
 
+bool TLinesGame::gameOver(){
+	for(int x = 1; x<=sizeX; x++)
+	for(int y = 1; y<=sizeY; y++){
+	   if ( board[x][y] == 0){
+		   return false;
+	   }
+	 }
+	return true;
+}
+
 
 std::vector<TPoint> TLinesGame::addNewBalls(){
 	std::vector<TPoint> emptySquares;

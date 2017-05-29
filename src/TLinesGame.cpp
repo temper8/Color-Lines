@@ -290,7 +290,7 @@ std::vector<TPoint> TLinesGame::addNewBalls(){
 	   }
 	 }
 
-	if (emptySquares.size()>2) {
+	if (emptySquares.size()>3) {
 		 int new1 =  rand() % emptySquares.size();
 		 int new2 =  rand() % (emptySquares.size()-1);
 		 int new3 =  rand() % (emptySquares.size()-2);
@@ -312,6 +312,11 @@ std::vector<TPoint> TLinesGame::addNewBalls(){
 		return newBalls;
 	}
 	else {
+		int i = 0;
+		for (TPoint p :emptySquares ) {
+					newBalls.emplace_back(p.x, p.y, ballsHolder.balls[i]);
+		        	 board[p.x][p.y] = ballsHolder.balls[i++];
+		         }
 		return newBalls;
 	}
 }

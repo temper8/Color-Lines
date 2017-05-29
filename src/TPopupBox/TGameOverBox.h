@@ -12,7 +12,7 @@
 
 class TGameOverBox: public TPopupBox {
 public:
-	TGameOverBox();
+	TGameOverBox(TView *view);
 	virtual ~TGameOverBox();
 };
 

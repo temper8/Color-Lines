@@ -108,7 +108,7 @@ void TView::CreateWin(const char *pkg_name){
 	elm_win_resize_object_add(win, conform);
 	evas_object_show(conform);
 
-	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, callback_back, this);
+	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){ui_app_exit();}, this);
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, callback_more, this);
 
 }

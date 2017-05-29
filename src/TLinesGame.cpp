@@ -62,6 +62,7 @@ void TLinesGame::newGame() {
 	initBalls = false;
 	initPlayingField();
     ballsHolder.genNewBalls();
+    board.save();
 }
 
 void TLinesGame::restoreGame() {

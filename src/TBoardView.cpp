@@ -188,7 +188,7 @@ void TBoardView::OnEndMoveBall(){
 				ecore_timer_add(1.0, [](void *data)	{
 							TBoardView *bv = (TBoardView *) data;
 							bv->myPopupBox = new TGameOverBox(bv);
-							bv->myPopupBox->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+							bv->myPopupBox->result = [](TView* v, int r) { if (r==1) ((TBoardView*)v)->NewGame(); else ui_app_exit(); };//testResult;
 							bv->myPopupBox->show();
 						   return EINA_FALSE; }
 				, this);

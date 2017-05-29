@@ -26,7 +26,7 @@ public:
 
 	Evas_Object *win;
 	Evas_Object *conform;
-	Evas_Object *label;
+
 
 	virtual void Resize(int width, int height) {};
 

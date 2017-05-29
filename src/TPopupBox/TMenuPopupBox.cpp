@@ -40,6 +40,7 @@ void popup_btn4_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
+	pp->close();
 	pp->sendResult(1);
 }
 
@@ -49,8 +50,8 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	Evas_Object *box;
 	/* popup */
 	myPopup = elm_popup_add(myView->win);
-	elm_popup_align_set(myPopup, 0.5, 0.5);
-//	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
+	elm_popup_align_set(myPopup,ELM_NOTIFY_ALIGN_FILL, 1.0);
+	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, eext_popup_back_cb, this);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 //	elm_object_text_set(myPopup, helpText.c_str());
 

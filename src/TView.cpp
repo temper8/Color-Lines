@@ -14,7 +14,6 @@ TView::TView() {
 	// TODO Auto-generated constructor stub
 	win = 0;
 	conform = 0;
-	label= 0;
 }
 
 TView::~TView() {
@@ -59,7 +58,7 @@ void TView::CreateContent(){
 	/* Label */
 	/* Create an actual view of the base gui.
 	   Modify this part to change the view. */
-	label = elm_label_add(conform);
+	Evas_Object *label = elm_label_add(conform);
 	elm_object_text_set(label, "<align=center>Hello Basic View</align>");
 	evas_object_size_hint_weight_set(label, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_content_set(conform, label);
@@ -93,8 +92,8 @@ void TView::CreateWin(const char *pkg_name){
 	}
 
 	evas_object_smart_callback_add(win, "delete,request", win_delete_request_cb, NULL);
-	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, callback_back, this);
-	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, callback_more, this);
+//	eext_object_event_callback_add(win, EEXT_CALLBACK_BACK, callback_back, this);
+//	eext_object_event_callback_add(win, EEXT_CALLBACK_MORE, callback_more, this);
 
 	evas_object_event_callback_add(win, EVAS_CALLBACK_RESIZE, win_resize_cb, this);
 
@@ -108,5 +107,8 @@ void TView::CreateWin(const char *pkg_name){
 	evas_object_size_hint_weight_set(conform, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_win_resize_object_add(win, conform);
 	evas_object_show(conform);
+
+	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, callback_back, this);
+	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, callback_more, this);
 
 }

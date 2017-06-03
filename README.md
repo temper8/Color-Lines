@@ -1,6 +1,18 @@
 # Tizen Color Lines #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Native app for Tizen Studio. 
+
+Game rules:
+The goal of the game is to collect lines from balls of the same color. 
+The longer the line, the more points are awarded for it.
+You can move the balls between the cells, if between them there is a way free from the other balls.
+With the first tap you select the ball, then select the destination. The game continues until the board is full.
+
+Правила игры:
+Цель игры собирать линии из шариков одного цвета. Чем длиннее линия тем больше за нее дается очков.
+Вы можете двигать шарики между клетками, если между ними есть путь свободный от других шариков.
+Перым тапом вы выбираете шарик, затем выбираете место назначения.
+Игра продолжается до тех пор, пока доска не будет заполнена.
 
 ### What is this repository for? ###
 

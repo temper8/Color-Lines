@@ -56,7 +56,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_box_padding_set(box, 16, 16);
 
-	Evas_Object *rect_1 = evas_object_rectangle_add(myPopup);
+	Evas_Object *rect_1 = evas_object_rectangle_add((Evas *)myPopup);
 	evas_object_color_set(rect_1, 200, 0, 0, 255);
 	evas_object_size_hint_weight_set(rect_1, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(rect_1, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -109,7 +109,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
 
-	Evas_Object *rect_2 = evas_object_rectangle_add(myPopup);
+	Evas_Object *rect_2 = evas_object_rectangle_add((Evas *)myPopup);
 	evas_object_color_set(rect_2, 200, 0, 0, 255);
 	evas_object_size_hint_weight_set(rect_2, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(rect_2, EVAS_HINT_FILL, EVAS_HINT_FILL);

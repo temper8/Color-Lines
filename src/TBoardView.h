@@ -8,8 +8,11 @@
 #ifndef TBOARDVIEW_H_
 #define TBOARDVIEW_H_
 
+#include <string>
+
 #include "TDrawingView.h"
 #include "TLinesGame.h"
+
 
 class TPopupBox;
 class TLinesGame;

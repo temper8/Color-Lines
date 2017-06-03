@@ -7,6 +7,7 @@
 
 #include "TBoard.h"
 
+#include <string>
 #include <app_preference.h>
 
 #define LOG_TAG "Color Lines"

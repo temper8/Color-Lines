@@ -186,14 +186,8 @@ void TBoardView::OnEndMoveBall(){
 		    NewBalls = linesGame->addNewBalls();
 			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
 			if (linesGame->gameOver()) {
-				ecore_timer_add(1.0, [](void *data)	{
-							TBoardView *bv = (TBoardView *) data;
-							bv->showGameOverBox();
-						   return EINA_FALSE; }
-				, this);
-
+				ecore_timer_add(1.0, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
-
 	}
 	else {
 		ecore_animator_timeline_add (1.0, disappearance_lines, this);

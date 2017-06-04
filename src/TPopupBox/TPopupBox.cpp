@@ -45,7 +45,6 @@ void TPopupBox::btnClick(Evas_Object *btn){
 }
 
 Evas_Object * TPopupBox::elmButtonAdd(const char* title, const char* style, int tag){
-	/* ok button */
 	Evas_Object *btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, style);
 	elm_object_text_set(btn, title);

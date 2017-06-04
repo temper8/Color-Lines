@@ -87,18 +87,14 @@ void TBoardView::callbackMore(){
 											case 3: showHelp(); break;
 											case 4: ui_app_exit(); break;
 											}
-										};//testResult;
+										};
 	myPopupBox->show();
-}
-
-void testResult(int r) {
-	if (r==1) ui_app_exit();
 }
 
 void TBoardView::callbackBack(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TExitPopupBox(this);
-	myPopupBox->OnBtnClick = [this](int r) { if (r==1) ui_app_exit(); };//testResult;
+	myPopupBox->OnBtnClick = [this](int r) { if (r==1) ui_app_exit(); };
 	myPopupBox->show();
 }
 
@@ -110,7 +106,7 @@ void TBoardView::showHelp(){
 
 void TBoardView::showGameOverBox(){
 	myPopupBox = new TGameOverBox(this);
-	myPopupBox->OnBtnClick = [this](int tag) { if (tag==2) NewGame(); else ui_app_exit(); };
+	myPopupBox->OnBtnClick = [this](int tag) {closePopupBox(); if (tag==2) NewGame(); else ui_app_exit(); };
 	myPopupBox->show();
 }
 

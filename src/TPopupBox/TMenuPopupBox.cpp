@@ -9,11 +9,9 @@
 
 #include "..\TView.h"
 
-void popup_btn1_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	TPopupBox *pp = (TPopupBox*)data;
-	pp->btnClick(1);
-}
+
+void popup_close_cb(void *data, Evas_Object *obj, void *event_info);
+
 
 TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
@@ -25,9 +23,9 @@ TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 //	elm_object_text_set(myPopup, helpText.c_str());
 
-	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, popup_btn1_clicked_cb, this);
-	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_MORE, popup_btn1_clicked_cb, this);
-	evas_object_smart_callback_add(myPopup, "block,clicked", popup_btn1_clicked_cb, this);
+	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, popup_close_cb, this);
+	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_MORE, popup_close_cb, this);
+	evas_object_smart_callback_add(myPopup, "block,clicked", popup_close_cb, this);
 
 	/* box */
 	box = elm_box_add(myPopup);

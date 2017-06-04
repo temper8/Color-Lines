@@ -148,7 +148,7 @@ void TBoardView::DeleteJumpingBallAnimator(){
 void TBoardView::MoveBall(double pos) {
 	DrawPath(pos);
 	graphics.Flush();
-	if (pos == 1.0) OnEndMoveBall();
+//	if (pos == 1.0) OnEndMoveBall();
 }
 
 Eina_Bool move_ball(void *data, double pos)
@@ -160,6 +160,7 @@ Eina_Bool move_ball(void *data, double pos)
 
 void TBoardView::CreateMoveBallAnimator(){
 	ecore_animator_timeline_add (animation_time, move_ball, this);
+	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
 
 void TBoardView::DeleteMoveBallAnimator(){
@@ -180,7 +181,7 @@ Eina_Bool disappearance_lines(void *data, double pos)
    return EINA_TRUE;
 }
 
-void TBoardView::OnEndMoveBall(){
+void TBoardView::afterMoveBall(){
 
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();

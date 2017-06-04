@@ -93,7 +93,7 @@ public:
 	double tick;
 	void JumpingBall();
 	void MoveBall(double pos);
-	void OnEndMoveBall();
+	void afterMoveBall();
 	void AppearanceNewBall(double pos);
 	void DisappearanceLines(double pos);
 

@@ -151,15 +151,9 @@ void TBoardView::MoveBall(double pos) {
 //	if (pos == 1.0) OnEndMoveBall();
 }
 
-Eina_Bool move_ball(void *data, double pos)
-{
-   TBoardView *bv = (TBoardView *) data;
-   bv->MoveBall(pos);
-   return EINA_TRUE;
-}
 
 void TBoardView::CreateMoveBallAnimator(){
-	ecore_animator_timeline_add (animation_time, move_ball, this);
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->MoveBall(pos); return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
 

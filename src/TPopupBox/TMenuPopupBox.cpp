@@ -86,7 +86,12 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
 
+	btn = buttonAdd("Game Rules", 3);
+	elm_box_pack_end(box, btn);
+	btn = buttonAdd("Exit", 4);
+	elm_box_pack_end(box, btn);
 	/* ok button */
+	/*
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "Game Rules");
@@ -98,7 +103,9 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	elm_box_pack_end(box, btn);
 
 
+
 	/* cancel button */
+	/*
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, "Exit");
@@ -108,7 +115,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	evas_object_size_hint_align_set(btn, 0.5, 0.5);
 	evas_object_show(btn);
 	elm_box_pack_end(box, btn);
-
+*/
 	Evas_Object *rect_2 = evas_object_rectangle_add((Evas *)myPopup);
 	evas_object_color_set(rect_2, 200, 0, 0, 255);
 	evas_object_size_hint_weight_set(rect_2, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -126,3 +133,24 @@ TMenuPopupBox::~TMenuPopupBox() {
 	// TODO Auto-generated destructor stub
 }
 
+Evas_Object * TMenuPopupBox::buttonAdd(const char* title, int tag){
+	/* cancel button */
+	int _tag = tag;
+	Evas_Object *btn;
+	btn = elm_button_add(myPopup);
+	elm_object_style_set(btn, "default");
+	elm_object_text_set(btn, title);
+	evas_object_smart_callback_add(btn, "clicked", [](void *data, Evas_Object *obj, void *event_info){TPopupBox *pp = (TPopupBox*)data; pp->btnClick(3); }, this);
+	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
+	evas_object_size_hint_min_set(btn, 300, 80);
+	evas_object_size_hint_align_set(btn, 0.5, 0.5);
+	evas_object_show(btn);
+	return btn;
+}
+
+void popup_btn5_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	TPopupBox *pp = (TPopupBox*)data;
+//	pp->close();
+	pp->btnClick(4);
+}

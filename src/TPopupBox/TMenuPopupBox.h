@@ -14,6 +14,9 @@ class TMenuPopupBox: public TPopupBox {
 public:
 	TMenuPopupBox(TView *view);
 	virtual ~TMenuPopupBox();
+
+private:
+	Evas_Object * buttonAdd(const char* title, int tag);
 };
 
 #endif /* TMENUPOPUPBOX_H_ */

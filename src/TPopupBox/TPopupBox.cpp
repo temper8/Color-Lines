@@ -44,11 +44,12 @@ void TPopupBox::btnClick(Evas_Object *btn){
 	btnClick(tag);
 }
 
-Evas_Object * TPopupBox::elmButtonAdd(const char* title, const char* style){
+Evas_Object * TPopupBox::elmButtonAdd(const char* title, const char* style, int tag){
 	/* ok button */
 	Evas_Object *btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, style);
 	elm_object_text_set(btn, title);
 	evas_object_smart_callback_add(btn, "clicked",  [](void *data, Evas_Object *obj, void *event_info){((TPopupBox*)data)->btnClick(obj); }, this);
+	buttons.insert(std::make_pair(btn, tag));
 	return btn;
 }

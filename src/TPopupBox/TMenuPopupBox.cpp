@@ -14,14 +14,12 @@ void popup_close_cb(void *data, Evas_Object *obj, void *event_info);
 
 
 TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):TPopupBox(view) {
-	// TODO Auto-generated constructor stub
 	Evas_Object *btn;
 	Evas_Object *box;
-	/* popup */
+
 	myPopup = elm_popup_add(myView->win);
 	elm_popup_align_set(myPopup,ELM_NOTIFY_ALIGN_FILL, 1.0);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-//	elm_object_text_set(myPopup, helpText.c_str());
 
 	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, popup_close_cb, this);
 	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_MORE, popup_close_cb, this);

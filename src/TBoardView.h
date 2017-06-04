@@ -57,11 +57,13 @@ public:
 private:
 
     TPopupBox* myPopupBox;
+
 	virtual void callbackMore();
 	virtual void callbackBack();
 
 
     void loadHelp();
+
     void SetColor(int color);
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
@@ -75,11 +77,16 @@ private:
 	TPoint selBall;
 	TPoint destSquare;
 
+
+	Ecore_Animator *JumpingAnimator;
+
+    static constexpr const double animation_pause = 0.5;
+    static constexpr const double animation_time = 1.0;
+
 	void StartJumpingBallAnimator();
 	void DeleteJumpingBallAnimator();
 	void CreateMoveBallAnimator();
 	void DeleteMoveBallAnimator();
-	Ecore_Animator *JumpingAnimator;
 
 public:
 	std::vector<TPoint> NewBalls;

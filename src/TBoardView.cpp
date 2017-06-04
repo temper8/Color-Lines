@@ -37,7 +37,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
     graphics.LoadBgImage();
 
-    ecore_timer_add(0.5, add_random_balls, this);
+    ecore_timer_add(animation_pause, add_random_balls, this);
 
 }
 
@@ -51,7 +51,7 @@ void TBoardView::NewGame(){
 	selBall.x = 0;
 	selBall.y = 0;
 	CairoDrawing();
-	ecore_timer_add(0.5, add_random_balls, this);
+	ecore_timer_add(animation_pause, add_random_balls, this);
 }
 
 void TBoardView::loadHelp() {
@@ -159,7 +159,7 @@ Eina_Bool move_ball(void *data, double pos)
 }
 
 void TBoardView::CreateMoveBallAnimator(){
-	ecore_animator_timeline_add (1.0, move_ball, this);
+	ecore_animator_timeline_add (animation_time, move_ball, this);
 }
 
 void TBoardView::DeleteMoveBallAnimator(){
@@ -184,9 +184,9 @@ void TBoardView::OnEndMoveBall(){
 
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
-			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
+			ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
 			if (linesGame->gameOver()) {
-				ecore_timer_add(1.0, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
+				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
 	}
 	else {
@@ -252,7 +252,7 @@ void TBoardView::OnClick(int x, int y) {
 
 void TBoardView::AddRandomBalls(){
     NewBalls = linesGame->AddRandomBalls();
-	ecore_animator_timeline_add (1.0, appearance_new_ball, this);
+	ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
 }
 
 void TBoardView::CairoDrawing(){

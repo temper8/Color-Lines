@@ -79,9 +79,9 @@ void TBoardView::closePopupBox(){
 void TBoardView::callbackMore(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox(this, {"Continue", "New Game", "Game Rules","Exit"});
-	myPopupBox->OnBtnClick = [this](int r) {
+	myPopupBox->OnBtnClick = [this](int tag) {
 										closePopupBox();
-										switch(r) {
+										switch(tag) {
 											case 1: break;
 											case 2: NewGame(); break;
 											case 3: showHelp(); break;

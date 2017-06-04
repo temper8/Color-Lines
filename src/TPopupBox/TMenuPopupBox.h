@@ -21,6 +21,7 @@ public:
 
 private:
 	Evas_Object * elmButtonAdd(const char* title);
+	Evas_Object * evasRectangleAdd();
 	std::map<Evas_Object *,int > buttons;
 };
 

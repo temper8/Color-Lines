@@ -12,7 +12,6 @@
 void popup_btn1_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
-//	pp->close();
 	pp->btnClick(1);
 }
 
@@ -35,35 +34,33 @@ TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_box_padding_set(box, 16, 16);
 
-	Evas_Object *rect_1 = evas_object_rectangle_add((Evas *)myPopup);
-	evas_object_color_set(rect_1, 200, 0, 0, 255);
-	evas_object_size_hint_weight_set(rect_1, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(rect_1, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(rect_1);
-	elm_box_pack_end(box, rect_1);
+	elm_box_pack_end(box, evasRectangleAdd());
 
 	int tag = 1;
-	for (const char* b : buttonList) {
-		btn = elmButtonAdd(b);
+	for (const char* title : buttonList) {
+		btn = elmButtonAdd(title);
 		buttons.insert(std::make_pair(btn, tag++));
 		elm_box_pack_end(box, btn);
 	 }
 
-	Evas_Object *rect_2 = evas_object_rectangle_add((Evas *)myPopup);
-	evas_object_color_set(rect_2, 200, 0, 0, 255);
-	evas_object_size_hint_weight_set(rect_2, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(rect_2, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(rect_2);
-	elm_box_pack_end(box, rect_2);
+	elm_box_pack_end(box, evasRectangleAdd());
 
 	evas_object_size_hint_min_set(box, 350, 192);
-	//elm_object_part_content_set(myPopup, "elm.swallow.content", box);
 	elm_object_content_set(myPopup, box);
 
 }
 
 TMenuPopupBox::~TMenuPopupBox() {
 	// TODO Auto-generated destructor stub
+}
+
+Evas_Object * TMenuPopupBox::evasRectangleAdd(){
+	Evas_Object *rect = evas_object_rectangle_add((Evas *)myPopup);
+	evas_object_color_set(rect, 200, 0, 0, 255);
+	evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(rect, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(rect);
+	return rect;
 }
 
 Evas_Object * TMenuPopupBox::elmButtonAdd(const char* title){

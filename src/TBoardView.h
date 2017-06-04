@@ -85,14 +85,14 @@ private:
 
 	void StartJumpingBallAnimator();
 	void DeleteJumpingBallAnimator();
-	void CreateMoveBallAnimator();
+	void createMoveBallAnimator();
 	void DeleteMoveBallAnimator();
 
 public:
 	std::vector<TPoint> NewBalls;
 	double tick;
 	void JumpingBall();
-	void MoveBall(double pos);
+	void moveBall(double pos);
 	void afterMoveBall();
 	void AppearanceNewBall(double pos);
 	void DisappearanceLines(double pos);

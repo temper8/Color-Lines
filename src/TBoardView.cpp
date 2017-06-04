@@ -110,12 +110,6 @@ void TBoardView::showGameOverBox(){
 	myPopupBox->show();
 }
 
-Eina_Bool jumping_ball(void *data)
-{
-	TBoardView *bv = (TBoardView *) data;
-    bv->JumpingBall();
-    return EINA_TRUE;
-}
 
 void TBoardView::JumpingBall(){
  if (selBall.x !=0) {
@@ -137,7 +131,7 @@ void TBoardView::StartJumpingBallAnimator(){
   tick = 0;
   if (JumpingAnimator != NULL)
   	   ecore_animator_del(JumpingAnimator);
-  JumpingAnimator = ecore_animator_add(jumping_ball, this);
+  JumpingAnimator = ecore_animator_add([](void *data){((TBoardView *) data)->JumpingBall(); return EINA_TRUE;}, this);
 }
 
 void TBoardView::DeleteJumpingBallAnimator(){
@@ -145,15 +139,13 @@ void TBoardView::DeleteJumpingBallAnimator(){
 	   ecore_animator_del(JumpingAnimator);
 }
 
-void TBoardView::MoveBall(double pos) {
+void TBoardView::moveBall(double pos) {
 	DrawPath(pos);
 	graphics.Flush();
-//	if (pos == 1.0) OnEndMoveBall();
 }
 
-
-void TBoardView::CreateMoveBallAnimator(){
-	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->MoveBall(pos); return EINA_TRUE;}, this);
+void TBoardView::createMoveBallAnimator(){
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
 
@@ -236,7 +228,7 @@ void TBoardView::OnClick(int x, int y) {
             	linesGame->board[selBall.x][selBall.y] = 0;
             	 selBall.x = 0;
             	 DeleteJumpingBallAnimator();
-            	 CreateMoveBallAnimator();
+            	 createMoveBallAnimator();
 
             }
 

@@ -111,6 +111,43 @@ void TBoardView::showGameOverBox(){
 }
 
 
+void TBoardView::OnClick(int x, int y) {
+
+	int xx =(x-left_margin) / squareSize + 1;
+	int yy =(y-top_margin) / squareSize + 1;
+
+	if (linesGame->OutOfBoundary(xx, yy)) return;
+
+    if (linesGame->board[xx][yy] > 0) {
+    	selBall.x = xx;
+    	selBall.y = yy;
+
+        startJumpingBallAnimator();
+    }
+    else {
+    	if (selBall.x > 0)  {
+
+    		destSquare.x = xx;
+    		destSquare.y = yy;
+
+    		linesGame->initSearch(selBall,destSquare);
+
+            if (linesGame->searchPath(selBall,destSquare) >0) {
+            	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+            	linesGame->board[selBall.x][selBall.y] = 0;
+            	 selBall.x = 0;
+            	 deleteJumpingBallAnimator();
+            	 createMoveBallAnimator();
+
+            }
+
+    	}
+
+    }
+};
+
+// animation
+
 void TBoardView::jumpingBall(){
  if (selBall.x !=0) {
 
@@ -182,65 +219,26 @@ void TBoardView::afterMoveBall(){
 	DrawHeader();
 }
 
-
-
-void TBoardView::appearanceNewBall(double pos) {
-
-	for ( TPoint p : NewBalls )
-		DrawBall(p,  pos);
-
-	graphics.Flush();
-}
-
-void TBoardView::disappearanceLines(double pos){
-
-	for ( TPoint p : linesGame->clearBalls ){
-	    DrawSquare(p);
-		DrawBall(p,  1-pos);
-	}
-
-	graphics.Flush();
-}
-
-void TBoardView::OnClick(int x, int y) {
-
-	int xx =(x-left_margin) / squareSize + 1;
-	int yy =(y-top_margin) / squareSize + 1;
-
-	if (linesGame->OutOfBoundary(xx, yy)) return;
-
-    if (linesGame->board[xx][yy] > 0) {
-    	selBall.x = xx;
-    	selBall.y = yy;
-
-        startJumpingBallAnimator();
-    }
-    else {
-    	if (selBall.x > 0)  {
-
-    		destSquare.x = xx;
-    		destSquare.y = yy;
-
-    		linesGame->initSearch(selBall,destSquare);
-
-            if (linesGame->searchPath(selBall,destSquare) >0) {
-            	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-            	linesGame->board[selBall.x][selBall.y] = 0;
-            	 selBall.x = 0;
-            	 deleteJumpingBallAnimator();
-            	 createMoveBallAnimator();
-
-            }
-
-    	}
-
-    }
-};
-
 void TBoardView::AddRandomBalls(){
     NewBalls = linesGame->AddRandomBalls();
 	ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
 }
+
+void TBoardView::appearanceNewBall(double pos) {
+	for ( TPoint p : NewBalls )
+		DrawBall(p,  pos);
+	graphics.Flush();
+}
+
+void TBoardView::disappearanceLines(double pos){
+	for ( TPoint p : linesGame->clearBalls ){
+	    DrawSquare(p);
+		DrawBall(p,  1-pos);
+	}
+	graphics.Flush();
+}
+
+// drawing
 
 void TBoardView::CairoDrawing(){
 
@@ -256,7 +254,6 @@ void TBoardView::CairoDrawing(){
 
 	graphics.Flush();
 }
-
 
 void TBoardView::DrawBalls() {
 	for(int i=1; i<= linesGame->sizeX; i++)
@@ -286,7 +283,6 @@ void TBoardView::CalcViewMarkup(){
 	top_margin = ( myHeight - BoardHeight)/2;
 }
 
-
 void TBoardView::DrawBoard(){
 
 	for (int x = 0; x< linesGame->sizeX; x++)
@@ -296,7 +292,6 @@ void TBoardView::DrawBoard(){
 			graphics.DrawSquare(xx, yy);
 		}
 }
-
 
 void TBoardView::DrawBall(TPoint p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
@@ -313,8 +308,6 @@ void TBoardView::DrawBall(TPoint p, double r, int color){
 void TBoardView::DrawBall(double x, double y, int color){
 	graphics.DrawBall(x,y,1,color);
 }
-
-
 
 void TBoardView::DrawPath(){
 	if (linesGame->path.size()>0) {

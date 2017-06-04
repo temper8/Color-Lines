@@ -83,19 +83,19 @@ private:
     static constexpr const double animation_pause = 0.5;
     static constexpr const double animation_time = 1.0;
 
-	void StartJumpingBallAnimator();
-	void DeleteJumpingBallAnimator();
+	void startJumpingBallAnimator();
+	void deleteJumpingBallAnimator();
 	void createMoveBallAnimator();
-	void DeleteMoveBallAnimator();
+	void deleteMoveBallAnimator();
 
 public:
 	std::vector<TPoint> NewBalls;
 	double tick;
-	void JumpingBall();
+	void jumpingBall();
 	void moveBall(double pos);
 	void afterMoveBall();
-	void AppearanceNewBall(double pos);
-	void DisappearanceLines(double pos);
+	void appearanceNewBall(double pos);
+	void disappearanceLines(double pos);
 
 	void NewGame();
 };

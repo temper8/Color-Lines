@@ -111,7 +111,7 @@ void TBoardView::showGameOverBox(){
 }
 
 
-void TBoardView::JumpingBall(){
+void TBoardView::jumpingBall(){
  if (selBall.x !=0) {
 
 	double x = (selBall.x-1)*squareSize  + left_margin;
@@ -127,14 +127,14 @@ void TBoardView::JumpingBall(){
  }
 }
 
-void TBoardView::StartJumpingBallAnimator(){
+void TBoardView::startJumpingBallAnimator(){
   tick = 0;
   if (JumpingAnimator != NULL)
   	   ecore_animator_del(JumpingAnimator);
-  JumpingAnimator = ecore_animator_add([](void *data){((TBoardView *) data)->JumpingBall(); return EINA_TRUE;}, this);
+  JumpingAnimator = ecore_animator_add([](void *data){((TBoardView *) data)->jumpingBall(); return EINA_TRUE;}, this);
 }
 
-void TBoardView::DeleteJumpingBallAnimator(){
+void TBoardView::deleteJumpingBallAnimator(){
 	if (JumpingAnimator != NULL)
 	   ecore_animator_del(JumpingAnimator);
 }
@@ -149,21 +149,21 @@ void TBoardView::createMoveBallAnimator(){
 	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
 
-void TBoardView::DeleteMoveBallAnimator(){
+void TBoardView::deleteMoveBallAnimator(){
 
 }
 
 Eina_Bool appearance_new_ball(void *data, double pos)
 {
    TBoardView *bv = (TBoardView *) data;
-   bv->AppearanceNewBall(pos);
+   bv->appearanceNewBall(pos);
    return EINA_TRUE;
 }
 
 Eina_Bool disappearance_lines(void *data, double pos)
 {
    TBoardView *bv = (TBoardView *) data;
-   bv->DisappearanceLines(pos);
+   bv->disappearanceLines(pos);
    return EINA_TRUE;
 }
 
@@ -184,7 +184,7 @@ void TBoardView::afterMoveBall(){
 
 
 
-void TBoardView::AppearanceNewBall(double pos) {
+void TBoardView::appearanceNewBall(double pos) {
 
 	for ( TPoint p : NewBalls )
 		DrawBall(p,  pos);
@@ -192,7 +192,7 @@ void TBoardView::AppearanceNewBall(double pos) {
 	graphics.Flush();
 }
 
-void TBoardView::DisappearanceLines(double pos){
+void TBoardView::disappearanceLines(double pos){
 
 	for ( TPoint p : linesGame->clearBalls ){
 	    DrawSquare(p);
@@ -213,7 +213,7 @@ void TBoardView::OnClick(int x, int y) {
     	selBall.x = xx;
     	selBall.y = yy;
 
-        StartJumpingBallAnimator();
+        startJumpingBallAnimator();
     }
     else {
     	if (selBall.x > 0)  {
@@ -227,7 +227,7 @@ void TBoardView::OnClick(int x, int y) {
             	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
             	linesGame->board[selBall.x][selBall.y] = 0;
             	 selBall.x = 0;
-            	 DeleteJumpingBallAnimator();
+            	 deleteJumpingBallAnimator();
             	 createMoveBallAnimator();
 
             }

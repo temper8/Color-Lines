@@ -79,12 +79,12 @@ void TBoardView::closePopupBox(){
 void TBoardView::callbackMore(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox(this);
-	myPopupBox->OnBtnClick = [](TView* v, int r) {
-										((TBoardView*)v)->closePopupBox();
+	myPopupBox->OnBtnClick = [this](int r) {
+										closePopupBox();
 										switch(r) {
 											case 1: break;
-											case 2: ((TBoardView*)v)->NewGame(); break;
-											case 3: ((TBoardView*)v)->showHelp(); break;
+											case 2: NewGame(); break;
+											case 3: showHelp(); break;
 											case 4: ui_app_exit(); break;
 											}
 										};//testResult;
@@ -98,13 +98,13 @@ void testResult(int r) {
 void TBoardView::callbackBack(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TExitPopupBox(this);
-	myPopupBox->OnBtnClick = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+	myPopupBox->OnBtnClick = [this](int r) { if (r==1) ui_app_exit(); };//testResult;
 	myPopupBox->show();
 }
 
 void TBoardView::showHelp(){
 	myPopupBox = new TInfoBox(this,helpText.c_str());
-	myPopupBox->OnBtnClick = [](TView* v, int r) { ((TBoardView*)v)->closePopupBox(); };
+	myPopupBox->OnBtnClick = [this](int r) { closePopupBox(); };
 	myPopupBox->show();
 }
 
@@ -187,9 +187,7 @@ void TBoardView::OnEndMoveBall(){
 			if (linesGame->gameOver()) {
 				ecore_timer_add(1.0, [](void *data)	{
 							TBoardView *bv = (TBoardView *) data;
-							bv->myPopupBox = new TGameOverBox(bv);
-							bv->myPopupBox->OnBtnClick = [](TView* v, int r) { if (r==1) ((TBoardView*)v)->NewGame(); else ui_app_exit(); };//testResult;
-							bv->myPopupBox->show();
+							bv->showGameOverBox();
 						   return EINA_FALSE; }
 				, this);
 
@@ -200,6 +198,12 @@ void TBoardView::OnEndMoveBall(){
 		ecore_animator_timeline_add (1.0, disappearance_lines, this);
 	}
 	DrawHeader();
+}
+
+void TBoardView::showGameOverBox(){
+	myPopupBox = new TGameOverBox(this);
+	myPopupBox->OnBtnClick = [this](int tag) { if (tag==1) NewGame(); else ui_app_exit(); };//testResult;
+	myPopupBox->show();
 }
 
 void TBoardView::AppearanceNewBall(double pos) {

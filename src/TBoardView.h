@@ -52,6 +52,7 @@ public:
 
     void closePopupBox();
     void showHelp();
+    void showGameOverBox();
 
 private:
 

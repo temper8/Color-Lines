@@ -29,5 +29,5 @@ if (myPopup != NULL) {
 }
 
 void TPopupBox::btnClick(int tag){
-	if (OnBtnClick!=nullptr) OnBtnClick(myView, tag);
+	if (OnBtnClick!=nullptr) OnBtnClick(tag);
 }

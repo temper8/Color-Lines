@@ -22,7 +22,7 @@ public:
 	void show();
 
 	void btnClick(int tag);
-	std::function<void(TView*, int)> OnBtnClick;
+	std::function<void(int)> OnBtnClick;
 
 protected:
 	Evas_Object *myPopup;

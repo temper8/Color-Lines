@@ -11,7 +11,6 @@
 
 TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
-	// TODO Auto-generated constructor stub
 	/* popup */
 	myPopup = elm_popup_add(myView->win);
 	elm_popup_align_set(myPopup, 0.5, 0.5);
@@ -24,31 +23,13 @@ TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
 
 	Evas_Object *btn;
 
-	/* ok button */
-	btn = elm_button_add(myPopup);
-	elm_object_style_set(btn, "popup");
-	elm_object_text_set(btn, "New game");
+	btn = elmButtonAdd("New game","popup");
+	buttons.insert(std::make_pair(btn, 2));
 	elm_object_part_content_set(myPopup, "button1", btn);
-//	evas_object_smart_callback_add(btn, "clicked", popup_new_yes_btn_clicked_cb, this);
-	evas_object_smart_callback_add(btn, "clicked",
-			[](void *data, Evas_Object *obj, void *event_info){
-				TPopupBox *pb = (TPopupBox*)data;
-				pb->close();
-				pb->btnClick(1);
-			}, this);
 
-	/* cancel button */
-	btn = elm_button_add(myPopup);
-	elm_object_style_set(btn, "popup");
-	elm_object_text_set(btn, "Exit");
+	btn = elmButtonAdd("Exit","popup");
+	buttons.insert(std::make_pair(btn, 1));
 	elm_object_part_content_set(myPopup, "button2", btn);
-	//evas_object_smart_callback_add(btn, "clicked", popup_new_game_cancel_clicked_cb, this);
-	evas_object_smart_callback_add(btn, "clicked",
-			[](void *data, Evas_Object *obj, void *event_info){
-			TPopupBox *pb = (TPopupBox*)data;
-			pb->close();
-			pb->btnClick(2);
-			}, this);
 
 }
 

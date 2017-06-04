@@ -108,6 +108,11 @@ void TBoardView::showHelp(){
 	myPopupBox->show();
 }
 
+void TBoardView::showGameOverBox(){
+	myPopupBox = new TGameOverBox(this);
+	myPopupBox->OnBtnClick = [this](int tag) { if (tag==2) NewGame(); else ui_app_exit(); };
+	myPopupBox->show();
+}
 
 Eina_Bool jumping_ball(void *data)
 {
@@ -200,11 +205,7 @@ void TBoardView::OnEndMoveBall(){
 	DrawHeader();
 }
 
-void TBoardView::showGameOverBox(){
-	myPopupBox = new TGameOverBox(this);
-	myPopupBox->OnBtnClick = [this](int tag) { if (tag==1) NewGame(); else ui_app_exit(); };//testResult;
-	myPopupBox->show();
-}
+
 
 void TBoardView::AppearanceNewBall(double pos) {
 

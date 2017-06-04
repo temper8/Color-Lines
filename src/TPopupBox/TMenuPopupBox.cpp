@@ -16,7 +16,7 @@ void popup_btn1_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 	pp->btnClick(1);
 }
 
-TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
+TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):TPopupBox(view) {
 	// TODO Auto-generated constructor stub
 	Evas_Object *btn;
 	Evas_Object *box;
@@ -42,22 +42,12 @@ TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {
 	evas_object_show(rect_1);
 	elm_box_pack_end(box, rect_1);
 
-	btn = buttonAdd("Continue", 1);
-	buttons.insert(std::make_pair(btn, 1));
-	elm_box_pack_end(box, btn);
-
-	btn = buttonAdd("New Game", 2);
-	buttons.insert(std::make_pair(btn, 2));
-	elm_box_pack_end(box, btn);
-
-	btn = buttonAdd("Game Rules", 3);
-	buttons.insert(std::make_pair(btn, 3));
-	elm_box_pack_end(box, btn);
-
-	btn = buttonAdd("Exit", 4);
-	buttons.insert(std::make_pair(btn, 4));
-	elm_box_pack_end(box, btn);
-
+	int tag = 1;
+	for (const char* b : buttonList) {
+		btn = buttonAdd(b, tag);
+		buttons.insert(std::make_pair(btn, tag++));
+		elm_box_pack_end(box, btn);
+	 }
 
 	Evas_Object *rect_2 = evas_object_rectangle_add((Evas *)myPopup);
 	evas_object_color_set(rect_2, 200, 0, 0, 255);

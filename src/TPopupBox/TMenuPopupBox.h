@@ -10,10 +10,11 @@
 
 #include "TPopupBox.h"
 #include <map>
+#include <vector>
 
 class TMenuPopupBox: public TPopupBox {
 public:
-	TMenuPopupBox(TView *view);
+	TMenuPopupBox(TView *view, std::vector<const char*> buttonList);
 	virtual ~TMenuPopupBox();
 
 	void btnClick2(Evas_Object * btn);

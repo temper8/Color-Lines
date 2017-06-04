@@ -20,7 +20,7 @@ public:
 	void btnClick2(Evas_Object * btn);
 
 private:
-	Evas_Object * buttonAdd(const char* title, int tag);
+	Evas_Object * elmButtonAdd(const char* title, int tag);
 	std::map<Evas_Object *,int > buttons;
 };
 

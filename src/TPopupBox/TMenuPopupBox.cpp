@@ -44,7 +44,7 @@ TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):
 
 	int tag = 1;
 	for (const char* b : buttonList) {
-		btn = buttonAdd(b, tag);
+		btn = elmButtonAdd(b, tag);
 		buttons.insert(std::make_pair(btn, tag++));
 		elm_box_pack_end(box, btn);
 	 }
@@ -66,7 +66,7 @@ TMenuPopupBox::~TMenuPopupBox() {
 	// TODO Auto-generated destructor stub
 }
 
-Evas_Object * TMenuPopupBox::buttonAdd(const char* title, int tag){
+Evas_Object * TMenuPopupBox::elmButtonAdd(const char* title, int tag){
 	/* cancel button */
 	Evas_Object *btn;
 	btn = elm_button_add(myPopup);

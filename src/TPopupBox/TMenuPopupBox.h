@@ -9,7 +9,7 @@
 #define TMENUPOPUPBOX_H_
 
 #include "TPopupBox.h"
-#include <map>
+
 #include <vector>
 
 class TMenuPopupBox: public TPopupBox {
@@ -17,12 +17,12 @@ public:
 	TMenuPopupBox(TView *view, std::vector<const char*> buttonList);
 	virtual ~TMenuPopupBox();
 
-	void btnClick2(Evas_Object * btn);
+
 
 private:
 	Evas_Object * elmButtonAdd(const char* title);
 	Evas_Object * evasRectangleAdd();
-	std::map<Evas_Object *,int > buttons;
+
 };
 
 #endif /* TMENUPOPUPBOX_H_ */

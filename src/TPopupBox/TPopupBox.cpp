@@ -31,3 +31,8 @@ if (myPopup != NULL) {
 void TPopupBox::btnClick(int tag){
 	if (OnBtnClick!=nullptr) OnBtnClick(tag);
 }
+
+void TPopupBox::btnClick(Evas_Object *btn){
+	int tag = buttons[btn];
+	btnClick(tag);
+}

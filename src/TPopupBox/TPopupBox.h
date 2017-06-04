@@ -11,6 +11,7 @@
 #include <functional>
 
 #include <Elementary.h>
+#include <map>
 
 class TView;
 class TPopupBox {
@@ -22,11 +23,13 @@ public:
 	void show();
 
 	void btnClick(int tag);
+	void btnClick(Evas_Object * btn);
 	std::function<void(int)> OnBtnClick;
 
 protected:
 	Evas_Object *myPopup;
 	TView *myView;
+	std::map<Evas_Object *,int > buttons;
 };
 
 #endif /* TPOPUPBOX_H_ */

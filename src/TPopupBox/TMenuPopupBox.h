@@ -20,7 +20,6 @@ public:
 
 
 private:
-	Evas_Object * elmButtonAdd(const char* title);
 	Evas_Object * evasRectangleAdd();
 
 };

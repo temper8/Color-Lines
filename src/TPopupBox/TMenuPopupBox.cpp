@@ -34,8 +34,11 @@ TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):
 
 	int tag = 1;
 	for (const char* title : buttonList) {
-		btn = elmButtonAdd(title);
-		buttons.insert(std::make_pair(btn, tag++));
+		btn = elmButtonAdd(title, "default", tag++);
+		evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
+		evas_object_size_hint_min_set(btn, 300, 80);
+		evas_object_size_hint_align_set(btn, 0.5, 0.5);
+		evas_object_show(btn);
 		elm_box_pack_end(box, btn);
 	 }
 
@@ -57,19 +60,6 @@ Evas_Object * TMenuPopupBox::evasRectangleAdd(){
 	evas_object_size_hint_align_set(rect, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(rect);
 	return rect;
-}
-
-Evas_Object * TMenuPopupBox::elmButtonAdd(const char* title){
-	Evas_Object *btn;
-	btn = elm_button_add(myPopup);
-	elm_object_style_set(btn, "default");
-	elm_object_text_set(btn, title);
-	evas_object_smart_callback_add(btn, "clicked", [](void *data, Evas_Object *obj, void *event_info){((TPopupBox*)data)->btnClick(obj); }, this);
-	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
-	evas_object_size_hint_min_set(btn, 300, 80);
-	evas_object_size_hint_align_set(btn, 0.5, 0.5);
-	evas_object_show(btn);
-	return btn;
 }
 
 

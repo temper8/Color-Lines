@@ -18,7 +18,7 @@ With the first tap you select the ball, then select the destination. The game co
 ### What is this repository for? ###
 
 * Quick summary
-* Version
+* Version 0.1.0 first release for 2.4 api
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###

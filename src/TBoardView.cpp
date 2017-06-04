@@ -177,7 +177,7 @@ void TBoardView::afterMoveBall(){
 			}
 	}
 	else {
-		ecore_animator_timeline_add (1.0, disappearance_lines, this);
+		ecore_animator_timeline_add (animation_time, disappearance_lines, this);
 	}
 	DrawHeader();
 }

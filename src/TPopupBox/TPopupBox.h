@@ -30,6 +30,7 @@ protected:
 	Evas_Object *myPopup;
 	TView *myView;
 	std::map<Evas_Object *,int > buttons;
+	Evas_Object * elmButtonAdd(const char* title, const char* style);
 };
 
 #endif /* TPOPUPBOX_H_ */

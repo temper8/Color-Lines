@@ -68,7 +68,7 @@ Evas_Object * TMenuPopupBox::elmButtonAdd(const char* title){
 	btn = elm_button_add(myPopup);
 	elm_object_style_set(btn, "default");
 	elm_object_text_set(btn, title);
-	evas_object_smart_callback_add(btn, "clicked", [](void *data, Evas_Object *obj, void *event_info){((TMenuPopupBox*)data)->btnClick(obj); }, this);
+	evas_object_smart_callback_add(btn, "clicked", [](void *data, Evas_Object *obj, void *event_info){((TPopupBox*)data)->btnClick(obj); }, this);
 	evas_object_size_hint_weight_set(btn, 0.5, EVAS_HINT_EXPAND);
 	evas_object_size_hint_min_set(btn, 300, 80);
 	evas_object_size_hint_align_set(btn, 0.5, 0.5);

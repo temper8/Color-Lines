@@ -7,7 +7,7 @@
 
 #include "TPopupBox.h"
 
-TPopupBox::TPopupBox(TView *view):myPopup(NULL), myView(view), result(nullptr) {
+TPopupBox::TPopupBox(TView *view):myPopup(NULL), myView(view), OnBtnClick(nullptr) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -28,6 +28,6 @@ if (myPopup != NULL) {
 }
 }
 
-void TPopupBox::sendResult(int r){
-	if (result!=nullptr) result(myView, r);
+void TPopupBox::btnClick(int tag){
+	if (OnBtnClick!=nullptr) OnBtnClick(myView, tag);
 }

@@ -21,8 +21,8 @@ public:
 	void close();
 	void show();
 
-	void sendResult(int r);
-	std::function<void(TView*, int)> result;
+	void btnClick(int tag);
+	std::function<void(TView*, int)> OnBtnClick;
 
 protected:
 	Evas_Object *myPopup;

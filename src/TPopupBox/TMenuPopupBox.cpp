@@ -13,28 +13,28 @@ void popup_btn1_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
 //	pp->close();
-	pp->sendResult(1);
+	pp->btnClick(1);
 }
 
 void popup_btn2_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
 //	pp->close();
-	pp->sendResult(2);
+	pp->btnClick(2);
 }
 
 void popup_btn3_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
 //	pp->close();
-	pp->sendResult(3);
+	pp->btnClick(3);
 }
 
 void popup_btn4_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
 //	pp->close();
-	pp->sendResult(4);
+	pp->btnClick(4);
 }
 
 TMenuPopupBox::TMenuPopupBox(TView *view):TPopupBox(view) {

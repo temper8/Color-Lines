@@ -34,7 +34,7 @@ TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
 			[](void *data, Evas_Object *obj, void *event_info){
 				TPopupBox *pb = (TPopupBox*)data;
 				pb->close();
-				pb->sendResult(1);
+				pb->btnClick(1);
 			}, this);
 
 	/* cancel button */
@@ -47,7 +47,7 @@ TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
 			[](void *data, Evas_Object *obj, void *event_info){
 			TPopupBox *pb = (TPopupBox*)data;
 			pb->close();
-			pb->sendResult(2);
+			pb->btnClick(2);
 			}, this);
 
 }

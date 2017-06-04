@@ -12,7 +12,7 @@
 void popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	TPopupBox *pp = (TPopupBox*)data;
-	pp->sendResult(1);
+	pp->btnClick(1);
 }
 
 

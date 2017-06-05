@@ -38,7 +38,7 @@ public:
 	static void Initialize(int argc, char *argv[]);
 	static int Run(TView* view);
 
-	TApplication *instance() { return self; };
+	static TApplication *instance() { return self; };
 	TView* view() { return myView; };
 
 private:

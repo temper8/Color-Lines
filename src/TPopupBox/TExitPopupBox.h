@@ -13,7 +13,7 @@
 class TExitPopupBox: public TPopupBox {
 
 public:
-	TExitPopupBox(TView *view);
+	TExitPopupBox();
 	virtual ~TExitPopupBox();
 
 };

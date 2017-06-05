@@ -16,7 +16,7 @@
 class TView;
 class TPopupBox {
 public:
-	TPopupBox(TView *view);
+	TPopupBox();
 	virtual ~TPopupBox();
 
 	void close();
@@ -28,7 +28,6 @@ public:
 
 protected:
 	Evas_Object *myPopup;
-	TView *myView;
 	std::map<Evas_Object *,int > buttons;
 	Evas_Object * elmButtonAdd(const char* title, const char* style, int tag);
 };

@@ -7,9 +7,9 @@
 
 #include "TExitPopupBox.h"
 
-#include "..\TView.h"
+#include <efl_extension.h>
 
-TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
+TExitPopupBox::TExitPopupBox():TPopupBox() {
 	// TODO Auto-generated constructor stub
 
 	elm_popup_align_set(myPopup, 0.5, 0.5);

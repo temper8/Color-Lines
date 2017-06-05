@@ -7,9 +7,9 @@
 
 #include "TGameOverBox.h"
 
-#include "..\TView.h"
+#include <efl_extension.h>
 
-TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
+TGameOverBox::TGameOverBox():TPopupBox() {
 
 	elm_popup_align_set(myPopup, 0.5, 0.5);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, 0.5);

@@ -78,7 +78,7 @@ void TBoardView::closePopupBox(){
 
 void TBoardView::callbackMore(){
 	if (myPopupBox!=NULL) closePopupBox();
-	myPopupBox = new TMenuPopupBox(this, {"Continue", "New Game", "Game Rules","Exit"});
+	myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
 	myPopupBox->OnBtnClick = [this](int tag) {
 										closePopupBox();
 										switch(tag) {
@@ -93,19 +93,19 @@ void TBoardView::callbackMore(){
 
 void TBoardView::callbackBack(){
 	if (myPopupBox!=NULL) closePopupBox();
-	myPopupBox = new TExitPopupBox(this);
+	myPopupBox = new TExitPopupBox();
 	myPopupBox->OnBtnClick = [this](int r) { if (r==1) ui_app_exit(); };
 	myPopupBox->show();
 }
 
 void TBoardView::showHelp(){
-	myPopupBox = new TInfoBox(this,helpText.c_str());
+	myPopupBox = new TInfoBox(helpText.c_str());
 	myPopupBox->OnBtnClick = [this](int r) { closePopupBox(); };
 	myPopupBox->show();
 }
 
 void TBoardView::showGameOverBox(){
-	myPopupBox = new TGameOverBox(this);
+	myPopupBox = new TGameOverBox();
 	myPopupBox->OnBtnClick = [this](int tag) {closePopupBox(); if (tag==2) NewGame(); else ui_app_exit(); };
 	myPopupBox->show();
 }

@@ -14,7 +14,7 @@
 
 class TMenuPopupBox: public TPopupBox {
 public:
-	TMenuPopupBox(TView *view, std::vector<const char*> buttonList);
+	TMenuPopupBox(std::vector<const char*> buttonList);
 	virtual ~TMenuPopupBox();
 
 

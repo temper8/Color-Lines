@@ -8,6 +8,7 @@
 #include "TPopupBox.h"
 
 #include "..\TView.h"
+#include "..\TApplication.h"
 
 void popup_close_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -16,9 +17,9 @@ void popup_close_cb(void *data, Evas_Object *obj, void *event_info)
 }
 
 
-TPopupBox::TPopupBox(TView *view):myPopup(NULL), myView(view), OnBtnClick(nullptr) {
+TPopupBox::TPopupBox():myPopup(NULL), OnBtnClick(nullptr) {
 	// TODO Auto-generated constructor stub
-	myPopup = elm_popup_add(view->win);
+	myPopup = elm_popup_add(TApplication::instance()->view()->win);
 }
 
 TPopupBox::~TPopupBox() {

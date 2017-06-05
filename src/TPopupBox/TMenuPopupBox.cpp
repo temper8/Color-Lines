@@ -7,13 +7,13 @@
 
 #include "TMenuPopupBox.h"
 
-#include "..\TView.h"
+#include <efl_extension.h>
 
 
 void popup_close_cb(void *data, Evas_Object *obj, void *event_info);
 
 
-TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):TPopupBox(view) {
+TMenuPopupBox::TMenuPopupBox(std::vector<const char*> buttonList):TPopupBox() {
 	Evas_Object *btn;
 	Evas_Object *box;
 

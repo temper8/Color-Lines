@@ -1,5 +1,6 @@
-<font_size=50 color=#52C6D8 align=center>Game rules</font_size><br><br>
-The goal of the game is to collect lines from balls of the same color. <br> The longer the line, the more points are awarded for it.<br>
-You can move the balls between the cells, if between them there is a way free from the other balls.<br>
-With the first tap you select the ball, then select the destination. The game continues until the board is full.<br>
-Pleasant entertainment!
+<font_size=45 color=#52C6D8 align=center>Game rules</font_size><br><br>
+<font_size=30 color=#114 wrap=word> The goal of the game is to collect lines of five or more balls of the same color. The longer the line, the more points are awarded for it.
+<br><br>
+You can move the balls between the square, if the way to the target is not blocked by other balls. After each move, three new balls appear or the collected line disappears.<br><br>
+With the first tap you select the ball, then select the destination. The game continues until the board is full.<br><br>
+Pleasant entertainment!</font_size>

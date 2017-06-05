@@ -55,13 +55,9 @@ void TBoardView::NewGame(){
 }
 
 void TBoardView::loadHelp() {
-   // auto filename = "my-file.txt";
-	char filename[500];
-    char *path = app_get_shared_resource_path();
-
-    snprintf(filename, 500, "%s%s", path, "help.en");
-
-    std::ifstream t(filename);
+    std::string filename(app_get_shared_resource_path());
+    filename.append("help.en");
+    std::ifstream t(filename.c_str());
     std::stringstream buffer;
     buffer << t.rdbuf();
     if (buffer.str().length()>0)

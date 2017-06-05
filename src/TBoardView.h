@@ -41,7 +41,7 @@ public:
     void DrawBall(TPoint p, double r, int color);
     void DrawBall(TPoint p, double r);
 
-    void AddRandomBalls();
+    void startShowAllBalls();
 
     void DrawBalls();
 

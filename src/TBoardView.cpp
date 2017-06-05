@@ -17,12 +17,9 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
-static Eina_Bool
-add_random_balls(void *data)
-{
+static Eina_Bool _startShowAllBalls(void *data) {
 	TBoardView *bv = (TBoardView *) data;
-	bv->AddRandomBalls();
-
+	bv->startShowAllBalls();
    return EINA_FALSE;
 }
 
@@ -37,7 +34,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
     graphics.LoadBgImage();
 
-    ecore_timer_add(animation_pause, add_random_balls, this);
+    ecore_timer_add(animation_pause, _startShowAllBalls, this);
 
 }
 
@@ -51,7 +48,7 @@ void TBoardView::NewGame(){
 	selBall.x = 0;
 	selBall.y = 0;
 	CairoDrawing();
-	ecore_timer_add(animation_pause, add_random_balls, this);
+	ecore_timer_add(animation_pause, _startShowAllBalls, this);
 }
 
 void TBoardView::loadHelp() {
@@ -215,8 +212,8 @@ void TBoardView::afterMoveBall(){
 	DrawHeader();
 }
 
-void TBoardView::AddRandomBalls(){
-    NewBalls = linesGame->AddRandomBalls();
+void TBoardView::startShowAllBalls(){
+    NewBalls = linesGame->makeListBalls();
 	ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
 }
 

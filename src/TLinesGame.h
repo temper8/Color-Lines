@@ -60,7 +60,7 @@ public:
 	bool initBalls;
 	std::vector<TPoint> path;
 	void initPlayingField();
-	std::vector<TPoint> AddRandomBalls();
+	std::vector<TPoint> makeListBalls();
 	void initSearch(TPoint src, TPoint dst);
 	int searchPath(TPoint src, TPoint dst);
 	int checkLines();

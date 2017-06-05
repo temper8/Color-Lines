@@ -12,7 +12,7 @@
 
 class TInfoBox: public TPopupBox {
 public:
-	TInfoBox(TView *view, const char* text);
+	TInfoBox(const char* text);
 	virtual ~TInfoBox();
 };
 

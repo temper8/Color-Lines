@@ -10,10 +10,18 @@
 
 #include "TPopupBox.h"
 
+#include <vector>
+
 class TMenuPopupBox: public TPopupBox {
 public:
-	TMenuPopupBox(TView *view);
+	TMenuPopupBox(std::vector<const char*> buttonList);
 	virtual ~TMenuPopupBox();
+
+
+
+private:
+	Evas_Object * evasRectangleAdd();
+
 };
 
 #endif /* TMENUPOPUPBOX_H_ */

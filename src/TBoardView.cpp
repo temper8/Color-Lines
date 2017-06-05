@@ -17,12 +17,9 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
-static Eina_Bool
-add_random_balls(void *data)
-{
+static Eina_Bool _startShowAllBalls(void *data) {
 	TBoardView *bv = (TBoardView *) data;
-	bv->AddRandomBalls();
-
+	bv->startShowAllBalls();
    return EINA_FALSE;
 }
 
@@ -37,7 +34,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
     graphics.LoadBgImage();
 
-    ecore_timer_add(0.5, add_random_balls, this);
+    ecore_timer_add(animation_pause, _startShowAllBalls, this);
 
 }
 
@@ -51,17 +48,13 @@ void TBoardView::NewGame(){
 	selBall.x = 0;
 	selBall.y = 0;
 	CairoDrawing();
-	ecore_timer_add(0.5, add_random_balls, this);
+	ecore_timer_add(animation_pause, _startShowAllBalls, this);
 }
 
 void TBoardView::loadHelp() {
-   // auto filename = "my-file.txt";
-	char filename[500];
-    char *path = app_get_shared_resource_path();
-
-    snprintf(filename, 500, "%s%s", path, "help.en");
-
-    std::ifstream t(filename);
+    std::string filename(app_get_shared_resource_path());
+    filename.append("help.en");
+    std::ifstream t(filename.c_str());
     std::stringstream buffer;
     buffer << t.rdbuf();
     if (buffer.str().length()>0)
@@ -78,45 +71,77 @@ void TBoardView::closePopupBox(){
 
 void TBoardView::callbackMore(){
 	if (myPopupBox!=NULL) closePopupBox();
-	myPopupBox = new TMenuPopupBox(this);
-	myPopupBox->result = [](TView* v, int r) {
-										((TBoardView*)v)->closePopupBox();
-										switch(r) {
+	myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
+	myPopupBox->OnBtnClick = [this](int tag) {
+										closePopupBox();
+										switch(tag) {
 											case 1: break;
-											case 2: ((TBoardView*)v)->NewGame(); break;
-											case 3: ((TBoardView*)v)->showHelp(); break;
+											case 2: NewGame(); break;
+											case 3: showHelp(); break;
 											case 4: ui_app_exit(); break;
 											}
-										};//testResult;
+										};
 	myPopupBox->show();
-}
-
-void testResult(int r) {
-	if (r==1) ui_app_exit();
 }
 
 void TBoardView::callbackBack(){
 	if (myPopupBox!=NULL) closePopupBox();
-	myPopupBox = new TExitPopupBox(this);
-	myPopupBox->result = [](TView* v, int r) { if (r==1) ui_app_exit(); };//testResult;
+	myPopupBox = new TExitPopupBox();
+	myPopupBox->OnBtnClick = [this](int tag) { if (tag==1) ui_app_exit(); };
 	myPopupBox->show();
 }
 
 void TBoardView::showHelp(){
-	myPopupBox = new TInfoBox(this,helpText.c_str());
-	myPopupBox->result = [](TView* v, int r) { ((TBoardView*)v)->closePopupBox(); };
+	myPopupBox = new TInfoBox(helpText.c_str());
+	myPopupBox->OnBtnClick = [this](int ) { closePopupBox(); };
+	myPopupBox->show();
+}
+
+void TBoardView::showGameOverBox(){
+	myPopupBox = new TGameOverBox();
+	myPopupBox->OnBtnClick = [this](int tag) {closePopupBox(); if (tag==2) NewGame(); else ui_app_exit(); };
 	myPopupBox->show();
 }
 
 
-Eina_Bool jumping_ball(void *data)
-{
-	TBoardView *bv = (TBoardView *) data;
-    bv->JumpingBall();
-    return EINA_TRUE;
-}
+void TBoardView::OnClick(int x, int y) {
 
-void TBoardView::JumpingBall(){
+	int xx =(x-left_margin) / squareSize + 1;
+	int yy =(y-top_margin) / squareSize + 1;
+
+	if (linesGame->OutOfBoundary(xx, yy)) return;
+
+    if (linesGame->board[xx][yy] > 0) {
+    	selBall.x = xx;
+    	selBall.y = yy;
+
+        startJumpingBallAnimator();
+    }
+    else {
+    	if (selBall.x > 0)  {
+
+    		destSquare.x = xx;
+    		destSquare.y = yy;
+
+    		linesGame->initSearch(selBall,destSquare);
+
+            if (linesGame->searchPath(selBall,destSquare) >0) {
+            	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+            	linesGame->board[selBall.x][selBall.y] = 0;
+            	 selBall.x = 0;
+            	 deleteJumpingBallAnimator();
+            	 createMoveBallAnimator();
+
+            }
+
+    	}
+
+    }
+};
+
+// animation
+
+void TBoardView::jumpingBall(){
  if (selBall.x !=0) {
 
 	double x = (selBall.x-1)*squareSize  + left_margin;
@@ -132,133 +157,81 @@ void TBoardView::JumpingBall(){
  }
 }
 
-void TBoardView::StartJumpingBallAnimator(){
+void TBoardView::startJumpingBallAnimator(){
   tick = 0;
   if (JumpingAnimator != NULL)
   	   ecore_animator_del(JumpingAnimator);
-  JumpingAnimator = ecore_animator_add(jumping_ball, this);
+  JumpingAnimator = ecore_animator_add([](void *data){((TBoardView *) data)->jumpingBall(); return EINA_TRUE;}, this);
 }
 
-void TBoardView::DeleteJumpingBallAnimator(){
+void TBoardView::deleteJumpingBallAnimator(){
 	if (JumpingAnimator != NULL)
 	   ecore_animator_del(JumpingAnimator);
 }
 
-void TBoardView::MoveBall(double pos) {
+void TBoardView::moveBall(double pos) {
 	DrawPath(pos);
 	graphics.Flush();
-	if (pos == 1.0) OnEndMoveBall();
 }
 
-Eina_Bool move_ball(void *data, double pos)
-{
-   TBoardView *bv = (TBoardView *) data;
-   bv->MoveBall(pos);
-   return EINA_TRUE;
+void TBoardView::createMoveBallAnimator(){
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
+	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
 
-void TBoardView::CreateMoveBallAnimator(){
-	ecore_animator_timeline_add (1.0, move_ball, this);
-}
-
-void TBoardView::DeleteMoveBallAnimator(){
+void TBoardView::deleteMoveBallAnimator(){
 
 }
 
 Eina_Bool appearance_new_ball(void *data, double pos)
 {
    TBoardView *bv = (TBoardView *) data;
-   bv->AppearanceNewBall(pos);
+   bv->appearanceNewBall(pos);
    return EINA_TRUE;
 }
 
 Eina_Bool disappearance_lines(void *data, double pos)
 {
    TBoardView *bv = (TBoardView *) data;
-   bv->DisappearanceLines(pos);
+   bv->disappearanceLines(pos);
    return EINA_TRUE;
 }
 
-void TBoardView::OnEndMoveBall(){
+void TBoardView::afterMoveBall(){
 
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
-			ecore_animator_timeline_add (1.0, appearance_new_ball, this);
+			ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
 			if (linesGame->gameOver()) {
-				ecore_timer_add(1.0, [](void *data)	{
-							TBoardView *bv = (TBoardView *) data;
-							bv->myPopupBox = new TGameOverBox(bv);
-							bv->myPopupBox->result = [](TView* v, int r) { if (r==1) ((TBoardView*)v)->NewGame(); else ui_app_exit(); };//testResult;
-							bv->myPopupBox->show();
-						   return EINA_FALSE; }
-				, this);
-
+				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
-
 	}
 	else {
-		ecore_animator_timeline_add (1.0, disappearance_lines, this);
+		ecore_animator_timeline_add (animation_time, disappearance_lines, this);
 	}
 	DrawHeader();
 }
 
-void TBoardView::AppearanceNewBall(double pos) {
+void TBoardView::startShowAllBalls(){
+    NewBalls = linesGame->makeListBalls();
+	ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
+}
 
+void TBoardView::appearanceNewBall(double pos) {
 	for ( TPoint p : NewBalls )
 		DrawBall(p,  pos);
-
 	graphics.Flush();
 }
 
-void TBoardView::DisappearanceLines(double pos){
-
+void TBoardView::disappearanceLines(double pos){
 	for ( TPoint p : linesGame->clearBalls ){
 	    DrawSquare(p);
 		DrawBall(p,  1-pos);
 	}
-
 	graphics.Flush();
 }
 
-void TBoardView::OnClick(int x, int y) {
-
-	int xx =(x-left_margin) / squareSize + 1;
-	int yy =(y-top_margin) / squareSize + 1;
-
-	if (linesGame->OutOfBoundary(xx, yy)) return;
-
-    if (linesGame->board[xx][yy] > 0) {
-    	selBall.x = xx;
-    	selBall.y = yy;
-
-        StartJumpingBallAnimator();
-    }
-    else {
-    	if (selBall.x > 0)  {
-
-    		destSquare.x = xx;
-    		destSquare.y = yy;
-
-    		linesGame->initSearch(selBall,destSquare);
-
-            if (linesGame->searchPath(selBall,destSquare) >0) {
-            	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-            	linesGame->board[selBall.x][selBall.y] = 0;
-            	 selBall.x = 0;
-            	 DeleteJumpingBallAnimator();
-            	 CreateMoveBallAnimator();
-
-            }
-
-    	}
-
-    }
-};
-
-void TBoardView::AddRandomBalls(){
-    NewBalls = linesGame->AddRandomBalls();
-	ecore_animator_timeline_add (1.0, appearance_new_ball, this);
-}
+// drawing
 
 void TBoardView::CairoDrawing(){
 
@@ -274,7 +247,6 @@ void TBoardView::CairoDrawing(){
 
 	graphics.Flush();
 }
-
 
 void TBoardView::DrawBalls() {
 	for(int i=1; i<= linesGame->sizeX; i++)
@@ -304,7 +276,6 @@ void TBoardView::CalcViewMarkup(){
 	top_margin = ( myHeight - BoardHeight)/2;
 }
 
-
 void TBoardView::DrawBoard(){
 
 	for (int x = 0; x< linesGame->sizeX; x++)
@@ -314,7 +285,6 @@ void TBoardView::DrawBoard(){
 			graphics.DrawSquare(xx, yy);
 		}
 }
-
 
 void TBoardView::DrawBall(TPoint p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
@@ -331,8 +301,6 @@ void TBoardView::DrawBall(TPoint p, double r, int color){
 void TBoardView::DrawBall(double x, double y, int color){
 	graphics.DrawBall(x,y,1,color);
 }
-
-
 
 void TBoardView::DrawPath(){
 	if (linesGame->path.size()>0) {

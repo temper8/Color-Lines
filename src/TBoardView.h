@@ -8,8 +8,11 @@
 #ifndef TBOARDVIEW_H_
 #define TBOARDVIEW_H_
 
+#include <string>
+
 #include "TDrawingView.h"
 #include "TLinesGame.h"
+
 
 class TPopupBox;
 class TLinesGame;
@@ -38,7 +41,7 @@ public:
     void DrawBall(TPoint p, double r, int color);
     void DrawBall(TPoint p, double r);
 
-    void AddRandomBalls();
+    void startShowAllBalls();
 
     void DrawBalls();
 
@@ -49,15 +52,18 @@ public:
 
     void closePopupBox();
     void showHelp();
+    void showGameOverBox();
 
 private:
 
     TPopupBox* myPopupBox;
+
 	virtual void callbackMore();
 	virtual void callbackBack();
 
 
     void loadHelp();
+
     void SetColor(int color);
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
@@ -71,20 +77,25 @@ private:
 	TPoint selBall;
 	TPoint destSquare;
 
-	void StartJumpingBallAnimator();
-	void DeleteJumpingBallAnimator();
-	void CreateMoveBallAnimator();
-	void DeleteMoveBallAnimator();
+
 	Ecore_Animator *JumpingAnimator;
+
+    static constexpr const double animation_pause = 0.5;
+    static constexpr const double animation_time = 1.0;
+
+	void startJumpingBallAnimator();
+	void deleteJumpingBallAnimator();
+	void createMoveBallAnimator();
+	void deleteMoveBallAnimator();
 
 public:
 	std::vector<TPoint> NewBalls;
 	double tick;
-	void JumpingBall();
-	void MoveBall(double pos);
-	void OnEndMoveBall();
-	void AppearanceNewBall(double pos);
-	void DisappearanceLines(double pos);
+	void jumpingBall();
+	void moveBall(double pos);
+	void afterMoveBall();
+	void appearanceNewBall(double pos);
+	void disappearanceLines(double pos);
 
 	void NewGame();
 };

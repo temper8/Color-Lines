@@ -11,22 +11,25 @@
 #include <functional>
 
 #include <Elementary.h>
+#include <map>
 
 class TView;
 class TPopupBox {
 public:
-	TPopupBox(TView *view);
+	TPopupBox();
 	virtual ~TPopupBox();
 
 	void close();
 	void show();
 
-	void sendResult(int r);
-	std::function<void(TView*, int)> result;
+	void btnClick(int tag);
+	void btnClick(Evas_Object * btn);
+	std::function<void(int)> OnBtnClick;
 
 protected:
 	Evas_Object *myPopup;
-	TView *myView;
+	std::map<Evas_Object *,int > buttons;
+	Evas_Object * elmButtonAdd(const char* title, const char* style, int tag);
 };
 
 #endif /* TPOPUPBOX_H_ */

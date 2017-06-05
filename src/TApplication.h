@@ -34,12 +34,16 @@ public:
 	char **my_argv;
 
 public:
-	static TApplication *Instance;
+
 	static void Initialize(int argc, char *argv[]);
 	static int Run(TView* view);
 
-	TView* myView;
+	static TApplication *instance() { return self; };
+	TView* view() { return myView; };
 
+private:
+	static TApplication *self;
+	TView* myView;
 };
 
 #endif /* TAPPLICATION_H_ */

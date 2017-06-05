@@ -22,6 +22,18 @@ void TBallsHolder::genNewBalls(){
 	save();
 }
 
+std::vector<TPoint> TLinesGame::makeListBalls(){
+	std::vector<TPoint> newBalls;
+	for(int i=1; i<= sizeX; i++)
+	  for(int j=1; j<= sizeY; j++) {
+	      if (board[i][j]>0){
+	      	  newBalls.emplace_back(i, j, board[i][j]);
+	      }
+	  }
+	initBalls = true;
+	return newBalls;
+}
+
 void TBallsHolder::load(){
 	balls[0] = holder % 10;
 	balls[1] = (holder/10) % 10;
@@ -83,20 +95,7 @@ void TLinesGame::initPlayingField(){
 	  }
 }
 
-std::vector<TPoint> TLinesGame::AddRandomBalls(){
-	std::vector<TPoint> newBalls;
-	for(int i=1; i<= sizeX; i++)
-	  for(int j=1; j<= sizeY; j++) {
-	      //square[i][j] = 0;
-	      //int rnd =  rand() % 35;
-	      if (board[i][j]>0){
-	    	//  square[i][j] = 1 + rnd;
-	      	  newBalls.emplace_back(i, j, board[i][j]);
-	      }
-	  }
-	initBalls = true;
-	return newBalls;
-}
+
 
 void TLinesGame::initSearch(TPoint src, TPoint dst){
 

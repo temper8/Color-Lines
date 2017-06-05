@@ -7,12 +7,11 @@
 
 #include "TExitPopupBox.h"
 
-#include "..\TView.h"
+#include <efl_extension.h>
 
-TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
+TExitPopupBox::TExitPopupBox():TPopupBox() {
 	// TODO Auto-generated constructor stub
-	/* popup */
-	myPopup = elm_popup_add(myView->win);
+
 	elm_popup_align_set(myPopup, 0.5, 0.5);
 //	eext_object_event_callback_add(myPopup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, 0.5);
@@ -33,7 +32,7 @@ TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 			[](void *data, Evas_Object *obj, void *event_info){
 				TPopupBox *pb = (TPopupBox*)data;
 				pb->close();
-				pb->sendResult(1);
+				pb->btnClick(1);
 			}, this);
 
 	/* cancel button */
@@ -46,7 +45,7 @@ TExitPopupBox::TExitPopupBox(TView *view):TPopupBox(view) {
 			[](void *data, Evas_Object *obj, void *event_info){
 			TPopupBox *pb = (TPopupBox*)data;
 			pb->close();
-			pb->sendResult(2);
+			pb->btnClick(2);
 			}, this);
 
 }

@@ -22,8 +22,6 @@ Pleasant entertainment!
 
 Игра продолжается до тех пор, пока доска не будет заполнена.
 
->>>>>>> refs/remotes/origin/mobile-2.3
-
 ### What is this repository for? ###
 
 * Quick summary

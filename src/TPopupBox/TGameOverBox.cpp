@@ -11,9 +11,6 @@
 
 TGameOverBox::TGameOverBox(TView *view):TPopupBox(view) {
 
-	/* popup */
-	myPopup = elm_popup_add(myView->win);
-
 	elm_popup_align_set(myPopup, 0.5, 0.5);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, 0.5);
 

@@ -17,7 +17,6 @@ TMenuPopupBox::TMenuPopupBox(TView *view,  std::vector<const char*> buttonList):
 	Evas_Object *btn;
 	Evas_Object *box;
 
-	myPopup = elm_popup_add(myView->win);
 	elm_popup_align_set(myPopup,ELM_NOTIFY_ALIGN_FILL, 1.0);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 

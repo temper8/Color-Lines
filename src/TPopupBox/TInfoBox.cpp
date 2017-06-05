@@ -13,8 +13,6 @@
 void popup_close_cb(void *data, Evas_Object *obj, void *event_info);
 
 TInfoBox::TInfoBox(TView *view, const char* text):TPopupBox(view) {
-	/* popup */
-	myPopup = elm_popup_add(myView->win);
 
 	elm_popup_align_set(myPopup, 0.5, 0.5);
 	evas_object_size_hint_weight_set(myPopup, EVAS_HINT_EXPAND, 0.5);

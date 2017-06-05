@@ -16,9 +16,7 @@ void popup_close_cb(void *data, Evas_Object *obj, void *event_info)
 	pp->btnClick(1);
 }
 
-
 TPopupBox::TPopupBox():myPopup(NULL), OnBtnClick(nullptr) {
-	// TODO Auto-generated constructor stub
 	myPopup = elm_popup_add(TApplication::instance()->view()->win);
 }
 

@@ -12,9 +12,8 @@
 TApplication *TApplication::self = 0;
 
 TApplication::TApplication() {
-	// TODO Auto-generated constructor stub
-	self = this;
 
+	self = this;
 }
 
 TApplication::~TApplication() {

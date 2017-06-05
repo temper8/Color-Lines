@@ -90,13 +90,13 @@ void TBoardView::callbackMore(){
 void TBoardView::callbackBack(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TExitPopupBox();
-	myPopupBox->OnBtnClick = [this](int r) { if (r==1) ui_app_exit(); };
+	myPopupBox->OnBtnClick = [this](int tag) { if (tag==1) ui_app_exit(); };
 	myPopupBox->show();
 }
 
 void TBoardView::showHelp(){
 	myPopupBox = new TInfoBox(helpText.c_str());
-	myPopupBox->OnBtnClick = [this](int r) { closePopupBox(); };
+	myPopupBox->OnBtnClick = [this](int ) { closePopupBox(); };
 	myPopupBox->show();
 }
 

@@ -9,11 +9,11 @@
 
 #include "TView.h"
 
-TApplication *TApplication::Instance = 0;
+TApplication *TApplication::self = 0;
 
 TApplication::TApplication() {
 	// TODO Auto-generated constructor stub
-	Instance = this;
+	self = this;
 
 }
 
@@ -110,20 +110,20 @@ ui_app_low_memory(app_event_info_h event_info, void *user_data)
 void TApplication::Initialize(int argc, char *argv[]) {
 	new TApplication();
 
-	Instance->my_argc = argc;
-	Instance->my_argv = argv;
+	self->my_argc = argc;
+	self->my_argv = argv;
 	app_event_handler_h handlers[5] = {NULL, };
 
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, Instance);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, Instance);
-	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ui_app_orient_changed, Instance);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ui_app_lang_changed, Instance);
-	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, Instance);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, self);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, self);
+	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ui_app_orient_changed, self);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ui_app_lang_changed, self);
+	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, self);
 }
 
 int TApplication::Run(TView* view) {
 
-	Instance->myView = view;
+	self->myView = view;
 
 	int ret = 0;
 
@@ -135,7 +135,7 @@ int TApplication::Run(TView* view) {
 	event_callback.resume = app_resume;
 	event_callback.app_control = app_control;
 
-	ret = ui_app_main(Instance->my_argc, Instance->my_argv, &event_callback, Instance);
+	ret = ui_app_main(self->my_argc, self->my_argv, &event_callback, self);
 	if (ret != APP_ERROR_NONE) {
 		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
 	}

@@ -3,10 +3,14 @@
 Native app for Tizen Studio. 
 
 Game rules:
-The goal of the game is to collect lines from balls of the same color. 
-The longer the line, the more points are awarded for it.
-You can move the balls between the cells, if between them there is a way free from the other balls.
+
+The goal of the game is to collect lines of five or more balls of the same color. The longer the line, the more points are awarded for it.
+
+You can move the balls between the cell, if the way to the target cell is not blocked by other balls. After each move, three new balls appear or the collected line disappears.
+
 With the first tap you select the ball, then select the destination. The game continues until the board is full.
+
+Pleasant entertainment!
 
 Правила игры:
 Цель игры собирать линии из шариков одного цвета. Чем длиннее линия тем больше за нее дается очков.

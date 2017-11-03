@@ -139,6 +139,42 @@ void TBoardView::OnClick(int x, int y) {
     }
 };
 
+void TBoardView::OnMomentumStart(int x, int y) {
+	x0 = x;
+	y0 = y;
+};
+
+void TBoardView::OnMomentumMove(int x, int y) {
+	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
+	graphics.DrawLine(x0, y0, x, y);
+	graphics.Flush();
+};
+
+void TBoardView::OnMomentumEnd(int x, int y) {
+
+};
+
+void TBoardView::OnLineStart(int x, int y) {
+	//x0 = x;
+	//y0 = y;
+};
+
+void TBoardView::OnLineMove(int x1, int y1, int x2, int y2) {
+	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnLineMove x:%d y:%d", x2, y2);
+	//graphics.DrawLine((double)x1,(double)y1,(double)x2,(double)y2);
+//	DrawBall(x,y,3);
+	//graphics.Flush();
+};
+
+void TBoardView::OnLineEnd(int x, int y) {
+
+};
+
+void TBoardView::OnLineAbort(int x, int y) {
+
+};
+
+
 // animation
 
 void TBoardView::jumpingBall(){

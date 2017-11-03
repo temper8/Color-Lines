@@ -50,6 +50,18 @@ public:
 
     virtual void OnClick(int x, int y);
 
+    int x0,y0;
+	virtual void OnMomentumStart(int x, int y);
+	virtual void OnMomentumMove(int x1, int y1);
+	virtual void OnMomentumEnd(int x, int y);
+
+
+
+	virtual void OnLineStart(int x, int y);
+	virtual void OnLineMove(int x1, int y1, int x2, int y2);
+	virtual void OnLineEnd(int x, int y);
+	virtual void OnLineAbort(int x, int y);
+
     void closePopupBox();
     void showHelp();
     void showGameOverBox();

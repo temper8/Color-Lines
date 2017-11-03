@@ -91,6 +91,18 @@ void TGraphics::FillBackgroud(){
 
 }
 
+void TGraphics::DrawLine(double x0, double y0, double x1, double y1){
+
+	cairo_set_source_rgba(cairo, 0.0/255.0, 250.0/255.0, 250.0/255.0, 1.0);
+	cairo_set_line_width(cairo, 5);
+
+	cairo_move_to(cairo, x0, y0);
+	cairo_line_to(cairo, x1, y1);
+	//cairo_close_path (cairo);
+	cairo_stroke(cairo);
+	//cairo_fill (cairo);
+}
+
 void TGraphics::DrawRoundRectangle(double x, double y, double w, double h, double r){
 	cairo_move_to (cairo, x+r, y);
 	cairo_rel_line_to (cairo, w-2*r, 0);

@@ -24,6 +24,8 @@ public:
 	void Flush();
     void FillBackgroud();
 
+
+    void DrawLine(double x0, double y0, double x1, double x2);
     void DrawRoundRectangle(double x, double y, double w, double h, double r);
     void DrawSquare(double x, double y);
     void DrawBall(double x, double y, double r, int color);
@@ -34,6 +36,7 @@ public:
     void SetPatternForSquare(int x, int y, int r);
     void SetPattern(double x,double y, int radius, int color);
     void SetColor(int color);
+
 
     double squareSize;
 

@@ -115,16 +115,9 @@ Evas_Event_Flags line_move(void *data, void *event)
 {
 	TDrawingView *v = (TDrawingView *) data;
 
-    // Get structure describing mouse event
-    Elm_Gesture_Taps_Info *tap_info = (Elm_Gesture_Taps_Info *) event;
-
-    dlog_print(DLOG_DEBUG, LOG_TAG, "line_move x:%d y:%d", tap_info->x, tap_info->y);
-
     Elm_Gesture_Line_Info *line_info = (Elm_Gesture_Line_Info *) event;
 
     dlog_print(DLOG_DEBUG, LOG_TAG, "momentum y1:%d y2:%d", line_info->momentum.y1, line_info->momentum.y2);
-
-
 
 	v->OnLineMove(line_info->momentum.x1, line_info->momentum.y1, line_info->momentum.x2, line_info->momentum.y2);
 

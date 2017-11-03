@@ -13,6 +13,10 @@
 #include <system_settings.h>
 #include <efl_extension.h>
 
+#define LOG_TAG "Color Lines"
+
+#include <dlog.h>
+
 class TView {
 public:
 	TView();

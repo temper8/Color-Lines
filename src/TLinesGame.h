@@ -61,7 +61,7 @@ public:
 	std::vector<TPoint> path;
 	void initPlayingField();
 	std::vector<TPoint> makeListBalls();
-	void initSearch(TPoint src, TPoint dst);
+	void initSearch(TPoint src);
 	int searchPath(TPoint src, TPoint dst);
 	int checkLines();
 	std::vector<TPoint> addNewBalls();

@@ -123,7 +123,7 @@ void TBoardView::OnClick(int x, int y) {
     		destSquare.x = xx;
     		destSquare.y = yy;
 
-    		linesGame->initSearch(selBall,destSquare);
+    		linesGame->initSearch(selBall);
 
             if (linesGame->searchPath(selBall,destSquare) >0) {
             	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
@@ -142,6 +142,17 @@ void TBoardView::OnClick(int x, int y) {
 void TBoardView::OnMomentumStart(int x, int y) {
 	x0 = x;
 	y0 = y;
+	int xx =(x-left_margin) / squareSize + 1;
+	int yy =(y-top_margin) / squareSize + 1;
+
+	if (linesGame->OutOfBoundary(xx, yy)) return;
+
+    if (linesGame->board[xx][yy] > 0) {
+    	selBall.x = xx;
+    	selBall.y = yy;
+
+        startJumpingBallAnimator();
+    }
 };
 
 void TBoardView::OnMomentumMove(int x, int y) {

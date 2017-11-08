@@ -97,7 +97,7 @@ void TLinesGame::initPlayingField(){
 
 
 
-void TLinesGame::initSearch(TPoint src, TPoint dst){
+void TLinesGame::initSearch(TPoint src){
 
      for(int i=1; i< 12; i++)
 		for(int j=1; j< 12; j++) {

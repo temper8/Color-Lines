@@ -86,7 +86,7 @@ private:
 
     void DrawSquare(TPoint p);
 
-
+    bool isSelected = false;;
 	TPoint selBall;
 	TPoint destSquare;
 

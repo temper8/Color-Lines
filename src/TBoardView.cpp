@@ -114,11 +114,11 @@ void TBoardView::OnClick(int x, int y) {
     if (linesGame->board[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
-
+    	isSelected = true;
         startJumpingBallAnimator();
     }
     else {
-    	if (selBall.x > 0)  {
+    	if (isSelected)  {
 
     		destSquare.x = xx;
     		destSquare.y = yy;
@@ -128,7 +128,8 @@ void TBoardView::OnClick(int x, int y) {
             if (linesGame->searchPath(selBall,destSquare) >0) {
             	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
             	linesGame->board[selBall.x][selBall.y] = 0;
-            	 selBall.x = 0;
+            	 //selBall.x = 0;
+            	 isSelected = false;
             	 deleteJumpingBallAnimator();
             	 createMoveBallAnimator();
 
@@ -150,6 +151,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
     if (linesGame->board[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
+    	isSelected = true;
     	linesGame->initSearch(selBall);
         startJumpingBallAnimator();
     }
@@ -159,7 +161,8 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
-	if (selBall.x > 0)  {
+	if (linesGame->board[xx][yy]>0)	return;
+	if (isSelected)  {
 
 		destSquare.x = xx;
 		destSquare.y = yy;
@@ -181,10 +184,17 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 	 graphics.Flush();
 	 int xx =(x-left_margin) / squareSize + 1;
 	 int yy =(y-top_margin) / squareSize + 1;
-	if (selBall.x > 0)  {
+
+	 if ((selBall.x == xx)&&(selBall.y == yy)) return;
+
+	if (isSelected)  {
+			isSelected = false;
+
+			if (linesGame->board[xx][yy]>0)	return;
 
 			destSquare.x = xx;
 			destSquare.y = yy;
+
 			if (linesGame->searchPath(selBall,destSquare) >0) {
 				linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
 				linesGame->board[selBall.x][selBall.y] = 0;

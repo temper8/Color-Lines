@@ -78,7 +78,7 @@ Evas_Event_Flags momentum_end(void *data, void *event)
     // Get structure describing mouse event
 	Elm_Gesture_Momentum_Info *momentum_info = (Elm_Gesture_Momentum_Info *) event;
 
-    dlog_print(DLOG_DEBUG, LOG_TAG, "momentum_end x:%d y:%d", momentum_info->mx, momentum_info->my);
+    dlog_print(DLOG_DEBUG, LOG_TAG, "momentum_end x:%d y:%d", momentum_info->x2, momentum_info->y2);
 
 	v->OnMomentumEnd(momentum_info->x2,momentum_info->y2);
 
@@ -89,11 +89,11 @@ Evas_Event_Flags momentum_abort(void *data, void *event)
 	TDrawingView *v = (TDrawingView *) data;
 
     // Get structure describing mouse event
-	Elm_Gesture_Momentum_Info *tap_info = (Elm_Gesture_Momentum_Info *) event;
+	Elm_Gesture_Momentum_Info *momentum_info = (Elm_Gesture_Momentum_Info *) event;
 
-    dlog_print(DLOG_DEBUG, LOG_TAG, "momentum_abort x:%d y:%d", tap_info->mx, tap_info->my);
+    dlog_print(DLOG_DEBUG, LOG_TAG, "momentum_abort x:%d y:%d", momentum_info->x2, momentum_info->y2);
 
-	//v->OnClick(tap_info->x,tap_info->y);
+	v->OnMomentumEnd(momentum_info->x2,momentum_info->y2);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }

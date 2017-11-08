@@ -164,28 +164,35 @@ void TBoardView::OnMomentumMove(int x, int y) {
 		destSquare.x = xx;
 		destSquare.y = yy;
 
+		 ClearPath();
+
         if (linesGame->searchPath(selBall,destSquare) >0) {
-        	//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-        	//linesGame->board[selBall.x][selBall.y] = 0;
-        	 dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
-        	 //selBall.x = 0;
+        	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
         	 DrawPath();
-        	 //deleteJumpingBallAnimator();
-        	 //createMoveBallAnimator();
         	 graphics.Flush();
-
         }
-
 	}
-
-
-
-	graphics.DrawLine(x0, y0, x, y);
-	graphics.Flush();
+	//graphics.DrawLine(x0, y0, x, y);
+	//graphics.Flush();
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
+	 ClearPath();
+	 graphics.Flush();
+	 int xx =(x-left_margin) / squareSize + 1;
+	 int yy =(y-top_margin) / squareSize + 1;
+	if (selBall.x > 0)  {
 
+			destSquare.x = xx;
+			destSquare.y = yy;
+			if (linesGame->searchPath(selBall,destSquare) >0) {
+				linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+				linesGame->board[selBall.x][selBall.y] = 0;
+				selBall.x = 0;
+				deleteJumpingBallAnimator();
+				createMoveBallAnimator();
+			}
+	}
 };
 
 void TBoardView::OnLineStart(int x, int y) {
@@ -268,7 +275,7 @@ Eina_Bool disappearance_lines(void *data, double pos)
 }
 
 void TBoardView::afterMoveBall(){
-
+	linesGame->path.clear();
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
 			ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
@@ -372,6 +379,19 @@ void TBoardView::DrawBall(double x, double y, int color){
 	graphics.DrawBall(x,y,1,color);
 }
 
+void TBoardView::ClearPath(){
+	if (linesGame->path.size()>0) {
+		//TPoint p = linesGame->path.front();
+		//int color =  linesGame->board[p.x][p.y];
+		for ( TPoint p : linesGame->path ){
+			//double xx = p.x*squareSize - squareSize / 2 + left_margin;
+			//double yy = p.y*squareSize - squareSize / 2 + top_margin;
+			//graphics.DrawBall(xx, yy,  0.4, p.color);
+			DrawSquare(p);
+		}
+
+	}
+}
 void TBoardView::DrawPath(){
 	if (linesGame->path.size()>0) {
 		TPoint p = linesGame->path.front();
@@ -383,7 +403,6 @@ void TBoardView::DrawPath(){
 		}
 
 	}
-
 }
 
 void TBoardView::DrawPath(double pos){

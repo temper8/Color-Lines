@@ -45,6 +45,7 @@ public:
 
     void DrawBalls();
 
+    void ClearPath();
     void DrawPath();
     void DrawPath(double pos);
 

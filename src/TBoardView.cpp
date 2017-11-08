@@ -150,13 +150,36 @@ void TBoardView::OnMomentumStart(int x, int y) {
     if (linesGame->board[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
-
+    	linesGame->initSearch(selBall);
         startJumpingBallAnimator();
     }
 };
 
 void TBoardView::OnMomentumMove(int x, int y) {
 	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
+	int xx =(x-left_margin) / squareSize + 1;
+	int yy =(y-top_margin) / squareSize + 1;
+	if (selBall.x > 0)  {
+
+		destSquare.x = xx;
+		destSquare.y = yy;
+
+        if (linesGame->searchPath(selBall,destSquare) >0) {
+        	//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+        	//linesGame->board[selBall.x][selBall.y] = 0;
+        	 dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
+        	 //selBall.x = 0;
+        	 DrawPath();
+        	 //deleteJumpingBallAnimator();
+        	 //createMoveBallAnimator();
+        	 graphics.Flush();
+
+        }
+
+	}
+
+
+
 	graphics.DrawLine(x0, y0, x, y);
 	graphics.Flush();
 };
@@ -352,11 +375,11 @@ void TBoardView::DrawBall(double x, double y, int color){
 void TBoardView::DrawPath(){
 	if (linesGame->path.size()>0) {
 		TPoint p = linesGame->path.front();
-		int color =  linesGame->board[p.x][p.y];
+		//int color =  linesGame->board[p.x][p.y];
 		for ( TPoint p : linesGame->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;
-			graphics.DrawBall(xx, yy,  0.4, color);
+			graphics.DrawBall(xx, yy,  0.4, p.color);
 		}
 
 	}

@@ -50,13 +50,34 @@ void TGraphics::Initialize(int width, int height){
 
 		/* Create new cairo canvas for resized window */
 		pixels = (unsigned char*)evas_object_image_data_get(myImage, 1);
-		surface = cairo_image_surface_create_for_data(pixels,
-						CAIRO_FORMAT_ARGB32, width, height, width * 4);
+		surface = cairo_image_surface_create( CAIRO_FORMAT_ARGB32, width, height);
 		cairo = cairo_create(surface);
 
+		masksurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
+		maskcairo = cairo_create(masksurface);
+		DrawMask();
 	}
 }
 
+void TGraphics::DrawMask(){
+
+	cairo_set_source_surface (maskcairo, surface, 0, 0);
+	cairo_paint (maskcairo);
+
+	//cairo_set_source_rgba(maskcairo, 0.5, 0.5, 0.5, 0.5);
+	//cairo_paint(maskcairo);
+
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	//cairo_set_source(maskcairo, pattern1);
+	//cairo_pattern_set_extend(cairo_get_source(maskcairo), CAIRO_EXTEND_REPEAT);
+	cairo_set_source_rgba(maskcairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
+	cairo_rectangle(maskcairo, tx-100, ty-100, 200, 200);
+	cairo_fill(maskcairo);
+
+
+	cairo_surface_flush(masksurface);
+	//cairo_mask_surface(cairo, masksurface ,0 ,0);
+}
 
 void TGraphics::LoadBgImage(){
 	//  Load bg image, create surface from bg image
@@ -71,10 +92,15 @@ void TGraphics::LoadBgImage(){
 
 void TGraphics::Flush(){
 
+	dlog_print(DLOG_DEBUG, LOG_TAG, " cairo_surface_flush");
+
+
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
+	DrawMask();
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);
+
 }
 
 void TGraphics::FillBackgroud(){

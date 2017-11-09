@@ -159,6 +159,8 @@ void TBoardView::OnMomentumStart(int x, int y) {
 
 void TBoardView::OnMomentumMove(int x, int y) {
 	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
+	graphics.tx = x;
+	graphics.ty = y;
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
 	if (linesGame->board[xx][yy]>0)	return;
@@ -331,7 +333,7 @@ void TBoardView::CairoDrawing(){
 	DrawBoard();
 
 	if (linesGame->initBalls) DrawBalls();
-
+//	graphics.DrawMask();
 	graphics.Flush();
 }
 

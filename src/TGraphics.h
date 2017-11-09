@@ -11,6 +11,9 @@
 #include <cairo.h>
 #include <Elementary.h>
 
+#define LOG_TAG "Color Lines"
+#include <dlog.h>
+
 class TGraphics {
 public:
 	TGraphics();
@@ -40,12 +43,18 @@ public:
 
     double squareSize;
 
+
+    void DrawMask();
+    int tx,ty;
 private:
 	Evas_Object *myImage;
 	//Evas_Coord width;
 	//Evas_Coord height;
 	cairo_t *cairo;
 	cairo_surface_t *surface;
+
+	cairo_t *maskcairo;
+	cairo_surface_t *masksurface;
 	unsigned char *pixels;
 
 	int myWidth, myHeight;

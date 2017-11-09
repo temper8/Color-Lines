@@ -52,6 +52,7 @@ public:
     virtual void OnClick(int x, int y);
 
     int x0,y0;
+    int xx0,yy0;
 	virtual void OnMomentumStart(int x, int y);
 	virtual void OnMomentumMove(int x1, int y1);
 	virtual void OnMomentumEnd(int x, int y);

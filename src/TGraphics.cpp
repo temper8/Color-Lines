@@ -70,10 +70,13 @@ void TGraphics::DrawMask(){
 	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
 	//cairo_set_source(maskcairo, pattern1);
 	//cairo_pattern_set_extend(cairo_get_source(maskcairo), CAIRO_EXTEND_REPEAT);
-	cairo_set_source_rgba(maskcairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
-	cairo_rectangle(maskcairo, tx-100, ty-100, 200, 200);
-	cairo_fill(maskcairo);
+	cairo_save (maskcairo);
 
+	cairo_set_source_rgba(maskcairo, 1.0, 0.0, 0.0, 1.0);
+	cairo_arc(maskcairo, tx, ty, 90, 0, 2*M_PI);
+	cairo_set_line_width(maskcairo, 25);
+	cairo_stroke(maskcairo);
+	cairo_restore (maskcairo);
 
 	cairo_surface_flush(masksurface);
 	//cairo_mask_surface(cairo, masksurface ,0 ,0);

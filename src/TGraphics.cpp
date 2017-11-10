@@ -60,21 +60,15 @@ void TGraphics::Initialize(int width, int height){
 }
 
 void TGraphics::DrawRing(){
-
-
 	if (ring>0){
 		cairo_save (maincairo);
-
-		SetColor2(ring);
+		if (goodPath) SetColor2(ring);
+		else SetColor2(0);
 		cairo_arc(maincairo, tx, ty, 90, 0, 2*M_PI);
 		cairo_set_line_width(maincairo, 25);
 		cairo_stroke(maincairo);
 		cairo_restore (maincairo);
 	}
-
-
-
-	//cairo_mask_surface(cairo, masksurface ,0 ,0);
 }
 
 void TGraphics::LoadBgImage(){
@@ -90,7 +84,7 @@ void TGraphics::LoadBgImage(){
 
 void TGraphics::Flush(){
 
-	dlog_print(DLOG_DEBUG, LOG_TAG, " cairo_surface_flush");
+	//dlog_print(DLOG_DEBUG, LOG_TAG, " cairo_surface_flush");
 
 
 	/* Render stacked cairo APIs on cairo context's surface */
@@ -188,7 +182,7 @@ void TGraphics::SetPattern(double x,double y, int radius, int color){
 
 	double r,g,b;
 	switch (color) {
-	case 0: r = 0.0; g = 0.0, b = 0.0; break;
+	case 0: r = 0.5; g = 0.5, b = 0.5; break;
 	case 1: r = 1.0; g = 0.2, b = 0.2; break;
 	case 2: r = 0.2; g = 1.0, b = 0.2; break;
 	case 3: r = 0.2; g = 0.2, b = 1.0; break;
@@ -213,7 +207,7 @@ void TGraphics::SetPattern(double x,double y, int radius, int color){
 }
 void TGraphics::SetColor2(int color){
 	switch (color) {
-	case 0: cairo_set_source_rgba(maincairo, 0.0, 0.0, 0.0, 0.0); break;
+	case 0: cairo_set_source_rgba(maincairo, 0.5, 0.5, 0.5, 0.9); break;
 	case 1: cairo_set_source_rgba(maincairo, 1.0, 0.2, 0.2, 0.9); break;
 	case 2: cairo_set_source_rgba(maincairo, 0.2, 1.0, 0.2, 0.9); break;
 	case 3: cairo_set_source_rgba(maincairo, 0.2, 0.2, 1.0, 0.9); break;
@@ -230,7 +224,7 @@ void TGraphics::SetColor2(int color){
 
 void TGraphics::SetColor(int color){
 	switch (color) {
-	case 0: cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 0.0); break;
+	case 0: cairo_set_source_rgba(cairo, 0.5, 0.5, 0.5, 0.9); break;
 	case 1: cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9); break;
 	case 2: cairo_set_source_rgba(cairo, 0.2, 1.0, 0.2, 0.9); break;
 	case 3: cairo_set_source_rgba(cairo, 0.2, 0.2, 1.0, 0.9); break;
@@ -246,7 +240,7 @@ void TGraphics::SetColor(int color){
 
 void TGraphics::DrawBall(double x, double y, double r, int color){
 
-	if (color == 0) return;
+	//if (color == 0) return;
 
 	double  radius = r * 3*squareSize / 8;
 

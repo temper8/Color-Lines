@@ -63,6 +63,7 @@ public:
 	std::vector<TPoint> makeListBalls();
 	void initSearch(TPoint src);
 	int searchPath(TPoint src, TPoint dst);
+	int searchClosestPath(TPoint src, TPoint dst);
 	int checkLines();
 	std::vector<TPoint> addNewBalls();
 

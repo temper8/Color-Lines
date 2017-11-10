@@ -47,6 +47,7 @@ public:
     void DrawRing();
     int tx,ty;
     int ring = 0;
+    bool goodPath = false;
 private:
 	Evas_Object *myImage;
 	//Evas_Coord width;

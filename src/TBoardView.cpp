@@ -163,7 +163,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
 };
 
 void TBoardView::OnMomentumMove(int x, int y) {
-	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
+	//dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
 	graphics.tx = x;
 	graphics.ty = y;
 
@@ -175,19 +175,37 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	}
 	xx0=xx;
 	yy0=yy;
-	if (linesGame->board[xx][yy]>0)	return;
+	destSquare.x = xx;
+	destSquare.y = yy;
+	if (linesGame->board[xx][yy]>0)	{
+		graphics.goodPath = false;
+		ClearPath();
+		//linesGame->searchPath(selBall,destSquare);
+		//linesGame->path.pop_back();
+		linesGame->searchClosestPath(selBall,destSquare);
+		DrawPath(0);
+		return;
+	}
 	if (isSelected)  {
 
-		destSquare.x = xx;
-		destSquare.y = yy;
+
 
 		ClearPath();
 
         if (linesGame->searchPath(selBall,destSquare) >0) {
         	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
-        	 DrawPath();
+        	 DrawPath(graphics.ring);
+        	// DrawPath(0);
+        	 graphics.goodPath = true;
         	// graphics.Flush();
         }
+        else{
+        	graphics.goodPath = false;
+        	//linesGame->path.pop_back();
+        	linesGame->searchClosestPath(selBall,destSquare);
+        	DrawPath(0);
+        }
+
 	}
 	//graphics.DrawLine(x0, y0, x, y);
 	//graphics.Flush();
@@ -417,14 +435,14 @@ void TBoardView::ClearPath(){
 
 	}
 }
-void TBoardView::DrawPath(){
+void TBoardView::DrawPath(int color){
 	if (linesGame->path.size()>0) {
-		TPoint p = linesGame->path.front();
+		//TPoint p = linesGame->path.front();
 		//int color =  linesGame->board[p.x][p.y];
 		for ( TPoint p : linesGame->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;
-			graphics.DrawBall(xx, yy,  0.4, p.color);
+			graphics.DrawBall(xx, yy,  0.4, color);
 		}
 
 	}

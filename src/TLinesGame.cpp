@@ -159,6 +159,27 @@ void TLinesGame::FillNeighbors( std::vector<TPoint> list){
 	if (n>0) FillNeighbors(newList);
 }
 
+int TLinesGame::searchClosestPath(TPoint src, TPoint dst){
+	int rmin = 100000;
+	int x,y;
+    for(int i=1; i<= sizeX; i++)
+    for(int j=1; j<= sizeY; j++) {
+			if ((sf[i][j] != 100)&&(sf[i][j] != 0)){
+				int r = (dst.x - i)*(dst.x - i) + (dst.y - j)*(dst.y - j) + sf[i][j];
+				if (r<rmin){
+					rmin = r;
+					x = i;
+					y = j;
+				}
+			}
+		}
+    if (rmin<100000){
+    	return searchPath(src, TPoint(x,y));
+    }
+    else
+    	return 0;
+}
+
 int TLinesGame::searchPath(TPoint src, TPoint dst){
 
  path.clear();

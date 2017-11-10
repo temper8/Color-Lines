@@ -46,7 +46,7 @@ public:
     void DrawBalls();
 
     void ClearPath();
-    void DrawPath();
+    void DrawPath(int color);
     void DrawPath(double pos);
 
     virtual void OnClick(int x, int y);

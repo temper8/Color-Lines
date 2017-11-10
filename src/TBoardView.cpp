@@ -183,13 +183,13 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	if (isSelected)  {
 		ClearPath();
-	if (linesGame->board[xx][yy]>0)	{
-		graphics.goodPath = false;
-		ClearPath();
-		linesGame->searchClosestPath(selBall,destSquare);
-		DrawPath(0);
-		return;
-	}
+		if (linesGame->board[xx][yy]>0)	{
+			graphics.goodPath = false;
+			//ClearPath();
+			linesGame->searchClosestPath(selBall,destSquare);
+			DrawPath(0);
+			return;
+		}
         if (linesGame->searchPath(selBall,destSquare) >0) {
         	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
         	 DrawPath(graphics.ring);
@@ -207,8 +207,9 @@ void TBoardView::OnMomentumMove(int x, int y) {
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
-	graphics.ring =0;
+	 graphics.ring =0;
 	 ClearPath();
+	 linesGame->path.clear();
 	 //graphics.Flush();
 	 int xx =(x-left_margin) / squareSize + 1;
 	 int yy =(y-top_margin) / squareSize + 1;

@@ -70,13 +70,16 @@ void TGraphics::DrawMask(){
 	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
 	//cairo_set_source(maskcairo, pattern1);
 	//cairo_pattern_set_extend(cairo_get_source(maskcairo), CAIRO_EXTEND_REPEAT);
-	cairo_save (maskcairo);
+	if (ring>0){
+		cairo_save (maskcairo);
+		//cairo_set_source_rgba(maskcairo, 1.0, 0.0, 0.0, 1.0);
+		SetColor2(ring);
+		cairo_arc(maskcairo, tx, ty, 90, 0, 2*M_PI);
+		cairo_set_line_width(maskcairo, 25);
+		cairo_stroke(maskcairo);
+		cairo_restore (maskcairo);
+	}
 
-	cairo_set_source_rgba(maskcairo, 1.0, 0.0, 0.0, 1.0);
-	cairo_arc(maskcairo, tx, ty, 90, 0, 2*M_PI);
-	cairo_set_line_width(maskcairo, 25);
-	cairo_stroke(maskcairo);
-	cairo_restore (maskcairo);
 
 	cairo_surface_flush(masksurface);
 	//cairo_mask_surface(cairo, masksurface ,0 ,0);
@@ -210,6 +213,21 @@ void TGraphics::SetPattern(double x,double y, int radius, int color){
 
 	cairo_set_source(cairo, pattern1);
 
+}
+void TGraphics::SetColor2(int color){
+	switch (color) {
+	case 0: cairo_set_source_rgba(maskcairo, 0.0, 0.0, 0.0, 0.0); break;
+	case 1: cairo_set_source_rgba(maskcairo, 1.0, 0.2, 0.2, 0.9); break;
+	case 2: cairo_set_source_rgba(maskcairo, 0.2, 1.0, 0.2, 0.9); break;
+	case 3: cairo_set_source_rgba(maskcairo, 0.2, 0.2, 1.0, 0.9); break;
+	case 4: cairo_set_source_rgba(maskcairo, 1.0, 1.0, 0.2, 0.9); break;
+	case 5: cairo_set_source_rgba(maskcairo, 1.0, 0.0, 1.0, 0.9); break;
+	case 6: cairo_set_source_rgba(maskcairo, 0.0, 1.0, 1.0, 0.9); break;
+	case 7: cairo_set_source_rgba(maskcairo, 1.0, 1.0, 1.0, 0.9); break;
+
+	default:
+	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
+	}
 }
 
 

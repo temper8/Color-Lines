@@ -150,6 +150,10 @@ void TBoardView::OnMomentumStart(int x, int y) {
 	if (linesGame->OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
+    	graphics.tx = x;
+    	graphics.ty = y;
+    	graphics.ring = linesGame->board[xx][yy];
+
     	selBall.x = xx;
     	selBall.y = yy;
     	isSelected = true;
@@ -166,7 +170,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
 	if ((xx0 == xx)&&(yy0==yy)){
-		graphics.Flush();
+	//	graphics.Flush();
 		return;
 	}
 	xx0=xx;
@@ -182,7 +186,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
         if (linesGame->searchPath(selBall,destSquare) >0) {
         	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
         	 DrawPath();
-        	 graphics.Flush();
+        	// graphics.Flush();
         }
 	}
 	//graphics.DrawLine(x0, y0, x, y);
@@ -190,8 +194,9 @@ void TBoardView::OnMomentumMove(int x, int y) {
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
+	graphics.ring =0;
 	 ClearPath();
-	 graphics.Flush();
+	 //graphics.Flush();
 	 int xx =(x-left_margin) / squareSize + 1;
 	 int yy =(y-top_margin) / squareSize + 1;
 

@@ -39,13 +39,14 @@ public:
     void SetPatternForSquare(int x, int y, int r);
     void SetPattern(double x,double y, int radius, int color);
     void SetColor(int color);
-
+    void SetColor2(int color);
 
     double squareSize;
 
 
     void DrawMask();
     int tx,ty;
+    int ring = 0;
 private:
 	Evas_Object *myImage;
 	//Evas_Coord width;

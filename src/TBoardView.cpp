@@ -114,6 +114,7 @@ void TBoardView::OnClick(int x, int y) {
     if (linesGame->board[xx][yy] > 0) {
     	selBall.x = xx;
     	selBall.y = yy;
+    	selBall.color = linesGame->board[xx][yy];
     	isSelected = true;
         startJumpingBallAnimator();
     }
@@ -153,9 +154,10 @@ void TBoardView::OnMomentumStart(int x, int y) {
     	graphics.tx = x;
     	graphics.ty = y;
     	graphics.ring = linesGame->board[xx][yy];
-
+    	graphics.goodPath = true;
     	selBall.x = xx;
     	selBall.y = yy;
+    	selBall.color = linesGame->board[xx][yy];
     	isSelected = true;
     	linesGame->initSearch(selBall);
         startJumpingBallAnimator();
@@ -173,35 +175,28 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	//	graphics.Flush();
 		return;
 	}
+	if (linesGame->OutOfBoundary(xx, yy)) return;
 	xx0=xx;
 	yy0=yy;
 	destSquare.x = xx;
 	destSquare.y = yy;
+
+	if (isSelected)  {
+		ClearPath();
 	if (linesGame->board[xx][yy]>0)	{
 		graphics.goodPath = false;
 		ClearPath();
-		//linesGame->searchPath(selBall,destSquare);
-		//linesGame->path.pop_back();
 		linesGame->searchClosestPath(selBall,destSquare);
 		DrawPath(0);
 		return;
 	}
-	if (isSelected)  {
-
-
-
-		ClearPath();
-
         if (linesGame->searchPath(selBall,destSquare) >0) {
         	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
         	 DrawPath(graphics.ring);
-        	// DrawPath(0);
         	 graphics.goodPath = true;
-        	// graphics.Flush();
         }
         else{
         	graphics.goodPath = false;
-        	//linesGame->path.pop_back();
         	linesGame->searchClosestPath(selBall,destSquare);
         	DrawPath(0);
         }
@@ -222,7 +217,10 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 	if (isSelected)  {
 			isSelected = false;
-
+			deleteJumpingBallAnimator();
+			DrawBall(selBall,1.0);
+			graphics.Flush();
+			if (linesGame->OutOfBoundary(xx, yy)) return;
 			if (linesGame->board[xx][yy]>0)	return;
 
 			destSquare.x = xx;
@@ -232,7 +230,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 				linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
 				linesGame->board[selBall.x][selBall.y] = 0;
 				selBall.x = 0;
-				deleteJumpingBallAnimator();
+
 				createMoveBallAnimator();
 			}
 	}

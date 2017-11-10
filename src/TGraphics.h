@@ -44,7 +44,7 @@ public:
     double squareSize;
 
 
-    void DrawMask();
+    void DrawRing();
     int tx,ty;
     int ring = 0;
 private:
@@ -54,8 +54,8 @@ private:
 	cairo_t *cairo;
 	cairo_surface_t *surface;
 
-	cairo_t *maskcairo;
-	cairo_surface_t *masksurface;
+	cairo_t *maincairo;
+	cairo_surface_t *mainsurface;
 	unsigned char *pixels;
 
 	int myWidth, myHeight;

@@ -181,7 +181,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 		destSquare.x = xx;
 		destSquare.y = yy;
 
-		 ClearPath();
+		ClearPath();
 
         if (linesGame->searchPath(selBall,destSquare) >0) {
         	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());

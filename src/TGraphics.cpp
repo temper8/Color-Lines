@@ -53,35 +53,27 @@ void TGraphics::Initialize(int width, int height){
 		surface = cairo_image_surface_create( CAIRO_FORMAT_ARGB32, width, height);
 		cairo = cairo_create(surface);
 
-		masksurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
-		maskcairo = cairo_create(masksurface);
-		DrawMask();
+		mainsurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
+		maincairo = cairo_create(mainsurface);
+		//DrawMask();
 	}
 }
 
-void TGraphics::DrawMask(){
+void TGraphics::DrawRing(){
 
-	cairo_set_source_surface (maskcairo, surface, 0, 0);
-	cairo_paint (maskcairo);
 
-	//cairo_set_source_rgba(maskcairo, 0.5, 0.5, 0.5, 0.5);
-	//cairo_paint(maskcairo);
-
-	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
-	//cairo_set_source(maskcairo, pattern1);
-	//cairo_pattern_set_extend(cairo_get_source(maskcairo), CAIRO_EXTEND_REPEAT);
 	if (ring>0){
-		cairo_save (maskcairo);
-		//cairo_set_source_rgba(maskcairo, 1.0, 0.0, 0.0, 1.0);
+		cairo_save (maincairo);
+
 		SetColor2(ring);
-		cairo_arc(maskcairo, tx, ty, 90, 0, 2*M_PI);
-		cairo_set_line_width(maskcairo, 25);
-		cairo_stroke(maskcairo);
-		cairo_restore (maskcairo);
+		cairo_arc(maincairo, tx, ty, 90, 0, 2*M_PI);
+		cairo_set_line_width(maincairo, 25);
+		cairo_stroke(maincairo);
+		cairo_restore (maincairo);
 	}
 
 
-	cairo_surface_flush(masksurface);
+
 	//cairo_mask_surface(cairo, masksurface ,0 ,0);
 }
 
@@ -103,7 +95,12 @@ void TGraphics::Flush(){
 
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
-	DrawMask();
+
+	cairo_set_source_surface (maincairo, surface, 0, 0);
+	cairo_paint (maincairo);
+
+	DrawRing();
+	cairo_surface_flush(mainsurface);
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);
 
@@ -216,17 +213,17 @@ void TGraphics::SetPattern(double x,double y, int radius, int color){
 }
 void TGraphics::SetColor2(int color){
 	switch (color) {
-	case 0: cairo_set_source_rgba(maskcairo, 0.0, 0.0, 0.0, 0.0); break;
-	case 1: cairo_set_source_rgba(maskcairo, 1.0, 0.2, 0.2, 0.9); break;
-	case 2: cairo_set_source_rgba(maskcairo, 0.2, 1.0, 0.2, 0.9); break;
-	case 3: cairo_set_source_rgba(maskcairo, 0.2, 0.2, 1.0, 0.9); break;
-	case 4: cairo_set_source_rgba(maskcairo, 1.0, 1.0, 0.2, 0.9); break;
-	case 5: cairo_set_source_rgba(maskcairo, 1.0, 0.0, 1.0, 0.9); break;
-	case 6: cairo_set_source_rgba(maskcairo, 0.0, 1.0, 1.0, 0.9); break;
-	case 7: cairo_set_source_rgba(maskcairo, 1.0, 1.0, 1.0, 0.9); break;
+	case 0: cairo_set_source_rgba(maincairo, 0.0, 0.0, 0.0, 0.0); break;
+	case 1: cairo_set_source_rgba(maincairo, 1.0, 0.2, 0.2, 0.9); break;
+	case 2: cairo_set_source_rgba(maincairo, 0.2, 1.0, 0.2, 0.9); break;
+	case 3: cairo_set_source_rgba(maincairo, 0.2, 0.2, 1.0, 0.9); break;
+	case 4: cairo_set_source_rgba(maincairo, 1.0, 1.0, 0.2, 0.9); break;
+	case 5: cairo_set_source_rgba(maincairo, 1.0, 0.0, 1.0, 0.9); break;
+	case 6: cairo_set_source_rgba(maincairo, 0.0, 1.0, 1.0, 0.9); break;
+	case 7: cairo_set_source_rgba(maincairo, 1.0, 1.0, 1.0, 0.9); break;
 
 	default:
-	 cairo_set_source_rgba(cairo, 0.0, 0.0, 0.0, 1.0);
+	 cairo_set_source_rgba(maincairo, 0.0, 0.0, 0.0, 1.0);
 	}
 }
 

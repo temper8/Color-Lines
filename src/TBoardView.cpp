@@ -45,9 +45,6 @@ TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
-void TBoardView::RefreshGraphics(){
-
-}
 
 
 void TBoardView::NewGame(){
@@ -122,11 +119,11 @@ void TBoardView::OnClick(int x, int y) {
     	selBall.x = xx;
     	selBall.y = yy;
     	selBall.color = linesGame->board[xx][yy];
-    	isSelected = true;
+    	isBallSelected = true;
         startJumpingBallAnimator();
     }
     else {
-    	if (isSelected)  {
+    	if (isBallSelected)  {
 
     		destSquare.x = xx;
     		destSquare.y = yy;
@@ -137,7 +134,7 @@ void TBoardView::OnClick(int x, int y) {
             	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
             	linesGame->board[selBall.x][selBall.y] = 0;
             	 //selBall.x = 0;
-            	 isSelected = false;
+            	 isBallSelected = false;
             	 deleteJumpingBallAnimator();
             	 createMoveBallAnimator();
 
@@ -165,7 +162,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
     	selBall.x = xx;
     	selBall.y = yy;
     	selBall.color = linesGame->board[xx][yy];
-    	isSelected = true;
+    	isBallSelected = true;
     	linesGame->initSearch(selBall);
         startJumpingBallAnimator();
     }
@@ -188,7 +185,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	destSquare.x = xx;
 	destSquare.y = yy;
 
-	if (isSelected)  {
+	if (isBallSelected)  {
 		ClearPath();
 		if (linesGame->board[xx][yy]>0)	{
 			graphics.goodPath = false;
@@ -223,8 +220,8 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 	 if ((selBall.x == xx)&&(selBall.y == yy)) return;
 
-	if (isSelected)  {
-			isSelected = false;
+	if (isBallSelected)  {
+			isBallSelected = false;
 			deleteJumpingBallAnimator();
 			DrawBall(selBall,1.0);
 			graphics.Flush();
@@ -266,6 +263,11 @@ void TBoardView::OnLineAbort(int x, int y) {
 
 
 // animation
+
+void TBoardView::RefreshGraphics(){
+
+}
+
 
 void TBoardView::jumpingBall(){
  if (selBall.x !=0) {

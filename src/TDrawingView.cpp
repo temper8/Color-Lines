@@ -23,7 +23,7 @@ Evas_Event_Flags mouse_cb(void *data, void *event)
     // Get structure describing mouse event
     Elm_Gesture_Taps_Info *tap_info = (Elm_Gesture_Taps_Info *) event;
 
-    //dlog_print(DLOG_DEBUG, LOG_TAG, "> _mouse_cb() x:%d y:%d", move->x, move->y);
+    dlog_print(DLOG_DEBUG, LOG_TAG, " OnClick() x:%d y:%d", tap_info->x, tap_info->y);
 
 	v->OnClick(tap_info->x,tap_info->y);
 

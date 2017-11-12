@@ -53,6 +53,7 @@ public:
 
     int x0,y0;
     int xx0,yy0;
+    int xxm,yym;
 	virtual void OnMomentumStart(int x, int y);
 	virtual void OnMomentumMove(int x1, int y1);
 	virtual void OnMomentumEnd(int x, int y);
@@ -87,7 +88,15 @@ private:
 
     void DrawSquare(TPoint p);
 
-    bool isBallSelected = false;;
+
+    ;
+    double timeLinePos;
+    bool appearanceNewBalls = false;
+    bool disAppearanceBalls = false;
+	double ballSnakePos;
+    bool BallSnakeRun = false;
+    bool isBallSelected = false;
+    bool needUpdateScore = true;
 	TPoint selBall;
 	TPoint destSquare;
 
@@ -100,8 +109,8 @@ private:
     static constexpr const double animation_pause = 0.5;
     static constexpr const double animation_time = 1.0;
 
-	void startJumpingBallAnimator();
-	void deleteJumpingBallAnimator();
+//	void startJumpingBallAnimator();
+//	void deleteJumpingBallAnimator();
 	void createMoveBallAnimator();
 	void deleteMoveBallAnimator();
 

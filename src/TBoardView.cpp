@@ -120,10 +120,11 @@ void TBoardView::OnClick(int x, int y) {
     	selBall.y = yy;
     	selBall.color = linesGame->board[xx][yy];
     	isBallSelected = true;
-        startJumpingBallAnimator();
+       // startJumpingBallAnimator();
     }
     else {
     	if (isBallSelected)  {
+    		isBallSelected = false;
 
     		destSquare.x = xx;
     		destSquare.y = yy;
@@ -131,14 +132,15 @@ void TBoardView::OnClick(int x, int y) {
     		linesGame->initSearch(selBall);
 
             if (linesGame->searchPath(selBall,destSquare) >0) {
-            	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-            	linesGame->board[selBall.x][selBall.y] = 0;
+            	//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+            	//linesGame->board[selBall.x][selBall.y] = 0;
             	 //selBall.x = 0;
-            	 isBallSelected = false;
-            	 deleteJumpingBallAnimator();
+
+            	// deleteJumpingBallAnimator();
             	 createMoveBallAnimator();
 
             }
+
 
     	}
 
@@ -152,6 +154,8 @@ void TBoardView::OnMomentumStart(int x, int y) {
 	int yy =(y-top_margin) / squareSize + 1;
 	xx0=xx;
 	yy0=yy;
+	xxm=xx;
+	yym=yy;
 	if (linesGame->OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
@@ -164,7 +168,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
     	selBall.color = linesGame->board[xx][yy];
     	isBallSelected = true;
     	linesGame->initSearch(selBall);
-        startJumpingBallAnimator();
+       // startJumpingBallAnimator();
     }
 };
 
@@ -175,13 +179,13 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
-	if ((xx0 == xx)&&(yy0==yy)){
+	if ((xxm == xx)&&(yym==yy)){
 	//	graphics.Flush();
 		return;
 	}
 	if (linesGame->OutOfBoundary(xx, yy)) return;
-	xx0=xx;
-	yy0=yy;
+	xxm=xx;
+	yym=yy;
 	destSquare.x = xx;
 	destSquare.y = yy;
 
@@ -211,30 +215,31 @@ void TBoardView::OnMomentumMove(int x, int y) {
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
+
 	 graphics.ring =0;
-	 ClearPath();
-	 linesGame->path.clear();
-	 //graphics.Flush();
 	 int xx =(x-left_margin) / squareSize + 1;
 	 int yy =(y-top_margin) / squareSize + 1;
 
-	 if ((selBall.x == xx)&&(selBall.y == yy)) return;
+	 if ((xx0 == xx)&&(yy0==yy))	return;
+	 ClearPath();
+	 linesGame->path.clear();
 
 	if (isBallSelected)  {
 			isBallSelected = false;
-			deleteJumpingBallAnimator();
-			DrawBall(selBall,1.0);
-			graphics.Flush();
+		//	deleteJumpingBallAnimator();
+			//DrawBall(selBall,1.0);
+		//	graphics.Flush();
 			if (linesGame->OutOfBoundary(xx, yy)) return;
 			if (linesGame->board[xx][yy]>0)	return;
 
 			destSquare.x = xx;
 			destSquare.y = yy;
+			linesGame->initSearch(selBall);
 
 			if (linesGame->searchPath(selBall,destSquare) >0) {
-				linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-				linesGame->board[selBall.x][selBall.y] = 0;
-				selBall.x = 0;
+				//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+				//linesGame->board[selBall.x][selBall.y] = 0;
+				//selBall.x = 0;
 
 				createMoveBallAnimator();
 			}
@@ -266,44 +271,64 @@ void TBoardView::OnLineAbort(int x, int y) {
 
 void TBoardView::RefreshGraphics(){
 
+	if(isBallSelected) {
+		tick +=0.15;
+		jumpingBall();
+	}
+
+	if (BallSnakeRun) {
+		DrawPath(ballSnakePos);
+	}
+	if (appearanceNewBalls) {
+		appearanceNewBall(timeLinePos);
+	}
+
+	if (needUpdateScore) {
+		DrawHeader();
+		needUpdateScore = false;
+	}
+
+	graphics.Flush();
 }
 
 
 void TBoardView::jumpingBall(){
- if (selBall.x !=0) {
-
 	double x = (selBall.x-1)*squareSize  + left_margin;
 	double y = (selBall.y-1)*squareSize  + top_margin;
 
-	tick +=0.15;
 	graphics.DrawSquare(x,y);
 	x = x + squareSize / 2 ;
 	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	DrawBall(x,y,linesGame->board[selBall.x][selBall.y]);
-	graphics.Flush();
- }
-}
 
+}
+/*
 void TBoardView::startJumpingBallAnimator(){
   tick = 0;
-  if (JumpingAnimator != NULL)
-  	   ecore_animator_del(JumpingAnimator);
-  JumpingAnimator = ecore_animator_add([](void *data){((TBoardView *) data)->jumpingBall(); return EINA_TRUE;}, this);
+//  if (JumpingAnimator != NULL)
+ // 	   ecore_animator_del(JumpingAnimator);
+//  JumpingAnimator = ecore_animator_add([](void *data){((TBoardView *) data)->jumpingBall(); return EINA_TRUE;}, this);
 }
+
 
 void TBoardView::deleteJumpingBallAnimator(){
-	if (JumpingAnimator != NULL)
-	   ecore_animator_del(JumpingAnimator);
+//	if (JumpingAnimator != NULL)
+	//   ecore_animator_del(JumpingAnimator);
 }
-
+*/
 void TBoardView::moveBall(double pos) {
 	DrawPath(pos);
 	graphics.Flush();
 }
 
 void TBoardView::createMoveBallAnimator(){
-	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
+//	if (BallSnakeRun) return;
+	BallSnakeRun = true;
+	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
+	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->DrawPath(pos); return EINA_TRUE;}, this);
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->ballSnakePos = pos; return EINA_TRUE;}, this);
+//	ecore_animator_timeline_add (animation_time, [ballSnakePos](void *data, double pos){ ballSnakePos = pos; return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
 
@@ -326,10 +351,15 @@ Eina_Bool disappearance_lines(void *data, double pos)
 }
 
 void TBoardView::afterMoveBall(){
+	BallSnakeRun = false;
+	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+	linesGame->board[selBall.x][selBall.y] = 0;
 	linesGame->path.clear();
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
-			ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
+		    appearanceNewBalls = true;
+			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->timeLinePos = pos; return EINA_TRUE;}, this);
+			ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->appearanceNewBalls = false; return EINA_FALSE; }, this);
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
@@ -337,7 +367,8 @@ void TBoardView::afterMoveBall(){
 	else {
 		ecore_animator_timeline_add (animation_time, disappearance_lines, this);
 	}
-	DrawHeader();
+	needUpdateScore = true;
+
 }
 
 void TBoardView::startShowAllBalls(){
@@ -348,7 +379,7 @@ void TBoardView::startShowAllBalls(){
 void TBoardView::appearanceNewBall(double pos) {
 	for ( TPoint p : NewBalls )
 		DrawBall(p,  pos);
-	graphics.Flush();
+	//graphics.Flush();
 }
 
 void TBoardView::disappearanceLines(double pos){
@@ -458,7 +489,7 @@ void TBoardView::DrawPath(int color){
 
 void TBoardView::DrawPath(double pos){
 	if (linesGame->path.size() == 0) return;
-	double dx = M_PI/linesGame->path.size();
+	double dx = M_PI/(linesGame->path.size()-1);
 	for (int i = 0; i<linesGame->path.size(); i++ ) {
 		TPoint p  =  linesGame->path[i];
 

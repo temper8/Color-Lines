@@ -324,10 +324,13 @@ void TBoardView::moveBall(double pos) {
 
 void TBoardView::createMoveBallAnimator(){
 //	if (BallSnakeRun) return;
-	BallSnakeRun = true;
+
 	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
 	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->DrawPath(pos); return EINA_TRUE;}, this);
+	ballSnakePos = 0;
+	BallSnakeRun = true;
 	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->ballSnakePos = pos; return EINA_TRUE;}, this);
+
 //	ecore_animator_timeline_add (animation_time, [ballSnakePos](void *data, double pos){ ballSnakePos = pos; return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
@@ -357,8 +360,10 @@ void TBoardView::afterMoveBall(){
 	linesGame->path.clear();
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
+		    timeLinePos = 0;
 		    appearanceNewBalls = true;
 			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->timeLinePos = pos; return EINA_TRUE;}, this);
+
 			ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->appearanceNewBalls = false; return EINA_FALSE; }, this);
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);

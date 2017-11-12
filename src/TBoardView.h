@@ -87,12 +87,15 @@ private:
 
     void DrawSquare(TPoint p);
 
-    bool isSelected = false;;
+    bool isBallSelected = false;;
 	TPoint selBall;
 	TPoint destSquare;
 
 
 	Ecore_Animator *JumpingAnimator;
+
+	void RefreshGraphics();
+	Ecore_Animator *animator;
 
     static constexpr const double animation_pause = 0.5;
     static constexpr const double animation_time = 1.0;

@@ -237,7 +237,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		//	deleteJumpingBallAnimator();
 			//DrawBall(selBall,1.0);
 		//	graphics.Flush();
-			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)){
+			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)||appearanceNewBalls||BallSnakeRun){
 				DrawBall(selBall,1);
 				return;
 			}
@@ -389,7 +389,6 @@ void TBoardView::disappearanceLines(double pos){
 	    DrawSquare(p);
 		DrawBall(p,  1-pos);
 	}
-//	graphics.Flush();
 }
 
 // drawing

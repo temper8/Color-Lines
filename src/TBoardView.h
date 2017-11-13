@@ -88,8 +88,6 @@ private:
 
     void DrawSquare(TPoint p);
 
-
-    ;
     double timeLinePos;
     bool appearanceNewBalls = false;
     bool disAppearanceBalls = false;
@@ -107,7 +105,7 @@ private:
 	Ecore_Animator *animator;
 
     static constexpr const double animation_pause = 0.5;
-    static constexpr const double animation_time = 1.0;
+    static constexpr const double animation_time = 0.5;
 
 //	void startJumpingBallAnimator();
 //	void deleteJumpingBallAnimator();

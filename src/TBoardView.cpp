@@ -468,7 +468,8 @@ void TBoardView::ClearPath(){
 			//double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			//double yy = p.y*squareSize - squareSize / 2 + top_margin;
 			//graphics.DrawBall(xx, yy,  0.4, p.color);
-			DrawSquare(p);
+			//if (linesGame->board[p.x][p.y]>0)
+				DrawSquare(p);
 		}
 
 	}

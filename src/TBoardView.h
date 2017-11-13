@@ -115,6 +115,7 @@ private:
 	void deleteMoveBallAnimator();
 
 public:
+	void ClearSnake();
 	std::vector<TPoint> NewBalls;
 	std::vector<TPoint> SnakeBalls;
 	double tick;

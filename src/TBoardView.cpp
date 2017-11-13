@@ -137,7 +137,7 @@ void TBoardView::OnClick(int x, int y) {
             	 //selBall.x = 0;
 
             	// deleteJumpingBallAnimator();
-            	SnakeBalls = linesGame->path;
+
             	 createMoveBallAnimator();
 
             }
@@ -205,6 +205,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 			DrawPath(0);
 			return;
 		}
+		linesGame->initSearch(selBall);
         if (linesGame->searchPath(selBall,destSquare) >0) {
         	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
         	 DrawPath(graphics.ring);
@@ -249,7 +250,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 				//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
 				//linesGame->board[selBall.x][selBall.y] = 0;
 				//selBall.x = 0;
-				SnakeBalls = linesGame->path;
+
 				createMoveBallAnimator();
 			}
 	}
@@ -321,6 +322,8 @@ void TBoardView::moveBall(double pos) {
 void TBoardView::createMoveBallAnimator(){
 	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
 	linesGame->board[selBall.x][selBall.y] = 0;
+	SnakeBalls = linesGame->path;
+	linesGame->path.clear();
 	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
 	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->DrawPath(pos); return EINA_TRUE;}, this);
 	ballSnakePos = 0;
@@ -351,7 +354,7 @@ Eina_Bool disappearance_lines(void *data, double pos)
 
 void TBoardView::afterMoveBall(){
 	BallSnakeRun = false;
-	linesGame->path.clear();
+	ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
 		    NewBalls = linesGame->addNewBalls();
 		    timeLinePos = 0;
@@ -386,7 +389,7 @@ void TBoardView::disappearanceLines(double pos){
 	    DrawSquare(p);
 		DrawBall(p,  1-pos);
 	}
-	graphics.Flush();
+//	graphics.Flush();
 }
 
 // drawing
@@ -460,6 +463,14 @@ void TBoardView::DrawBall(double x, double y, int color){
 	graphics.DrawBall(x,y,1,color);
 }
 
+void TBoardView::ClearSnake(){
+	for ( TPoint p : SnakeBalls ){
+		DrawSquare(p);
+		if (linesGame->board[p.x][p.y] > 0)
+			DrawBall(p,1.0,linesGame->board[p.x][p.y]);
+		}
+}
+
 void TBoardView::ClearPath(){
 	if (linesGame->path.size()>0) {
 		//TPoint p = linesGame->path.front();
@@ -468,8 +479,9 @@ void TBoardView::ClearPath(){
 			//double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			//double yy = p.y*squareSize - squareSize / 2 + top_margin;
 			//graphics.DrawBall(xx, yy,  0.4, p.color);
-			//if (linesGame->board[p.x][p.y]>0)
-				DrawSquare(p);
+			DrawSquare(p);
+			if (linesGame->board[p.x][p.y] > 0)
+				DrawBall(p,1.0,linesGame->board[p.x][p.y]);
 		}
 
 	}

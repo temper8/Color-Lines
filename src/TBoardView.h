@@ -59,12 +59,6 @@ public:
 	virtual void OnMomentumEnd(int x, int y);
 
 
-
-	virtual void OnLineStart(int x, int y);
-	virtual void OnLineMove(int x1, int y1, int x2, int y2);
-	virtual void OnLineEnd(int x, int y);
-	virtual void OnLineAbort(int x, int y);
-
     void closePopupBox();
     void showHelp();
     void showGameOverBox();
@@ -104,7 +98,7 @@ private:
 	void RefreshGraphics();
 	Ecore_Animator *animator;
 
-    static constexpr const double animation_pause = 0.4;
+    static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;
 
 //	void startJumpingBallAnimator();

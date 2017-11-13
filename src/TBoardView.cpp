@@ -132,12 +132,6 @@ void TBoardView::OnClick(int x, int y) {
     		linesGame->initSearch(selBall);
 
             if (linesGame->searchPath(selBall,destSquare) >0) {
-            	//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-            	//linesGame->board[selBall.x][selBall.y] = 0;
-            	 //selBall.x = 0;
-
-            	// deleteJumpingBallAnimator();
-
             	 createMoveBallAnimator();
 
             }
@@ -170,7 +164,6 @@ void TBoardView::OnMomentumStart(int x, int y) {
     	selBall.color = linesGame->board[xx][yy];
     	isBallSelected = true;
     	linesGame->initSearch(selBall);
-       // startJumpingBallAnimator();
     }
 };
 
@@ -181,10 +174,9 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
-	if ((xxm == xx)&&(yym==yy)){
-	//	graphics.Flush();
-		return;
-	}
+
+	if ((xxm == xx)&&(yym==yy))		return;
+
 
 	xxm=xx;
 	yym=yy;
@@ -207,7 +199,6 @@ void TBoardView::OnMomentumMove(int x, int y) {
 		}
 		linesGame->initSearch(selBall);
         if (linesGame->searchPath(selBall,destSquare) >0) {
-        	 //dlog_print(DLOG_DEBUG, LOG_TAG, "DrawPath()  x:%d y:%d", xx, linesGame->path.size());
         	 DrawPath(graphics.ring);
         	 graphics.goodPath = true;
         }
@@ -218,13 +209,13 @@ void TBoardView::OnMomentumMove(int x, int y) {
         }
 
 	}
-	//graphics.DrawLine(x0, y0, x, y);
-	//graphics.Flush();
+
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
 
 	 graphics.ring =0;
+	 graphics.goodPath = false;
 	 int xx =(x-left_margin) / squareSize + 1;
 	 int yy =(y-top_margin) / squareSize + 1;
 
@@ -234,9 +225,6 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 	if (isBallSelected)  {
 			isBallSelected = false;
-		//	deleteJumpingBallAnimator();
-			//DrawBall(selBall,1.0);
-		//	graphics.Flush();
 			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)||appearanceNewBalls||BallSnakeRun){
 				DrawBall(selBall,1);
 				return;
@@ -247,34 +235,11 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 			linesGame->initSearch(selBall);
 
 			if (linesGame->searchPath(selBall,destSquare) >0) {
-				//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-				//linesGame->board[selBall.x][selBall.y] = 0;
-				//selBall.x = 0;
-
 				createMoveBallAnimator();
 			}
 	}
 };
 
-void TBoardView::OnLineStart(int x, int y) {
-	//x0 = x;
-	//y0 = y;
-};
-
-void TBoardView::OnLineMove(int x1, int y1, int x2, int y2) {
-	dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnLineMove x:%d y:%d", x2, y2);
-	//graphics.DrawLine((double)x1,(double)y1,(double)x2,(double)y2);
-//	DrawBall(x,y,3);
-	//graphics.Flush();
-};
-
-void TBoardView::OnLineEnd(int x, int y) {
-
-};
-
-void TBoardView::OnLineAbort(int x, int y) {
-
-};
 
 
 // animation
@@ -333,7 +298,7 @@ void TBoardView::createMoveBallAnimator(){
 //	ecore_animator_timeline_add (animation_time, [ballSnakePos](void *data, double pos){ ballSnakePos = pos; return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data){((TBoardView *) data)->afterMoveBall();  return EINA_FALSE;}, this);
 }
-
+/*
 void TBoardView::deleteMoveBallAnimator(){
 
 }
@@ -344,7 +309,7 @@ Eina_Bool appearance_new_ball(void *data, double pos)
    bv->appearanceNewBall(pos);
    return EINA_TRUE;
 }
-
+*/
 Eina_Bool disappearance_lines(void *data, double pos)
 {
    TBoardView *bv = (TBoardView *) data;
@@ -374,7 +339,10 @@ void TBoardView::afterMoveBall(){
 
 void TBoardView::startShowAllBalls(){
     NewBalls = linesGame->makeListBalls();
-	ecore_animator_timeline_add (animation_time, appearance_new_ball, this);
+    timeLinePos = 0;
+    appearanceNewBalls = true;
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->timeLinePos = pos; return EINA_TRUE;}, this);
+	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->appearanceNewBalls = false; return EINA_FALSE; }, this);
 }
 
 void TBoardView::appearanceNewBall(double pos) {
@@ -401,7 +369,7 @@ void TBoardView::CairoDrawing(){
 
 	DrawBoard();
 
-	if (linesGame->initBalls) DrawBalls();
+	//if (linesGame->initBalls) DrawBalls();
 //	graphics.DrawMask();
 	graphics.Flush();
 }

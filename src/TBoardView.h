@@ -47,7 +47,7 @@ public:
 
     void ClearPath();
     void DrawPath(int color);
-    void DrawPath(double pos);
+    void DrawSnake(double pos);
 
     virtual void OnClick(int x, int y);
 
@@ -116,6 +116,7 @@ private:
 
 public:
 	std::vector<TPoint> NewBalls;
+	std::vector<TPoint> SnakeBalls;
 	double tick;
 	void jumpingBall();
 	void moveBall(double pos);

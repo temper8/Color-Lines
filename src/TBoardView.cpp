@@ -137,6 +137,7 @@ void TBoardView::OnClick(int x, int y) {
             	 //selBall.x = 0;
 
             	// deleteJumpingBallAnimator();
+            	SnakeBalls = linesGame->path;
             	 createMoveBallAnimator();
 
             }
@@ -248,7 +249,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 				//linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
 				//linesGame->board[selBall.x][selBall.y] = 0;
 				//selBall.x = 0;
-
+				SnakeBalls = linesGame->path;
 				createMoveBallAnimator();
 			}
 	}
@@ -285,7 +286,7 @@ void TBoardView::RefreshGraphics(){
 	}
 
 	if (BallSnakeRun) {
-		DrawPath(ballSnakePos);
+		DrawSnake(ballSnakePos);
 	}
 	if (appearanceNewBalls) {
 		appearanceNewBall(timeLinePos);
@@ -485,11 +486,11 @@ void TBoardView::DrawPath(int color){
 	}
 }
 
-void TBoardView::DrawPath(double pos){
-	if (linesGame->path.size() == 0) return;
-	double dx = M_PI/(linesGame->path.size()-1);
-	for (int i = 0; i<linesGame->path.size(); i++ ) {
-		TPoint p  =  linesGame->path[i];
+void TBoardView::DrawSnake(double pos){
+	if (SnakeBalls.size() == 0) return;
+	double dx = M_PI/(SnakeBalls.size()-1);
+	for (int i = 0; i<SnakeBalls.size(); i++ ) {
+		TPoint p  =  SnakeBalls[i];
 
 		DrawSquare(p);
 
@@ -499,7 +500,7 @@ void TBoardView::DrawPath(double pos){
 		DrawBall(p, r, p.color);
 	}
 	if (pos>0.5) {
-		TPoint p = linesGame->path.front();
+		TPoint p = SnakeBalls.front();
 		DrawBall(p, 1, p.color);
 	}
 

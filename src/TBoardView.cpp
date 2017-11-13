@@ -183,7 +183,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	//	graphics.Flush();
 		return;
 	}
-	if (linesGame->OutOfBoundary(xx, yy)) return;
+
 	xxm=xx;
 	yym=yy;
 	destSquare.x = xx;
@@ -191,9 +191,14 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	if (isBallSelected)  {
 		ClearPath();
+		if (linesGame->OutOfBoundary(xx, yy)) {
+			graphics.goodPath = false;
+			return;
+		}
+
 		if (linesGame->board[xx][yy]>0)	{
 			graphics.goodPath = false;
-			//ClearPath();
+
 			linesGame->searchClosestPath(selBall,destSquare);
 			DrawPath(0);
 			return;
@@ -229,8 +234,10 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		//	deleteJumpingBallAnimator();
 			//DrawBall(selBall,1.0);
 		//	graphics.Flush();
-			if (linesGame->OutOfBoundary(xx, yy)) return;
-			if (linesGame->board[xx][yy]>0)	return;
+			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)){
+				DrawBall(selBall,1);
+				return;
+			}
 
 			destSquare.x = xx;
 			destSquare.y = yy;

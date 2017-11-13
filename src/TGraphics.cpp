@@ -64,8 +64,8 @@ void TGraphics::DrawRing(){
 		cairo_save (maincairo);
 		if (goodPath) SetColor2(ring);
 		else SetColor2(0);
-		cairo_arc(maincairo, tx, ty, 90, 0, 2*M_PI);
-		cairo_set_line_width(maincairo, 25);
+		cairo_arc(maincairo, tx, ty, 80, 0, 2*M_PI);
+		cairo_set_line_width(maincairo, 30);
 		cairo_stroke(maincairo);
 		cairo_restore (maincairo);
 	}

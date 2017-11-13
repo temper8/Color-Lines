@@ -370,7 +370,6 @@ void TBoardView::afterMoveBall(){
 		ecore_animator_timeline_add (animation_time, disappearance_lines, this);
 	}
 	needUpdateScore = true;
-
 }
 
 void TBoardView::startShowAllBalls(){
@@ -381,7 +380,6 @@ void TBoardView::startShowAllBalls(){
 void TBoardView::appearanceNewBall(double pos) {
 	for ( TPoint p : NewBalls )
 		DrawBall(p,  pos);
-	//graphics.Flush();
 }
 
 void TBoardView::disappearanceLines(double pos){

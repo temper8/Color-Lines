@@ -104,8 +104,8 @@ private:
 	void RefreshGraphics();
 	Ecore_Animator *animator;
 
-    static constexpr const double animation_pause = 0.5;
-    static constexpr const double animation_time = 0.5;
+    static constexpr const double animation_pause = 0.4;
+    static constexpr const double animation_time = 0.4;
 
 //	void startJumpingBallAnimator();
 //	void deleteJumpingBallAnimator();

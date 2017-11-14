@@ -25,8 +25,11 @@ Pleasant entertainment!
 ### What is this repository for? ###
 
 * Quick summary
-* Version 0.1.0 first release for 2.4 api
+
+
+* Version 0.2.0 можно двигать шарики касанием
 * Version 0.1.1 downgrade api to 2.3 api, refactoring and update help.en
+* Version 0.1.0 first release for 2.4 api
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###

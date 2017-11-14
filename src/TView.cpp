@@ -44,7 +44,7 @@ void callback_more(void *data, Evas_Object *obj, void *event_info)
 }
 
 
-void TView::Create(){
+void TView::OnAppCreate(){
 
 	CreateWin(PACKAGE);
 

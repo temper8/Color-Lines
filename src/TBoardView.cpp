@@ -35,7 +35,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
     graphics.LoadBgImage();
 
 
-    animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+//	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
 
     ecore_timer_add(animation_pause, _startShowAllBalls, this);
 
@@ -44,7 +44,10 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
-
+void TBoardView::OnAppCreate(){
+	TView::OnAppCreate();
+	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+}
 
 
 void TBoardView::NewGame(){

@@ -20,6 +20,7 @@ class TBoardView: public TDrawingView {
 public:
 	TBoardView();
 	virtual ~TBoardView();
+	virtual void OnAppCreate();
 
 public:
 

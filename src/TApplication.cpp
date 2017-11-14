@@ -30,7 +30,7 @@ app_create(void *data)
 	TApplication *app = (TApplication *)data;
 
 	//app->create_base_gui();
-	app->view()->Create();
+	app->view()->OnAppCreate();
 
 	return true;
 }

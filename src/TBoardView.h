@@ -83,7 +83,9 @@ private:
     void DrawSquare(TPoint p);
 
     double timeLinePos;
+    bool animationOn = false;
     bool appearanceNewBalls = false;
+    bool disappearanceBalls = false;
     bool disAppearanceBalls = false;
 	double ballSnakePos;
     bool BallSnakeRun = false;

@@ -181,7 +181,7 @@ void TDrawingView::CreateContent(){
 }
 
 
-void TDrawingView::Resize(int width, int height) {
+void TDrawingView::OnResize(int width, int height) {
 	myWidth = width;
 	myHeight = height;
 

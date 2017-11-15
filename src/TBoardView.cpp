@@ -17,12 +17,6 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
-static Eina_Bool _startShowAllBalls(void *data) {
-	TBoardView *bv = (TBoardView *) data;
-	bv->startShowAllBalls();
-   return EINA_FALSE;
-}
-
 TBoardView::TBoardView(): myPopupBox(NULL) {
 	// TODO Auto-generated constructor stub
 	loadHelp();
@@ -34,19 +28,16 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
     graphics.LoadBgImage();
 
-
-//	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
-
-    ecore_timer_add(animation_pause, _startShowAllBalls, this);
-
 }
 
 TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
+
 void TBoardView::OnAppCreate(){
 	TView::OnAppCreate();
 	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
 
@@ -55,6 +46,7 @@ void TBoardView::NewGame(){
 	selBall.x = 0;
 	selBall.y = 0;
 	CairoDrawing();
+	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
 void TBoardView::loadHelp() {

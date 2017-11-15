@@ -32,7 +32,7 @@ public:
 	Evas_Object *conform;
 
 
-	virtual void Resize(int width, int height) {};
+	virtual void OnResize(int width, int height) {};
 
 private:
 

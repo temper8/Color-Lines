@@ -75,7 +75,7 @@ void win_resize_cb(void *data, Evas *e , Evas_Object *obj , void *event_info)
 
 
 	TView *view = (TView *)data;
-	view->Resize(width,height);
+	view->OnResize(width,height);
 }
 
 void TView::CreateWin(const char *pkg_name){

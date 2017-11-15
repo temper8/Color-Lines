@@ -31,13 +31,12 @@ public:
 	Evas_Object *win;
 	Evas_Object *conform;
 
-
 	virtual void OnResize(int width, int height) {};
 
 private:
 
-	virtual void callbackMore() = 0;
-	virtual void callbackBack() = 0;
+	virtual void OnMenuKeyClick() = 0;
+	virtual void OnBackKeyClick() = 0;
 
 private:
 	void CreateWin(const char *pkg_name);

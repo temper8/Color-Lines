@@ -67,7 +67,7 @@ void TBoardView::closePopupBox(){
 	myPopupBox = NULL;
 }
 
-void TBoardView::callbackMore(){
+void TBoardView::OnMenuKeyClick(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
 	myPopupBox->OnBtnClick = [this](int tag) {
@@ -82,7 +82,7 @@ void TBoardView::callbackMore(){
 	myPopupBox->show();
 }
 
-void TBoardView::callbackBack(){
+void TBoardView::OnBackKeyClick(){
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TExitPopupBox();
 	myPopupBox->OnBtnClick = [this](int tag) { if (tag==1) ui_app_exit(); };

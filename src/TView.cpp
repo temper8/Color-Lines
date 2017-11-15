@@ -31,15 +31,7 @@ void callback_back(void *data, Evas_Object *obj, void *event_info)
 {
 	TView *view = (TView *)data;
 	/* Let window go to hide state. */
-	view->callbackBack();
-
-}
-
-void callback_more(void *data, Evas_Object *obj, void *event_info)
-{
-	TView *view = (TView *)data;
-	/* Let window go to hide state. */
-	view->callbackMore();
+	view->OnBackKeyClick();
 
 }
 
@@ -73,10 +65,11 @@ void win_resize_cb(void *data, Evas *e , Evas_Object *obj , void *event_info)
 	/* Get screen size */
 	evas_object_geometry_get(obj, NULL, NULL, &width, &height);
 
-
 	TView *view = (TView *)data;
 	view->OnResize(width,height);
 }
+
+
 
 void TView::CreateWin(const char *pkg_name){
 	/* Window */
@@ -109,6 +102,6 @@ void TView::CreateWin(const char *pkg_name){
 	evas_object_show(conform);
 
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){ui_app_exit();}, this);
-	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, callback_more, this);
+	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnMenuKeyClick();}, this);
 
 }

@@ -68,8 +68,8 @@ private:
 
     TPopupBox* myPopupBox;
 
-	virtual void callbackMore();
-	virtual void callbackBack();
+	virtual void OnMenuKeyClick();
+	virtual void OnBackKeyClick();
 
 
     void loadHelp();

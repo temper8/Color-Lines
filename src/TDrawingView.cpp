@@ -152,10 +152,28 @@ Evas_Event_Flags line_abort(void *data, void *event)
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
 */
+
+void win_resize_cb2(void *data, Evas *e , Evas_Object *obj , void *event_info)
+{
+	// window resize event
+	Evas_Coord width;
+	Evas_Coord height;
+	/* Get screen size */
+	evas_object_geometry_get(obj, NULL, NULL, &width, &height);
+
+	TView *view = (TView *)data;
+	view->OnResize(width,height);
+}
+
+
+
 void TDrawingView::CreateContent(){
 
 	/* Create image */
 	image = evas_object_image_filled_add(evas_object_evas_get(conform));
+
+
+	//evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, win_resize_cb2, this);
 	evas_object_show(image);
 
 	graphics.setParentImage(image);

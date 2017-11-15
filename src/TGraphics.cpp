@@ -25,6 +25,9 @@ TGraphics::~TGraphics() {
 
 void TGraphics::Initialize(int width, int height){
 
+
+	dlog_print(DLOG_DEBUG, LOG_TAG, " Initialize x:%d y:%d", width, height);
+
 	myWidth = width;
 	myHeight = height;
 

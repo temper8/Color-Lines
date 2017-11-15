@@ -26,15 +26,14 @@ win_delete_request_cb(void *data, Evas_Object *obj, void *event_info)
 	ui_app_exit();
 }
 
-
+/*
 void callback_back(void *data, Evas_Object *obj, void *event_info)
 {
 	TView *view = (TView *)data;
-	/* Let window go to hide state. */
 	view->OnBackKeyClick();
 
 }
-
+*/
 
 void TView::OnAppCreate(){
 
@@ -90,6 +89,8 @@ void TView::CreateWin(const char *pkg_name){
 
 	evas_object_event_callback_add(win, EVAS_CALLBACK_RESIZE, win_resize_cb, this);
 
+
+
 	/* Conformant */
 	/* Create and initialize elm_conformant.
 	   elm_conformant is mandatory for base gui to have proper size
@@ -103,5 +104,14 @@ void TView::CreateWin(const char *pkg_name){
 
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){ui_app_exit();}, this);
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnMenuKeyClick();}, this);
+
+
+	// window resize event
+//	Evas_Coord width;
+//	Evas_Coord height;
+	/* Get screen size */
+//	evas_object_geometry_get(win, NULL, NULL, &width, &height);
+//	dlog_print(DLOG_DEBUG, LOG_TAG, " geometry_get x:%d y:%d", width, height);
+//	OnResize(width,height);
 
 }

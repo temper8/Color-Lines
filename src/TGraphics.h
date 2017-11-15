@@ -28,6 +28,7 @@ public:
     void FillBackgroud();
 
 
+
     void DrawLine(double x0, double y0, double x1, double x2);
     void DrawRoundRectangle(double x, double y, double w, double h, double r);
     void DrawSquare(double x, double y);

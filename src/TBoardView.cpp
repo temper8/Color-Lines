@@ -37,9 +37,16 @@ TBoardView::~TBoardView() {
 void TBoardView::OnAppCreate(){
 	TView::OnAppCreate();
 	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+	ecore_animator_freeze(animator);
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
+void TBoardView::OnResize(int width, int height){
+	if ((width < 2)||(height < 2)) return;
+	ecore_animator_freeze(animator);
+	TDrawingView::OnResize(width, height);
+	ecore_animator_thaw(animator);
+}
 
 void TBoardView::NewGame(){
 	linesGame->newGame();
@@ -240,7 +247,12 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 // animation
 
 void TBoardView::RefreshGraphics(){
-
+/*
+	if (test){
+		dlog_print(DLOG_DEBUG, LOG_TAG, " first RefreshGraphics()");
+		test = false;
+	}
+*/
 	if(isBallSelected) {
 		tick +=0.15;
 		jumpingBall();

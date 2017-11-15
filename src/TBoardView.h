@@ -22,10 +22,12 @@ public:
 	virtual ~TBoardView();
 	virtual void OnAppCreate();
 
+	bool test = true;
 public:
 
 	std::string helpText;
 
+	virtual void OnResize(int width, int height);
 	virtual void CairoDrawing();
 
 	double squareSize;

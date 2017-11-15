@@ -23,8 +23,8 @@ public:
 	virtual ~TView();
 	virtual void OnAppCreate();
 
-	friend void callback_back(void *data, Evas_Object *obj, void *event_info);
-	friend void callback_more(void *data, Evas_Object *obj, void *event_info);
+//	friend void callback_back(void *data, Evas_Object *obj, void *event_info);
+//	friend void callback_more(void *data, Evas_Object *obj, void *event_info);
 
 public:
 

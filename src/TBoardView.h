@@ -85,15 +85,15 @@ private:
 
     void DrawSquare(TPoint p);
 
-    double timeLinePos;
+    //double timeLinePos;
     bool animationOn = false;
-    bool appearanceNewBalls = false;
-    bool disappearanceBalls = false;
-    bool disAppearanceBalls = false;
+    //bool appearanceNewBalls = false;
+    //bool disappearanceBalls = false;
+    //bool disAppearanceBalls = false;
 	double ballSnakePos;
-    bool BallSnakeRun = false;
+    //bool BallSnakeRun = false;
     bool isBallSelected = false;
-    bool needUpdateScore = true;
+   // bool needUpdateScore = true;
 	TPoint selBall;
 	TPoint destSquare;
 

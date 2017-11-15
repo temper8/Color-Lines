@@ -25,9 +25,6 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
-
-    graphics.LoadBgImage();
-
 }
 
 TBoardView::~TBoardView() {
@@ -36,6 +33,7 @@ TBoardView::~TBoardView() {
 
 void TBoardView::OnAppCreate(){
 	TView::OnAppCreate();
+    graphics.LoadBgImage();
 	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
 	ecore_animator_freeze(animator);
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
@@ -348,7 +346,6 @@ void TBoardView::afterMoveBall(){
 
 void TBoardView::startShowAllBalls(){
     NewBalls = linesGame->makeListBalls();
-    timeLinePos = 0;
     animationOn = true;
 	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->appearanceNewBall(pos); return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; return EINA_FALSE; }, this);

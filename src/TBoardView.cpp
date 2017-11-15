@@ -55,7 +55,6 @@ void TBoardView::NewGame(){
 	selBall.x = 0;
 	selBall.y = 0;
 	CairoDrawing();
-	ecore_timer_add(animation_pause, _startShowAllBalls, this);
 }
 
 void TBoardView::loadHelp() {

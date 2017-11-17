@@ -27,7 +27,8 @@ Pleasant entertainment!
 * Quick summary
 
 
-* Version 0.2.0 Added the ability to move balls using drag and drop.
+* Version 0.2.0 Added the ability to move balls using drag and drop. Исправил ошибку с падением на старте из-за преждевременного запуска аниматора 
+ 
 * Version 0.1.1 downgrade api to 2.3 api, refactoring and update help.en
 * Version 0.1.0 first release for 2.4 api
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)

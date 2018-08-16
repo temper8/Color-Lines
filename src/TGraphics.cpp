@@ -14,16 +14,16 @@
 
 #define BUFLEN 500
 
-TGraphics::TGraphics():surface(NULL) {
+TCairoGraphics::TCairoGraphics():surface(NULL) {
 	// TODO Auto-generated constructor stub
 
 }
 
-TGraphics::~TGraphics() {
+TCairoGraphics::~TCairoGraphics() {
 	// TODO Auto-generated destructor stub
 }
 
-void TGraphics::Initialize(int width, int height){
+void TCairoGraphics::Initialize(int width, int height){
 
 
 	dlog_print(DLOG_DEBUG, LOG_TAG, " Initialize x:%d y:%d", width, height);
@@ -56,25 +56,25 @@ void TGraphics::Initialize(int width, int height){
 		surface = cairo_image_surface_create( CAIRO_FORMAT_ARGB32, width, height);
 		cairo = cairo_create(surface);
 
-		mainsurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
-		maincairo = cairo_create(mainsurface);
+		mySurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
+		myCairo = cairo_create(mySurface);
 		//DrawMask();
 	}
 }
 
-void TGraphics::DrawRing(){
+void TCairoGraphics::DrawRing(){
 	if (ring>0){
-		cairo_save (maincairo);
+		cairo_save (myCairo);
 		if (goodPath) SetColor2(ring);
 		else SetColor2(0);
-		cairo_arc(maincairo, tx, ty, 80, 0, 2*M_PI);
-		cairo_set_line_width(maincairo, 30);
-		cairo_stroke(maincairo);
-		cairo_restore (maincairo);
+		cairo_arc(myCairo, tx, ty, 80, 0, 2*M_PI);
+		cairo_set_line_width(myCairo, 30);
+		cairo_stroke(myCairo);
+		cairo_restore (myCairo);
 	}
 }
 
-void TGraphics::LoadBgImage(){
+void TCairoGraphics::LoadBgImage(){
 	//  Load bg image, create surface from bg image
 
 	char buff[BUFLEN];
@@ -85,7 +85,7 @@ void TGraphics::LoadBgImage(){
     free(path);
 }
 
-void TGraphics::Flush(){
+void TCairoGraphics::Flush(){
 
 	//dlog_print(DLOG_DEBUG, LOG_TAG, " cairo_surface_flush");
 
@@ -93,17 +93,17 @@ void TGraphics::Flush(){
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 
-	cairo_set_source_surface (maincairo, surface, 0, 0);
-	cairo_paint (maincairo);
+	cairo_set_source_surface (myCairo, surface, 0, 0);
+	cairo_paint (myCairo);
 
 	DrawRing();
-	cairo_surface_flush(mainsurface);
+	cairo_surface_flush(mySurface);
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);
 
 }
 
-void TGraphics::FillBackgroud(){
+void TCairoGraphics::FillBackgroud(){
 
 	cairo_set_source_rgb(cairo, 0.5, 0.5, 1.0);
 	cairo_paint(cairo);
@@ -117,7 +117,7 @@ void TGraphics::FillBackgroud(){
 
 }
 
-void TGraphics::DrawLine(double x0, double y0, double x1, double y1){
+void TCairoGraphics::DrawLine(double x0, double y0, double x1, double y1){
 
 	cairo_set_source_rgba(cairo, 0.0/255.0, 250.0/255.0, 250.0/255.0, 1.0);
 	cairo_set_line_width(cairo, 5);
@@ -129,7 +129,7 @@ void TGraphics::DrawLine(double x0, double y0, double x1, double y1){
 	//cairo_fill (cairo);
 }
 
-void TGraphics::DrawRoundRectangle(double x, double y, double w, double h, double r){
+void TCairoGraphics::DrawRoundRectangle(double x, double y, double w, double h, double r){
 	cairo_move_to (cairo, x+r, y);
 	cairo_rel_line_to (cairo, w-2*r, 0);
 	cairo_rel_line_to (cairo, r, r);
@@ -141,7 +141,7 @@ void TGraphics::DrawRoundRectangle(double x, double y, double w, double h, doubl
 	cairo_close_path (cairo);
 }
 
-void TGraphics::DrawSquare(double x, double y){
+void TCairoGraphics::DrawSquare(double x, double y){
 
 	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
 
@@ -164,7 +164,7 @@ void TGraphics::DrawSquare(double x, double y){
 }
 
 
-void TGraphics::SetPatternForSquare(int x, int y, int r){
+void TCairoGraphics::SetPatternForSquare(int x, int y, int r){
 //  gold
 //  double r1 = 1.0; double r2 = 1.0;
 //  double g1 = 242.0/255.0; double g2 = 217.0/255.0;
@@ -181,7 +181,7 @@ void TGraphics::SetPatternForSquare(int x, int y, int r){
 	cairo_set_source(cairo, pattern1);
 }
 
-void TGraphics::SetPattern(double x,double y, int radius, int color){
+void TCairoGraphics::SetPattern(double x,double y, int radius, int color){
 
 	double r,g,b;
 	switch (color) {
@@ -208,24 +208,24 @@ void TGraphics::SetPattern(double x,double y, int radius, int color){
 	cairo_set_source(cairo, pattern1);
 
 }
-void TGraphics::SetColor2(int color){
+void TCairoGraphics::SetColor2(int color){
 	switch (color) {
-	case 0: cairo_set_source_rgba(maincairo, 0.5, 0.5, 0.5, 0.9); break;
-	case 1: cairo_set_source_rgba(maincairo, 1.0, 0.2, 0.2, 0.9); break;
-	case 2: cairo_set_source_rgba(maincairo, 0.2, 1.0, 0.2, 0.9); break;
-	case 3: cairo_set_source_rgba(maincairo, 0.2, 0.2, 1.0, 0.9); break;
-	case 4: cairo_set_source_rgba(maincairo, 1.0, 1.0, 0.2, 0.9); break;
-	case 5: cairo_set_source_rgba(maincairo, 1.0, 0.0, 1.0, 0.9); break;
-	case 6: cairo_set_source_rgba(maincairo, 0.0, 1.0, 1.0, 0.9); break;
-	case 7: cairo_set_source_rgba(maincairo, 1.0, 1.0, 1.0, 0.9); break;
+	case 0: cairo_set_source_rgba(myCairo, 0.5, 0.5, 0.5, 0.9); break;
+	case 1: cairo_set_source_rgba(myCairo, 1.0, 0.2, 0.2, 0.9); break;
+	case 2: cairo_set_source_rgba(myCairo, 0.2, 1.0, 0.2, 0.9); break;
+	case 3: cairo_set_source_rgba(myCairo, 0.2, 0.2, 1.0, 0.9); break;
+	case 4: cairo_set_source_rgba(myCairo, 1.0, 1.0, 0.2, 0.9); break;
+	case 5: cairo_set_source_rgba(myCairo, 1.0, 0.0, 1.0, 0.9); break;
+	case 6: cairo_set_source_rgba(myCairo, 0.0, 1.0, 1.0, 0.9); break;
+	case 7: cairo_set_source_rgba(myCairo, 1.0, 1.0, 1.0, 0.9); break;
 
 	default:
-	 cairo_set_source_rgba(maincairo, 0.0, 0.0, 0.0, 1.0);
+	 cairo_set_source_rgba(myCairo, 0.0, 0.0, 0.0, 1.0);
 	}
 }
 
 
-void TGraphics::SetColor(int color){
+void TCairoGraphics::SetColor(int color){
 	switch (color) {
 	case 0: cairo_set_source_rgba(cairo, 0.5, 0.5, 0.5, 0.9); break;
 	case 1: cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9); break;
@@ -241,7 +241,7 @@ void TGraphics::SetColor(int color){
 	}
 }
 
-void TGraphics::DrawBall(double x, double y, double r, int color){
+void TCairoGraphics::DrawBall(double x, double y, double r, int color){
 
 	//if (color == 0) return;
 
@@ -257,7 +257,7 @@ void TGraphics::DrawBall(double x, double y, double r, int color){
 }
 
 
-void TGraphics::DrawScore(double x, double y, const char* caption, int score, int aling){
+void TCairoGraphics::DrawScore(double x, double y, const char* caption, int score, int aling){
 
 	char text[16] = {0};
     sprintf(text, "%0*d",4, score);
@@ -293,7 +293,7 @@ void TGraphics::DrawScore(double x, double y, const char* caption, int score, in
 
 }
 
-void TGraphics::DrawScore(double x, double y, int score){
+void TCairoGraphics::DrawScore(double x, double y, int score){
 	char text[16] = {0};
     cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
 
@@ -306,7 +306,7 @@ void TGraphics::DrawScore(double x, double y, int score){
     cairo_fill(cairo);
 }
 
-void TGraphics::DrawHeaderBG(){
+void TCairoGraphics::DrawHeaderBG(){
 	int HeaderHeight = squareSize+20;
 
 	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);

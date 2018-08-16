@@ -14,10 +14,10 @@
 #define LOG_TAG "Color Lines"
 #include <dlog.h>
 
-class TGraphics {
+class TCairoGraphics {
 public:
-	TGraphics();
-	virtual ~TGraphics();
+	TCairoGraphics();
+	virtual ~TCairoGraphics();
 	void setParentImage(Evas_Object *image) {myImage = image; };
 
 	void Initialize(int width, int height);
@@ -56,8 +56,8 @@ private:
 	cairo_t *cairo;
 	cairo_surface_t *surface;
 
-	cairo_t *maincairo;
-	cairo_surface_t *mainsurface;
+	cairo_t *myCairo;
+	cairo_surface_t *mySurface;
 	unsigned char *pixels;
 
 	int myWidth, myHeight;

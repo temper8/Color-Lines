@@ -22,7 +22,7 @@ public:
 
 public:
 
-	TGraphics graphics;
+	TCairoGraphics graphics;
 
 	Evas_Object *image;
 	Evas_Coord width;

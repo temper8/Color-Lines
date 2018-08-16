@@ -9,6 +9,8 @@
 
 #include <cstdlib>
 
+const int LineLength = 5;
+
 TBallsHolder::TBallsHolder(): holder("BallsHolder") {
 	if (holder == 0 )
 		genNewBalls();
@@ -248,7 +250,7 @@ void TLinesGame::checkHorzLine(int x, int y){
 	  while (board[xx][y] == color)
 	        xx =xx+1;
 	  int len = xx-x;
-	  if (len >4) {
+	  if (len >=LineLength) {
 		  for (int i = 0; i<len; i++) {
 			    clearBalls.emplace_back(x+i, y, color);
 		  }
@@ -261,7 +263,7 @@ void TLinesGame::checkVertLine(int x, int y){
 	  while (board[x][yy] == color)
 	        yy =yy+1;
 	  int len = yy-y;
-	  if (len >4) {
+	  if (len >=LineLength) {
 		  for (int i = 0; i<len; i++) {
 			    clearBalls.emplace_back(x, y+i, color);
 		  }
@@ -276,7 +278,7 @@ void TLinesGame::checkDiag1Line(int x, int y){
 	  	  {	xx++;  yy++; }
 
 	  int len = xx-x;
-	  if (len >4) {
+	  if (len >=LineLength) {
 		  for (int i = 0; i<len; i++) {
 			    clearBalls.emplace_back(x+i, y+i, color);
 		  }
@@ -292,7 +294,7 @@ void TLinesGame::checkDiag2Line(int x, int y){
 	  	  {  xx++;  yy--;  }
 
 	  int len = xx-x;
-	  if (len >4) {
+	  if (len >=LineLength) {
 		  for (int i = 0; i<len; i++) {
 			    clearBalls.emplace_back(x+i,y-i, color);
 		  }

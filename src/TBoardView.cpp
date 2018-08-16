@@ -21,7 +21,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 
-	linesGame = new TLinesGame(8,11);
+	linesGame = new TLinesGame(7,7);
 	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
@@ -341,7 +341,7 @@ void TBoardView::afterMoveBall(){
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
 	}
 	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; return EINA_FALSE; }, this);
-	DrawHeader();
+//	DrawHeader();
 }
 
 void TBoardView::startShowAllBalls(){
@@ -373,7 +373,7 @@ void TBoardView::CairoDrawing(){
 
 	CalcViewMarkup();
 
-	DrawHeader();
+	//DrawHeader();
 
 	DrawBoard();
 

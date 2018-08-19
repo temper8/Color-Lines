@@ -9,7 +9,8 @@
 
 #include <cstdlib>
 
-const int LineLength = 5;
+const int LineLength = 4;
+const int BallColors = 5;
 
 TBallsHolder::TBallsHolder(): holder("BallsHolder") {
 	if (holder == 0 )
@@ -20,7 +21,7 @@ TBallsHolder::TBallsHolder(): holder("BallsHolder") {
 
 void TBallsHolder::genNewBalls(){
 	for (int i=0;i<3;i++)
-		balls[i] =  rand() % 7 +1;
+		balls[i] =  rand() % BallColors +1;
 	save();
 }
 
@@ -91,8 +92,8 @@ void TLinesGame::initPlayingField(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      board[i][j] = 0;
-	      int rnd =  rand() % 35;
-	      if (rnd<7)
+	      int rnd =  rand() % (BallColors*5);
+	      if (rnd<BallColors)
 	    	  board[i][j] = 1 + rnd;
 	  }
 }

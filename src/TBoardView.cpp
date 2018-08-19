@@ -21,7 +21,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 
-	linesGame = new TLinesGame(7,7);
+	linesGame = new TLinesGame(5,5);
 	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;

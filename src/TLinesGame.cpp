@@ -92,7 +92,7 @@ void TLinesGame::initPlayingField(){
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      board[i][j] = 0;
-	      int rnd =  rand() % (BallColors*5);
+	      int rnd =  rand() % (BallColors*3);
 	      if (rnd<BallColors)
 	    	  board[i][j] = 1 + rnd;
 	  }

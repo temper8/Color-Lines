@@ -399,7 +399,7 @@ void TBoardView::DrawSquare(TPoint p){
 
 void TBoardView::CalcViewMarkup(){
 
-	double BoardWidth = myWidth - 20;
+	double BoardWidth = myWidth - 60;
 
 	left_margin = ( myWidth - BoardWidth)/2;
 

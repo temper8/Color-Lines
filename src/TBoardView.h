@@ -41,8 +41,8 @@ public:
 
     void DrawBall(double x, double y, int color);
     void DrawBall(double x, double y, double r, int color);
-    void DrawBall(TPoint p, double r, int color);
-    void DrawBall(TPoint p, double r);
+    void DrawBall(TBall p, double r, int color);
+    void DrawBall(TBall p, double r);
 
     void startShowAllBalls();
 
@@ -83,7 +83,7 @@ private:
     void DrawHeader();
     void DrawScore(double x, double y, int score);
 
-    void DrawSquare(TPoint p);
+    void DrawSquare(TBall p);
 
     //double timeLinePos;
     bool animationOn = false;
@@ -94,8 +94,8 @@ private:
     //bool BallSnakeRun = false;
     bool isBallSelected = false;
    // bool needUpdateScore = true;
-	TPoint selBall;
-	TPoint destSquare;
+    TBall selBall;
+    TBall destSquare;
 
 
 	Ecore_Animator *JumpingAnimator;
@@ -113,8 +113,8 @@ private:
 
 public:
 	void ClearSnake();
-	std::vector<TPoint> NewBalls;
-	std::vector<TPoint> SnakeBalls;
+	std::vector<TBall> NewBalls;
+	std::vector<TBall> SnakeBalls;
 	double tick;
 	void jumpingBall();
 	void moveBall(double pos);

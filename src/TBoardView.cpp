@@ -352,14 +352,14 @@ void TBoardView::startShowAllBalls(){
 }
 
 void TBoardView::appearanceNewBall(double pos) {
-	for ( TPoint p : NewBalls )
+	for ( TBall p : NewBalls )
 		DrawBall(p,  pos);
 }
 
 void TBoardView::disappearanceLines(double pos){
 	double r = 0.95 - pos;
 	if (r < 0) r = 0;
-	for ( TPoint p : linesGame->clearBalls ){
+	for ( TBall p : linesGame->clearBalls ){
 	    DrawSquare(p);
 		DrawBall(p,  r);
 	}
@@ -391,7 +391,7 @@ void TBoardView::DrawBalls() {
 	  }
 }
 
-void TBoardView::DrawSquare(TPoint p){
+void TBoardView::DrawSquare(TBall p){
 	double x = (p.x-1)*squareSize  + left_margin;
 	double y = (p.y-1)*squareSize  + top_margin;
 	graphics.DrawSquare(x, y);
@@ -420,13 +420,13 @@ void TBoardView::DrawBoard(){
 		}
 }
 
-void TBoardView::DrawBall(TPoint p, double r){
+void TBoardView::DrawBall(TBall p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
 	graphics.DrawBall(x, y, r, p.color);
 }
 
-void TBoardView::DrawBall(TPoint p, double r, int color){
+void TBoardView::DrawBall(TBall p, double r, int color){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
 	graphics.DrawBall(x, y, r, color);
@@ -437,7 +437,7 @@ void TBoardView::DrawBall(double x, double y, int color){
 }
 
 void TBoardView::ClearSnake(){
-	for ( TPoint p : SnakeBalls ){
+	for ( TBall p : SnakeBalls ){
 		DrawSquare(p);
 		if (linesGame->board[p.x][p.y] > 0)
 			DrawBall(p,1.0,linesGame->board[p.x][p.y]);
@@ -448,7 +448,7 @@ void TBoardView::ClearPath(){
 	if (linesGame->path.size()>0) {
 		//TPoint p = linesGame->path.front();
 		//int color =  linesGame->board[p.x][p.y];
-		for ( TPoint p : linesGame->path ){
+		for ( TBall p : linesGame->path ){
 			//double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			//double yy = p.y*squareSize - squareSize / 2 + top_margin;
 			//graphics.DrawBall(xx, yy,  0.4, p.color);
@@ -463,7 +463,7 @@ void TBoardView::DrawPath(int color){
 	if (linesGame->path.size()>0) {
 		//TPoint p = linesGame->path.front();
 		//int color =  linesGame->board[p.x][p.y];
-		for ( TPoint p : linesGame->path ){
+		for ( TBall p : linesGame->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;
 			graphics.DrawBall(xx, yy,  0.4, color);
@@ -476,7 +476,7 @@ void TBoardView::DrawSnake(double pos){
 	if (SnakeBalls.size() == 0) return;
 	double dx = M_PI/(SnakeBalls.size()-1);
 	for (int i = 0; i<SnakeBalls.size(); i++ ) {
-		TPoint p  =  SnakeBalls[i];
+		TBall p  =  SnakeBalls[i];
 
 		DrawSquare(p);
 
@@ -486,7 +486,7 @@ void TBoardView::DrawSnake(double pos){
 		DrawBall(p, r, p.color);
 	}
 	if (pos>0.5) {
-		TPoint p = SnakeBalls.front();
+		TBall p = SnakeBalls.front();
 		DrawBall(p, 1, p.color);
 	}
 

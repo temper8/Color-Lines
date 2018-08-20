@@ -25,8 +25,8 @@ void TBallsHolder::genNewBalls(){
 	save();
 }
 
-std::vector<TPoint> TLinesGame::makeListBalls(){
-	std::vector<TPoint> newBalls;
+std::vector<TBall> TLinesGame::makeListBalls(){
+	std::vector<TBall> newBalls;
 	for(int i=1; i<= sizeX; i++)
 	  for(int j=1; j<= sizeY; j++) {
 	      if (board[i][j]>0){
@@ -100,7 +100,7 @@ void TLinesGame::initPlayingField(){
 
 
 
-void TLinesGame::initSearch(TPoint src){
+void TLinesGame::initSearch(TBall src){
 
      for(int i=1; i< 12; i++)
 		for(int j=1; j< 12; j++) {
@@ -117,23 +117,23 @@ void TLinesGame::initSearch(TPoint src){
      }
 
      counter = 1;
-     std::vector<TPoint> list;
+     std::vector<TBall> list;
      list.push_back(src);
      sf[src.x][src.y] = counter;
      FillNeighbors(list);
 }
 
-void TLinesGame::FillNeighbors( std::vector<TPoint> list){
+void TLinesGame::FillNeighbors( std::vector<TBall> list){
 
 
-	std::vector<TPoint> newList;
+	std::vector<TBall> newList;
 
 	int n = 0;
 	int x = list[0].x;
 	int y = list[0].y;
 	int c = sf[x][y] + 1;
 
-	for ( TPoint p : list ) {
+	for ( TBall p : list ) {
 		int x = p.x;
 		int y = p.y;
 		if (sf[x-1][y] == 0) {
@@ -162,7 +162,7 @@ void TLinesGame::FillNeighbors( std::vector<TPoint> list){
 	if (n>0) FillNeighbors(newList);
 }
 
-int TLinesGame::searchClosestPath(TPoint src, TPoint dst){
+int TLinesGame::searchClosestPath(TBall src, TBall dst){
 	int rmin = 100000;
 	int x,y;
     for(int i=1; i<= sizeX; i++)
@@ -177,13 +177,13 @@ int TLinesGame::searchClosestPath(TPoint src, TPoint dst){
 			}
 		}
     if (rmin<100000){
-    	return searchPath(src, TPoint(x,y));
+    	return searchPath(src, TBall(x,y));
     }
     else
     	return 0;
 }
 
-int TLinesGame::searchPath(TPoint src, TPoint dst){
+int TLinesGame::searchPath(TBall src, TBall dst){
 
  path.clear();
 
@@ -231,7 +231,7 @@ int TLinesGame::checkLines(){
    }
  }
 
- for ( TPoint p : clearBalls ) {
+ for ( TBall p : clearBalls ) {
 	 board[p.x][p.y] = 0;
  }
 
@@ -313,9 +313,9 @@ bool TLinesGame::gameOver(){
 }
 
 
-std::vector<TPoint> TLinesGame::addNewBalls(){
-	std::vector<TPoint> emptySquares;
-	std::vector<TPoint> newBalls;
+std::vector<TBall> TLinesGame::addNewBalls(){
+	std::vector<TBall> emptySquares;
+	std::vector<TBall> newBalls;
 
 	for(int x = 1; x<=sizeX; x++)
 	for(int y = 1; y<=sizeY; y++){
@@ -337,7 +337,7 @@ std::vector<TPoint> TLinesGame::addNewBalls(){
          newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, ballsHolder.balls[1]);
          newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, ballsHolder.balls[2]);
 
-         for (TPoint p :newBalls ) {
+         for (TBall p :newBalls ) {
         	 board[p.x][p.y] = p.color;
          }
          board.save();
@@ -347,7 +347,7 @@ std::vector<TPoint> TLinesGame::addNewBalls(){
 	}
 	else {
 		int i = 0;
-		for (TPoint p :emptySquares ) {
+		for (TBall p :emptySquares ) {
 					newBalls.emplace_back(p.x, p.y, ballsHolder.balls[i]);
 		        	 board[p.x][p.y] = ballsHolder.balls[i++];
 		         }

@@ -15,14 +15,14 @@
 
 #include "TPreferenceInt.h"
 
-struct TPoint
+struct TBall
 {
     int x;
     int y;
     int color;
-    TPoint(int p_x, int p_y, int p_color) :x(p_x), y(p_y), color(p_color) {};
-    TPoint(int p_x, int p_y) :x(p_x), y(p_y), color(0) {};
-    TPoint() : x(0), y(0), color(0) {};
+    TBall(int p_x, int p_y, int p_color) :x(p_x), y(p_y), color(p_color) {};
+    TBall(int p_x, int p_y) :x(p_x), y(p_y), color(0) {};
+    TBall() : x(0), y(0), color(0) {};
 };
 
 class TBallsHolder {
@@ -58,16 +58,16 @@ public:
 	bool OutOfBoundary(int x, int y);
 	void randThreeBalls();
 	bool initBalls;
-	std::vector<TPoint> path;
+	std::vector<TBall> path;
 	void initPlayingField();
-	std::vector<TPoint> makeListBalls();
-	void initSearch(TPoint src);
-	int searchPath(TPoint src, TPoint dst);
-	int searchClosestPath(TPoint src, TPoint dst);
+	std::vector<TBall> makeListBalls();
+	void initSearch(TBall src);
+	int searchPath(TBall src, TBall dst);
+	int searchClosestPath(TBall src, TBall dst);
 	int checkLines();
-	std::vector<TPoint> addNewBalls();
+	std::vector<TBall> addNewBalls();
 
-	std::vector<TPoint> clearBalls;
+	std::vector<TBall> clearBalls;
 
 	void newGame();
 	void restoreGame();
@@ -75,7 +75,7 @@ public:
 
 private:
 
-	void FillNeighbors( std::vector<TPoint> list);
+	void FillNeighbors( std::vector<TBall> list);
 	void checkHorzLine(int x, int y);
     void checkVertLine(int x, int y);
     void checkDiag1Line(int x, int y);

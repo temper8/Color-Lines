@@ -80,6 +80,7 @@ private:
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
 
+    void DrawNextBalls();
     void DrawHeader();
     void DrawScore(double x, double y, int score);
 
@@ -121,6 +122,11 @@ public:
 	void afterMoveBall();
 	void appearanceNewBall(double pos);
 	void disappearanceLines(double pos);
+
+	void appearanceNextBall(double pos);
+	void afterAppearanceNewBall();
+
+	void addNextBalls();
 
 	void NewGame();
 };

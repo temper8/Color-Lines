@@ -52,9 +52,9 @@ TLinesGame::TLinesGame(int x, int y): counterGames("counterGames"), score("score
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
-	if (counterGames == 0)
+//	if (counterGames == 0)
 		newGame();
-	else restoreGame();
+//	else restoreGame();
 
 }
 
@@ -77,6 +77,7 @@ void TLinesGame::newGame() {
 	initBalls = false;
 	initPlayingField();
     ballsHolder.genNewBalls();
+    addNextBalls();
     board.save();
 }
 
@@ -311,12 +312,10 @@ bool TLinesGame::gameOver(){
 	 }
 	return true;
 }
-
-
-std::vector<TBall> TLinesGame::addNewBalls(){
+void TLinesGame::addNextBalls(){
 	std::vector<TBall> emptySquares;
-	std::vector<TBall> newBalls;
-
+//	std::vector<TBall> newBalls;
+	nextBalls.clear();
 	for(int x = 1; x<=sizeX; x++)
 	for(int y = 1; y<=sizeY; y++){
 	   if ( board[x][y] == 0){
@@ -333,24 +332,47 @@ std::vector<TBall> TLinesGame::addNewBalls(){
          if (new1<=new3) new3 = new3 + 1;
          if (new2<=new3) new3 = new3 + 1;
 
-         newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, ballsHolder.balls[0]);
-         newBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, ballsHolder.balls[1]);
-         newBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, ballsHolder.balls[2]);
+         nextBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, ballsHolder.balls[0]);
+         nextBalls.emplace_back(emptySquares[new2].x, emptySquares[new2].y, ballsHolder.balls[1]);
+         nextBalls.emplace_back(emptySquares[new3].x, emptySquares[new3].y, ballsHolder.balls[2]);
 
-         for (TBall p :newBalls ) {
-        	 board[p.x][p.y] = p.color;
-         }
-         board.save();
-         ballsHolder.genNewBalls();
-
-		return newBalls;
+        // for (TBall p :nextBalls ) {
+       // 	 board[p.x][p.y] = p.color;
+       //  }
+        // board.save();
+        // ballsHolder.genNewBalls();
+        // nextBalls = newBalls;
+		//return newBalls;
 	}
 	else {
 		int i = 0;
 		for (TBall p :emptySquares ) {
-					newBalls.emplace_back(p.x, p.y, ballsHolder.balls[i]);
-		        	 board[p.x][p.y] = ballsHolder.balls[i++];
+			nextBalls.emplace_back(p.x, p.y, ballsHolder.balls[i]);
+		        	// board[p.x][p.y] = ballsHolder.balls[i++];
 		         }
-		return newBalls;
+		//return newBalls;
 	}
+
+	 ballsHolder.genNewBalls();
+}
+
+std::vector<TBall> TLinesGame::addNewBalls(){
+	std::vector<TBall> emptySquares;
+	std::vector<TBall> newBalls;
+
+	for(int x = 1; x<=sizeX; x++)
+	for(int y = 1; y<=sizeY; y++){
+	   if ( board[x][y] == 0){
+		   emptySquares.emplace_back(x,y);
+	   }
+	 }
+
+    for (TBall p :nextBalls ) {
+      	 board[p.x][p.y] = p.color;
+       	 newBalls.emplace_back(p.x,p.y,p.color);
+    }
+    board.save();
+
+    //nextBalls = newBalls;
+    return newBalls;
 }

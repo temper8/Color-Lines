@@ -65,10 +65,12 @@ public:
 	int searchPath(TBall src, TBall dst);
 	int searchClosestPath(TBall src, TBall dst);
 	int checkLines();
-	std::vector<TBall> addNewBalls();
 
+	std::vector<TBall> addNewBalls();
+	void addNextBalls();
 	std::vector<TBall> clearBalls;
 
+	std::vector<TBall> nextBalls;
 	void newGame();
 	void restoreGame();
 	bool gameOver();

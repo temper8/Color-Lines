@@ -331,24 +331,38 @@ Eina_Bool disappearance_lines(void *data, double pos)
 void TBoardView::afterMoveBall(){
 	ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
-		    NewBalls = linesGame->addNewBalls();
+			NewBalls = linesGame->addNewBalls();
 			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->appearanceNewBall(pos); return EINA_TRUE;}, this);
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
+			ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->afterAppearanceNewBall(); return EINA_FALSE; }, this);
+
 	}
 	else {
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
 	}
-	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; return EINA_FALSE; }, this);
+
 //	DrawHeader();
 }
 
+void TBoardView::afterAppearanceNewBall(){
+
+	animationOn = false;
+	linesGame->addNextBalls();
+	DrawNextBalls();
+
+}
 void TBoardView::startShowAllBalls(){
     NewBalls = linesGame->makeListBalls();
     animationOn = true;
 	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->appearanceNewBall(pos); return EINA_TRUE;}, this);
-	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; return EINA_FALSE; }, this);
+	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TBoardView *)data)->DrawNextBalls(); return EINA_FALSE; }, this);
+}
+
+void TBoardView::appearanceNextBall(double pos) {
+	for ( TBall p : linesGame->nextBalls )
+		DrawBall(p,  pos);
 }
 
 void TBoardView::appearanceNewBall(double pos) {
@@ -376,7 +390,7 @@ void TBoardView::CairoDrawing(){
 	//DrawHeader();
 
 	DrawBoard();
-
+	DrawNextBalls();
 	//if (linesGame->initBalls) DrawBalls();
 //	graphics.DrawMask();
 	graphics.Flush();
@@ -491,7 +505,12 @@ void TBoardView::DrawSnake(double pos){
 	}
 
 }
-
+void TBoardView::DrawNextBalls(){
+	for ( TBall p : linesGame->nextBalls ){
+				DrawSquare(p);
+				DrawBall(p,0.2,p.color);
+			}
+}
 void TBoardView::DrawHeader() {
 
 	graphics.DrawHeaderBG();
@@ -499,15 +518,16 @@ void TBoardView::DrawHeader() {
 	//graphics.DrawScore(20,60,linesBoard->record);
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
-	graphics.DrawScore(left_margin, squareSize + 8,"Best", linesGame->record, 0);
-	graphics.DrawScore(myWidth - left_margin , squareSize + 8,"Score", linesGame->score, 1);
-
+	graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
+	graphics.DrawScore(myWidth - left_margin , squareSize/2 + 8,"Score", linesGame->score, 1);
+/*
 	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {
 		double x = dx + 1.1*squareSize*i;
 		graphics.DrawSquare(x, 10);
 		graphics.DrawBall(x + squareSize/2, 10 + squareSize/2,  1, linesGame->ballsHolder.balls[i]);
 	}
+	*/
 }
 
 

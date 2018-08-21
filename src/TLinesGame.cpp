@@ -360,17 +360,30 @@ std::vector<TBall> TLinesGame::addNewBalls(){
 	std::vector<TBall> emptySquares;
 	std::vector<TBall> newBalls;
 
-	for(int x = 1; x<=sizeX; x++)
-	for(int y = 1; y<=sizeY; y++){
-	   if ( board[x][y] == 0){
-		   emptySquares.emplace_back(x,y);
-	   }
-	 }
-
+	int color = 0;
     for (TBall p :nextBalls ) {
-      	 board[p.x][p.y] = p.color;
-       	 newBalls.emplace_back(p.x,p.y,p.color);
+    	if(board[p.x][p.y] == 0) {
+    		board[p.x][p.y] = p.color;
+    		newBalls.emplace_back(p.x,p.y,p.color);
+    	}
+    	else {
+			color = p.color;
+		}
+
     }
+
+    if (color>0){
+    	for(int x = 1; x<=sizeX; x++)
+    	for(int y = 1; y<=sizeY; y++){
+    	   if ( board[x][y] == 0){
+    			   emptySquares.emplace_back(x,y);
+    		   }
+    		 }
+    		int new1 =  rand() % emptySquares.size();
+    		board[emptySquares[new1].x][emptySquares[new1].y] = color;
+    	    newBalls.emplace_back(emptySquares[new1].x, emptySquares[new1].y, color);
+    }
+
     board.save();
 
     //nextBalls = newBalls;

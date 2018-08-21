@@ -341,6 +341,8 @@ void TBoardView::afterMoveBall(){
 	}
 	else {
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
+		ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->DrawNextBalls(); return EINA_FALSE; }, this);
+
 	}
 
 //	DrawHeader();

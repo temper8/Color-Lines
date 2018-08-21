@@ -266,11 +266,12 @@ void TCairoGraphics::DrawScore(double x, double y, const char* caption, int scor
     double x2 = x;
 
     cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(cairo, 5*squareSize/7);
+    cairo_set_font_size(cairo, 3*squareSize/7);
 	cairo_text_extents_t extents;
 	cairo_text_extents (cairo, text, &extents);
-	if (aling == 1) {
-	    x2 = x2 - extents.width;
+	switch (aling){
+	case 1:x2 = x - extents.width; break;
+	case 2:x2 = x - extents.width/2;break;
 	}
 	double yy = y - extents.height - 8;
     cairo_move_to(cairo, x2, y);
@@ -280,11 +281,12 @@ void TCairoGraphics::DrawScore(double x, double y, const char* caption, int scor
 
 
 	cairo_select_font_face(cairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(cairo, 3*squareSize/7);
+    cairo_set_font_size(cairo, 2*squareSize/7);
 	cairo_text_extents (cairo, caption, &extents);
-    if (aling == 1) {
-    		x1 = x1 - extents.width;
-    }
+	switch (aling){
+	case 1:x1 = x1 - extents.width; break;
+	case 2:x1 = x1 - extents.width/2;break;
+	}
     cairo_move_to(cairo, x1, yy);
     cairo_text_path(cairo, caption);
     cairo_set_source_rgb(cairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);

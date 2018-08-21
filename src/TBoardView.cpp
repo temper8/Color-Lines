@@ -252,7 +252,7 @@ void TBoardView::RefreshGraphics(){
 	}
 */
 	if(isBallSelected) {
-		tick +=0.15;
+		tick +=0.25;
 		jumpingBall();
 	}
 
@@ -345,11 +345,12 @@ void TBoardView::afterMoveBall(){
 
 	}
 
-//	DrawHeader();
+	DrawHeader();
 }
 
 void TBoardView::afterAppearanceNewBall(){
-
+	if (linesGame->checkLines() > 0 )
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
 	animationOn = false;
 	linesGame->addNextBalls();
 	DrawNextBalls();
@@ -389,7 +390,7 @@ void TBoardView::CairoDrawing(){
 
 	CalcViewMarkup();
 
-	//DrawHeader();
+	DrawHeader();
 
 	DrawBoard();
 	DrawNextBalls();
@@ -515,13 +516,13 @@ void TBoardView::DrawNextBalls(){
 }
 void TBoardView::DrawHeader() {
 
-	graphics.DrawHeaderBG();
+	//graphics.DrawHeaderBG();
 
 	//graphics.DrawScore(20,60,linesBoard->record);
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
-	graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
-	graphics.DrawScore(myWidth - left_margin , squareSize/2 + 8,"Score", linesGame->score, 1);
+	//graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
+	graphics.DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
 /*
 	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {

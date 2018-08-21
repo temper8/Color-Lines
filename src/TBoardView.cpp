@@ -345,7 +345,7 @@ void TBoardView::afterMoveBall(){
 
 	}
 
-	DrawHeader();
+	//DrawHeader();
 }
 
 void TBoardView::afterAppearanceNewBall(){
@@ -353,7 +353,7 @@ void TBoardView::afterAppearanceNewBall(){
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
 	animationOn = false;
 	linesGame->addNextBalls();
-	DrawNextBalls();
+	UpdateView();
 
 }
 void TBoardView::startShowAllBalls(){
@@ -383,6 +383,21 @@ void TBoardView::disappearanceLines(double pos){
 }
 
 // drawing
+void TBoardView::UpdateView(){
+
+	graphics.FillBackgroud();
+
+	CalcViewMarkup();
+
+	DrawHeader();
+
+	DrawBoardWithBalls();
+	//DrawBalls();
+	DrawNextBalls();
+	//if (linesGame->initBalls) DrawBalls();
+//	graphics.DrawMask();
+	graphics.Flush();
+}
 
 void TBoardView::CairoDrawing(){
 
@@ -398,6 +413,9 @@ void TBoardView::CairoDrawing(){
 //	graphics.DrawMask();
 	graphics.Flush();
 }
+
+
+
 
 void TBoardView::DrawBalls() {
 	for(int i=1; i<= linesGame->sizeX; i++)
@@ -425,6 +443,23 @@ void TBoardView::CalcViewMarkup(){
 
 	double BoardHeight = squareSize * linesGame->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
+}
+
+void TBoardView::DrawBoardWithBalls(){
+
+	for (int x = 0; x< linesGame->sizeX; x++)
+	for (int y = 0; y< linesGame->sizeY; y++) {
+			double xx = x*squareSize  + left_margin;
+			double yy = y*squareSize  + top_margin ;
+			graphics.DrawSquare(xx, yy);
+			int i = x + 1;
+			int j = y +1;
+			if (linesGame->board[i][j]>0){
+				double xx = i*squareSize - squareSize / 2 + left_margin;
+				double yy = j*squareSize - squareSize / 2 + top_margin;
+				DrawBall(xx,yy,linesGame->board[i][j]);
+			}
+		}
 }
 
 void TBoardView::DrawBoard(){

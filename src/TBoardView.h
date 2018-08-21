@@ -125,7 +125,8 @@ public:
 
 	void appearanceNextBall(double pos);
 	void afterAppearanceNewBall();
-
+	void UpdateView();
+	void DrawBoardWithBalls();
 	void addNextBalls();
 
 	void NewGame();

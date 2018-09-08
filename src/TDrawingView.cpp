@@ -165,14 +165,36 @@ void win_resize_cb2(void *data, Evas *e , Evas_Object *obj , void *event_info)
 	view->OnResize(width,height);
 }
 
+void TDrawingView::bottom_btn_create()
+{
 
+	/* Base Layout */
+	layout = elm_layout_add(conform);
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	//elm_layout_theme_set(layout, "layout", "application", "default");
+	elm_layout_theme_set(layout, "layout", "bottom_button", "default");
+	evas_object_show(layout);
+
+	elm_object_content_set(conform, layout);
+
+	Evas_Object *btn, *ly;
+
+	btn = elm_button_add(conform);
+	elm_object_style_set(btn, "bottom");
+	elm_object_text_set(btn, "Undo (3)");
+	elm_object_part_content_set(layout, "elm.swallow.button", btn);
+	//evas_object_smart_callback_add(btn, "clicked", btn_clicked_cb, NULL);
+	evas_object_show(btn);
+
+	//elm_naviframe_item_push(nf, "Bottom", NULL, NULL, ly, NULL);
+}
 
 void TDrawingView::CreateContent(){
-
+	  bottom_btn_create();
 	/* Create image */
 	image = evas_object_image_filled_add(evas_object_evas_get(conform));
 
-
+	elm_object_part_content_set(layout, "elm.swallow.content", image);
 	//evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, win_resize_cb2, this);
 	evas_object_show(image);
 
@@ -195,6 +217,16 @@ void TDrawingView::CreateContent(){
     elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_MOVE, line_move, this);
     elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_END, line_end, this);
     elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_ABORT, line_abort, this);
+    */
+
+
+
+    /*
+    Evas_Object *button;
+    // Create a button
+    button = elm_button_add(conform);
+    elm_object_text_set(button, "Click me!");
+    evas_object_show(button);
     */
 }
 

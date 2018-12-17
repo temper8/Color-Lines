@@ -25,6 +25,10 @@
 
 class TView;
 
+
+//typedef bool (*TAppCreateCallback) (void *user_data);
+typedef bool (*TAppCreateCallback) ();
+
 class TApplication {
 public:
 	TApplication();
@@ -34,6 +38,8 @@ public:
 	char **my_argv;
 
 public:
+
+	static int Start(TAppCreateCallback app_cb);
 
 	static void Initialize(int argc, char *argv[]);
 	static int Run(TView* view);

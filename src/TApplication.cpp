@@ -27,12 +27,15 @@ app_create(void *data)
 		Initialize UI resources and application's data
 		If this function returns true, the main loop of application starts
 		If this function returns false, the application is terminated */
-	TApplication *app = (TApplication *)data;
+	//TApplication *app = (TApplication *)data;
 
 	//app->create_base_gui();
-	app->view()->OnAppCreate();
 
-	return true;
+	TAppCreateCallback app_cb = (TAppCreateCallback)data;
+
+	//app->view()->OnAppCreate();
+
+	return app_cb();
 }
 
 static void
@@ -119,6 +122,26 @@ void TApplication::Initialize(int argc, char *argv[]) {
 	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ui_app_lang_changed, self);
 	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, self);
 }
+
+int TApplication::Start(TAppCreateCallback app_cb){
+
+	int ret = 0;
+
+	ui_app_lifecycle_callback_s event_callback = {0,};
+
+	event_callback.create = app_create;
+	event_callback.terminate = app_terminate;
+	event_callback.pause = app_pause;
+	event_callback.resume = app_resume;
+	event_callback.app_control = app_control;
+
+	ret = ui_app_main(self->my_argc, self->my_argv, &event_callback, &app_cb);
+	if (ret != APP_ERROR_NONE) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
+	}
+	return ret;
+}
+
 
 int TApplication::Run(TView* view) {
 

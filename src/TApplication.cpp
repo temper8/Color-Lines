@@ -8,12 +8,19 @@
 #include "TApplication.h"
 
 #include "TView.h"
+#include "TDrawingView.h"
+#include "TBoardView.h"
 
 TApplication *TApplication::self = 0;
+int TApplication::my_argc = 0;
+char **TApplication::my_argv = nullptr;
 
 TApplication::TApplication() {
-
+	dlog_print(DLOG_ERROR, LOG_TAG, "new App");
 	self = this;
+	myView = new TBoardView();
+	myView->OnAppCreate();
+
 }
 
 TApplication::~TApplication() {
@@ -34,8 +41,8 @@ app_create(void *data)
 	TAppCreateCallback app_cb = (TAppCreateCallback)data;
 
 	//app->view()->OnAppCreate();
-
-	return app_cb();
+	app_cb();
+	return true;
 }
 
 static void
@@ -112,15 +119,15 @@ ui_app_low_memory(app_event_info_h event_info, void *user_data)
 void TApplication::Initialize(int argc, char *argv[]) {
 	new TApplication();
 
-	self->my_argc = argc;
-	self->my_argv = argv;
+	TApplication::my_argc = argc;
+	TApplication::my_argv = argv;
 	app_event_handler_h handlers[5] = {NULL, };
 
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, self);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, self);
-	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ui_app_orient_changed, self);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ui_app_lang_changed, self);
-	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, self);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, nullptr);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, nullptr);
+	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, ui_app_orient_changed, nullptr);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, ui_app_lang_changed, nullptr);
+	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, ui_app_region_changed, nullptr);
 }
 
 int TApplication::Start(TAppCreateCallback app_cb){
@@ -129,13 +136,15 @@ int TApplication::Start(TAppCreateCallback app_cb){
 
 	ui_app_lifecycle_callback_s event_callback = {0,};
 
+	dlog_print(DLOG_ERROR, LOG_TAG, "Start");
+
 	event_callback.create = app_create;
 	event_callback.terminate = app_terminate;
 	event_callback.pause = app_pause;
 	event_callback.resume = app_resume;
 	event_callback.app_control = app_control;
 
-	ret = ui_app_main(self->my_argc, self->my_argv, &event_callback, &app_cb);
+	ret = ui_app_main(TApplication::my_argc, TApplication::my_argv, &event_callback, &app_cb);
 	if (ret != APP_ERROR_NONE) {
 		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
 	}

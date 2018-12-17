@@ -34,8 +34,8 @@ public:
 	TApplication();
 	virtual ~TApplication();
 
-	int my_argc;
-	char **my_argv;
+	static int my_argc;
+	static char **my_argv;
 
 public:
 

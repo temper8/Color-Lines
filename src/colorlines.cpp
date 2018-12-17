@@ -7,8 +7,7 @@
 
 #include "colorlines.h"
 #include "TApplication.h"
-#include "TDrawingView.h"
-#include "TBoardView.h"
+
 
 int main(int argc, char *argv[])
 {

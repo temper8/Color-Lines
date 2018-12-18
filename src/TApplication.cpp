@@ -7,9 +7,6 @@
 
 #include "TApplication.h"
 
-#include "TView.h"
-#include "TDrawingView.h"
-#include "TBoardView.h"
 
 TApplication *TApplication::self = 0;
 int TApplication::my_argc = 0;

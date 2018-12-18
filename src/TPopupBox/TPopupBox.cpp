@@ -17,7 +17,7 @@ void popup_close_cb(void *data, Evas_Object *obj, void *event_info)
 }
 
 TPopupBox::TPopupBox():myPopup(NULL), OnBtnClick(nullptr) {
-	//myPopup = elm_popup_add(TApplication::instance()->view()->win);
+	myPopup = elm_popup_add(TApplication::instance()->view()->win);
 }
 
 TPopupBox::~TPopupBox() {

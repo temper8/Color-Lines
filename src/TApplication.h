@@ -50,6 +50,10 @@ public:
 	static TApplication *instance() { return self; };
 
 	static TApplication *self;
+
+	TView* myView;
+	TView* view() { return myView; };
+
 private:
 
 

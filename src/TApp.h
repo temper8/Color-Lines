@@ -20,8 +20,7 @@ public:
 	virtual ~TApp();
 
 	MainModelView modelView;
-	TView* myView;
-	TView* view() { return myView; };
+
 
 	void OnApplicationCreate();
 	static TApp *instance() { return static_cast<TApp*>(self); };

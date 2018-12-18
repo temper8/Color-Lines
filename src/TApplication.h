@@ -48,12 +48,12 @@ public:
 	static int Run(TView* view);
 
 	static TApplication *instance() { return self; };
-	TView* view() { return myView; };
+
 
 private:
 	static TApplication *self;
 
-	TView* myView;
+
 };
 
 #endif /* TAPPLICATION_H_ */

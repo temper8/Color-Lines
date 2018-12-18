@@ -19,8 +19,7 @@ std::function<void()> TApplication::_app_cb = nullptr;
 
 TApplication::TApplication() {
 	self = this;
-	myView = new TBoardView();
-	myView->OnAppCreate();
+
 }
 
 TApplication::~TApplication() {
@@ -176,7 +175,7 @@ int TApplication::Start(){
 
 int TApplication::Run(TView* view) {
 
-	self->myView = view;
+//	self->myView = view;
 
 	int ret = 0;
 

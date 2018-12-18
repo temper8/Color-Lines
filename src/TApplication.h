@@ -49,9 +49,9 @@ public:
 
 	static TApplication *instance() { return self; };
 
-
-private:
 	static TApplication *self;
+private:
+
 
 
 };

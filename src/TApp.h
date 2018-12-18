@@ -12,16 +12,19 @@
 #include "TView.h"
 #include "TDrawingView.h"
 #include "TBoardView.h"
+#include "MainModelView.h"
 
 class TApp: public TApplication {
 public:
 	TApp();
 	virtual ~TApp();
 
+	MainModelView modelView;
 	TView* myView;
 	TView* view() { return myView; };
 
 	void OnApplicationCreate();
+	static TApp *instance() { return static_cast<TApp*>(self); };
 };
 
 #endif /* TAPP_H_ */

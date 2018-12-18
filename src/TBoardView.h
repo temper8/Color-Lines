@@ -12,7 +12,7 @@
 
 #include "TDrawingView.h"
 #include "TLinesGame.h"
-
+#include "MainModelView.h"
 
 class TPopupBox;
 class TLinesGame;
@@ -21,6 +21,8 @@ public:
 	TBoardView();
 	virtual ~TBoardView();
 	virtual void OnAppCreate();
+
+	MainModelView *modelView;
 
 	bool test = true;
 public:

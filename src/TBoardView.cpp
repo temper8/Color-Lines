@@ -17,8 +17,13 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
+#include "TApp.h"
+
 TBoardView::TBoardView(): myPopupBox(NULL) {
 	// TODO Auto-generated constructor stub
+
+	modelView = &TApp::instance()->modelView;
+
 	loadHelp();
 
 	linesGame = new TLinesGame(5,5);

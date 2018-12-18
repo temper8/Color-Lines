@@ -14,7 +14,12 @@
 #include <Elementary.h>
 #include <system_settings.h>
 
-MainModelView::MainModelView(): linesGame(5,5) {
+#include "TPopupBox\TExitPopupBox.h"
+#include "TPopupBox\TMenuPopupBox.h"
+#include "TPopupBox\TInfoBox.h"
+#include "TPopupBox\TGameOverBox.h"
+
+MainModelView::MainModelView(): linesGame(5,5), myPopupBox(NULL)  {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 }
@@ -35,4 +40,34 @@ void MainModelView::loadHelp() {
     else {
     	helpText = "Game rules<br>Oops, an error occurred.";
     }
+}
+
+void  MainModelView::showMenu(){
+	if (myPopupBox!=NULL) ClosePopupBox();
+	myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
+	myPopupBox->OnBtnClick = [this](int tag) {
+										ClosePopupBox();
+										switch(tag) {
+											case 1: break;
+											case 2: NewGame(); break;
+											case 3: ShowHelp(); break;
+											case 4: ui_app_exit(); break;
+											}
+										};
+	myPopupBox->show();
+}
+
+void MainModelView::ClosePopupBox(){
+	delete myPopupBox;
+	myPopupBox = NULL;
+}
+
+void MainModelView::ShowHelp(){
+
+}
+void MainModelView::ShowGameOverBox(){
+
+}
+void MainModelView::NewGame(){
+
 }

@@ -78,6 +78,8 @@ void TBoardView::closePopupBox(){
 }
 
 void TBoardView::OnMenuKeyClick(){
+	modelView->showMenu();
+	/*
 	if (myPopupBox!=NULL) closePopupBox();
 	myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
 	myPopupBox->OnBtnClick = [this](int tag) {
@@ -90,6 +92,7 @@ void TBoardView::OnMenuKeyClick(){
 											}
 										};
 	myPopupBox->show();
+	*/
 }
 
 void TBoardView::OnBackKeyClick(){

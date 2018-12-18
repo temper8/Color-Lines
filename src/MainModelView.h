@@ -10,6 +10,7 @@
 
 #include "TLinesGame.h"
 
+class TPopupBox;
 
 class MainModelView {
 public:
@@ -20,6 +21,15 @@ public:
 
 	std::string helpText;
 	void loadHelp();
+	void showMenu();
+
+private:
+    TPopupBox* myPopupBox;
+
+    void ClosePopupBox();
+    void ShowHelp();
+    void ShowGameOverBox();
+    void NewGame();
 };
 
 #endif /* MAINMODELVIEW_H_ */

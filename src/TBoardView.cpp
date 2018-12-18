@@ -26,7 +26,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
 	loadHelp();
 
-	linesGame = new TLinesGame(5,5);
+	linesGame = &modelView->linesGame;
 	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;

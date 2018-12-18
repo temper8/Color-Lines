@@ -10,11 +10,14 @@
 
 TApp::TApp() {
 	// TODO Auto-generated constructor stub
-	myView = new TBoardView();
-	myView->OnAppCreate();
+	OnApplicationCreate();
 }
 
 TApp::~TApp() {
 	// TODO Auto-generated destructor stub
 }
 
+void TApp::OnApplicationCreate(){
+	myView = new TBoardView();
+	myView->OnAppCreate();
+}

@@ -20,6 +20,8 @@ public:
 
 	TView* myView;
 	TView* view() { return myView; };
+
+	void OnApplicationCreate();
 };
 
 #endif /* TAPP_H_ */

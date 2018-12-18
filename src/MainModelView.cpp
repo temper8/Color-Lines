@@ -63,7 +63,9 @@ void MainModelView::ClosePopupBox(){
 }
 
 void MainModelView::ShowHelp(){
-
+	myPopupBox = new TInfoBox(helpText.c_str());
+	myPopupBox->OnBtnClick = [this](int ) { ClosePopupBox(); };
+	myPopupBox->show();
 }
 void MainModelView::ShowGameOverBox(){
 

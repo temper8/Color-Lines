@@ -12,6 +12,7 @@
 #include <Elementary.h>
 #include <system_settings.h>
 #include <efl_extension.h>
+#include <functional>
 #include <dlog.h>
 
 #ifdef  LOG_TAG
@@ -27,7 +28,7 @@ class TView;
 
 
 //typedef bool (*TAppCreateCallback) (void *user_data);
-typedef bool (*TAppCreateCallback) ();
+typedef void  (*TAppCreateCallback) ();
 
 class TApplication {
 public:
@@ -36,10 +37,12 @@ public:
 
 	static int my_argc;
 	static char **my_argv;
+	static std::function<void()> _app_cb;
 
 public:
 
-	static int Start(TAppCreateCallback app_cb);
+	static int Start(std::function<void()> app_cb);
+	static int Start();
 
 	static void Initialize(int argc, char *argv[]);
 	static int Run(TView* view);
@@ -49,6 +52,7 @@ public:
 
 private:
 	static TApplication *self;
+
 	TView* myView;
 };
 

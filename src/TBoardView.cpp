@@ -24,8 +24,6 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
 	modelView = &TApp::instance()->modelView;
 
-	loadHelp();
-
 	linesGame = &modelView->linesGame;
 	//linesBoard->initRandom();
 	selBall.x = 0;
@@ -59,18 +57,7 @@ void TBoardView::NewGame(){
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
-void TBoardView::loadHelp() {
-    std::string filename(app_get_shared_resource_path());
-    filename.append("help.en");
-    std::ifstream t(filename.c_str());
-    std::stringstream buffer;
-    buffer << t.rdbuf();
-    if (buffer.str().length()>0)
-    	helpText = buffer.str();
-    else {
-    	helpText = "Game rules<br>Oops, an error occurred.";
-    }
-}
+
 
 void TBoardView::closePopupBox(){
 	delete myPopupBox;
@@ -102,11 +89,6 @@ void TBoardView::OnBackKeyClick(){
 	myPopupBox->show();
 }
 
-void TBoardView::showHelp(){
-	myPopupBox = new TInfoBox(helpText.c_str());
-	myPopupBox->OnBtnClick = [this](int ) { closePopupBox(); };
-	myPopupBox->show();
-}
 
 void TBoardView::showGameOverBox(){
 	myPopupBox = new TGameOverBox();

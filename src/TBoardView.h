@@ -27,7 +27,6 @@ public:
 	bool test = true;
 public:
 
-	std::string helpText;
 
 	virtual void OnResize(int width, int height);
 	virtual void CairoDrawing();
@@ -65,7 +64,6 @@ public:
 
 
     void closePopupBox();
-    void showHelp();
     void showGameOverBox();
 
 private:

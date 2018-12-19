@@ -190,11 +190,11 @@ void TDrawingView::bottom_btn_create()
 }
 
 void TDrawingView::CreateContent(){
-	  bottom_btn_create();
+//	  bottom_btn_create();
 	/* Create image */
 	image = evas_object_image_filled_add(evas_object_evas_get(conform));
 
-	elm_object_part_content_set(layout, "elm.swallow.content", image);
+	//elm_object_part_content_set(layout, "elm.swallow.content", image);
 	//evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, win_resize_cb2, this);
 	evas_object_show(image);
 

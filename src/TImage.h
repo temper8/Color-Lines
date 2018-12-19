@@ -36,14 +36,27 @@ public:
 
     std::vector<TBall> balls;
 
+    TBall selBall;
+    TBall destSquare;
+
+    bool isBallSelected = true;
+	double tick;
+	void JumpingBall();
+
+
 	void Init(int width, int height);
 	void CairoDrawing();
+	void Flush();
+
 	void CalcViewMarkup();
 	void DrawHeader();
 	void DrawBoard();
 
 
 	void DrawBall(TBall p, double r);
+	void DrawBall(TBall p, double r, int color);
+	void DrawBall(double x, double y, int color);
+
 	void appearanceNewBall(double pos);
 };
 

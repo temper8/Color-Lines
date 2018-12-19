@@ -5,6 +5,8 @@
  *      Author: Alex
  */
 
+#include <cmath>
+
 #include "TImage.h"
 #include "TApp.h"
 
@@ -37,6 +39,16 @@ void TImage::Init(int width, int height){
 	graphics.Initialize(width, height);
 
 	CairoDrawing();
+}
+
+
+void TImage::Flush(){
+	if(isBallSelected) {
+			tick +=0.25;
+			JumpingBall();
+		}
+
+	graphics.Flush();
 }
 
 
@@ -96,8 +108,31 @@ void TImage::DrawBall(TBall p, double r){
 	graphics.DrawBall(x, y, r, p.color);
 }
 
+
+void TImage::DrawBall(TBall p, double r, int color){
+	double x = p.x*squareSize - squareSize / 2 + left_margin;
+	double y = p.y*squareSize - squareSize / 2 + top_margin;
+	graphics.DrawBall(x, y, r, color);
+}
+
+void TImage::DrawBall(double x, double y, int color){
+	graphics.DrawBall(x,y,1,color);
+}
+
+
 void TImage::appearanceNewBall(double pos) {
 	for ( TBall p : balls )
 		DrawBall(p,  pos);
 }
 
+
+void TImage::JumpingBall(){
+	double x = (selBall.x-1)*squareSize  + left_margin;
+	double y = (selBall.y-1)*squareSize  + top_margin;
+
+	graphics.DrawSquare(x,y);
+	x = x + squareSize / 2 ;
+	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
+	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
+	DrawBall(x,y,linesGame->board[selBall.x][selBall.y]);
+}

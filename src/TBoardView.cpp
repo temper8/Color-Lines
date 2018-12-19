@@ -26,15 +26,18 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 
 	linesGame = &modelView->linesGame;
 	//linesBoard->initRandom();
-	selBall.x = 0;
-	selBall.y = 0;
+
 
 	img = new TImage(conform);
+	img->selBall.x = 0;
+	img->selBall.y = 0;
+
+	AttachGesture(img->image);
 
 	CreateContent();
 
 
-	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+	animator = ecore_animator_add([](void *data){((TImage *) data)->Flush(); return EINA_TRUE;}, img);
 	ecore_animator_freeze(animator);
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
@@ -54,9 +57,9 @@ void TBoardView::OnResize(int width, int height){
 
 void TBoardView::NewGame(){
 	linesGame->newGame();
-	selBall.x = 0;
-	selBall.y = 0;
-	CairoDrawing();
+	img->selBall.x = 0;
+	img->selBall.y = 0;
+	img->CairoDrawing();
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
@@ -108,22 +111,22 @@ void TBoardView::OnClick(int x, int y) {
 	if (linesGame->OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
-    	selBall.x = xx;
-    	selBall.y = yy;
-    	selBall.color = linesGame->board[xx][yy];
-    	isBallSelected = true;
+    	img->selBall.x = xx;
+    	img->selBall.y = yy;
+    	img->selBall.color = linesGame->board[xx][yy];
+    	img->isBallSelected = true;
        // startJumpingBallAnimator();
     }
     else {
-    	if (isBallSelected)  {
-    		isBallSelected = false;
+    	if (img->isBallSelected)  {
+    		img->isBallSelected = false;
 
     		destSquare.x = xx;
     		destSquare.y = yy;
 
-    		linesGame->initSearch(selBall);
+    		linesGame->initSearch(img->selBall);
 
-            if (linesGame->searchPath(selBall,destSquare) >0) {
+            if (linesGame->searchPath(img->selBall,destSquare) >0) {
             	 createMoveBallAnimator();
 
             }
@@ -147,22 +150,22 @@ void TBoardView::OnMomentumStart(int x, int y) {
 	if (linesGame->OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
-    	graphics.tx = x;
-    	graphics.ty = y;
-    	graphics.ring = linesGame->board[xx][yy];
-    	graphics.goodPath = true;
-    	selBall.x = xx;
-    	selBall.y = yy;
-    	selBall.color = linesGame->board[xx][yy];
-    	isBallSelected = true;
-    	linesGame->initSearch(selBall);
+    	img->graphics.tx = x;
+    	img->graphics.ty = y;
+    	img->graphics.ring = linesGame->board[xx][yy];
+    	img->graphics.goodPath = true;
+    	img->selBall.x = xx;
+    	img->selBall.y = yy;
+    	img->selBall.color = linesGame->board[xx][yy];
+    	img->isBallSelected = true;
+    	linesGame->initSearch(img->selBall);
     }
 };
 
 void TBoardView::OnMomentumMove(int x, int y) {
 	//dlog_print(DLOG_DEBUG, LOG_TAG, "TBoardView::OnMomentumMove x:%d y:%d", x, y);
-	graphics.tx = x;
-	graphics.ty = y;
+	img->graphics.tx = x;
+	img->graphics.ty = y;
 
 	int xx =(x-left_margin) / squareSize + 1;
 	int yy =(y-top_margin) / squareSize + 1;
@@ -175,29 +178,29 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	destSquare.x = xx;
 	destSquare.y = yy;
 
-	if (isBallSelected)  {
+	if (img->isBallSelected)  {
 		ClearPath();
 		if (linesGame->OutOfBoundary(xx, yy)) {
-			graphics.goodPath = false;
+			img->graphics.goodPath = false;
 			return;
 		}
 
-		linesGame->initSearch(selBall);
+		linesGame->initSearch(img->selBall);
 
 		if (linesGame->board[xx][yy]>0)	{
-			graphics.goodPath = false;
-			linesGame->searchClosestPath(selBall,destSquare);
+			img->graphics.goodPath = false;
+			linesGame->searchClosestPath(img->selBall,destSquare);
 			DrawPath(0);
 			return;
 		}
 
-        if (linesGame->searchPath(selBall,destSquare) >0) {
-        	 DrawPath(graphics.ring);
-        	 graphics.goodPath = true;
+        if (linesGame->searchPath(img->selBall,destSquare) >0) {
+        	 DrawPath(img->graphics.ring);
+        	 img->graphics.goodPath = true;
         }
         else{
-        	graphics.goodPath = false;
-        	linesGame->searchClosestPath(selBall,destSquare);
+        	img->graphics.goodPath = false;
+        	linesGame->searchClosestPath(img->selBall,destSquare);
         	DrawPath(0);
         }
 
@@ -207,8 +210,8 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 void TBoardView::OnMomentumEnd(int x, int y) {
 
-	 graphics.ring =0;
-	 graphics.goodPath = false;
+	img->graphics.ring =0;
+	img->graphics.goodPath = false;
 	 int xx =(x-left_margin) / squareSize + 1;
 	 int yy =(y-top_margin) / squareSize + 1;
 
@@ -216,18 +219,18 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 	 ClearPath();
 	 linesGame->path.clear();
 
-	if (isBallSelected)  {
-			isBallSelected = false;
+	if (img->isBallSelected)  {
+			img->isBallSelected = false;
 			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)||animationOn){
-				DrawBall(selBall,1);
+				DrawBall(img->selBall,1);
 				return;
 			}
 
 			destSquare.x = xx;
 			destSquare.y = yy;
-			linesGame->initSearch(selBall);
+			linesGame->initSearch(img->selBall);
 
-			if (linesGame->searchPath(selBall,destSquare) >0) {
+			if (linesGame->searchPath(img->selBall,destSquare) >0) {
 				createMoveBallAnimator();
 			}
 	}
@@ -238,57 +241,20 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 // animation
 
 void TBoardView::RefreshGraphics(){
-/*
-	if (test){
-		dlog_print(DLOG_DEBUG, LOG_TAG, " first RefreshGraphics()");
-		test = false;
-	}
-*/
-/*	if(isBallSelected) {
-		tick +=0.25;
-		jumpingBall();
-	}*/
-
-/*	if (BallSnakeRun) {
-		DrawSnake(ballSnakePos);
-	}
-	if (appearanceNewBalls) {
-		appearanceNewBall(timeLinePos);
-	}
-	if (disappearanceBalls) {
-		disappearanceLines(timeLinePos);
-	}
-*/
-
-	/*if (needUpdateScore) {
-		DrawHeader();
-		needUpdateScore = false;
-	}
-*/
-	img->graphics.Flush();
-}
-
-
-void TBoardView::jumpingBall(){
-	double x = (selBall.x-1)*squareSize  + left_margin;
-	double y = (selBall.y-1)*squareSize  + top_margin;
-
-	graphics.DrawSquare(x,y);
-	x = x + squareSize / 2 ;
-	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
-	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
-	DrawBall(x,y,linesGame->board[selBall.x][selBall.y]);
 
 }
+
+
+
 
 void TBoardView::moveBall(double pos) {
 	DrawPath(pos);
-	graphics.Flush();
+	img->graphics.Flush();
 }
 
 void TBoardView::createMoveBallAnimator(){
-	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-	linesGame->board[selBall.x][selBall.y] = 0;
+	linesGame->board[destSquare.x][destSquare.y] = linesGame->board[img->selBall.x][img->selBall.y];
+	linesGame->board[img->selBall.x][img->selBall.y] = 0;
 	SnakeBalls = linesGame->path;
 	linesGame->path.clear();
 	//ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->moveBall(pos); return EINA_TRUE;}, this);
@@ -346,7 +312,7 @@ void TBoardView::afterAppearanceNewBall(){
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
 	animationOn = false;
 	linesGame->addNextBalls();
-	UpdateView();
+	//UpdateView();
 
 }
 void TBoardView::startShowAllBalls(){
@@ -376,38 +342,6 @@ void TBoardView::disappearanceLines(double pos){
 	}
 }
 
-// drawing
-void TBoardView::UpdateView(){
-
-	graphics.FillBackgroud();
-
-	CalcViewMarkup();
-
-	DrawHeader();
-
-	DrawBoardWithBalls();
-	//DrawBalls();
-	DrawNextBalls();
-	//if (linesGame->initBalls) DrawBalls();
-//	graphics.DrawMask();
-	graphics.Flush();
-}
-
-void TBoardView::CairoDrawing(){
-
-	graphics.FillBackgroud();
-
-	CalcViewMarkup();
-
-	DrawHeader();
-
-	DrawBoard();
-	DrawNextBalls();
-	//if (linesGame->initBalls) DrawBalls();
-//	graphics.DrawMask();
-	graphics.Flush();
-}
-
 
 
 
@@ -423,7 +357,7 @@ void TBoardView::DrawBalls() {
 void TBoardView::DrawSquare(TBall p){
 	double x = (p.x-1)*squareSize  + left_margin;
 	double y = (p.y-1)*squareSize  + top_margin;
-	graphics.DrawSquare(x, y);
+	img->graphics.DrawSquare(x, y);
 }
 
 void TBoardView::CalcViewMarkup(){
@@ -433,7 +367,7 @@ void TBoardView::CalcViewMarkup(){
 	left_margin = ( myWidth - BoardWidth)/2;
 
 	squareSize = BoardWidth / linesGame->sizeX;
-	graphics.squareSize = squareSize;
+	img->graphics.squareSize = squareSize;
 
 	double BoardHeight = squareSize * linesGame->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
@@ -445,7 +379,7 @@ void TBoardView::DrawBoardWithBalls(){
 	for (int y = 0; y< linesGame->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-			graphics.DrawSquare(xx, yy);
+			img->graphics.DrawSquare(xx, yy);
 			int i = x + 1;
 			int j = y +1;
 			if (linesGame->board[i][j]>0){
@@ -462,24 +396,24 @@ void TBoardView::DrawBoard(){
 		for (int y = 0; y< linesGame->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-			graphics.DrawSquare(xx, yy);
+			img->graphics.DrawSquare(xx, yy);
 		}
 }
 
 void TBoardView::DrawBall(TBall p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-	graphics.DrawBall(x, y, r, p.color);
+	img->graphics.DrawBall(x, y, r, p.color);
 }
 
 void TBoardView::DrawBall(TBall p, double r, int color){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-	graphics.DrawBall(x, y, r, color);
+	img->graphics.DrawBall(x, y, r, color);
 }
 
 void TBoardView::DrawBall(double x, double y, int color){
-	graphics.DrawBall(x,y,1,color);
+	img->graphics.DrawBall(x,y,1,color);
 }
 
 void TBoardView::ClearSnake(){
@@ -512,7 +446,7 @@ void TBoardView::DrawPath(int color){
 		for ( TBall p : linesGame->path ){
 			double xx = p.x*squareSize - squareSize / 2 + left_margin;
 			double yy = p.y*squareSize - squareSize / 2 + top_margin;
-			graphics.DrawBall(xx, yy,  0.4, color);
+			img->graphics.DrawBall(xx, yy,  0.4, color);
 		}
 
 	}
@@ -551,7 +485,7 @@ void TBoardView::DrawHeader() {
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
 	//graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
-	graphics.DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
+	img->graphics.DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
 /*
 	double dx = (myWidth - 1.1*squareSize *3)/2;
 	for (int i = 0; i<3; i++) {

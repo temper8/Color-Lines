@@ -189,6 +189,28 @@ void TDrawingView::bottom_btn_create()
 	//elm_naviframe_item_push(nf, "Bottom", NULL, NULL, ly, NULL);
 }
 
+void TDrawingView::AttachGesture(Evas_Object *target){
+	  // Add gesture layer
+
+	    Evas_Object *gesture_layer = elm_gesture_layer_add(conform);
+	    elm_gesture_layer_attach(gesture_layer, target);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_END, mouse_cb, this);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_MOVE, move_cb, this);
+
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_MOVE, momentum_move, this);
+
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_START, momentum_start, this);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_END, momentum_end, this);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_ABORT, momentum_abort, this);
+
+	/*    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_START, line_start, this);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_MOVE, line_move, this);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_END, line_end, this);
+	    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_ABORT, line_abort, this);
+	    */
+
+
+}
 void TDrawingView::CreateContent(){
 //	  bottom_btn_create();
 	/* Create image */
@@ -200,25 +222,6 @@ void TDrawingView::CreateContent(){
 
 	graphics.setParentImage(image);
 */
-    // Add gesture layer
-
-    Evas_Object *gesture_layer = elm_gesture_layer_add(conform);
-    elm_gesture_layer_attach(gesture_layer, image);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_END, mouse_cb, this);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_TAPS, ELM_GESTURE_STATE_MOVE, move_cb, this);
-
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_MOVE, momentum_move, this);
-
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_START, momentum_start, this);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_END, momentum_end, this);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_MOMENTUM, ELM_GESTURE_STATE_ABORT, momentum_abort, this);
-
-/*    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_START, line_start, this);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_MOVE, line_move, this);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_END, line_end, this);
-    elm_gesture_layer_cb_set(gesture_layer, ELM_GESTURE_N_LINES, ELM_GESTURE_STATE_ABORT, line_abort, this);
-    */
-
 
 
     /*
@@ -235,14 +238,11 @@ void TDrawingView::OnResize(int width, int height) {
 	myWidth = width;
 	myHeight = height;
 
-	graphics.Initialize(width, height);
+	//graphics.Initialize(width, height);
 
-	CairoDrawing();
-
-}
-
-
-void TDrawingView::CairoDrawing(){
-
+//	CairoDrawing();
 
 }
+
+
+

@@ -22,9 +22,9 @@ public:
 
 public:
 
-	TCairoGraphics graphics;
-
-	Evas_Object *image;
+	//TCairoGraphics graphics;
+	void AttachGesture(Evas_Object *target);
+	//Evas_Object *image;
 	Evas_Coord width;
 	Evas_Coord height;
 	//cairo_t *cairo;
@@ -32,7 +32,7 @@ public:
 	//unsigned char *pixels;
 
 	virtual void OnResize(int width, int height);
-	virtual void CairoDrawing();
+	//virtual void CairoDrawing();
 	virtual void OnClick(int x, int y) {};
 	virtual void OnLineStart(int x, int y) {};
 	virtual void OnLineMove(int x1, int y1, int x2, int y2) {};

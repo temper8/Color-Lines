@@ -30,7 +30,7 @@ public:
 	TImage *img;
 
 	virtual void OnResize(int width, int height);
-	virtual void CairoDrawing();
+//	virtual void CairoDrawing();
 
 	double squareSize;
 	double left_margin,top_margin;
@@ -94,9 +94,9 @@ private:
     //bool disAppearanceBalls = false;
 	double ballSnakePos;
     //bool BallSnakeRun = false;
-    bool isBallSelected = false;
+   // bool isBallSelected = false;
    // bool needUpdateScore = true;
-    TBall selBall;
+    //TBall selBall;
     TBall destSquare;
 
 
@@ -117,8 +117,8 @@ public:
 	void ClearSnake();
 	std::vector<TBall> NewBalls;
 	std::vector<TBall> SnakeBalls;
-	double tick;
-	void jumpingBall();
+	//double tick;
+	//void jumpingBall();
 	void moveBall(double pos);
 	void afterMoveBall();
 	void appearanceNewBall(double pos);
@@ -126,7 +126,7 @@ public:
 
 	void appearanceNextBall(double pos);
 	void afterAppearanceNewBall();
-	void UpdateView();
+	//void UpdateView();
 	void DrawBoardWithBalls();
 	void addNextBalls();
 

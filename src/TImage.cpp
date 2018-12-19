@@ -102,6 +102,12 @@ void TImage::DrawBoard(){
 		}
 }
 
+void TImage::DrawSquare(TBall p){
+	double x = (p.x-1)*squareSize  + left_margin;
+	double y = (p.y-1)*squareSize  + top_margin;
+	graphics.DrawSquare(x, y);
+}
+
 void TImage::DrawBall(TBall p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;

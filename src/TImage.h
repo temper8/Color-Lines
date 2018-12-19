@@ -39,7 +39,7 @@ public:
     TBall selBall;
     TBall destSquare;
 
-    bool isBallSelected = true;
+    bool isBallSelected = false;
 	double tick;
 	void JumpingBall();
 
@@ -52,10 +52,13 @@ public:
 	void DrawHeader();
 	void DrawBoard();
 
+	void DrawSquare(TBall p);
+    void DrawBall(double x, double y, int color);
+    void DrawBall(double x, double y, double r, int color);
+    void DrawBall(TBall p, double r, int color);
+    void DrawBall(TBall p, double r);
 
-	void DrawBall(TBall p, double r);
-	void DrawBall(TBall p, double r, int color);
-	void DrawBall(double x, double y, int color);
+
 
 	void appearanceNewBall(double pos);
 };

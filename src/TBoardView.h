@@ -32,8 +32,8 @@ public:
 	virtual void OnResize(int width, int height);
 //	virtual void CairoDrawing();
 
-	double squareSize;
-	double left_margin,top_margin;
+	//double squareSize;
+	//double left_margin,top_margin;
 
     TLinesGame* linesGame;
 
@@ -41,10 +41,10 @@ public:
 
     void DrawBoard();
 
-    void DrawBall(double x, double y, int color);
-    void DrawBall(double x, double y, double r, int color);
-    void DrawBall(TBall p, double r, int color);
-    void DrawBall(TBall p, double r);
+    //void DrawBall(double x, double y, int color);
+//    void DrawBall(double x, double y, double r, int color);
+//    void DrawBall(TBall p, double r, int color);
+    //void DrawBall(TBall p, double r);
 
     void startShowAllBalls();
 
@@ -82,10 +82,10 @@ private:
     void SetPatternForSquare(int x, int y, int r);
 
     void DrawNextBalls();
-    void DrawHeader();
+  //  void DrawHeader();
     void DrawScore(double x, double y, int score);
 
-    void DrawSquare(TBall p);
+  //  void DrawSquare(TBall p);
 
     //double timeLinePos;
     bool animationOn = false;
@@ -121,7 +121,7 @@ public:
 	//void jumpingBall();
 	void moveBall(double pos);
 	void afterMoveBall();
-	void appearanceNewBall(double pos);
+	//void appearanceNewBall(double pos);
 	void disappearanceLines(double pos);
 
 	void appearanceNextBall(double pos);

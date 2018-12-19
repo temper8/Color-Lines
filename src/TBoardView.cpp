@@ -29,12 +29,14 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	selBall.x = 0;
 	selBall.y = 0;
 
+	img = new TImage(conform);
+
 	CreateContent();
 
-    graphics.LoadBgImage();
-	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
-	ecore_animator_freeze(animator);
-	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
+
+//	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+//	ecore_animator_freeze(animator);
+//	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
 TBoardView::~TBoardView() {
@@ -45,7 +47,8 @@ TBoardView::~TBoardView() {
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;
 	ecore_animator_freeze(animator);
-	TDrawingView::OnResize(width, height);
+	//TDrawingView::OnResize(width, height);
+	img->Init(width, height);
 	ecore_animator_thaw(animator);
 }
 

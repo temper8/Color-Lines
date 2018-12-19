@@ -13,6 +13,7 @@
 #include "TDrawingView.h"
 #include "TLinesGame.h"
 #include "MainModelView.h"
+#include "TImage.h"
 
 class TPopupBox;
 class TLinesGame;
@@ -26,6 +27,7 @@ public:
 	bool test = true;
 public:
 
+	TImage *img;
 
 	virtual void OnResize(int width, int height);
 	virtual void CairoDrawing();

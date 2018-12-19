@@ -92,6 +92,15 @@ void TImage::DrawHeader() {
 
 }
 
+void TImage::DrawBoardX(int translation){
+	for (int x = 0; x< linesGame->sizeX; x++)
+			for (int y = 0; y< linesGame->sizeY; y++) {
+				double xx = x*squareSize  + left_margin + translation;
+				double yy = y*squareSize  + top_margin ;
+				graphics.DrawSquare(xx, yy);
+			}
+}
+
 void TImage::DrawBoard(){
 
 	for (int x = 0; x< linesGame->sizeX; x++)
@@ -125,12 +134,26 @@ void TImage::DrawBall(double x, double y, int color){
 	graphics.DrawBall(x,y,1,color);
 }
 
+void TImage::DrawNextBalls(){
+	for ( TBall p : linesGame->nextBalls ){
+				DrawSquare(p);
+				DrawBall(p,0.2,p.color);
+			}
+}
 
 void TImage::appearanceNewBall(double pos) {
 	for ( TBall p : balls )
 		DrawBall(p,  pos);
 }
 
+void TImage::disappearanceLines(double pos){
+	double r = 0.95 - pos;
+	if (r < 0) r = 0;
+	for ( TBall p : linesGame->clearBalls ){
+		DrawSquare(p);
+		DrawBall(p,  r);
+	}
+}
 
 void TImage::JumpingBall(){
 	double x = (selBall.x-1)*squareSize  + left_margin;

@@ -51,6 +51,7 @@ public:
 	void CalcViewMarkup();
 	void DrawHeader();
 	void DrawBoard();
+	void DrawBoardX(int translation);
 
 	void DrawSquare(TBall p);
     void DrawBall(double x, double y, int color);
@@ -58,9 +59,10 @@ public:
     void DrawBall(TBall p, double r, int color);
     void DrawBall(TBall p, double r);
 
-
+    void DrawNextBalls();
 
 	void appearanceNewBall(double pos);
+	void disappearanceLines(double pos);
 };
 
 #endif /* TIMAGE_H_ */

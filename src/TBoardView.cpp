@@ -300,17 +300,17 @@ void TBoardView::afterMoveBall(){
 
 	}
 	else {
-		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
-		ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->DrawNextBalls(); return EINA_FALSE; }, this);
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
+		ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
 
 	}
 
-	//DrawHeader();
+	img->DrawHeader();
 }
 
 void TBoardView::afterAppearanceNewBall(){
 	if (linesGame->checkLines() > 0 )
-		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TBoardView *) data)->disappearanceLines(pos); return EINA_TRUE;}, this);
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
 	animationOn = false;
 	linesGame->addNextBalls();
 	//UpdateView();
@@ -321,27 +321,10 @@ void TBoardView::startShowAllBalls(){
 	img->balls = linesGame->makeListBalls();
     animationOn = true;
 	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
-//	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TBoardView *)data)->DrawNextBalls(); return EINA_FALSE; }, this);
-}
-/*
-void TBoardView::appearanceNextBall(double pos) {
-	for ( TBall p : linesGame->nextBalls )
-		DrawBall(p,  pos);
+	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
 }
 
-void TBoardView::appearanceNewBall(double pos) {
-	for ( TBall p : NewBalls )
-		DrawBall(p,  pos);
-}
-*/
-void TBoardView::disappearanceLines(double pos){
-	double r = 0.95 - pos;
-	if (r < 0) r = 0;
-	for ( TBall p : linesGame->clearBalls ){
-		img->DrawSquare(p);
-	//	DrawBall(p,  r);
-	}
-}
+
 
 
 
@@ -458,12 +441,6 @@ void TBoardView::DrawSnake(double pos){
 		img->DrawBall(p, 1, p.color);
 	}
 
-}
-void TBoardView::DrawNextBalls(){
-	for ( TBall p : linesGame->nextBalls ){
-				img->DrawSquare(p);
-				img->DrawBall(p,0.2,p.color);
-			}
 }
 
 

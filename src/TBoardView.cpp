@@ -28,19 +28,19 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	//linesBoard->initRandom();
 	selBall.x = 0;
 	selBall.y = 0;
+
+	CreateContent();
+
+    graphics.LoadBgImage();
+	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+	ecore_animator_freeze(animator);
+	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
 TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
-void TBoardView::OnAppCreate(){
-	TView::OnAppCreate();
-    graphics.LoadBgImage();
-	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
-	ecore_animator_freeze(animator);
-	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
-}
 
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;

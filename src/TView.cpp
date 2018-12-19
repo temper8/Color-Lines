@@ -10,10 +10,14 @@
 
 #include "TApplication.h"
 
-TView::TView() {
+TView::TView():win(0),conform(0) {
 	// TODO Auto-generated constructor stub
-	win = 0;
-	conform = 0;
+	CreateWin(PACKAGE);
+
+//	CreateContent();
+
+	/* Show window after base gui is set up */
+	evas_object_show(win);
 }
 
 TView::~TView() {
@@ -34,16 +38,6 @@ void callback_back(void *data, Evas_Object *obj, void *event_info)
 
 }
 */
-
-void TView::OnAppCreate(){
-
-	CreateWin(PACKAGE);
-
-	CreateContent();
-
-	/* Show window after base gui is set up */
-	evas_object_show(win);
-}
 
 void TView::CreateContent(){
 	/* Label */

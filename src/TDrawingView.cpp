@@ -13,7 +13,7 @@ TDrawingView::TDrawingView() {
 }
 
 TDrawingView::~TDrawingView() {
-	// TODO Auto-generated destructor stub
+	//
 }
 
 Evas_Event_Flags mouse_cb(void *data, void *event)

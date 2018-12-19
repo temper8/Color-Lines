@@ -19,5 +19,5 @@ TApp::~TApp() {
 
 void TApp::OnApplicationCreate(){
 	myView = new TBoardView();
-	myView->OnAppCreate();
+	//myView->OnAppCreate();
 }

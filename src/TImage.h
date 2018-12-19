@@ -34,11 +34,17 @@ public:
 	MainModelView *modelView;
     TLinesGame* linesGame;
 
+    std::vector<TBall> balls;
+
 	void Init(int width, int height);
 	void CairoDrawing();
 	void CalcViewMarkup();
 	void DrawHeader();
 	void DrawBoard();
+
+
+	void DrawBall(TBall p, double r);
+	void appearanceNewBall(double pos);
 };
 
 #endif /* TIMAGE_H_ */

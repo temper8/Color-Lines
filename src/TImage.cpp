@@ -89,3 +89,15 @@ void TImage::DrawBoard(){
 			graphics.DrawSquare(xx, yy);
 		}
 }
+
+void TImage::DrawBall(TBall p, double r){
+	double x = p.x*squareSize - squareSize / 2 + left_margin;
+	double y = p.y*squareSize - squareSize / 2 + top_margin;
+	graphics.DrawBall(x, y, r, p.color);
+}
+
+void TImage::appearanceNewBall(double pos) {
+	for ( TBall p : balls )
+		DrawBall(p,  pos);
+}
+

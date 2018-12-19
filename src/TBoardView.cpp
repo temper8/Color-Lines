@@ -34,9 +34,9 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	CreateContent();
 
 
-//	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
-//	ecore_animator_freeze(animator);
-//	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
+	animator = ecore_animator_add([](void *data){((TBoardView *) data)->RefreshGraphics(); return EINA_TRUE;}, this);
+	ecore_animator_freeze(animator);
+	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
 TBoardView::~TBoardView() {
@@ -244,10 +244,10 @@ void TBoardView::RefreshGraphics(){
 		test = false;
 	}
 */
-	if(isBallSelected) {
+/*	if(isBallSelected) {
 		tick +=0.25;
 		jumpingBall();
-	}
+	}*/
 
 /*	if (BallSnakeRun) {
 		DrawSnake(ballSnakePos);
@@ -265,7 +265,7 @@ void TBoardView::RefreshGraphics(){
 		needUpdateScore = false;
 	}
 */
-	graphics.Flush();
+	img->graphics.Flush();
 }
 
 
@@ -350,10 +350,11 @@ void TBoardView::afterAppearanceNewBall(){
 
 }
 void TBoardView::startShowAllBalls(){
-    NewBalls = linesGame->makeListBalls();
+    //NewBalls = linesGame->makeListBalls();
+	img->balls = linesGame->makeListBalls();
     animationOn = true;
-	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TBoardView *) data)->appearanceNewBall(pos); return EINA_TRUE;}, this);
-	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TBoardView *)data)->DrawNextBalls(); return EINA_FALSE; }, this);
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
+//	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TBoardView *)data)->DrawNextBalls(); return EINA_FALSE; }, this);
 }
 
 void TBoardView::appearanceNextBall(double pos) {

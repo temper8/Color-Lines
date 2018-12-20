@@ -10,7 +10,7 @@
 #include <cstdlib>
 
 const int LineLength = 4;
-const int BallColors = 5;
+const int BallColors = 6;
 
 TBallsHolder::TBallsHolder(): holder("BallsHolder") {
 	if (holder == 0 )

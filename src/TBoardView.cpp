@@ -223,6 +223,8 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		img->CairoDrawing();
 		linesGame->OffsetBoard(img->xOffset);
 		img->DrawBalls();
+		img->DrawNextBalls();
+		img->xOffset = 0;
 		return;
 	}
 	//ecore_animator_thaw(animator);

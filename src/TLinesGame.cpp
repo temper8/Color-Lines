@@ -408,4 +408,29 @@ void TLinesGame::OffsetBoard(int dx){
 
 	     board[x][y] = tmp[x][y];
 	}
+
+	std::vector<TBall> tmpBalls;
+	for (TBall p :nextBalls ) {
+		 int k = p.x - dx;
+		 if (k<1)
+		 	k = sizeX+k;
+		 else
+	 	if(k > sizeX) k = k - sizeX;
+		tmpBalls.emplace_back(k, p.y, p.color);
+	}
+	nextBalls.clear();
+	for (TBall p :tmpBalls ) {
+		nextBalls.emplace_back(p);
+	}
+
+	/*
+	 for (TBall p :nextBalls ) {
+		 int k = p.x + dx;
+		 if (k<1)
+		 	k = sizeX+k;
+		 else
+		 	if(k > sizeX) k = k - sizeX;
+		 p.x = 3;
+	 }
+	 */
 }

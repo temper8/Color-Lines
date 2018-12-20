@@ -48,6 +48,7 @@ public:
 	TBoard board;
 	 //std::array<std::array<int, 12>, 12> square;
 	//int square[12][12];
+
 	int sf[12][12];
 	int counter;
 	TPreferenceInt counterGames;
@@ -55,6 +56,7 @@ public:
 	TPreferenceInt record;
 	TBallsHolder ballsHolder;
 
+	void OffsetBoard(int dx);
 	bool OutOfBoundary(int x, int y);
 	void randThreeBalls();
 	bool initBalls;

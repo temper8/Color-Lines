@@ -221,6 +221,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 	if (img->xOffset != 0)
 	{
 		img->CairoDrawing();
+		linesGame->OffsetBoard(img->xOffset);
 		img->DrawBalls();
 		return;
 	}

@@ -389,3 +389,23 @@ std::vector<TBall> TLinesGame::addNewBalls(){
     //nextBalls = newBalls;
     return newBalls;
 }
+
+
+void TLinesGame::OffsetBoard(int dx){
+	int tmp[12][12];
+	for(int x = 1; x<=sizeX; x++)
+	for(int y = 1; y<=sizeY; y++){
+		int k = x + dx;
+		if (k<1)
+			k = sizeX+k;
+		else
+			if(k > sizeX) k = k - sizeX;
+	    tmp[x][y]= board[k][y];
+	}
+
+	for(int x = 1; x<=sizeX; x++)
+	for(int y = 1; y<=sizeY; y++){
+
+	     board[x][y] = tmp[x][y];
+	}
+}

@@ -59,6 +59,8 @@ public:
     void DrawBall(TBall p, double r, int color);
     void DrawBall(TBall p, double r);
 
+    bool semaphor = false;
+
     void DrawBalls();
 
     void DrawNextBalls();

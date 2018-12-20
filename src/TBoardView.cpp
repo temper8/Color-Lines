@@ -139,7 +139,7 @@ void TBoardView::OnClick(int x, int y) {
 
 void TBoardView::OnMomentumStart(int x, int y) {
 	//if (BallSnakeRun ) return;
-//	ecore_animator_freeze(animator);
+
 	x0 = x;
 	y0 = y;
 	int xx =(x-img->left_margin) / img->squareSize + 1;
@@ -212,7 +212,11 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	}
 	else
-		img->DrawBoardX(x-x0);
+	{
+	//	ecore_animator_freeze(animator);
+	//	img->DrawBoardX(x-x0);
+
+	}
 
 };
 
@@ -225,6 +229,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		img->DrawBalls();
 		img->DrawNextBalls();
 		img->xOffset = 0;
+
 		return;
 	}
 	//ecore_animator_thaw(animator);

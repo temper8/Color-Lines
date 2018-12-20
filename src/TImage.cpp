@@ -103,6 +103,8 @@ void TImage::DrawBalls(){
 }
 
 void TImage::DrawBoardX(int translation){
+	if (semaphor) return;
+	semaphor = true;
 	graphics.FillBackgroud();
 
 	int dx = 0;
@@ -121,10 +123,11 @@ void TImage::DrawBoardX(int translation){
 				else
 					if(k == linesGame->sizeX) k = k - linesGame->sizeX;
 				int c = linesGame->board[k+1][y+1];
-				if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
+				//if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
 
 			}
-//	graphics.Flush();
+	graphics.Flush();
+	semaphor = false;
 }
 
 void TImage::DrawBoard(){

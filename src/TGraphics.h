@@ -24,6 +24,7 @@ public:
 
 	void LoadBgImage();
 
+	void Refresh();
 	void Flush();
     void FillBackgroud();
 

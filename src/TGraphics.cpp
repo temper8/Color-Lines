@@ -53,11 +53,12 @@ void TCairoGraphics::Initialize(int width, int height){
 
 		/* Create new cairo canvas for resized window */
 		pixels = (unsigned char*)evas_object_image_data_get(myImage, 1);
-		surface = cairo_image_surface_create( CAIRO_FORMAT_ARGB32, width, height);
-		cairo = cairo_create(surface);
+	//	surface = cairo_image_surface_create( CAIRO_FORMAT_ARGB32, width, height);
+//		cairo = cairo_create(surface);
 
-		mySurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
-		myCairo = cairo_create(mySurface);
+		//my
+		surface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
+		cairo = cairo_create(surface);
 		//cairo = myCairo;
 		//DrawMask();
 	}
@@ -65,13 +66,13 @@ void TCairoGraphics::Initialize(int width, int height){
 
 void TCairoGraphics::DrawRing(){
 	if (ring>0){
-		cairo_save (myCairo);
+		cairo_save (cairo);
 		if (goodPath) SetColor2(ring);
 		else SetColor2(0);
-		cairo_arc(myCairo, tx, ty, 80, 0, 2*M_PI);
-		cairo_set_line_width(myCairo, 30);
-		cairo_stroke(myCairo);
-		cairo_restore (myCairo);
+		cairo_arc(cairo, tx, ty, 80, 0, 2*M_PI);
+		cairo_set_line_width(cairo, 30);
+		cairo_stroke(cairo);
+		cairo_restore (cairo);
 	}
 }
 
@@ -86,6 +87,12 @@ void TCairoGraphics::LoadBgImage(){
     free(path);
 }
 
+void TCairoGraphics::Refresh()
+{
+    evas_object_image_pixels_dirty_set(myImage, EINA_TRUE);
+}
+
+
 void TCairoGraphics::Flush(){
 
 	//dlog_print(DLOG_DEBUG, LOG_TAG, " cairo_surface_flush");
@@ -94,12 +101,12 @@ void TCairoGraphics::Flush(){
 	/* Render stacked cairo APIs on cairo context's surface */
 	cairo_surface_flush(surface);
 
-	cairo_set_source_surface (myCairo, surface, 0, 0);
-	cairo_paint (myCairo);
+//	cairo_set_source_surface (myCairo, surface, 0, 0);
+//	cairo_paint (myCairo);
 
-	DrawRing();
+//	DrawRing();
 
-	cairo_surface_flush(mySurface);
+//	cairo_surface_flush(mySurface);
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);
 

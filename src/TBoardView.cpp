@@ -213,8 +213,8 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	}
 	else
 	{
-	//	ecore_animator_freeze(animator);
-	//	img->DrawBoardX(x-x0);
+		ecore_animator_freeze(animator);
+		img->DrawBoardX(x-x0);
 
 	}
 

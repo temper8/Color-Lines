@@ -127,7 +127,7 @@ void TImage::DrawBoardX(int translation){
 
 			}
 	graphics.Flush();
-	graphics.Refresh();
+	//graphics.Refresh();
 	semaphor = false;
 }
 

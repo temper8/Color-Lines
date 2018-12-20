@@ -93,12 +93,17 @@ void TImage::DrawHeader() {
 }
 
 void TImage::DrawBoardX(int translation){
+	graphics.FillBackgroud();
+
 	for (int x = 0; x< linesGame->sizeX; x++)
-			for (int y = 0; y< linesGame->sizeY; y++) {
+	for (int y = 0; y< linesGame->sizeY; y++) {
 				double xx = x*squareSize  + left_margin + translation;
 				double yy = y*squareSize  + top_margin ;
 				graphics.DrawSquare(xx, yy);
+				DrawBall(xx + squareSize / 2, yy + squareSize / 2, linesGame->board[x][y]);
+
 			}
+//	graphics.Flush();
 }
 
 void TImage::DrawBoard(){

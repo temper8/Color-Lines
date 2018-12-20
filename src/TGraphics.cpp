@@ -58,6 +58,7 @@ void TCairoGraphics::Initialize(int width, int height){
 
 		mySurface = cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
 		myCairo = cairo_create(mySurface);
+		//cairo = myCairo;
 		//DrawMask();
 	}
 }
@@ -97,6 +98,7 @@ void TCairoGraphics::Flush(){
 	cairo_paint (myCairo);
 
 	DrawRing();
+
 	cairo_surface_flush(mySurface);
 	/* Display cairo drawing on screen */
 	evas_object_image_data_update_add(myImage, 0, 0, myWidth, myHeight);

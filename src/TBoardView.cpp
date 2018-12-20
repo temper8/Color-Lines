@@ -217,6 +217,13 @@ void TBoardView::OnMomentumMove(int x, int y) {
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
+
+	if (img->xOffset != 0)
+	{
+		img->CairoDrawing();
+		img->DrawBalls();
+		return;
+	}
 	//ecore_animator_thaw(animator);
 	img->graphics.ring =0;
 	img->graphics.goodPath = false;

@@ -52,12 +52,14 @@ public:
 	void DrawHeader();
 	void DrawBoard();
 	void DrawBoardX(int translation);
-
+	int xOffset = 0;
 	void DrawSquare(TBall p);
     void DrawBall(double x, double y, int color);
     void DrawBall(double x, double y, double r, int color);
     void DrawBall(TBall p, double r, int color);
     void DrawBall(TBall p, double r);
+
+    void DrawBalls();
 
     void DrawNextBalls();
 

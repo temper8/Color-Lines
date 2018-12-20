@@ -92,15 +92,36 @@ void TImage::DrawHeader() {
 
 }
 
+void TImage::DrawBalls(){
+	for (int x = 0; x< linesGame->sizeX; x++)
+	for (int y = 0; y< linesGame->sizeY; y++) {
+			double xx = x*squareSize  + left_margin;
+			double yy = y*squareSize  + top_margin;
+			int c = linesGame->board[x+1][y+1];
+			if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
+	}
+}
+
 void TImage::DrawBoardX(int translation){
 	graphics.FillBackgroud();
 
+	int dx = 0;
+	if (translation>squareSize/2) dx = -1;
+	if (translation<-squareSize/2) dx = 1;
+	xOffset = dx;
 	for (int x = 0; x< linesGame->sizeX; x++)
 	for (int y = 0; y< linesGame->sizeY; y++) {
-				double xx = x*squareSize  + left_margin + translation;
+				int k = x+dx;
+				double xx = k*squareSize  + left_margin + translation;
 				double yy = y*squareSize  + top_margin ;
 				graphics.DrawSquare(xx, yy);
-				DrawBall(xx + squareSize / 2, yy + squareSize / 2, linesGame->board[x][y]);
+
+				if (k<0)
+					k = linesGame->sizeX+k;
+				else
+					if(k == linesGame->sizeX) k = k - linesGame->sizeX;
+				int c = linesGame->board[k+1][y+1];
+				if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
 
 			}
 //	graphics.Flush();

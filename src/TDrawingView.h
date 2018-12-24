@@ -10,7 +10,8 @@
 
 #include "TView.h"
 #include <cairo.h>
-#include "TGraphics.h"
+
+#include "TGraphics2.h"
 
 
 class TDrawingView: public TView {

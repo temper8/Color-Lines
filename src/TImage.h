@@ -11,17 +11,16 @@
 
 #include <cairo.h>
 
-#include "TGraphics.h"
-
 #include "TLinesGame.h"
 #include "MainModelView.h"
+#include "TGraphics2.h"
 
 class TImage {
 public:
 	TImage(Evas_Object *conform);
 	virtual ~TImage();
 
-	TCairoGraphics graphics;
+	TCairoGraphics2 graphics;
 
 	Evas_Object *image;
 	Evas_Coord width;

@@ -5,8 +5,8 @@
  *      Author: Alex
  */
 
-#ifndef TGRAPHICS_H_
-#define TGRAPHICS_H_
+#ifndef TGRAPHICS2_H_
+#define TGRAPHICS2_H_
 
 #include <cairo.h>
 #include <Elementary.h>
@@ -14,10 +14,10 @@
 #define LOG_TAG "Color Lines"
 #include <dlog.h>
 
-class TCairoGraphics {
+class TCairoGraphics2 {
 public:
-	TCairoGraphics();
-	virtual ~TCairoGraphics();
+	TCairoGraphics2();
+	virtual ~TCairoGraphics2();
 	void setParentImage(Evas_Object *image) {myImage = image; };
 
 	void Initialize(int width, int height);
@@ -66,4 +66,4 @@ private:
 	cairo_surface_t *bg_image;
 };
 
-#endif /* TGRAPHICS_H_ */
+#endif /* TGRAPHICS2_H_ */

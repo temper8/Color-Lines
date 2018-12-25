@@ -32,7 +32,7 @@ public:
 	//cairo_surface_t *surface;
 	//unsigned char *pixels;
 
-	virtual void OnResize(int width, int height);
+	virtual void OnResize(int width, int height) =0;
 	//virtual void CairoDrawing();
 	virtual void OnClick(int x, int y) {};
 	virtual void OnLineStart(int x, int y) {};

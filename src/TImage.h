@@ -33,7 +33,7 @@ public:
 
 	//TCairoGraphics2 graphics;
 
-	Evas_Object *image;
+//	Evas_Object *image;
 	Evas_Coord width;
 	Evas_Coord height;
 

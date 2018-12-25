@@ -234,15 +234,6 @@ void TDrawingView::CreateContent(){
 }
 
 
-void TDrawingView::OnResize(int width, int height) {
-	myWidth = width;
-	myHeight = height;
-
-	//graphics.Initialize(width, height);
-
-//	CairoDrawing();
-
-}
 
 
 

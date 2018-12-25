@@ -40,7 +40,7 @@ TImage::~TImage() {
 void TImage::Paint(){
 	CalcViewMarkup();
 	DrawBoard();
-
+	//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
 	cairo_paint(myCairo);
 	cairo_surface_flush(mySurface);
 
@@ -164,14 +164,14 @@ void TImage::DrawBoard(){
 		for (int y = 0; y< linesGame->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-		//	graphics.DrawSquare(xx, yy);
+			DrawSquare(xx, yy);
 		}
 }
 
 void TImage::DrawSquare(TBall p){
 	double x = (p.x-1)*squareSize  + left_margin;
 	double y = (p.y-1)*squareSize  + top_margin;
-//	graphics.DrawSquare(x, y);
+	DrawSquare(x, y);
 }
 
 void TImage::DrawRoundRectangle(double x, double y, double w, double h, double r){

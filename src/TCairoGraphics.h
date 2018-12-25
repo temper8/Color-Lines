@@ -24,7 +24,7 @@ public:
 	void Refresh();
 	virtual void Paint() = 0;
 
-	Evas_Object * getEvasObject() { return myImage; };
+	Evas_Object * GetImage() { return myImage; };
 
 protected:
 

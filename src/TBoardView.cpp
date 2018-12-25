@@ -32,7 +32,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	img->selBall.x = 0;
 	img->selBall.y = 0;
 
-	AttachGesture(img->image);
+	AttachGesture(img->GetImage());
 
 	CreateContent();
 

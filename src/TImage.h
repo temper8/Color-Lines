@@ -15,12 +15,23 @@
 #include "MainModelView.h"
 #include "TGraphics2.h"
 
-class TImage {
+#include "TCairoGraphics.h"
+
+class TImage: public TCairoGraphics {
 public:
 	TImage(Evas_Object *conform);
 	virtual ~TImage();
 
-	TCairoGraphics2 graphics;
+	virtual void Paint();
+
+	void LoadBgImage();
+	cairo_surface_t *bg_image;
+
+	void DrawRoundRectangle(double x, double y, double w, double h, double r);
+	void DrawSquare(double x, double y);
+	void SetPatternForSquare(int x, int y, int r);
+
+	//TCairoGraphics2 graphics;
 
 	Evas_Object *image;
 	Evas_Coord width;
@@ -28,7 +39,7 @@ public:
 
 	double squareSize;
 	double left_margin,top_margin;
-	int myWidth, myHeight;
+//	int myWidth, myHeight;
 
 	MainModelView *modelView;
     TLinesGame* linesGame;

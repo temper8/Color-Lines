@@ -10,6 +10,8 @@
 #include "TImage.h"
 #include "TApp.h"
 
+#include "logger.h"
+
 TImage::TImage(Evas_Object *conform):width(0),height(0) {
 	// TODO Auto-generated constructor stub
 
@@ -17,28 +19,53 @@ TImage::TImage(Evas_Object *conform):width(0),height(0) {
 
 	linesGame = &modelView->linesGame;
 
-	image = evas_object_image_filled_add(evas_object_evas_get(conform));
+	TCairoGraphics::Create(conform);
+
+	//image = evas_object_image_filled_add(evas_object_evas_get(conform));
 
 //	elm_object_part_content_set(layout, "elm.swallow.content", image);
 	//evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, win_resize_cb2, this);
-	evas_object_show(image);
+	//evas_object_show(image);
 
-	graphics.setParentImage(image);
+	//graphics.setParentImage(image);
 
-	graphics.LoadBgImage();
+	LoadBgImage();
+	DBG("TImage::Construktor");
 }
 
 TImage::~TImage() {
 	// TODO Auto-generated destructor stub
 }
 
+void TImage::Paint(){
+	CalcViewMarkup();
+	DrawBoard();
+
+	cairo_paint(myCairo);
+	cairo_surface_flush(mySurface);
+
+}
+
+#define BUFLEN 500
+
+void TImage::LoadBgImage(){
+	//  Load bg image, create surface from bg image
+
+	char buff[BUFLEN];
+    char *path = app_get_shared_resource_path();
+
+    snprintf(buff, 300, "%s%s", path, "pat9.png");
+    bg_image = cairo_image_surface_create_from_png(buff);
+    free(path);
+}
+
 void TImage::Init(int width, int height){
-	myWidth = width;
-	myHeight = height;
+//	myWidth = width;
+//	myHeight = height;
 
-	graphics.Initialize(width, height);
+//	graphics.Initialize(width, height);
 
-	CairoDrawing();
+//	CairoDrawing();
 }
 
 
@@ -48,13 +75,13 @@ void TImage::Flush(){
 			JumpingBall();
 		}
 
-	graphics.Flush();
+//	graphics.Flush();
 }
 
 
 void TImage::CairoDrawing(){
 
-	graphics.FillBackgroud();
+//	graphics.FillBackgroud();
 
 	CalcViewMarkup();
 
@@ -64,7 +91,7 @@ void TImage::CairoDrawing(){
 	//DrawNextBalls();
 	//if (linesGame->initBalls) DrawBalls();
 //	graphics.DrawMask();
-	graphics.Flush();
+//	graphics.Flush();
 }
 
 void TImage::CalcViewMarkup(){
@@ -74,7 +101,7 @@ void TImage::CalcViewMarkup(){
 	left_margin = ( myWidth - BoardWidth)/2;
 
 	squareSize = BoardWidth / linesGame->sizeX;
-	graphics.squareSize = squareSize;
+//	graphics.squareSize = squareSize;
 
 	double BoardHeight = squareSize * linesGame->sizeY;
 	top_margin = ( myHeight - BoardHeight)/2;
@@ -88,7 +115,7 @@ void TImage::DrawHeader() {
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
 	//graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
-	graphics.DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
+//	graphics.DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
 
 }
 
@@ -105,7 +132,7 @@ void TImage::DrawBalls(){
 void TImage::DrawBoardX(int translation){
 	if (semaphor) return;
 	semaphor = true;
-	graphics.FillBackgroud();
+//	graphics.FillBackgroud();
 
 	int dx = 0;
 	if (translation>squareSize/2) dx = -1;
@@ -116,7 +143,7 @@ void TImage::DrawBoardX(int translation){
 				int k = x+dx;
 				double xx = k*squareSize  + left_margin + translation;
 				double yy = y*squareSize  + top_margin ;
-				graphics.DrawSquare(xx, yy);
+			//	graphics.DrawSquare(xx, yy);
 
 				if (k<0)
 					k = linesGame->sizeX+k;
@@ -126,7 +153,7 @@ void TImage::DrawBoardX(int translation){
 				//if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
 
 			}
-	graphics.Flush();
+	//graphics.Flush();
 	//graphics.Refresh();
 	semaphor = false;
 }
@@ -137,31 +164,79 @@ void TImage::DrawBoard(){
 		for (int y = 0; y< linesGame->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-			graphics.DrawSquare(xx, yy);
+		//	graphics.DrawSquare(xx, yy);
 		}
 }
 
 void TImage::DrawSquare(TBall p){
 	double x = (p.x-1)*squareSize  + left_margin;
 	double y = (p.y-1)*squareSize  + top_margin;
-	graphics.DrawSquare(x, y);
+//	graphics.DrawSquare(x, y);
 }
+
+void TImage::DrawRoundRectangle(double x, double y, double w, double h, double r){
+	cairo_move_to (myCairo, x+r, y);
+	cairo_rel_line_to (myCairo, w-2*r, 0);
+	cairo_rel_line_to (myCairo, r, r);
+	cairo_rel_line_to (myCairo, 0, h-2*r);
+	cairo_rel_line_to (myCairo, -r, r);
+	cairo_rel_line_to (myCairo, -w+2*r, 0);
+	cairo_rel_line_to (myCairo, -r, -r);
+	cairo_rel_line_to (myCairo, 0, -h+2*r);
+	cairo_close_path (myCairo);
+}
+
+
+void TImage::SetPatternForSquare(int x, int y, int r){
+//  gold
+//  double r1 = 1.0; double r2 = 1.0;
+//  double g1 = 242.0/255.0; double g2 = 217.0/255.0;
+//  double b1 = 204.0/255.0; double b2 = 102.0/255.0;
+
+	// sepiya
+	  double r2 = 159.0/255.0; double r1 = 191.0/255.0;
+	  double g2 = 142.0/255.0; double g1 = 178.0/255.0;
+	  double b2 = 126.0/255.0; double b1 = 165.0/255.0;
+    cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - r/4 , y - r/4  , r/2.5 , x, y, 1.5*r);
+	cairo_pattern_add_color_stop_rgba(pattern1, 1.0, r1, g1, b1, 0.8);
+	cairo_pattern_add_color_stop_rgba(pattern1, 0.0, r2, g2, b2, 0.5);
+
+	cairo_set_source(myCairo, pattern1);
+}
+
+void TImage::DrawSquare(double x, double y){
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+
+	cairo_set_source(myCairo, pattern1);
+	cairo_pattern_set_extend(cairo_get_source(myCairo), CAIRO_EXTEND_REPEAT);
+	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	cairo_fill(myCairo);
+
+
+	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
+	//cairo_set_source_rgba(cairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
+	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
+	cairo_fill (myCairo);
+}
+
+
 
 void TImage::DrawBall(TBall p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-	graphics.DrawBall(x, y, r, p.color);
+//	graphics.DrawBall(x, y, r, p.color);
 }
 
 
 void TImage::DrawBall(TBall p, double r, int color){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-	graphics.DrawBall(x, y, r, color);
+//	graphics.DrawBall(x, y, r, color);
 }
 
 void TImage::DrawBall(double x, double y, int color){
-	graphics.DrawBall(x,y,1,color);
+//	graphics.DrawBall(x,y,1,color);
 }
 
 void TImage::DrawNextBalls(){
@@ -189,7 +264,7 @@ void TImage::JumpingBall(){
 	double x = (selBall.x-1)*squareSize  + left_margin;
 	double y = (selBall.y-1)*squareSize  + top_margin;
 
-	graphics.DrawSquare(x,y);
+//	graphics.DrawSquare(x,y);
 	x = x + squareSize / 2 ;
 	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );

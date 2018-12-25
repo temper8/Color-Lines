@@ -51,7 +51,13 @@ void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;
 	ecore_animator_freeze(animator);
 	//TDrawingView::OnResize(width, height);
-	img->Init(width, height);
+	//img->Init(width, height);
+
+
+	img->Initialize(width, height);
+	//plot.CreatePattern();
+	img->Refresh();
+
 	ecore_animator_thaw(animator);
 }
 
@@ -151,10 +157,10 @@ void TBoardView::OnMomentumStart(int x, int y) {
 	if (linesGame->OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
-    	img->graphics.tx = x;
-    	img->graphics.ty = y;
-    	img->graphics.ring = linesGame->board[xx][yy];
-    	img->graphics.goodPath = true;
+    //	img->graphics.tx = x;
+    //	img->graphics.ty = y;
+    //	img->graphics.ring = linesGame->board[xx][yy];
+    //	img->graphics.goodPath = true;
     	img->selBall.x = xx;
     	img->selBall.y = yy;
     	img->selBall.color = linesGame->board[xx][yy];
@@ -170,8 +176,8 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	//img->DrawBoardX(x-x0);
 
-	img->graphics.tx = x;
-	img->graphics.ty = y;
+//	img->graphics.tx = x;
+//	img->graphics.ty = y;
 
 	int xx =(x-img->left_margin) / img->squareSize + 1;
 	int yy =(y-img->top_margin) / img->squareSize + 1;
@@ -187,25 +193,25 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	if (img->isBallSelected)  {
 		ClearPath();
 		if (linesGame->OutOfBoundary(xx, yy)) {
-			img->graphics.goodPath = false;
+		//	img->graphics.goodPath = false;
 			return;
 		}
 
 		linesGame->initSearch(img->selBall);
 
 		if (linesGame->board[xx][yy]>0)	{
-			img->graphics.goodPath = false;
+			//img->graphics.goodPath = false;
 			linesGame->searchClosestPath(img->selBall,destSquare);
 			DrawPath(0);
 			return;
 		}
 
         if (linesGame->searchPath(img->selBall,destSquare) >0) {
-        	 DrawPath(img->graphics.ring);
-        	 img->graphics.goodPath = true;
+        	// DrawPath(img->graphics.ring);
+        	// img->graphics.goodPath = true;
         }
         else{
-        	img->graphics.goodPath = false;
+        	//img->graphics.goodPath = false;
         	linesGame->searchClosestPath(img->selBall,destSquare);
         	DrawPath(0);
         }
@@ -233,8 +239,8 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		return;
 	}
 	//ecore_animator_thaw(animator);
-	img->graphics.ring =0;
-	img->graphics.goodPath = false;
+	//img->graphics.ring =0;
+	//img->graphics.goodPath = false;
 	 int xx =(x-img->left_margin) / img->squareSize + 1;
 	 int yy =(y-img->top_margin) / img->squareSize + 1;
 
@@ -272,7 +278,7 @@ void TBoardView::RefreshGraphics(){
 
 void TBoardView::moveBall(double pos) {
 	DrawPath(pos);
-	img->graphics.Flush();
+	//img->graphics.Flush();
 }
 
 void TBoardView::createMoveBallAnimator(){
@@ -343,8 +349,8 @@ void TBoardView::startShowAllBalls(){
     //NewBalls = linesGame->makeListBalls();
 	img->balls = linesGame->makeListBalls();
     animationOn = true;
-	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
-	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
+//	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
+	//ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
 }
 
 
@@ -440,7 +446,7 @@ void TBoardView::DrawPath(int color){
 		for ( TBall p : linesGame->path ){
 			double xx = p.x*img->squareSize - img->squareSize / 2 + img->left_margin;
 			double yy = p.y*img->squareSize - img->squareSize / 2 + img->top_margin;
-			img->graphics.DrawBall(xx, yy,  0.4, color);
+		//	img->graphics.DrawBall(xx, yy,  0.4, color);
 		}
 
 	}

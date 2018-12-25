@@ -31,6 +31,10 @@ public:
 	void DrawSquare(double x, double y);
 	void SetPatternForSquare(int x, int y, int r);
 
+	void SetPattern(double x,double y, int radius, int color);
+	void DrawBall(double x, double y, double r, int color);
+
+
 	//TCairoGraphics2 graphics;
 
 //	Evas_Object *image;
@@ -65,7 +69,7 @@ public:
 	int xOffset = 0;
 	void DrawSquare(TBall p);
     void DrawBall(double x, double y, int color);
-    void DrawBall(double x, double y, double r, int color);
+    //void DrawBall(double x, double y, double r, int color);
     void DrawBall(TBall p, double r, int color);
     void DrawBall(TBall p, double r);
 

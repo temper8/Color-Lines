@@ -40,6 +40,7 @@ TImage::~TImage() {
 void TImage::Paint(){
 	CalcViewMarkup();
 	DrawBoard();
+	DrawBalls();
 	//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
 	cairo_paint(myCairo);
 	cairo_surface_flush(mySurface);
@@ -225,19 +226,65 @@ void TImage::DrawSquare(double x, double y){
 void TImage::DrawBall(TBall p, double r){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-//	graphics.DrawBall(x, y, r, p.color);
+    DrawBall(x, y, r, p.color);
 }
 
 
 void TImage::DrawBall(TBall p, double r, int color){
 	double x = p.x*squareSize - squareSize / 2 + left_margin;
 	double y = p.y*squareSize - squareSize / 2 + top_margin;
-//	graphics.DrawBall(x, y, r, color);
+	DrawBall(x, y, r, color);
 }
 
 void TImage::DrawBall(double x, double y, int color){
-//	graphics.DrawBall(x,y,1,color);
+	DrawBall(x,y,1,color);
 }
+
+
+void TImage::SetPattern(double x,double y, int radius, int color){
+
+	double r,g,b;
+	switch (color) {
+	case 0: r = 0.5; g = 0.5, b = 0.5; break;
+	case 1: r = 1.0; g = 0.2, b = 0.2; break;
+	case 2: r = 0.2; g = 1.0, b = 0.2; break;
+	case 3: r = 0.2; g = 0.2, b = 1.0; break;
+	case 4: r = 1.0; g = 1.0, b = 0.2; break;
+	case 5: r = 1.0; g = 0.0, b = 1.0; break;
+	case 6: r = 0.0; g = 1.0, b = 1.0; break;
+	case 7: r = 1.0; g = 1.0, b = 1.0; break;
+
+	default:
+		r = 0.0; g = 0.0, b = 0.0;
+
+	}
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x - radius/2, y - radius, radius/2 , x, y, 3*radius);
+
+
+	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r/2, g/2, b/2);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.0, r, g, b);
+
+	cairo_set_source(myCairo, pattern1);
+
+}
+
+void TImage::DrawBall(double x, double y, double r, int color){
+
+	//if (color == 0) return;
+
+	double  radius = r * 3*squareSize / 8;
+
+	//cairo_set_source_rgba(cairo, 1.0, 0.2, 0.2, 0.9);
+
+	//SetColor(color);
+	SetPattern(x,y, radius, color);
+
+	cairo_arc(myCairo, x, y, radius, 0, 2*M_PI);
+	cairo_fill(myCairo);
+}
+
+
 
 void TImage::DrawNextBalls(){
 	for ( TBall p : linesGame->nextBalls ){

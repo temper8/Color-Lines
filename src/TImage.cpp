@@ -12,7 +12,7 @@
 
 #include "logger.h"
 
-TImage::TImage(Evas_Object *conform):width(0),height(0) {
+TImage::TImage(Evas_Object *conform){
 	// TODO Auto-generated constructor stub
 
 	modelView = &TApp::instance()->modelView;
@@ -39,10 +39,11 @@ TImage::~TImage() {
 
 void TImage::Paint(){
 	CalcViewMarkup();
+	FillBackgroud();
 	DrawBoard();
 	DrawBalls();
 	//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
-	cairo_paint(myCairo);
+//	cairo_paint(myCairo);
 	cairo_surface_flush(mySurface);
 
 }
@@ -84,15 +85,29 @@ void TImage::CairoDrawing(){
 
 //	graphics.FillBackgroud();
 
-	CalcViewMarkup();
+//	CalcViewMarkup();
 
-	DrawHeader();
+//	DrawHeader();
 
-	DrawBoard();
+//	DrawBoard();
 	//DrawNextBalls();
 	//if (linesGame->initBalls) DrawBalls();
 //	graphics.DrawMask();
 //	graphics.Flush();
+}
+
+void TImage::FillBackgroud(){
+
+	cairo_set_source_rgb(myCairo, 0.5, 0.5, 1.0);
+	cairo_paint(myCairo);
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+
+	cairo_set_source(myCairo, pattern1);
+	cairo_pattern_set_extend(cairo_get_source(myCairo), CAIRO_EXTEND_REPEAT);
+	cairo_rectangle(myCairo, 0, 0, myWidth, myHeight);
+	cairo_fill(myCairo);
+
 }
 
 void TImage::CalcViewMarkup(){
@@ -126,7 +141,8 @@ void TImage::DrawBalls(){
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin;
 			int c = linesGame->board[x+1][y+1];
-			if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
+			if (c>0)
+				DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
 	}
 }
 
@@ -215,8 +231,8 @@ void TImage::DrawSquare(double x, double y){
 	cairo_fill(myCairo);
 
 
-	SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
-	//cairo_set_source_rgba(cairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
+	//SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
+	cairo_set_source_rgba(myCairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
 	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
 	cairo_fill (myCairo);
 }
@@ -267,6 +283,22 @@ void TImage::SetPattern(double x,double y, int radius, int color){
 
 	cairo_set_source(myCairo, pattern1);
 
+
+}
+void TImage::SetColor(int color){
+	switch (color) {
+	case 0: cairo_set_source_rgba(myCairo, 0.5, 0.5, 0.5, 0.9); break;
+	case 1: cairo_set_source_rgba(myCairo, 1.0, 0.2, 0.2, 0.9); break;
+	case 2: cairo_set_source_rgba(myCairo, 0.2, 1.0, 0.2, 0.9); break;
+	case 3: cairo_set_source_rgba(myCairo, 0.2, 0.2, 1.0, 0.9); break;
+	case 4: cairo_set_source_rgba(myCairo, 1.0, 1.0, 0.2, 0.9); break;
+	case 5: cairo_set_source_rgba(myCairo, 1.0, 0.0, 1.0, 0.9); break;
+	case 6: cairo_set_source_rgba(myCairo, 0.0, 1.0, 1.0, 0.9); break;
+	case 7: cairo_set_source_rgba(myCairo, 1.0, 1.0, 1.0, 0.9); break;
+
+	default:
+	 cairo_set_source_rgba(myCairo, 0.0, 0.0, 0.0, 1.0);
+	}
 }
 
 void TImage::DrawBall(double x, double y, double r, int color){

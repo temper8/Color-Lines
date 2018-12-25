@@ -31,15 +31,16 @@ public:
 	void DrawSquare(double x, double y);
 	void SetPatternForSquare(int x, int y, int r);
 
+	void SetColor(int color);
 	void SetPattern(double x,double y, int radius, int color);
 	void DrawBall(double x, double y, double r, int color);
-
+	void FillBackgroud();
 
 	//TCairoGraphics2 graphics;
 
 //	Evas_Object *image;
-	Evas_Coord width;
-	Evas_Coord height;
+//	Evas_Coord width;
+//	Evas_Coord height;
 
 	double squareSize;
 	double left_margin,top_margin;

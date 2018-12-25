@@ -233,13 +233,15 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 	{
 		img->CairoDrawing();
 		linesGame->OffsetBoard(img->xOffset);
-		img->DrawBalls();
-		img->DrawNextBalls();
+		//img->DrawBalls();
+		//img->DrawNextBalls();
 		img->xOffset = 0;
 		img->xTranslation = 0;
+		img->Refresh();
+		ecore_animator_thaw(animator);
 		return;
 	}
-	ecore_animator_thaw(animator);
+
 	//img->graphics.ring =0;
 	//img->graphics.goodPath = false;
 	 int xx =(x-img->left_margin) / img->squareSize + 1;

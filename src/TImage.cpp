@@ -47,7 +47,7 @@ void TImage::Paint(){
 			FillBackgroud();
 			DrawBoard();
 			DrawBalls();
-
+			DrawNextBalls();
 			if(isBallSelected)
 					JumpingBall();
 

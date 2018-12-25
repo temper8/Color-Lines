@@ -219,9 +219,10 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	}
 	else
 	{
-		//ecore_animator_freeze(animator);
+		ecore_animator_freeze(animator);
 		//img->DrawBoardX(x-x0);
-
+		img->xTranslation = x- x0;
+		img->Refresh();
 	}
 
 };
@@ -235,10 +236,10 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		img->DrawBalls();
 		img->DrawNextBalls();
 		img->xOffset = 0;
-
+		img->xTranslation = 0;
 		return;
 	}
-	//ecore_animator_thaw(animator);
+	ecore_animator_thaw(animator);
 	//img->graphics.ring =0;
 	//img->graphics.goodPath = false;
 	 int xx =(x-img->left_margin) / img->squareSize + 1;

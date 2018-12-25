@@ -39,12 +39,19 @@ TImage::~TImage() {
 
 void TImage::Paint(){
 	CalcViewMarkup();
-	FillBackgroud();
-	DrawBoard();
-	DrawBalls();
 
-	if(isBallSelected)
-			JumpingBall();
+	if (xTranslation!=0)
+		DrawBoardX(xTranslation);
+	else
+		{
+			FillBackgroud();
+			DrawBoard();
+			DrawBalls();
+
+			if(isBallSelected)
+					JumpingBall();
+
+		}
 
 //cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
 //	cairo_paint(myCairo);
@@ -151,9 +158,9 @@ void TImage::DrawBalls(){
 }
 
 void TImage::DrawBoardX(int translation){
-	if (semaphor) return;
+	//if (semaphor) return;
 	semaphor = true;
-//	graphics.FillBackgroud();
+	FillBackgroud();
 
 	int dx = 0;
 	if (translation>squareSize/2) dx = -1;
@@ -164,14 +171,14 @@ void TImage::DrawBoardX(int translation){
 				int k = x+dx;
 				double xx = k*squareSize  + left_margin + translation;
 				double yy = y*squareSize  + top_margin ;
-			//	graphics.DrawSquare(xx, yy);
+				DrawSquare(xx, yy);
 
 				if (k<0)
 					k = linesGame->sizeX+k;
 				else
 					if(k == linesGame->sizeX) k = k - linesGame->sizeX;
 				int c = linesGame->board[k+1][y+1];
-				//if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
+				if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
 
 			}
 	//graphics.Flush();

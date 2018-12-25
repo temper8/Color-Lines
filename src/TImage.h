@@ -41,7 +41,7 @@ public:
 //	Evas_Object *image;
 //	Evas_Coord width;
 //	Evas_Coord height;
-
+	int xTranslation = 0;
 	double squareSize;
 	double left_margin,top_margin;
 //	int myWidth, myHeight;

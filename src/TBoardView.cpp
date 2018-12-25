@@ -37,7 +37,7 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	CreateContent();
 
 
-	animator = ecore_animator_add([](void *data){((TImage *) data)->Flush(); return EINA_TRUE;}, img);
+	animator = ecore_animator_add([](void *data){((TImage *) data)->Refresh(); return EINA_TRUE;}, img);
 	ecore_animator_freeze(animator);
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
@@ -121,7 +121,7 @@ void TBoardView::OnClick(int x, int y) {
     	img->selBall.y = yy;
     	img->selBall.color = linesGame->board[xx][yy];
     	img->isBallSelected = true;
-       // startJumpingBallAnimator();
+      //  startJumpingBallAnimator();
     }
     else {
     	if (img->isBallSelected)  {
@@ -219,8 +219,8 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	}
 	else
 	{
-		ecore_animator_freeze(animator);
-		img->DrawBoardX(x-x0);
+		//ecore_animator_freeze(animator);
+		//img->DrawBoardX(x-x0);
 
 	}
 

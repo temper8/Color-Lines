@@ -42,7 +42,11 @@ void TImage::Paint(){
 	FillBackgroud();
 	DrawBoard();
 	DrawBalls();
-	//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
+
+	if(isBallSelected)
+			JumpingBall();
+
+//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
 //	cairo_paint(myCairo);
 	cairo_surface_flush(mySurface);
 
@@ -340,12 +344,16 @@ void TImage::disappearanceLines(double pos){
 }
 
 void TImage::JumpingBall(){
+
+	tick +=0.25;
+
 	double x = (selBall.x-1)*squareSize  + left_margin;
 	double y = (selBall.y-1)*squareSize  + top_margin;
 
-//	graphics.DrawSquare(x,y);
+	DrawSquare(x,y);
 	x = x + squareSize / 2 ;
 	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	DrawBall(x,y,linesGame->board[selBall.x][selBall.y]);
+//	cairo_surface_flush(mySurface);
 }

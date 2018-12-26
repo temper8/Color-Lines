@@ -129,14 +129,15 @@ void TBoardView::OnClick(int x, int y) {
 
     		destSquare.x = xx;
     		destSquare.y = yy;
-
+    		img->StartMoveBallAnimation(destSquare);
+    		/*
     		linesGame->initSearch(img->selBall);
 
             if (linesGame->searchPath(img->selBall,destSquare) >0) {
             	 createMoveBallAnimator();
 
             }
-
+*/
 
     	}
 
@@ -261,11 +262,13 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 			destSquare.x = xx;
 			destSquare.y = yy;
+			img->StartMoveBallAnimation(destSquare);
+			/*
 			linesGame->initSearch(img->selBall);
 
 			if (linesGame->searchPath(img->selBall,destSquare) >0) {
 				createMoveBallAnimator();
-			}
+			}*/
 	}
 };
 

@@ -388,7 +388,7 @@ void TImage::StartMoveBallAnimation(TBall destSquare){
 
 		state = State::SnakeAnimation;
 		ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
-	//	ecore_timer_add(animation_time, [](void *data){((TImage *) data)->afterMoveBall();  return EINA_FALSE;}, this);
+		ecore_timer_add(animation_time, [](void *data){((TImage *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 }
 void TImage::AnimationRefresh(double pos){
@@ -414,25 +414,32 @@ void TImage::DrawSnake(double pos){
 	}
 
 }
-/*
-void TImage::afterMoveBall(){
+
+void TImage::ClearSnake(){
+	for ( TBall p : SnakeBalls ){
+		DrawSquare(p);
+		if (linesGame->board[p.x][p.y] > 0)
+			DrawBall(p,1.0,linesGame->board[p.x][p.y]);
+		}
+}
+void TImage::AfterMoveBall(){
 	ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
 			//NewBalls = linesGame->addNewBalls();
-			img->balls = linesGame->addNewBalls();
-			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
+			balls = linesGame->addNewBalls();
+			//ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
 			if (linesGame->gameOver()) {
-				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
+				//ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
-			ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->afterAppearanceNewBall(); return EINA_FALSE; }, this);
+			//ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->afterAppearanceNewBall(); return EINA_FALSE; }, this);
 
 	}
 	else {
-		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
-		ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
+		//ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
+		//ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
 
 	}
 
-	img->DrawHeader();
+	//img->DrawHeader();
 }
-*/
+

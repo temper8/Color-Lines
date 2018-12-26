@@ -75,6 +75,8 @@ public:
 	void AnimationRefresh(double pos);
 	void JumpingBall();
 	void StartMoveBallAnimation(TBall destSquare);
+	void AfterMoveBall();
+	void ClearSnake();
 	void DrawSnake(double pos);
 
 	void Init(int width, int height);

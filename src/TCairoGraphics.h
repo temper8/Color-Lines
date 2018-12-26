@@ -31,10 +31,11 @@ protected:
 	Evas_Object *myImage;
 
 
-	int myWidth, myHeight;
+	int myWidth = 0;
+	int myHeight = 0;
 
-	cairo_t *myCairo;
-	cairo_surface_t *mySurface = NULL;
+	cairo_t *myCairo = nullptr;
+	cairo_surface_t *mySurface = nullptr;
 
 };
 

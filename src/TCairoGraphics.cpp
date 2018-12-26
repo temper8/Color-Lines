@@ -17,7 +17,7 @@
 
 
 
-TCairoGraphics::TCairoGraphics():myWidth(0),myHeight(0) {
+TCairoGraphics::TCairoGraphics() {
 	// TODO Auto-generated constructor stub
 
 }

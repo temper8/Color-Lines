@@ -47,10 +47,10 @@ void TImage::Paint(){
 
 	case State::Default:
 		FillBackgroud();
+		DrawHeader();
 		DrawBoard();
 		DrawBalls();
 		DrawNextBalls();
-		DrawHeader();
 		if(isBallSelected)
 				JumpingBall();
 		break;
@@ -148,11 +148,14 @@ void TImage::DrawHeader() {
 
 	 DrawHeaderBG();
 
-	//graphics.DrawScore(20,60,linesBoard->record);
-	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
-
-	//graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
-	 DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
+	 if (modelView->deviceType == DeviceType::mobile){
+		// DrawScore(20,60,linesBoard->record);
+		// DrawScore(myWidth - 60 ,60,linesBoard->score);
+		 DrawScore(left_margin, squareSize/2 + 12,"Best", linesGame->record, 0);
+		 DrawScore(myWidth, squareSize/2 + 12,"Score", linesGame->score, 1);//1);
+	 }
+	 else
+		 DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
 
 }
 

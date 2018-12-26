@@ -8,4 +8,5 @@
     </ui-application>
     <feature name="http://tizen.org/feature/screen.size.normal.480.800">true</feature>
     <feature name="http://tizen.org/feature/screen.size.normal.720.1280">true</feature>
+    <feature name="http://tizen.org/feature/input.rotating_bezel">true</feature>
 </manifest>

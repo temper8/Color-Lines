@@ -12,7 +12,13 @@
 
 class TPopupBox;
 
+enum class DeviceType{
+	mobile,
+	wearable
+};
+
 class MainModelView {
+
 public:
 	MainModelView();
 	virtual ~MainModelView();
@@ -22,10 +28,10 @@ public:
 	std::string helpText;
 	void loadHelp();
 	void showMenu();
-
+	DeviceType deviceType = DeviceType::mobile;
 private:
     TPopupBox* myPopupBox;
-
+    bool isSupportBezel();
 public:
     void ClosePopupBox();
     void ShowHelp();

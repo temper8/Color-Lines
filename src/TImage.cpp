@@ -40,18 +40,25 @@ TImage::~TImage() {
 void TImage::Paint(){
 	CalcViewMarkup();
 
-	if (xTranslation!=0)
-		DrawBoardX(xTranslation);
-	else
-		{
-			FillBackgroud();
-			DrawBoard();
-			DrawBalls();
-			DrawNextBalls();
-			if(isBallSelected)
-					JumpingBall();
+	switch(state){
 
-		}
+	case State::Default:
+		FillBackgroud();
+		DrawBoard();
+		DrawBalls();
+		DrawNextBalls();
+		if(isBallSelected)
+				JumpingBall();
+		break;
+	case State::Slipping:
+		DrawBoardX(xTranslation);
+		break;
+	case State::AppearanceBall:
+		break;
+	case State::Snake:
+		break;
+}
+
 
 //cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
 //	cairo_paint(myCairo);

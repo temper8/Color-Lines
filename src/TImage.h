@@ -24,6 +24,16 @@ public:
 
 	virtual void Paint();
 
+public:
+    enum class State
+    {
+        Default,
+		Slipping,
+		AppearanceBall,
+		Snake
+    };
+    State state = State::Default;
+
 	void LoadBgImage();
 	cairo_surface_t *bg_image;
 

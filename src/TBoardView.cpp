@@ -222,6 +222,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 		ecore_animator_freeze(animator);
 		//img->DrawBoardX(x-x0);
 		img->xTranslation = x- x0;
+		img->state = TImage::State::Slipping;
 		img->Refresh();
 	}
 
@@ -237,6 +238,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		//img->DrawNextBalls();
 		img->xOffset = 0;
 		img->xTranslation = 0;
+		img->state = TImage::State::Default;
 		img->Refresh();
 		ecore_animator_thaw(animator);
 		return;

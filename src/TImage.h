@@ -29,7 +29,8 @@ public:
     {
         Default,
 		Slipping,
-		AppearanceBall,
+		NewBallAnimation,
+		DelBallAnimation,
 		SnakeAnimation
     };
     State state = State::Default;
@@ -45,7 +46,9 @@ public:
 	void SetPattern(double x,double y, int radius, int color);
 	void DrawBall(double x, double y, double r, int color);
 	void FillBackgroud();
-
+	void DrawHeaderBG();
+	void DrawScore(double x, double y, int score);
+	void DrawScore(double x, double y, const char* caption, int score, int aling);
 	//TCairoGraphics2 graphics;
 
 //	Evas_Object *image;
@@ -100,8 +103,9 @@ public:
 
     void DrawNextBalls();
 
-	void appearanceNewBall(double pos);
+	void AppearanceNewBall(double pos);
 	void disappearanceLines(double pos);
+	void AfterAppearanceNewBall();
 };
 
 #endif /* TIMAGE_H_ */

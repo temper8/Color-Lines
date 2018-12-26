@@ -328,7 +328,7 @@ void TBoardView::afterMoveBall(){
 	if (linesGame->checkLines() == 0 )	{
 			//NewBalls = linesGame->addNewBalls();
 			img->balls = linesGame->addNewBalls();
-			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
+			//ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
@@ -350,7 +350,6 @@ void TBoardView::afterAppearanceNewBall(){
 	animationOn = false;
 	linesGame->addNextBalls();
 	//UpdateView();
-
 }
 void TBoardView::startShowAllBalls(){
     //NewBalls = linesGame->makeListBalls();

@@ -50,13 +50,17 @@ void TImage::Paint(){
 		DrawBoard();
 		DrawBalls();
 		DrawNextBalls();
+		DrawHeader();
 		if(isBallSelected)
 				JumpingBall();
 		break;
 	case State::Slipping:
 		DrawBoardX(xTranslation);
 		break;
-	case State::AppearanceBall:
+	case State::DelBallAnimation:
+		disappearanceLines(animationPos);
+	case State::NewBallAnimation:
+		AppearanceNewBall(animationPos);
 		break;
 	case State::SnakeAnimation:
 		DrawSnake(animationPos);
@@ -147,15 +151,83 @@ void TImage::CalcViewMarkup(){
 
 void TImage::DrawHeader() {
 
-	//graphics.DrawHeaderBG();
+	 DrawHeaderBG();
 
 	//graphics.DrawScore(20,60,linesBoard->record);
 	//graphics.DrawScore(myWidth - 60 ,60,linesBoard->score);
 
 	//graphics.DrawScore(left_margin, squareSize/2 + 8,"Best", linesGame->record, 0);
-//	graphics.DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
+	 DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
 
 }
+
+
+void TImage::DrawScore(double x, double y, const char* caption, int score, int aling){
+
+	char text[16] = {0};
+    sprintf(text, "%0*d",4, score);
+
+    double x1 = x;
+    double x2 = x;
+
+    cairo_select_font_face(myCairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size(myCairo, 3*squareSize/7);
+	cairo_text_extents_t extents;
+	cairo_text_extents (myCairo, text, &extents);
+	switch (aling){
+	case 1:x2 = x - extents.width; break;
+	case 2:x2 = x - extents.width/2;break;
+	}
+	double yy = y - extents.height - 8;
+    cairo_move_to(myCairo, x2, y);
+    cairo_text_path(myCairo, text);
+    cairo_set_source_rgb(myCairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
+    cairo_fill(myCairo);
+
+
+	cairo_select_font_face(myCairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size(myCairo, 2*squareSize/7);
+	cairo_text_extents (myCairo, caption, &extents);
+	switch (aling){
+	case 1:x1 = x1 - extents.width; break;
+	case 2:x1 = x1 - extents.width/2;break;
+	}
+    cairo_move_to(myCairo, x1, yy);
+    cairo_text_path(myCairo, caption);
+    cairo_set_source_rgb(myCairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
+    cairo_fill(myCairo);
+
+
+}
+
+
+
+void TImage::DrawScore(double x, double y, int score){
+	char text[16] = {0};
+    cairo_select_font_face(myCairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+
+    cairo_set_font_size(myCairo, 50);
+    cairo_move_to(myCairo, x, y);
+
+    sprintf(text, "%d",score);
+    cairo_text_path(myCairo, text);
+    cairo_set_source_rgb(myCairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
+    cairo_fill(myCairo);
+}
+
+void TImage::DrawHeaderBG(){
+	int HeaderHeight = squareSize+20;
+
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	//cairo_set_source(cairo, pattern1);
+	//cairo_pattern_set_extend(cairo_get_source(cairo), CAIRO_EXTEND_REPEAT);
+
+	cairo_set_source_rgb(myCairo, 255.0/255.0, 217.0/255.0, 102.0/255.0);
+
+	cairo_rectangle(myCairo, 0, 0, myWidth, HeaderHeight);
+	cairo_fill(myCairo);
+}
+
 
 void TImage::DrawBalls(){
 	for (int x = 0; x< linesGame->sizeX; x++)
@@ -347,7 +419,7 @@ void TImage::DrawNextBalls(){
 			}
 }
 
-void TImage::appearanceNewBall(double pos) {
+void TImage::AppearanceNewBall(double pos) {
 	for ( TBall p : balls )
 		DrawBall(p,  pos);
 }
@@ -425,21 +497,34 @@ void TImage::ClearSnake(){
 void TImage::AfterMoveBall(){
 	ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
-			//NewBalls = linesGame->addNewBalls();
 			balls = linesGame->addNewBalls();
-			//ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
+			state = State::NewBallAnimation;
+			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
 			if (linesGame->gameOver()) {
-				//ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
+				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
 			}
-			//ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->afterAppearanceNewBall(); return EINA_FALSE; }, this);
+			ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 
 	}
 	else {
-		//ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
-		//ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
+		state = State::DelBallAnimation;
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
 
+		ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->state = State::Default; ((TImage *)data)->Refresh(); return EINA_FALSE; }, this);
 	}
 
 	//img->DrawHeader();
 }
+
+void TImage::AfterAppearanceNewBall(){
+	if (linesGame->checkLines() > 0 )
+	{
+		state = State::DelBallAnimation;
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
+	}
+	linesGame->addNextBalls();
+	state = State::Default;
+	Refresh();
+}
+
 

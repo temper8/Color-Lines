@@ -26,6 +26,7 @@ public:
 private:
     TPopupBox* myPopupBox;
 
+public:
     void ClosePopupBox();
     void ShowHelp();
     void ShowGameOverBox();

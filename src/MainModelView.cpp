@@ -72,6 +72,7 @@ void MainModelView::ShowGameOverBox(){
 	myPopupBox->OnBtnClick = [this](int tag) {ClosePopupBox(); if (tag==2) NewGame(); else ui_app_exit(); };
 	myPopupBox->show();
 }
-void MainModelView::NewGame(){
 
+void MainModelView::NewGame(){
+	linesGame.newGame();
 }

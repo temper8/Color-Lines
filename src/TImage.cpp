@@ -55,10 +55,13 @@ void TImage::Paint(){
 				JumpingBall();
 		break;
 	case State::Slipping:
+		FillBackgroud();
+		DrawHeader();
 		DrawBoardX(xTranslation);
 		break;
 	case State::DelBallAnimation:
 		disappearanceLines(animationPos);
+		break;
 	case State::NewBallAnimation:
 		AppearanceNewBall(animationPos);
 		break;
@@ -87,15 +90,7 @@ void TImage::LoadBgImage(){
     free(path);
 }
 
-void TImage::Init(int width, int height){
-//	myWidth = width;
-//	myHeight = height;
-
-//	graphics.Initialize(width, height);
-
-//	CairoDrawing();
-}
-
+/*
 
 void TImage::Flush(){
 	if(isBallSelected) {
@@ -109,19 +104,19 @@ void TImage::Flush(){
 
 void TImage::CairoDrawing(){
 
-//	graphics.FillBackgroud();
+	graphics.FillBackgroud();
 
-//	CalcViewMarkup();
+	CalcViewMarkup();
 
-//	DrawHeader();
+	DrawHeader();
 
-//	DrawBoard();
+	DrawBoard();
 	//DrawNextBalls();
 	//if (linesGame->initBalls) DrawBalls();
-//	graphics.DrawMask();
-//	graphics.Flush();
+	graphics.DrawMask();
+	graphics.Flush();
 }
-
+*/
 void TImage::FillBackgroud(){
 
 	cairo_set_source_rgb(myCairo, 0.5, 0.5, 1.0);
@@ -243,7 +238,7 @@ void TImage::DrawBalls(){
 void TImage::DrawBoardX(int translation){
 	//if (semaphor) return;
 	semaphor = true;
-	FillBackgroud();
+
 
 	int dx = 0;
 	if (translation>squareSize/2) dx = -1;

@@ -57,7 +57,6 @@ void TBoardView::NewGame(){
 	linesGame->newGame();
 	img->selBall.x = 0;
 	img->selBall.y = 0;
-	img->CairoDrawing();
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
@@ -217,7 +216,6 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 	if (img->state == TImage::State::Slipping)
 	{
-		img->CairoDrawing();
 		linesGame->OffsetBoard(img->xOffset);
 
 		img->xOffset = 0;

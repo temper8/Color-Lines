@@ -49,15 +49,11 @@ public:
 	void DrawHeaderBG();
 	void DrawScore(double x, double y, int score);
 	void DrawScore(double x, double y, const char* caption, int score, int aling);
-	//TCairoGraphics2 graphics;
 
-//	Evas_Object *image;
-//	Evas_Coord width;
-//	Evas_Coord height;
+
 	int xTranslation = 0;
 	double squareSize;
 	double left_margin,top_margin;
-//	int myWidth, myHeight;
 
 	MainModelView *modelView;
     TLinesGame* linesGame;
@@ -81,10 +77,6 @@ public:
 	void AfterMoveBall();
 	void ClearSnake();
 	void DrawSnake(double pos);
-
-	void Init(int width, int height);
-	void CairoDrawing();
-	void Flush();
 
 	void CalcViewMarkup();
 	void DrawHeader();

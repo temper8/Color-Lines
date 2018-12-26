@@ -264,8 +264,6 @@ void TImage::DrawBoardX(int translation){
 				if (c>0) DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
 
 			}
-	//graphics.Flush();
-	//graphics.Refresh();
 	semaphor = false;
 }
 

@@ -25,8 +25,6 @@ TBoardView::TBoardView(): myPopupBox(NULL) {
 	modelView = &TApp::instance()->modelView;
 
 	linesGame = &modelView->linesGame;
-	//linesBoard->initRandom();
-
 
 	img = new TImage(conform);
 	img->selBall.x = 0;
@@ -50,14 +48,8 @@ TBoardView::~TBoardView() {
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;
 	ecore_animator_freeze(animator);
-	//TDrawingView::OnResize(width, height);
-	//img->Init(width, height);
-
-
 	img->Initialize(width, height);
-	//plot.CreatePattern();
 	img->Refresh();
-
 	ecore_animator_thaw(animator);
 }
 
@@ -130,14 +122,6 @@ void TBoardView::OnClick(int x, int y) {
     		destSquare.x = xx;
     		destSquare.y = yy;
     		img->StartMoveBallAnimation(destSquare);
-    		/*
-    		linesGame->initSearch(img->selBall);
-
-            if (linesGame->searchPath(img->selBall,destSquare) >0) {
-            	 createMoveBallAnimator();
-
-            }
-*/
 
     	}
 
@@ -263,23 +247,12 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 			destSquare.x = xx;
 			destSquare.y = yy;
 			img->StartMoveBallAnimation(destSquare);
-			/*
-			linesGame->initSearch(img->selBall);
-
-			if (linesGame->searchPath(img->selBall,destSquare) >0) {
-				createMoveBallAnimator();
-			}*/
 	}
 };
 
 
 
 // animation
-
-void TBoardView::RefreshGraphics(){
-
-}
-
 
 
 
@@ -361,66 +334,6 @@ void TBoardView::startShowAllBalls(){
 
 
 
-
-
-/*
-void TBoardView::DrawBalls() {
-	for(int i=1; i<= linesGame->sizeX; i++)
-	  for(int j=1; j<= linesGame->sizeY; j++){
-			double x = i*squareSize - squareSize / 2 + left_margin;
-			double y = j*squareSize - squareSize / 2 + top_margin;
-			DrawBall(x,y,linesGame->board[i][j]);
-	  }
-}
-
-void TBoardView::DrawSquare(TBall p){
-	double x = (p.x-1)*squareSize  + left_margin;
-	double y = (p.y-1)*squareSize  + top_margin;
-	img->graphics.DrawSquare(x, y);
-}
-
-void TBoardView::CalcViewMarkup(){
-
-	double BoardWidth = myWidth - 60;
-
-	left_margin = ( myWidth - BoardWidth)/2;
-
-	squareSize = BoardWidth / linesGame->sizeX;
-	img->graphics.squareSize = squareSize;
-
-	double BoardHeight = squareSize * linesGame->sizeY;
-	top_margin = ( myHeight - BoardHeight)/2;
-}
-*/
-/*
-void TBoardView::DrawBoardWithBalls(){
-
-	for (int x = 0; x< linesGame->sizeX; x++)
-	for (int y = 0; y< linesGame->sizeY; y++) {
-			double xx = x*squareSize  + left_margin;
-			double yy = y*squareSize  + top_margin ;
-			img->graphics.DrawSquare(xx, yy);
-			int i = x + 1;
-			int j = y +1;
-			if (linesGame->board[i][j]>0){
-				double xx = i*squareSize - squareSize / 2 + left_margin;
-				double yy = j*squareSize - squareSize / 2 + top_margin;
-				DrawBall(xx,yy,linesGame->board[i][j]);
-			}
-		}
-}
-
-void TBoardView::DrawBoard(){
-
-	for (int x = 0; x< linesGame->sizeX; x++)
-		for (int y = 0; y< linesGame->sizeY; y++) {
-			double xx = x*squareSize  + left_margin;
-			double yy = y*squareSize  + top_margin ;
-			img->graphics.DrawSquare(xx, yy);
-		}
-}
-
-*/
 
 void TBoardView::ClearSnake(){
 	for ( TBall p : SnakeBalls ){

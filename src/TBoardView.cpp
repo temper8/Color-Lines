@@ -230,12 +230,11 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 void TBoardView::OnMomentumEnd(int x, int y) {
 
-	if (img->xOffset != 0)
+	if (img->state == TImage::State::Slipping)
 	{
 		img->CairoDrawing();
 		linesGame->OffsetBoard(img->xOffset);
-		//img->DrawBalls();
-		//img->DrawNextBalls();
+
 		img->xOffset = 0;
 		img->xTranslation = 0;
 		img->state = TImage::State::Default;

@@ -10,6 +10,9 @@
 #include "TImage.h"
 #include "TApp.h"
 
+
+
+
 #include "logger.h"
 
 TImage::TImage(Evas_Object *conform){
@@ -55,7 +58,8 @@ void TImage::Paint(){
 		break;
 	case State::AppearanceBall:
 		break;
-	case State::Snake:
+	case State::SnakeAnimation:
+		DrawSnake(animationPos);
 		break;
 }
 
@@ -371,3 +375,64 @@ void TImage::JumpingBall(){
 	DrawBall(x,y,linesGame->board[selBall.x][selBall.y]);
 //	cairo_surface_flush(mySurface);
 }
+
+void TImage::StartMoveBallAnimation(TBall destSquare){
+	linesGame->initSearch(selBall);
+
+	if (linesGame->searchPath(selBall,destSquare) >0) {
+		linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
+		linesGame->board[selBall.x][selBall.y] = 0;
+		SnakeBalls = linesGame->path;
+		linesGame->path.clear();
+
+
+		state = State::SnakeAnimation;
+		ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
+	//	ecore_timer_add(animation_time, [](void *data){((TImage *) data)->afterMoveBall();  return EINA_FALSE;}, this);
+	}
+}
+void TImage::AnimationRefresh(double pos){
+	animationPos =pos;
+	Refresh();
+}
+void TImage::DrawSnake(double pos){
+	if (SnakeBalls.size() == 0) return;
+	double dx = M_PI/(SnakeBalls.size()-1);
+	for (int i = 0; i<SnakeBalls.size(); i++ ) {
+		TBall p  =  SnakeBalls[i];
+
+		DrawSquare(p);
+
+		double r = cos(dx*i - M_PI*(1-1.5*pos));
+		if (r<0) r = 0.0; else r = 0.5*r;
+
+		DrawBall(p, r, p.color);
+	}
+	if (pos>0.5) {
+		TBall p = SnakeBalls.front();
+		DrawBall(p, 1, p.color);
+	}
+
+}
+/*
+void TImage::afterMoveBall(){
+	ClearSnake();
+	if (linesGame->checkLines() == 0 )	{
+			//NewBalls = linesGame->addNewBalls();
+			img->balls = linesGame->addNewBalls();
+			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
+			if (linesGame->gameOver()) {
+				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
+			}
+			ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->afterAppearanceNewBall(); return EINA_FALSE; }, this);
+
+	}
+	else {
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
+		ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
+
+	}
+
+	img->DrawHeader();
+}
+*/

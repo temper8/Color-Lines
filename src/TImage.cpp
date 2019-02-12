@@ -524,3 +524,9 @@ void TImage::AfterAppearanceNewBall(){
 }
 
 
+void TImage::NewGameAnimation(){
+	balls = linesGame->addNewBalls();
+	state = State::NewBallAnimation;
+	ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
+	ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->state = State::Default; return EINA_FALSE; }, this);
+}

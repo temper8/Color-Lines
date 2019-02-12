@@ -81,6 +81,8 @@ void MainModelView::ShowGameOverBox(){
 
 void MainModelView::NewGame(){
 	linesGame.newGame();
+
+
 }
 
 bool MainModelView::isSupportBezel(){

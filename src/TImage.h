@@ -98,6 +98,7 @@ public:
 	void AppearanceNewBall(double pos);
 	void disappearanceLines(double pos);
 	void AfterAppearanceNewBall();
+	void NewGameAnimation();
 };
 
 #endif /* TIMAGE_H_ */

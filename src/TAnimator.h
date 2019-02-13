@@ -9,6 +9,7 @@
 #define TANIMATOR_H_
 #include "TImage.h"
 
+class MainModelView;
 class TAnimator {
 public:
 	TAnimator();
@@ -16,6 +17,7 @@ public:
 
 	Ecore_Animator *animator;
 
+	MainModelView *modelView;
 	TImage *image;
     TLinesGame* linesGame;
 
@@ -26,6 +28,7 @@ public:
 	void StartJumpingBall(int x, int y);
 	void StartMoveBallAnimation(int x, int y);
 	void AfterMoveBall();
+	void AfterAppearanceNewBall();
 
     static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;

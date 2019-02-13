@@ -54,17 +54,21 @@ void TImage::Paint(){
 		if(animator->isBallSelected)
 				JumpingBall();
 		break;
+
 	case TAnimator::State::Slipping:
 		FillBackgroud();
 		DrawHeader();
 		DrawBoardX(xTranslation);
 		break;
+
 	case TAnimator::State::DelBallAnimation:
 		disappearanceLines(animator->Pos);
 		break;
+
 	case TAnimator::State::NewBallAnimation:
 		AppearanceNewBall(animator->Pos);
 		break;
+
 	case TAnimator::State::SnakeAnimation:
 		DrawSnake(animator->Pos);
 		break;
@@ -469,18 +473,6 @@ void TImage::AfterMoveBall(){
 	//img->DrawHeader();
 }
 
-void TImage::AfterAppearanceNewBall(){
-	/*
-	if (linesGame->checkLines() > 0 )
-	{
-		state = State::DelBallAnimation;
-		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
-	}
-	linesGame->addNextBalls();
-	state = State::Default;
-	Refresh();
-	*/
-}
 
 
 void TImage::NewGameAnimation(){

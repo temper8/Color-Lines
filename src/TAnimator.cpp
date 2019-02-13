@@ -7,9 +7,11 @@
 
 #include "TAnimator.h"
 #include "TApp.h"
+#include "MainModelView.h"
 
 TAnimator::TAnimator() {
 	// TODO Auto-generated constructor stub
+	modelView = &TApp::instance()->modelView;
 
 
 	linesGame = &TApp::instance()->modelView.linesGame;
@@ -76,9 +78,9 @@ void TAnimator::AfterMoveBall(){
 			state = State::NewBallAnimation;
 			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TAnimator *) data)->Refresh(pos); return EINA_TRUE;}, this);
 			if (linesGame->gameOver()) {
-				//ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
+				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
 			}
-			//ecore_timer_add(animation_time, [](void *data)	{ ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
+			ecore_timer_add(animation_time, [](void *data)	{ ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 
 	}
 	else {
@@ -89,3 +91,16 @@ void TAnimator::AfterMoveBall(){
 	}
 
 }
+
+void TAnimator::AfterAppearanceNewBall(){
+
+	if (linesGame->checkLines() > 0 )
+	{
+		state = State::DelBallAnimation;
+		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TAnimator *) data)->Refresh(pos); return EINA_TRUE;}, this);
+	}
+	linesGame->addNextBalls();
+	state = State::Default;
+	image->Refresh();
+}
+

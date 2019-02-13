@@ -65,8 +65,8 @@ public:
 
     bool isBallSelected = false;
 	double tick = 0;
-	double animationPos = 0;
-	void AnimationRefresh(double pos);
+//	double animationPos = 0;
+//	void AnimationRefresh(double pos);
 	void JumpingBall();
 	//void StartMoveBallAnimation(TBall destSquare);
 	void AfterMoveBall();

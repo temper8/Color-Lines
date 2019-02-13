@@ -70,7 +70,7 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 }
 
 void TAnimator::AfterMoveBall(){
-//	image->ClearSnake();
+	image->ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
 			image->balls = linesGame->addNewBalls();
 			state = State::NewBallAnimation;

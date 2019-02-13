@@ -60,13 +60,13 @@ void TImage::Paint(){
 		DrawBoardX(xTranslation);
 		break;
 	case TAnimator::State::DelBallAnimation:
-		disappearanceLines(animationPos);
+		disappearanceLines(animator->Pos);
 		break;
 	case TAnimator::State::NewBallAnimation:
-		AppearanceNewBall(animationPos);
+		AppearanceNewBall(animator->Pos);
 		break;
 	case TAnimator::State::SnakeAnimation:
-		DrawSnake(animationPos);
+		DrawSnake(animator->Pos);
 		break;
 	}
 
@@ -419,10 +419,6 @@ void TImage::JumpingBall(){
 }
 
 
-void TImage::AnimationRefresh(double pos){
-	animationPos =pos;
-	Refresh();
-}
 void TImage::DrawSnake(double pos){
 	if (SnakeBalls.size() == 0) return;
 	double dx = M_PI/(SnakeBalls.size()-1);

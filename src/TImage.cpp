@@ -68,11 +68,11 @@ void TImage::Paint(){
 	case State::SnakeAnimation:
 		DrawSnake(animationPos);
 		break;
-}
+	}
 
 
-//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
-//	cairo_paint(myCairo);
+	//cairo_set_source_rgb(myCairo, 1.0, 0.1, 0.5);
+	//	cairo_paint(myCairo);
 	cairo_surface_flush(mySurface);
 
 }
@@ -90,33 +90,7 @@ void TImage::LoadBgImage(){
     free(path);
 }
 
-/*
 
-void TImage::Flush(){
-	if(isBallSelected) {
-			tick +=0.25;
-			JumpingBall();
-		}
-
-//	graphics.Flush();
-}
-
-
-void TImage::CairoDrawing(){
-
-	graphics.FillBackgroud();
-
-	CalcViewMarkup();
-
-	DrawHeader();
-
-	DrawBoard();
-	//DrawNextBalls();
-	//if (linesGame->initBalls) DrawBalls();
-	graphics.DrawMask();
-	graphics.Flush();
-}
-*/
 void TImage::FillBackgroud(){
 
 	cairo_set_source_rgb(myCairo, 0.5, 0.5, 1.0);

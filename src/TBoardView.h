@@ -14,6 +14,7 @@
 #include "TLinesGame.h"
 #include "MainModelView.h"
 #include "TImage.h"
+#include "TAnimator.h"
 
 class TPopupBox;
 class TLinesGame;
@@ -100,10 +101,12 @@ private:
     TBall destSquare;
 
 
-	Ecore_Animator *JumpingAnimator;
+//	Ecore_Animator *JumpingAnimator;
+
+    TAnimator animator;
 
 	void RefreshGraphics();
-	Ecore_Animator *animator;
+
 
     static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;

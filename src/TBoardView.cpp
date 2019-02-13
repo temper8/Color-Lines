@@ -35,8 +35,7 @@ TBoardView::TBoardView() {
 	CreateContent();
 
 
-	animator = ecore_animator_add([](void *data){((TImage *) data)->Refresh(); return EINA_TRUE;}, img);
-	ecore_animator_freeze(animator);
+	animator.Initialize(img);
 	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
@@ -47,10 +46,10 @@ TBoardView::~TBoardView() {
 
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;
-	ecore_animator_freeze(animator);
+	animator.Freeze();
 	img->Initialize(width, height);
 	img->Refresh();
-	ecore_animator_thaw(animator);
+	animator.Thaw();
 }
 
 void TBoardView::NewGame(){
@@ -97,10 +96,7 @@ void TBoardView::OnClick(int x, int y) {
 	if (linesGame->OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
-    	img->selBall.x = xx;
-    	img->selBall.y = yy;
-    	img->selBall.color = linesGame->board[xx][yy];
-    	img->isBallSelected = true;
+    	animator.StartJumpingBall(xx,yy);
       //  startJumpingBallAnimator();
     }
     else {
@@ -192,7 +188,8 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	}
 	else
 	{
-		ecore_animator_freeze(animator);
+		animator.Freeze();
+
 		//img->DrawBoardX(x-x0);
 		img->xTranslation = x- x0;
 		img->state = TImage::State::Slipping;
@@ -211,7 +208,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		img->xTranslation = 0;
 		img->state = TImage::State::Default;
 		img->Refresh();
-		ecore_animator_thaw(animator);
+		animator.Thaw();
 		return;
 	}
 

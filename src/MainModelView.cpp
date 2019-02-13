@@ -23,7 +23,7 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
-MainModelView::MainModelView(): linesGame(5,5), myPopupBox(NULL)  {
+MainModelView::MainModelView(): linesGame(6,6), myPopupBox(NULL)  {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 	if (isSupportBezel())

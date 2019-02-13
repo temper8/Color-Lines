@@ -19,7 +19,7 @@
 
 #include "TApp.h"
 
-TBoardView::TBoardView(): myPopupBox(NULL) {
+TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
 
 	modelView = &TApp::instance()->modelView;
@@ -62,10 +62,6 @@ void TBoardView::NewGame(){
 
 
 
-void TBoardView::closePopupBox(){
-	delete myPopupBox;
-	myPopupBox = NULL;
-}
 
 void TBoardView::OnMenuKeyClick(){
 	modelView->showMenu();
@@ -86,18 +82,11 @@ void TBoardView::OnMenuKeyClick(){
 }
 
 void TBoardView::OnBackKeyClick(){
-	if (myPopupBox!=NULL) closePopupBox();
-	myPopupBox = new TExitPopupBox();
-	myPopupBox->OnBtnClick = [this](int tag) { if (tag==1) ui_app_exit(); };
-	myPopupBox->show();
+
 }
 
 
-void TBoardView::showGameOverBox(){
-	myPopupBox = new TGameOverBox();
-	myPopupBox->OnBtnClick = [this](int tag) {closePopupBox(); if (tag==2) NewGame(); else ui_app_exit(); };
-	myPopupBox->show();
-}
+
 
 
 void TBoardView::OnClick(int x, int y) {
@@ -301,7 +290,7 @@ void TBoardView::afterMoveBall(){
 			img->balls = linesGame->addNewBalls();
 			//ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
 			if (linesGame->gameOver()) {
-				ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
+			//	ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->showGameOverBox(); return EINA_FALSE; }, this);
 			}
 			ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->afterAppearanceNewBall(); return EINA_FALSE; }, this);
 

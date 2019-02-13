@@ -64,12 +64,12 @@ public:
 	virtual void OnMomentumEnd(int x, int y);
 
 
-    void closePopupBox();
-    void showGameOverBox();
+  //  void closePopupBox();
+  //  void showGameOverBox();
 
 private:
 
-    TPopupBox* myPopupBox;
+   // TPopupBox* myPopupBox;
 
 	virtual void OnMenuKeyClick();
 	virtual void OnBackKeyClick();

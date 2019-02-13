@@ -57,7 +57,7 @@ public:
 	//std::vector<TBall> NewBalls;
 	std::vector<TBall> SnakeBalls;
 
-    TBall selBall;
+   // TBall selBall;
     TBall destSquare;
 
     static constexpr const double animation_pause = 0.2;

@@ -25,6 +25,9 @@ void TAnimator::Initialize(TImage *img){
 	image->animator = this;
 	animator = ecore_animator_add([](void *data){((TImage *) data)->Refresh(); return EINA_TRUE;}, img);
 	ecore_animator_freeze(animator);
+
+	selBall.x = 0;
+	selBall.y = 0;
 }
 
 void TAnimator::Freeze(){
@@ -42,9 +45,9 @@ void TAnimator::Refresh(double pos){
 
 
 void TAnimator::StartJumpingBall(int x, int y){
-	image->selBall.x = x;
-	image->selBall.y = y;
-	image->selBall.color = 2;//linesGame->board[xx][yy];
+	selBall.x = x;
+	selBall.y = y;
+	selBall.color = 2;//linesGame->board[xx][yy];
 	image->isBallSelected = true;
 }
 
@@ -67,7 +70,7 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 }
 
 void TAnimator::AfterMoveBall(){
-	image->ClearSnake();
+//	image->ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
 			image->balls = linesGame->addNewBalls();
 			state = State::NewBallAnimation;

@@ -11,7 +11,7 @@
 #include "TApp.h"
 
 
-
+#include "TAnimator.h"
 
 #include "logger.h"
 
@@ -43,9 +43,9 @@ TImage::~TImage() {
 void TImage::Paint(){
 	CalcViewMarkup();
 
-	switch(state){
+	switch(animator->state){
 
-	case State::Default:
+	case TAnimator::State::Default:
 		FillBackgroud();
 		DrawHeader();
 		DrawBoard();
@@ -54,18 +54,18 @@ void TImage::Paint(){
 		if(isBallSelected)
 				JumpingBall();
 		break;
-	case State::Slipping:
+	case TAnimator::State::Slipping:
 		FillBackgroud();
 		DrawHeader();
 		DrawBoardX(xTranslation);
 		break;
-	case State::DelBallAnimation:
+	case TAnimator::State::DelBallAnimation:
 		disappearanceLines(animationPos);
 		break;
-	case State::NewBallAnimation:
+	case TAnimator::State::NewBallAnimation:
 		AppearanceNewBall(animationPos);
 		break;
-	case State::SnakeAnimation:
+	case TAnimator::State::SnakeAnimation:
 		DrawSnake(animationPos);
 		break;
 	}
@@ -418,21 +418,7 @@ void TImage::JumpingBall(){
 //	cairo_surface_flush(mySurface);
 }
 
-void TImage::StartMoveBallAnimation(TBall destSquare){
-	linesGame->initSearch(selBall);
 
-	if (linesGame->searchPath(selBall,destSquare) >0) {
-		linesGame->board[destSquare.x][destSquare.y] = linesGame->board[selBall.x][selBall.y];
-		linesGame->board[selBall.x][selBall.y] = 0;
-		SnakeBalls = linesGame->path;
-		linesGame->path.clear();
-
-
-		state = State::SnakeAnimation;
-		ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
-		ecore_timer_add(animation_time, [](void *data){((TImage *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
-	}
-}
 void TImage::AnimationRefresh(double pos){
 	animationPos =pos;
 	Refresh();
@@ -465,10 +451,11 @@ void TImage::ClearSnake(){
 		}
 }
 void TImage::AfterMoveBall(){
+/*
 	ClearSnake();
 	if (linesGame->checkLines() == 0 )	{
 			balls = linesGame->addNewBalls();
-			state = State::NewBallAnimation;
+			state = TAnimator::NewBallAnimation;
 			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
@@ -477,16 +464,17 @@ void TImage::AfterMoveBall(){
 
 	}
 	else {
-		state = State::DelBallAnimation;
+		state = TAnimator::DelBallAnimation;
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
 
 		ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->state = State::Default; ((TImage *)data)->Refresh(); return EINA_FALSE; }, this);
 	}
-
+*/
 	//img->DrawHeader();
 }
 
 void TImage::AfterAppearanceNewBall(){
+	/*
 	if (linesGame->checkLines() > 0 )
 	{
 		state = State::DelBallAnimation;
@@ -495,12 +483,15 @@ void TImage::AfterAppearanceNewBall(){
 	linesGame->addNextBalls();
 	state = State::Default;
 	Refresh();
+	*/
 }
 
 
 void TImage::NewGameAnimation(){
 	balls = linesGame->addNewBalls();
+	/*
 	state = State::NewBallAnimation;
 	ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
 	ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->state = State::Default; return EINA_FALSE; }, this);
+	*/
 }

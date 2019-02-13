@@ -17,6 +17,7 @@
 
 #include "TCairoGraphics.h"
 
+class TAnimator;
 class TImage: public TCairoGraphics {
 public:
 	TImage(Evas_Object *conform);
@@ -24,16 +25,10 @@ public:
 
 	virtual void Paint();
 
+	TAnimator *animator;
+
 public:
-    enum class State
-    {
-        Default,
-		Slipping,
-		NewBallAnimation,
-		DelBallAnimation,
-		SnakeAnimation
-    };
-    State state = State::Default;
+
 
 	void LoadBgImage();
 	cairo_surface_t *bg_image;
@@ -73,7 +68,7 @@ public:
 	double animationPos = 0;
 	void AnimationRefresh(double pos);
 	void JumpingBall();
-	void StartMoveBallAnimation(TBall destSquare);
+	//void StartMoveBallAnimation(TBall destSquare);
 	void AfterMoveBall();
 	void ClearSnake();
 	void DrawSnake(double pos);

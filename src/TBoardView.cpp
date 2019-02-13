@@ -100,15 +100,8 @@ void TBoardView::OnClick(int x, int y) {
       //  startJumpingBallAnimator();
     }
     else {
-    	if (img->isBallSelected)  {
-    		img->isBallSelected = false;
-
-    		destSquare.x = xx;
-    		destSquare.y = yy;
-    		img->StartMoveBallAnimation(destSquare);
-
-    	}
-
+    	if (img->isBallSelected)
+    		animator.StartMoveBallAnimation(xx,yy);
     }
 };
 
@@ -192,7 +185,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 		//img->DrawBoardX(x-x0);
 		img->xTranslation = x- x0;
-		img->state = TImage::State::Slipping;
+		animator.state = TAnimator::State::Slipping;
 		img->Refresh();
 	}
 
@@ -200,13 +193,13 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 void TBoardView::OnMomentumEnd(int x, int y) {
 
-	if (img->state == TImage::State::Slipping)
+	if (animator.state == TAnimator::State::Slipping)
 	{
 		linesGame->OffsetBoard(img->xOffset);
 
 		img->xOffset = 0;
 		img->xTranslation = 0;
-		img->state = TImage::State::Default;
+		animator.state = TAnimator::State::Default;
 		img->Refresh();
 		animator.Thaw();
 		return;
@@ -228,9 +221,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 				return;
 			}
 
-			destSquare.x = xx;
-			destSquare.y = yy;
-			img->StartMoveBallAnimation(destSquare);
+			animator.StartMoveBallAnimation(xx,yy);
 	}
 };
 

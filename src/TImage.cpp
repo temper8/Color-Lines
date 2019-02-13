@@ -68,7 +68,7 @@ void TImage::Paint(){
 		DrawBoardX(xTranslation);
 		break;
 
-	case TAnimator::State::DelBallAnimation:
+	case TAnimator::State::DeleteBallsAnimation:
 		disappearanceLines(animator->Pos);
 		break;
 
@@ -443,9 +443,9 @@ void TImage::DrawSnake(double pos){
 
 		DrawBall(p, r, p.color);
 	}
-	if (pos>0.5) {
+	if ((pos>0.5)&&(pos<1.0)) {
 		TBall p = SnakeBalls.front();
-		DrawBall(p, 1, p.color);
+		DrawBall(p, pos, p.color);
 	}
 
 }

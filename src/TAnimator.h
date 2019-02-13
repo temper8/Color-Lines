@@ -32,8 +32,8 @@ public:
 	void startShowAllBalls();
 	void DelayStartShowAllBalls();
 
-    static constexpr const double animation_pause = 1.2;
-    static constexpr const double animation_time = 1.4;
+    static constexpr const double animation_pause = 0.2;
+    static constexpr const double animation_time = 0.4;
 
     enum class State
     {
@@ -41,16 +41,18 @@ public:
 		DefaultWithBalls,
 		Slipping,
 		NewBallAnimation,
-		DelBallAnimation,
+		DeleteBallsAnimation,
 		SnakeAnimation
     };
     State state = State::Default;
 
     bool isBallSelected = false;
     TBall selBall;
+    TBall destBall;
 
 
     double Pos;
+    void StartTimeLine(State s);
     void Refresh(double pos);
 };
 

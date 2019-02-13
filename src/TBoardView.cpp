@@ -55,7 +55,7 @@ void TBoardView::NewGame(){
 	linesGame->newGame();
 	animator.selBall.x = 0;
 	animator.selBall.y = 0;
-	animator.startShowAllBalls();
+	animator.DelayStartShowAllBalls();
 	//ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
@@ -107,7 +107,7 @@ void TBoardView::OnClick(int x, int y) {
 
 void TBoardView::OnMomentumStart(int x, int y) {
 	//if (BallSnakeRun ) return;
-
+/*
 	x0 = x;
 	y0 = y;
 	int xx =(x-img->left_margin) / img->squareSize + 1;
@@ -130,7 +130,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
     	linesGame->initSearch(animator.selBall);
     }
 
-
+*/
 };
 
 void TBoardView::OnMomentumMove(int x, int y) {
@@ -140,7 +140,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 //	img->graphics.tx = x;
 //	img->graphics.ty = y;
-
+/*
 	int xx =(x-img->left_margin) / img->squareSize + 1;
 	int yy =(y-img->top_margin) / img->squareSize + 1;
 
@@ -188,11 +188,11 @@ void TBoardView::OnMomentumMove(int x, int y) {
 		animator.state = TAnimator::State::Slipping;
 		img->Refresh();
 	}
-
+*/
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
-
+/*
 	if (animator.state == TAnimator::State::Slipping)
 	{
 		linesGame->OffsetBoard(img->xOffset);
@@ -223,6 +223,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 			animator.StartMoveBallAnimation(xx,yy);
 	}
+	*/
 };
 
 

@@ -40,7 +40,7 @@ public:
     void DrawBoard();
 
 
-    void startShowAllBalls();
+   // void startShowAllBalls();
 
     void DrawBalls();
 
@@ -86,8 +86,8 @@ private:
 	void RefreshGraphics();
 
 
-    static constexpr const double animation_pause = 0.2;
-    static constexpr const double animation_time = 0.4;
+    //static constexpr const double animation_pause = 0.2;
+   // static constexpr const double animation_time = 0.4;
 
 
 	void createMoveBallAnimator();
@@ -95,7 +95,7 @@ private:
 
 public:
 //	void ClearSnake();
-	std::vector<TBall> NewBalls;
+	//std::vector<TBall> NewBalls;
 	std::vector<TBall> SnakeBalls;
 	//double tick;
 	//void jumpingBall();
@@ -104,8 +104,8 @@ public:
 	//void appearanceNewBall(double pos);
 //	void disappearanceLines(double pos);
 
-	void appearanceNextBall(double pos);
-	void afterAppearanceNewBall();
+	//void appearanceNextBall(double pos);
+	//void afterAppearanceNewBall();
 	//void UpdateView();
 	void DrawBoardWithBalls();
 	void addNextBalls();

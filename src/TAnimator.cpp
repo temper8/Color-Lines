@@ -30,6 +30,7 @@ void TAnimator::Initialize(TImage *img){
 
 	selBall.x = 0;
 	selBall.y = 0;
+	image->Refresh();
 }
 
 void TAnimator::Freeze(){
@@ -100,7 +101,20 @@ void TAnimator::AfterAppearanceNewBall(){
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TAnimator *) data)->Refresh(pos); return EINA_TRUE;}, this);
 	}
 	linesGame->addNextBalls();
-	state = State::Default;
+	state = State::DefaultWithBalls;
 	image->Refresh();
 }
+
+void TAnimator::DelayStartShowAllBalls(){
+	ecore_timer_add(animation_pause, [](void *data){((TAnimator *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
+}
+
+void TAnimator::startShowAllBalls(){
+    //NewBalls = linesGame->makeListBalls();
+	image->balls = linesGame->makeListBalls();
+	state = State::NewBallAnimation;
+	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TAnimator *) data)->Refresh(pos); return EINA_TRUE;}, this);
+	ecore_timer_add(animation_time, [](void *data)	{  ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
+}
+
 

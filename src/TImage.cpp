@@ -49,11 +49,18 @@ void TImage::Paint(){
 		FillBackgroud();
 		DrawHeader();
 		DrawBoard();
+		break;
+
+	case TAnimator::State::DefaultWithBalls:
+		FillBackgroud();
+		DrawHeader();
+		DrawBoard();
 		DrawBalls();
 		DrawNextBalls();
 		if(animator->isBallSelected)
 				JumpingBall();
 		break;
+
 
 	case TAnimator::State::Slipping:
 		FillBackgroud();

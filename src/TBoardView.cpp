@@ -35,7 +35,7 @@ TBoardView::TBoardView() {
 
 
 	animator.Initialize(img);
-	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
+	animator.DelayStartShowAllBalls();
 }
 
 TBoardView::~TBoardView() {
@@ -55,7 +55,8 @@ void TBoardView::NewGame(){
 	linesGame->newGame();
 	animator.selBall.x = 0;
 	animator.selBall.y = 0;
-	ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
+	animator.startShowAllBalls();
+	//ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 
 
@@ -292,7 +293,7 @@ void TBoardView::afterMoveBall(){
 
 	img->DrawHeader();
 }
-*/
+
 void TBoardView::afterAppearanceNewBall(){
 	if (linesGame->checkLines() > 0 )
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
@@ -300,17 +301,9 @@ void TBoardView::afterAppearanceNewBall(){
 	linesGame->addNextBalls();
 	//UpdateView();
 }
-void TBoardView::startShowAllBalls(){
-    //NewBalls = linesGame->makeListBalls();
-	img->balls = linesGame->makeListBalls();
-    animationOn = true;
-//	ecore_animator_timeline_add (animation_time, [](void *data, double pos){((TImage *) data)->appearanceNewBall(pos); return EINA_TRUE;}, img);
-	//ecore_timer_add(animation_time, [](void *data)	{ ((TBoardView *)data)->animationOn = false; ((TImage *)data)->DrawNextBalls(); return EINA_FALSE; }, img);
-}
 
 
-
-
+*/
 
 void TBoardView::ClearPath(){
 	if (linesGame->path.size()>0) {

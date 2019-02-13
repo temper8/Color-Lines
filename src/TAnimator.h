@@ -29,13 +29,16 @@ public:
 	void StartMoveBallAnimation(int x, int y);
 	void AfterMoveBall();
 	void AfterAppearanceNewBall();
+	void startShowAllBalls();
+	void DelayStartShowAllBalls();
 
-    static constexpr const double animation_pause = 0.2;
-    static constexpr const double animation_time = 0.4;
+    static constexpr const double animation_pause = 1.2;
+    static constexpr const double animation_time = 1.4;
 
     enum class State
     {
         Default,
+		DefaultWithBalls,
 		Slipping,
 		NewBallAnimation,
 		DelBallAnimation,

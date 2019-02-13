@@ -99,7 +99,7 @@ void TBoardView::OnClick(int x, int y) {
       //  startJumpingBallAnimator();
     }
     else {
-    	if (img->isBallSelected)
+    	if (animator.isBallSelected)
     		animator.StartMoveBallAnimation(xx,yy);
     }
 };
@@ -125,7 +125,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
     	animator.selBall.x = xx;
     	animator.selBall.y = yy;
     	animator.selBall.color = linesGame->board[xx][yy];
-    	img->isBallSelected = true;
+    	animator.isBallSelected = true;
     	linesGame->initSearch(animator.selBall);
     }
 
@@ -151,7 +151,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 	destSquare.x = xx;
 	destSquare.y = yy;
 
-	if (img->isBallSelected)  {
+	if (animator.isBallSelected)  {
 		ClearPath();
 		if (linesGame->OutOfBoundary(xx, yy)) {
 		//	img->graphics.goodPath = false;
@@ -213,8 +213,8 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 	 ClearPath();
 	 linesGame->path.clear();
 
-	if (img->isBallSelected)  {
-			img->isBallSelected = false;
+	if (animator.isBallSelected)  {
+			animator.isBallSelected = false;
 			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)||animationOn){
 				img->DrawBall(animator.selBall,1);
 				return;

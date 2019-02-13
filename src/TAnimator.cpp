@@ -48,12 +48,12 @@ void TAnimator::StartJumpingBall(int x, int y){
 	selBall.x = x;
 	selBall.y = y;
 	selBall.color = 2;//linesGame->board[xx][yy];
-	image->isBallSelected = true;
+	isBallSelected = true;
 }
 
 void TAnimator::StartMoveBallAnimation(int x, int y){
     TBall destSquare(x,y);
-	image->isBallSelected = false;
+	isBallSelected = false;
 	linesGame->initSearch(selBall);
 
 	if (linesGame->searchPath(selBall,destSquare) >0) {

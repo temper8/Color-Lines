@@ -63,7 +63,7 @@ public:
     static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;
 
-    bool isBallSelected = false;
+
 	double tick = 0;
 //	double animationPos = 0;
 //	void AnimationRefresh(double pos);

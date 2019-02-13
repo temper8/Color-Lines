@@ -51,7 +51,7 @@ void TImage::Paint(){
 		DrawBoard();
 		DrawBalls();
 		DrawNextBalls();
-		if(isBallSelected)
+		if(animator->isBallSelected)
 				JumpingBall();
 		break;
 	case TAnimator::State::Slipping:

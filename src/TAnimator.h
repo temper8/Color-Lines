@@ -40,6 +40,7 @@ public:
     };
     State state = State::Default;
 
+    bool isBallSelected = false;
     TBall selBall;
 
 

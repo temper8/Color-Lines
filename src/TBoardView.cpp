@@ -270,7 +270,7 @@ Eina_Bool disappearance_lines(void *data, double pos)
    bv->disappearanceLines(pos);
    return EINA_TRUE;
 }
-*/
+
 
 void TBoardView::afterMoveBall(){
 	ClearSnake();
@@ -292,7 +292,7 @@ void TBoardView::afterMoveBall(){
 
 	img->DrawHeader();
 }
-
+*/
 void TBoardView::afterAppearanceNewBall(){
 	if (linesGame->checkLines() > 0 )
 		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->disappearanceLines(pos); return EINA_TRUE;}, img);
@@ -311,13 +311,6 @@ void TBoardView::startShowAllBalls(){
 
 
 
-void TBoardView::ClearSnake(){
-	for ( TBall p : SnakeBalls ){
-		img->DrawSquare(p);
-		if (linesGame->board[p.x][p.y] > 0)
-			img->DrawBall(p,1.0,linesGame->board[p.x][p.y]);
-		}
-}
 
 void TBoardView::ClearPath(){
 	if (linesGame->path.size()>0) {

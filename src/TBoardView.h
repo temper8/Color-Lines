@@ -31,10 +31,7 @@ public:
 	TImage *img;
 
 	virtual void OnResize(int width, int height);
-//	virtual void CairoDrawing();
 
-	//double squareSize;
-	//double left_margin,top_margin;
 
     TLinesGame* linesGame;
 
@@ -42,10 +39,6 @@ public:
 
     void DrawBoard();
 
-    //void DrawBall(double x, double y, int color);
-//    void DrawBall(double x, double y, double r, int color);
-//    void DrawBall(TBall p, double r, int color);
-    //void DrawBall(TBall p, double r);
 
     void startShowAllBalls();
 
@@ -82,26 +75,11 @@ private:
     void SetPattern(double x,double y, int r, int color);
     void SetPatternForSquare(int x, int y, int r);
 
-   // void DrawNextBalls();
-  //  void DrawHeader();
-    //void DrawScore(double x, double y, int score);
-
-  //  void DrawSquare(TBall p);
-
-    //double timeLinePos;
     bool animationOn = false;
-    //bool appearanceNewBalls = false;
-    //bool disappearanceBalls = false;
-    //bool disAppearanceBalls = false;
+
 	double ballSnakePos;
-    //bool BallSnakeRun = false;
-   // bool isBallSelected = false;
-   // bool needUpdateScore = true;
-    //TBall selBall;
+
     TBall destSquare;
-
-
-//	Ecore_Animator *JumpingAnimator;
 
     TAnimator animator;
 
@@ -111,19 +89,18 @@ private:
     static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;
 
-//	void startJumpingBallAnimator();
-//	void deleteJumpingBallAnimator();
+
 	void createMoveBallAnimator();
 	void deleteMoveBallAnimator();
 
 public:
-	void ClearSnake();
+//	void ClearSnake();
 	std::vector<TBall> NewBalls;
 	std::vector<TBall> SnakeBalls;
 	//double tick;
 	//void jumpingBall();
 	void moveBall(double pos);
-	void afterMoveBall();
+//	void afterMoveBall();
 	//void appearanceNewBall(double pos);
 //	void disappearanceLines(double pos);
 

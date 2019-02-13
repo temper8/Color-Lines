@@ -76,7 +76,7 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 		linesGame->path.clear();
 
 		StartTimeLine(State::SnakeAnimation);
-		ecore_timer_add(animation_time, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
+		ecore_timer_add(animation_time+animation_delay, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 }
 
@@ -92,14 +92,14 @@ void TAnimator::AfterMoveBall(){
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
 			}
-			ecore_timer_add(animation_time, [](void *data)	{ ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
+			ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 
 	}
 	else {
 
 		StartTimeLine(State::DeleteBallsAnimation);
 
-		ecore_timer_add(animation_time, [](void *data)	{ ((TAnimator *)data)->state = State::DefaultWithBalls; ((TAnimator *)data)->image->Refresh(); return EINA_FALSE; }, this);
+		ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->state = State::DefaultWithBalls; ((TAnimator *)data)->image->Refresh(); return EINA_FALSE; }, this);
 	}
 	//img->DrawHeader();
 }
@@ -123,7 +123,7 @@ void TAnimator::startShowAllBalls(){
     //NewBalls = linesGame->makeListBalls();
 	image->balls = linesGame->makeListBalls();
 	StartTimeLine(State::NewBallAnimation);
-	ecore_timer_add(animation_time, [](void *data)	{  ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
+	ecore_timer_add(animation_time+animation_delay, [](void *data)	{  ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 }
 
 

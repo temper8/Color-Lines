@@ -34,6 +34,7 @@ public:
 
     static constexpr const double animation_pause = 0.4;
     static constexpr const double animation_time = 0.4;
+    static constexpr const double animation_delay = 0.1;
 
     enum class State
     {

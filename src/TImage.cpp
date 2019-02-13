@@ -401,16 +401,20 @@ void TImage::DrawNextBalls(){
 }
 
 void TImage::AppearanceNewBall(double pos) {
-	for ( TBall p : balls )
-		DrawBall(p,  pos);
+	if (pos<0.99) {
+		for ( TBall p : balls )
+				DrawBall(p,  pos);
+	}
 }
 
 void TImage::disappearanceLines(double pos){
-	double r = 0.95 - pos;
-	if (r < 0) r = 0;
-	for ( TBall p : linesGame->clearBalls ){
-		DrawSquare(p);
-		DrawBall(p,  r);
+	if (pos<0.99) {
+		double r = 0.95 - pos;
+		if (r < 0) r = 0;
+		for ( TBall p : linesGame->clearBalls ){
+			DrawSquare(p);
+			DrawBall(p,  r);
+		}
 	}
 }
 
@@ -431,21 +435,23 @@ void TImage::JumpingBall(){
 
 
 void TImage::DrawSnake(double pos){
-	if (SnakeBalls.size() == 0) return;
-	double dx = M_PI/(SnakeBalls.size()-1);
-	for (int i = 0; i<SnakeBalls.size(); i++ ) {
-		TBall p  =  SnakeBalls[i];
+	if (pos<0.99) {
+		if (SnakeBalls.size() == 0) return;
+			double dx = M_PI/(SnakeBalls.size()-1);
+			for (int i = 0; i<SnakeBalls.size(); i++ ) {
+				TBall p  =  SnakeBalls[i];
 
-		DrawSquare(p);
+				DrawSquare(p);
 
-		double r = cos(dx*i - M_PI*(1-1.5*pos));
-		if (r<0) r = 0.0; else r = 0.5*r;
+				double r = cos(dx*i - M_PI*(1-1.5*pos));
+				if (r<0) r = 0.0; else r = 0.5*r;
 
-		DrawBall(p, r, p.color);
-	}
-	if ((pos>0.5)&&(pos<1.0)) {
-		TBall p = SnakeBalls.front();
-		DrawBall(p, pos, p.color);
+				DrawBall(p, r, p.color);
+			}
+			if (pos>0.5) {
+				TBall p = SnakeBalls.front();
+				DrawBall(p, pos, p.color);
+			}
 	}
 
 }

@@ -450,28 +450,7 @@ void TImage::ClearSnake(){
 			DrawBall(p,1.0,linesGame->board[p.x][p.y]);
 		}
 }
-void TImage::AfterMoveBall(){
-/*
-	ClearSnake();
-	if (linesGame->checkLines() == 0 )	{
-			balls = linesGame->addNewBalls();
-			state = TAnimator::NewBallAnimation;
-			ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
-			if (linesGame->gameOver()) {
-				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
-			}
-			ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 
-	}
-	else {
-		state = TAnimator::DelBallAnimation;
-		ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TImage *) data)->AnimationRefresh(pos); return EINA_TRUE;}, this);
-
-		ecore_timer_add(animation_time, [](void *data)	{ ((TImage *)data)->state = State::Default; ((TImage *)data)->Refresh(); return EINA_FALSE; }, this);
-	}
-*/
-	//img->DrawHeader();
-}
 
 
 

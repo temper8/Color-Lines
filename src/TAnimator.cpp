@@ -89,7 +89,7 @@ void TAnimator::AfterMoveBall(){
 
 		ecore_timer_add(animation_time, [](void *data)	{ ((TAnimator *)data)->state = State::Default; ((TAnimator *)data)->image->Refresh(); return EINA_FALSE; }, this);
 	}
-
+	//img->DrawHeader();
 }
 
 void TAnimator::AfterAppearanceNewBall(){

@@ -58,18 +58,16 @@ public:
 	std::vector<TBall> SnakeBalls;
 
    // TBall selBall;
-    TBall destSquare;
+   // TBall destSquare;
 
     static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;
 
 
 	double tick = 0;
-//	double animationPos = 0;
-//	void AnimationRefresh(double pos);
+
 	void JumpingBall();
-	//void StartMoveBallAnimation(TBall destSquare);
-	void AfterMoveBall();
+
 	void ClearSnake();
 	void DrawSnake(double pos);
 

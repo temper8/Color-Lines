@@ -53,8 +53,7 @@ void TBoardView::OnResize(int width, int height){
 
 void TBoardView::NewGame(){
 	linesGame->newGame();
-	animator.selBall.x = 0;
-	animator.selBall.y = 0;
+
 	animator.DelayStartShowAllBalls();
 	//ecore_timer_add(animation_pause, [](void *data){((TBoardView *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }

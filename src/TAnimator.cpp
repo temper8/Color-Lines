@@ -13,6 +13,7 @@ TAnimator::TAnimator() {
 	// TODO Auto-generated constructor stub
 	modelView = &TApp::instance()->modelView;
 
+	modelView->animator = this;
 
 	linesGame = &TApp::instance()->modelView.linesGame;
 }
@@ -116,6 +117,10 @@ void TAnimator::AfterAppearanceNewBall(){
 }
 
 void TAnimator::DelayStartShowAllBalls(){
+	state = State::Default;
+	image->Refresh();
+	selBall.x = 0;
+	selBall.y = 0;
 	ecore_timer_add(animation_pause, [](void *data){((TAnimator *) data)->startShowAllBalls(); return EINA_FALSE;}, this);
 }
 

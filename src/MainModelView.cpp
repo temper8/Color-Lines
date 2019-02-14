@@ -23,6 +23,8 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
+#include "TAnimator.h"
+
 MainModelView::MainModelView(): linesGame(6,6), myPopupBox(NULL)  {
 	// TODO Auto-generated constructor stub
 	loadHelp();
@@ -81,7 +83,7 @@ void MainModelView::ShowGameOverBox(){
 
 void MainModelView::NewGame(){
 	linesGame.newGame();
-
+	animator->DelayStartShowAllBalls();
 
 }
 

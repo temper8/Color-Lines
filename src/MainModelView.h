@@ -17,6 +17,7 @@ enum class DeviceType{
 	wearable
 };
 
+class TAnimator;
 class MainModelView {
 
 public:
@@ -24,7 +25,7 @@ public:
 	virtual ~MainModelView();
 
 	TLinesGame linesGame;
-
+	TAnimator *animator;
 	std::string helpText;
 	void loadHelp();
 	void showMenu();

@@ -38,7 +38,8 @@ private:
 	virtual void OnBackKeyClick() = 0;
 
 private:
-	void CreateWin(const char *pkg_name);
+	void Create_Base_GUI_Mobile(const char *pkg_name);
+	void Create_Base_GUI_Wearable(const char *pkg_name);
 	virtual void CreateContent();
 
 };

@@ -12,7 +12,7 @@
 
 TView::TView():win(0),conform(0) {
 	// TODO Auto-generated constructor stub
-	CreateWin(PACKAGE);
+	Create_Base_GUI_Mobile(PACKAGE);
 
 //	CreateContent();
 
@@ -64,7 +64,7 @@ void win_resize_cb(void *data, Evas *e , Evas_Object *obj , void *event_info)
 
 
 
-void TView::CreateWin(const char *pkg_name){
+void TView::Create_Base_GUI_Mobile(const char *pkg_name){
 	/* Window */
 	/* Create and initialize elm_win.
 	   elm_win is mandatory to manipulate window. */
@@ -107,5 +107,8 @@ void TView::CreateWin(const char *pkg_name){
 //	evas_object_geometry_get(win, NULL, NULL, &width, &height);
 //	dlog_print(DLOG_DEBUG, LOG_TAG, " geometry_get x:%d y:%d", width, height);
 //	OnResize(width,height);
+
+}
+void TView::Create_Base_GUI_Wearable(const char *pkg_name){
 
 }

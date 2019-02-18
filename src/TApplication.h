@@ -26,6 +26,11 @@
 
 class TView;
 
+enum class DeviceType{
+	mobile,
+	wearable
+};
+
 
 //typedef bool (*TAppCreateCallback) (void *user_data);
 typedef void  (*TAppCreateCallback) ();
@@ -50,6 +55,9 @@ public:
 	static TApplication *instance() { return self; };
 
 	static TApplication *self;
+
+	DeviceType deviceType = DeviceType::mobile;
+	bool isSupportBezel();
 
 	TView* myView;
 	TView* view() { return myView; };

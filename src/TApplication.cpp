@@ -7,6 +7,7 @@
 
 #include "TApplication.h"
 
+#include <system_info.h>
 
 TApplication *TApplication::self = 0;
 int TApplication::my_argc = 0;
@@ -16,12 +17,31 @@ std::function<void()> TApplication::_app_cb = nullptr;
 
 TApplication::TApplication() {
 	self = this;
-
+	if (isSupportBezel())
+		deviceType = DeviceType::wearable;
 }
 
 TApplication::~TApplication() {
 	// TODO Auto-generated destructor stub
 }
+
+
+bool TApplication::isSupportBezel(){
+	bool value;
+	int ret;
+
+	ret = system_info_get_platform_bool("http://tizen.org/feature/input.rotating_bezel", &value);
+	if (ret != SYSTEM_INFO_ERROR_NONE) {
+	        /* Error handling */
+
+	        return false;
+	    }
+
+	 //  dlog_print(DLOG_INFO, LOG_TAG, "Model name: %s", value);
+
+	  return value;
+}
+
 
 static bool
 app_create(void *data)

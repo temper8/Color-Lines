@@ -9,7 +9,7 @@
 
 #include "TImage.h"
 #include "TApp.h"
-
+#include "TApplication.h"
 
 #include "TAnimator.h"
 
@@ -133,7 +133,7 @@ void TImage::DrawHeader() {
 
 	 DrawHeaderBG();
 
-	 if (modelView->deviceType == DeviceType::mobile){
+	 if (TApplication::instance()->deviceType == DeviceType::mobile){
 		// DrawScore(20,60,linesBoard->record);
 		// DrawScore(myWidth - 60 ,60,linesBoard->score);
 		 DrawScore(left_margin, squareSize/2 + 12,"Best", linesGame->record, 0);

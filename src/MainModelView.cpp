@@ -15,7 +15,7 @@
 #include <app.h>
 #include <Elementary.h>
 #include <system_settings.h>
-#include <system_info.h>
+
 #include <stdbool.h>
 
 #include "TPopupBox\TExitPopupBox.h"
@@ -28,8 +28,7 @@
 MainModelView::MainModelView(): linesGame(6,6), myPopupBox(NULL)  {
 	// TODO Auto-generated constructor stub
 	loadHelp();
-	if (isSupportBezel())
-		deviceType = DeviceType::wearable;
+
 }
 
 MainModelView::~MainModelView() {
@@ -87,19 +86,5 @@ void MainModelView::NewGame(){
 
 }
 
-bool MainModelView::isSupportBezel(){
-	bool value;
-	int ret;
 
-	ret = system_info_get_platform_bool("http://tizen.org/feature/input.rotating_bezel", &value);
-	if (ret != SYSTEM_INFO_ERROR_NONE) {
-	        /* Error handling */
-
-	        return false;
-	    }
-
-	 //  dlog_print(DLOG_INFO, LOG_TAG, "Model name: %s", value);
-
-	  return value;
-}
 

@@ -22,7 +22,7 @@ public:
 	MainModelView modelView;
 
 
-	void OnApplicationCreate();
+
 	static TApp *instance() { return static_cast<TApp*>(self); };
 };
 

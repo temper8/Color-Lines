@@ -4,10 +4,12 @@
  *  Created on: Apr 11, 2017
  *      Author: Alex
  */
+#include <app.h>
+#include <Elementary.h>
+#include <system_settings.h>
+#include <efl_extension.h>
 
 #include "TView.h"
-
-
 #include "TApplication.h"
 
 TView::TView():win(0),conform(0) {
@@ -96,9 +98,14 @@ void TView::Create_Base_GUI_Mobile(const char *pkg_name){
 	elm_win_resize_object_add(win, conform);
 	evas_object_show(conform);
 
-	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){ui_app_exit();}, this);
+	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnBackKeyClick();}, this);
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnMenuKeyClick();}, this);
 
+	#ifdef __EFL_EXTENSION_MORE_OPTION_H__
+	Evas_Object *more_option = NULL;
+	if (TApplication::instance()->deviceType == DeviceType::wearable)
+		more_option = eext_more_option_add(conform);
+	#endif /* __EFL_EXTENSION_MORE_OPTION_H__ */
 
 	// window resize event
 //	Evas_Coord width;

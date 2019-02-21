@@ -27,7 +27,7 @@
 
 #include "TAnimator.h"
 
-MainModelView::MainModelView(): linesGame(6,6), myPopupBox(NULL)  {
+MainModelView::MainModelView(): linesGame(6,6)  {
 	// TODO Auto-generated constructor stub
 	loadHelp();
 
@@ -52,11 +52,11 @@ void MainModelView::loadHelp() {
 }
 
 void  MainModelView::showMenu(){
-	if (myPopupBox!=NULL) ClosePopupBox();
+	//if (myPopupBox!=NULL) ClosePopupBox();
 	//myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
-	myPopupBox = TPopupBoxFactory::CreateMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
-	myPopupBox->OnBtnClick = [this](int tag) {
-										ClosePopupBox();
+	TPopupBox* popupBox = TPopupBoxFactory::CreateMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
+	popupBox->OnBtnClick = [this](int tag) {
+										//ClosePopupBox();
 										switch(tag) {
 											case 1: break;
 											case 2: NewGame(); break;
@@ -64,23 +64,20 @@ void  MainModelView::showMenu(){
 											case 4: ui_app_exit(); break;
 											}
 										};
-	myPopupBox->show();
+	popupBox->show();
 }
 
-void MainModelView::ClosePopupBox(){
-	delete myPopupBox;
-	myPopupBox = NULL;
-}
+
 
 void MainModelView::ShowHelp(){
-	myPopupBox = new TInfoBox(helpText.c_str());
-	myPopupBox->OnBtnClick = [this](int ) { ClosePopupBox(); };
-	myPopupBox->show();
+	TPopupBox* popupBox = new TInfoBox(helpText.c_str());
+	popupBox->OnBtnClick = [this](int ) {  };
+	popupBox->show();
 }
 void MainModelView::ShowGameOverBox(){
-	myPopupBox = new TGameOverBox();
-	myPopupBox->OnBtnClick = [this](int tag) {ClosePopupBox(); if (tag==2) NewGame(); else ui_app_exit(); };
-	myPopupBox->show();
+	TPopupBox* popupBox = new TGameOverBox();
+	popupBox->OnBtnClick = [this](int tag) {if (tag==2) NewGame(); else ui_app_exit(); };
+	popupBox->show();
 }
 
 void MainModelView::NewGame(){

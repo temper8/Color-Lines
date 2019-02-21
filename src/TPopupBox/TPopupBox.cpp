@@ -6,7 +6,7 @@
  */
 
 #include "TPopupBox.h"
-
+#include "TPopupBoxFactory.h"
 #include "..\TView.h"
 #include "..\TApplication.h"
 
@@ -16,7 +16,7 @@ void popup_close_cb(void *data, Evas_Object *obj, void *event_info)
 	pp->btnClick(1);
 }
 
-TPopupBox::TPopupBox():myPopup(NULL), OnBtnClick(nullptr) {
+TPopupBox::TPopupBox():myPopup(nullptr), OnBtnClick(nullptr) {
 	myPopup = elm_popup_add(TApplication::instance()->view()->win);
 }
 
@@ -27,11 +27,11 @@ TPopupBox::~TPopupBox() {
 
 void TPopupBox::close() {
 	evas_object_del(myPopup);
-	myPopup = NULL;
+	myPopup = nullptr;
 }
 
 void TPopupBox::show() {
-if (myPopup != NULL) {
+if (myPopup != nullptr) {
 	evas_object_show(myPopup);
 }
 }
@@ -42,6 +42,7 @@ void TPopupBox::btnClick(int tag){
 
 void TPopupBox::btnClick(Evas_Object *btn){
 	int tag = buttons[btn];
+	close();
 	btnClick(tag);
 }
 

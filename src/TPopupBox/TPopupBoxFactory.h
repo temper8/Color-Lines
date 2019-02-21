@@ -15,7 +15,11 @@ public:
 	TPopupBoxFactory();
 	virtual ~TPopupBoxFactory();
 
-	static TMenuPopupBox* CreateMenuPopupBox(std::vector<const char*> buttonList);
+	static void DeletePopupBox();
+	static TPopupBox* CreateMenuPopupBox(std::vector<const char*> buttonList);
+
+private:
+	static TPopupBox* myPopupBox;
 };
 
 #endif /* TPOPUPBOX_TPOPUPBOXFACTORY_H_ */

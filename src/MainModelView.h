@@ -28,10 +28,10 @@ public:
 	void showMenu();
 
 private:
-    TPopupBox* myPopupBox;
+   // TPopupBox* myPopupBox;
  //   bool isSupportBezel();
 public:
-    void ClosePopupBox();
+   // void ClosePopupBox();
     void ShowHelp();
     void ShowGameOverBox();
     void NewGame();

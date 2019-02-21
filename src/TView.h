@@ -42,6 +42,8 @@ private:
 	void Create_Base_GUI_Wearable(const char *pkg_name);
 	virtual void CreateContent();
 
+	void create_win(const char *pkg_name);
+	void create_conform();
 };
 
 #endif /* TVIEW_H_ */

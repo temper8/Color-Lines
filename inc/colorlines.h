@@ -7,6 +7,8 @@
 #include <efl_extension.h>
 #include <dlog.h>
 
-
+#ifdef __EFL_EXTENSION_MORE_OPTION_H__
+#define Wearable
+#endif
 
 #endif /* __colorlines_H__ */

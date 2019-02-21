@@ -23,6 +23,8 @@
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
+#include "TPopupBox\TPopupBoxFactory.h"
+
 #include "TAnimator.h"
 
 MainModelView::MainModelView(): linesGame(6,6), myPopupBox(NULL)  {
@@ -51,7 +53,8 @@ void MainModelView::loadHelp() {
 
 void  MainModelView::showMenu(){
 	if (myPopupBox!=NULL) ClosePopupBox();
-	myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
+	//myPopupBox = new TMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
+	myPopupBox = TPopupBoxFactory::CreateMenuPopupBox({"Continue", "New Game", "Game Rules","Exit"});
 	myPopupBox->OnBtnClick = [this](int tag) {
 										ClosePopupBox();
 										switch(tag) {

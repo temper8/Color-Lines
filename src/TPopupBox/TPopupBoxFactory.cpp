@@ -16,3 +16,7 @@ TPopupBoxFactory::~TPopupBoxFactory() {
 	// TODO Auto-generated destructor stub
 }
 
+TMenuPopupBox* TPopupBoxFactory::CreateMenuPopupBox(std::vector<const char*> buttonList) {
+	TMenuPopupBox* p =  new TMenuPopupBox(buttonList);
+	return p;
+}

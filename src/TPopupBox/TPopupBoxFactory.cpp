@@ -7,6 +7,11 @@
 
 #include "TPopupBoxFactory.h"
 
+#include "TMenuPopupBox.h"
+#include "TExitPopupBox.h"
+#include "TGameOverBox.h"
+#include "TInfoBox.h"
+
 TPopupBox* TPopupBoxFactory::myPopupBox = nullptr;
 
 TPopupBoxFactory::TPopupBoxFactory() {
@@ -31,3 +36,22 @@ TPopupBox* TPopupBoxFactory::CreateMenuPopupBox(std::vector<const char*> buttonL
 	myPopupBox =  new TMenuPopupBox(buttonList);
 	return myPopupBox;
 }
+
+TPopupBox* TPopupBoxFactory::CreateInfoBox(const char* text){
+	DeletePopupBox();
+	myPopupBox =  new TInfoBox(text);
+	return myPopupBox;
+}
+
+TPopupBox* TPopupBoxFactory::CreateGameOverBox(){
+	DeletePopupBox();
+	myPopupBox =  new TGameOverBox();
+	return myPopupBox;
+}
+
+TPopupBox* TPopupBoxFactory::CreateExitPopupBox(){
+	DeletePopupBox();
+	myPopupBox =  new TExitPopupBox();
+	return myPopupBox;
+}
+

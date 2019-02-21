@@ -70,12 +70,12 @@ void  MainModelView::showMenu(){
 
 
 void MainModelView::ShowHelp(){
-	TPopupBox* popupBox = new TInfoBox(helpText.c_str());
+	TPopupBox* popupBox = TPopupBoxFactory::CreateInfoBox(helpText.c_str());
 	popupBox->OnBtnClick = [this](int ) {  };
 	popupBox->show();
 }
 void MainModelView::ShowGameOverBox(){
-	TPopupBox* popupBox = new TGameOverBox();
+	TPopupBox* popupBox = TPopupBoxFactory::CreateGameOverBox();
 	popupBox->OnBtnClick = [this](int tag) {if (tag==2) NewGame(); else ui_app_exit(); };
 	popupBox->show();
 }

@@ -8,7 +8,9 @@
 #ifndef TPOPUPBOX_TPOPUPBOXFACTORY_H_
 #define TPOPUPBOX_TPOPUPBOXFACTORY_H_
 
-#include "TMenuPopupBox.h"
+#include "TPopupBox.h"
+
+#include <vector>
 
 class TPopupBoxFactory {
 public:
@@ -16,7 +18,11 @@ public:
 	virtual ~TPopupBoxFactory();
 
 	static void DeletePopupBox();
+
 	static TPopupBox* CreateMenuPopupBox(std::vector<const char*> buttonList);
+	static TPopupBox* CreateInfoBox(const char* text);
+	static TPopupBox* CreateGameOverBox();
+	static TPopupBox* CreateExitPopupBox();
 
 private:
 	static TPopupBox* myPopupBox;

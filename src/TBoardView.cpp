@@ -22,6 +22,23 @@
 
 #include "TApp.h"
 
+static void create_menu(Evas_Object *parent){
+	Evas_Object *img = NULL;
+
+	/* Create the new item */
+	Eext_Object_Item *item  = eext_more_option_item_append(parent);
+	eext_more_option_item_part_text_set(item, "selector,main_text", "test1");
+	eext_more_option_item_part_text_set(item, "selector,sub_text", "test1");
+
+	item  = eext_more_option_item_append(parent);
+	eext_more_option_item_part_text_set(item, "selector,main_text", "test2");
+	eext_more_option_item_part_text_set(item, "selector,sub_text", "sub_2");
+
+	item  = eext_more_option_item_append(parent);
+	eext_more_option_item_part_text_set(item, "selector,main_text", "exit");
+
+}
+
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
 
@@ -61,6 +78,8 @@ TBoardView::TBoardView() {
 	more_option = eext_more_option_add(layout);
 	evas_object_show(more_option);
 	elm_object_part_content_set(layout, "elm.swallow.right", more_option);
+
+	create_menu(more_option);
 //	elm_panel_toggle(more_option);
 	//elm_object_part_content_set(layout, "elm.swallow.content", more_option);
 	//elm_object_content_set(layout, more_option);

@@ -8,12 +8,8 @@
 #ifndef TVIEW_H_
 #define TVIEW_H_
 
-#include <app.h>
-#include <Elementary.h>
-#include <system_settings.h>
-#include <efl_extension.h>
 
-#define LOG_TAG "Color Lines"
+#include "colorlines.h"
 
 #include <dlog.h>
 
@@ -27,8 +23,13 @@ public:
 
 public:
 
-	Evas_Object *win;
-	Evas_Object *conform;
+	Evas_Object *win = nullptr;
+	Evas_Object *conform = nullptr;
+	Evas_Object *layout = nullptr;
+	Evas_Object *nf = nullptr;
+	Evas_Object *more_option = nullptr;
+
+	Eext_Circle_Surface *circle_surface = nullptr;
 
 	virtual void OnResize(int width, int height) {};
 
@@ -44,6 +45,7 @@ private:
 
 	void create_win(const char *pkg_name);
 	void create_conform();
+	void create_naviframe();
 };
 
 #endif /* TVIEW_H_ */

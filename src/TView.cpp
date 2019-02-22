@@ -4,16 +4,44 @@
  *  Created on: Apr 11, 2017
  *      Author: Alex
  */
-#include "colorlines.h"
+
 
 #include "TView.h"
 #include "TApplication.h"
 
-TView::TView():win(0),conform(0) {
+TView::TView() {
 	// TODO Auto-generated constructor stub
 	create_win(PACKAGE);
+
 	create_conform();
 
+
+
+
+
+	/*
+	 * Eext circle
+	 * Create Eext circle surface for circular genlist and datetime object
+	 * This make this app can show circular layout.
+	 */
+	//circle_surface = eext_circle_surface_naviframe_add(nf);
+
+	/* Base Layout */
+		layout = elm_layout_add(conform);
+		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		//elm_layout_theme_set(layout, "layout", "application", "default");
+		elm_layout_theme_set(layout, "layout", "drawer", "panel");
+		evas_object_show(layout);
+
+		elm_object_content_set(conform, layout);
+
+//	create_naviframe();
+	//#ifdef Wearable
+
+//	evas_object_show(more_option);
+	//#endif /* __EFL_EXTENSION_MORE_OPTION_H__ */
+
+	//elm_naviframe_item_push(nf, "More Option Demo", NULL, NULL, more_option, "empty");
 //	CreateContent();
 
 	/* Show window after base gui is set up */
@@ -95,11 +123,25 @@ void TView::create_conform(){
 	elm_win_resize_object_add(win, conform);
 	evas_object_show(conform);
 
-	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnBackKeyClick();}, this);
+	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){ui_app_exit();}, this);
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnMenuKeyClick();}, this);
 
 }
+void TView::create_naviframe(){
+	/* Naviframe */
+	nf = elm_naviframe_add(layout);
+	//create_list_view(ad);
+	elm_object_part_content_set(layout, "elm.swallow.content", nf);
+	//eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, NULL);
+	//eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, eext_naviframe_more_cb, NULL);
 
+
+	if (nf == nullptr) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "failed to create a naviframe.");
+		evas_object_del(win);
+		return;
+	}
+}
 void TView::Create_Base_GUI_Mobile(const char *pkg_name){
 	/* Window */
 	/* Create and initialize elm_win.
@@ -135,11 +177,6 @@ void TView::Create_Base_GUI_Mobile(const char *pkg_name){
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_BACK, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnBackKeyClick();}, this);
 	eext_object_event_callback_add(conform, EEXT_CALLBACK_MORE, [](void *data, Evas_Object *obj, void *event_info){((TView*)data)->OnMenuKeyClick();}, this);
 
-	#ifdef Wearable
-	Evas_Object *more_option = NULL;
-	if (TApplication::instance()->deviceType == DeviceType::wearable)
-		more_option = eext_more_option_add(conform);
-	#endif /* __EFL_EXTENSION_MORE_OPTION_H__ */
 
 	// window resize event
 //	Evas_Coord width;

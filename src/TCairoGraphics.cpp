@@ -32,8 +32,15 @@ void cairo_drawing(void *data, Evas_Object *o)
 	g->Paint();
 }
 
-void TCairoGraphics::Create(Evas_Object *obj){
-	myImage = evas_object_image_filled_add(evas_object_evas_get(obj));
+void TCairoGraphics::Create(Evas_Object *parent){
+
+
+	myImage = evas_object_image_filled_add(evas_object_evas_get(parent));
+	//evas_object_lower(myImage);
+//	myImage = evas_object_image_add(evas_object_evas_get(parent));
+//	evas_object_image_load_size_set(myImage,100, 100);
+
+//	image = elm_object_part_content_get(parent, part_name);
 	//evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, win_resize_cb2, this);
 	evas_object_show(myImage);
     evas_object_image_pixels_get_callback_set(myImage, cairo_drawing, this);

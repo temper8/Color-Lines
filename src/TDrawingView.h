@@ -45,7 +45,6 @@ public:
 	virtual void OnMomentumEnd(int x, int y) {};
 
 private:
-	Evas_Object *layout;
 	void bottom_btn_create();
 
 

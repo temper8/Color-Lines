@@ -12,6 +12,9 @@
 #include <fstream>
 #include <sstream>      // std::stringstream, std::stringbuf
 
+#include <Ecore.h>
+#include <Ecore_Evas.h>
+
 #include "TPopupBox\TExitPopupBox.h"
 #include "TPopupBox\TMenuPopupBox.h"
 #include "TPopupBox\TInfoBox.h"
@@ -26,8 +29,42 @@ TBoardView::TBoardView() {
 
 	linesGame = &modelView->linesGame;
 
-	img = new TImage(conform);
 
+	//const char *part_name = ;
+/*
+	Evas_Object *image = elm_image_add(layout);
+	if (image == NULL) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "failed to create an image object.");
+		return;
+	}
+
+	elm_object_part_content_set(layout, "elm.swallow.content", image);
+	char buf[1024];
+	snprintf(buf, sizeof(buf), "%s/png_image.png", app_get_resource_path());
+	elm_image_file_set(image, buf, NULL);
+
+*/
+	img = new TImage(layout);
+	elm_object_part_content_set(layout, "elm.swallow.content", img->myImage);
+/*
+	Evas_Object *bg;
+	//bg = evas_object_rectangle_add(evas_object_evas_get(conform));
+	//evas_object_color_set(bg, 0, 1.0, 0, 0);
+	bg = elm_bg_add(conform);
+	elm_bg_color_set(bg, 66, 162, 206);
+	evas_object_show(bg);
+	//img = new TImage(bg);
+	elm_object_part_content_set(layout, "elm.swallow.content", bg);
+
+*/
+
+	more_option = eext_more_option_add(layout);
+	evas_object_show(more_option);
+	elm_object_part_content_set(layout, "elm.swallow.right", more_option);
+//	elm_panel_toggle(more_option);
+	//elm_object_part_content_set(layout, "elm.swallow.content", more_option);
+	//elm_object_content_set(layout, more_option);
+//	elm_object_part_content_set(panes, "left", img->);
 
 	AttachGesture(img->GetImage());
 

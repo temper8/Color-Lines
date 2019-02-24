@@ -39,8 +39,8 @@ TBoardView::TBoardView() {
 
 		elm_object_content_set(conform, layout);
 
-	img = new TImage(layout);
-	elm_object_part_content_set(layout, "elm.swallow.content", img->myImage);
+	img = new TImage(layout,"elm.swallow.content");
+
 
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 

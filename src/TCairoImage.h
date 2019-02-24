@@ -13,10 +13,10 @@
 
 class TCairoImage {
 public:
-	TCairoImage();
+	TCairoImage(Evas_Object *parent, const char *part);
 	virtual ~TCairoImage();
 
-	void Create(Evas_Object *obj);
+
 	void Destroy();
 
 	void Initialize(int width, int height);

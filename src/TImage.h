@@ -14,13 +14,12 @@
 #include "TLinesGame.h"
 #include "MainModelView.h"
 #include "TCairoImage.h"
-#include "TGraphics2.h"
 
 
 class TAnimator;
 class TImage: public TCairoImage {
 public:
-	TImage(Evas_Object *conform);
+	TImage(Evas_Object *parent, const char *part);
 	virtual ~TImage();
 
 	virtual void Paint();

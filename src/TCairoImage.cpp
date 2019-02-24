@@ -13,27 +13,16 @@
 //#include <system_settings.h>
 //#include <efl_extension.h>
 
-
-
-TCairoImage::TCairoImage() {
-	// TODO Auto-generated constructor stub
-
-}
-
-TCairoImage::~TCairoImage() {
-	// TODO Auto-generated destructor stub
-}
-
 void cairo_drawing(void *data, Evas_Object *o)
 {
 	TCairoImage *g = (TCairoImage*)data;
 	g->Paint();
 }
 
-void TCairoImage::Create(Evas_Object *parent){
-
-
+TCairoImage::TCairoImage(Evas_Object *parent, const char *part) {
+	// TODO Auto-generated constructor stub
 	myImage = evas_object_image_filled_add(evas_object_evas_get(parent));
+	elm_object_part_content_set(parent, part, myImage);
 	//evas_object_lower(myImage);
 //	myImage = evas_object_image_add(evas_object_evas_get(parent));
 //	evas_object_image_load_size_set(myImage,100, 100);
@@ -43,6 +32,14 @@ void TCairoImage::Create(Evas_Object *parent){
 	evas_object_show(myImage);
     evas_object_image_pixels_get_callback_set(myImage, cairo_drawing, this);
 }
+
+TCairoImage::~TCairoImage() {
+	// TODO Auto-generated destructor stub
+}
+
+
+
+
 
 void TCairoImage::Destroy(){
 	DBG("TCairoGraphics::Destroy");

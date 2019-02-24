@@ -15,14 +15,14 @@
 
 #include "logger.h"
 
-TImage::TImage(Evas_Object *conform){
+TImage::TImage(Evas_Object *parent, const char *part):TCairoImage(parent, part) {
 	// TODO Auto-generated constructor stub
 
 	modelView = &TApp::instance()->modelView;
 
 	linesGame = &modelView->linesGame;
 
-	TCairoImage::Create(conform);
+//	TCairoImage::Create(conform);
 
 	//image = evas_object_image_filled_add(evas_object_evas_get(conform));
 

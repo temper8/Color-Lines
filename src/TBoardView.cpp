@@ -30,17 +30,15 @@ TBoardView::TBoardView() {
 
 	linesGame = &modelView->linesGame;
 
-	/* Base Layout */
-		layout = elm_layout_add(conform);
-		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		//elm_layout_theme_set(layout, "layout", "application", "default");
-		elm_layout_theme_set(layout, "layout", "drawer", "panel");
-		evas_object_show(layout);
+	layout = elm_layout_add(conform);
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	//elm_layout_theme_set(layout, "layout", "application", "default");
+	elm_layout_theme_set(layout, "layout", "drawer", "panel");
+	evas_object_show(layout);
 
-		elm_object_content_set(conform, layout);
+	elm_object_content_set(conform, layout);
 
 	img = new TImage(layout,"elm.swallow.content");
-
 
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 

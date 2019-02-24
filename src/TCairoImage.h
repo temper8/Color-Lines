@@ -26,12 +26,12 @@ public:
 
 	Evas_Object * GetImage() { return myImage; };
 
-	Evas_Object *myImage;
+
 
 protected:
 
 
-
+	Evas_Object *myImage;
 
 	int myWidth = 0;
 	int myHeight = 0;

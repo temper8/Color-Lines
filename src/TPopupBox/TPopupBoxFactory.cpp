@@ -11,6 +11,8 @@
 #include "TExitPopupBox.h"
 #include "TGameOverBox.h"
 #include "TInfoBox.h"
+#include "TCircleInfoBox.h"
+
 
 TPopupBox* TPopupBoxFactory::myPopupBox = nullptr;
 
@@ -39,7 +41,8 @@ TPopupBox* TPopupBoxFactory::CreateMenuPopupBox(std::vector<const char*> buttonL
 
 TPopupBox* TPopupBoxFactory::CreateInfoBox(const char* text){
 	DeletePopupBox();
-	myPopupBox =  new TInfoBox(text);
+	//myPopupBox =  new TInfoBox(text);
+	myPopupBox =  new TCircleInfoBox(text);
 	return myPopupBox;
 }
 

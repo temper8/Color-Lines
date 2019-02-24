@@ -40,7 +40,8 @@ MainModelView::~MainModelView() {
 
 void MainModelView::loadHelp() {
     std::string filename(app_get_shared_resource_path());
-    filename.append("help.en");
+  //  filename.append("help.en");
+    filename.append("help.circle.en");
     std::ifstream t(filename.c_str());
     std::stringstream buffer;
     buffer << t.rdbuf();

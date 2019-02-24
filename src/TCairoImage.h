@@ -5,8 +5,8 @@
  *      Author: Alex
  */
 
-#ifndef TCAIROGRAPHICS_H_
-#define TCAIROGRAPHICS_H_
+#ifndef TCAIROIMAGE_H_
+#define TCAIROIMAGE_H_
 
 #include <cairo.h>
 #include <Elementary.h>
@@ -42,4 +42,4 @@ protected:
 };
 
 
-#endif /* TCAIROGRAPHICS_H_ */
+#endif /* TCAIROIMAGE_H_ */

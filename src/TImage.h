@@ -13,9 +13,9 @@
 
 #include "TLinesGame.h"
 #include "MainModelView.h"
+#include "TCairoImage.h"
 #include "TGraphics2.h"
 
-#include "TCairoGraphics.h"
 
 class TAnimator;
 class TImage: public TCairoImage {

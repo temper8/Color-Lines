@@ -5,11 +5,9 @@
  *      Author: Alex
  */
 
-#include "TCairoGraphics.h"
-
-
 #include "logger.h"
 #include <app.h>
+#include "TCairoImage.h"
 
 //#include <Elementary.h>
 //#include <system_settings.h>

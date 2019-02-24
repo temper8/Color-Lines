@@ -45,7 +45,6 @@ TBoardView::TBoardView() {
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 
 	moreOption->OnItemClick = [this](int tag) {
-											//ClosePopupBox();
 											switch(tag) {
 												case 1: break;
 												case 2: NewGame(); break;

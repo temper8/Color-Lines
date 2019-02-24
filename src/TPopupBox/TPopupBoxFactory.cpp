@@ -10,6 +10,7 @@
 #include "TMenuPopupBox.h"
 #include "TExitPopupBox.h"
 #include "TGameOverBox.h"
+#include "TCircleGameOverBox.h"
 #include "TInfoBox.h"
 #include "TCircleInfoBox.h"
 
@@ -48,7 +49,8 @@ TPopupBox* TPopupBoxFactory::CreateInfoBox(const char* text){
 
 TPopupBox* TPopupBoxFactory::CreateGameOverBox(){
 	DeletePopupBox();
-	myPopupBox =  new TGameOverBox();
+	//myPopupBox =  new TGameOverBox();
+	myPopupBox =  new TCircleGameOverBox();
 	return myPopupBox;
 }
 

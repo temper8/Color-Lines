@@ -44,9 +44,7 @@ TCircleInfoBox::TCircleInfoBox(const char* text) {
 
 	layout = elm_layout_add(myPopup);
 	elm_layout_theme_set(layout, "layout", "popup", "content/circle");
-
 	elm_object_part_text_set(layout, "elm.text", text);
-	evas_object_smart_callback_add(layout, "clicked", _response_cb, myPopup);
 	elm_object_content_set(myPopup, layout);
 
 

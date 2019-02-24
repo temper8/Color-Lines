@@ -22,41 +22,6 @@
 
 #include "TApp.h"
 
-static void create_menu(Evas_Object *parent){
-	Evas_Object *img = NULL;
-
-	char buf[1024];
-
-	/* Create the new item */
-	Eext_Object_Item *item  = eext_more_option_item_append(parent);
-	eext_more_option_item_part_text_set(item, "selector,main_text", "test1");
-	eext_more_option_item_part_text_set(item, "selector,sub_text", "test1");
-	img = elm_image_add(parent);
-	/* Set the content in item content part */
-	eext_more_option_item_part_content_set(item, "item,icon", img);
-	snprintf(buf, sizeof(buf), "%s/music_controller_btn_play.png", app_get_resource_path());
-	elm_image_file_set(img, buf, NULL);
-
-	item  = eext_more_option_item_append(parent);
-	eext_more_option_item_part_text_set(item, "selector,main_text", "test2");
-	eext_more_option_item_part_text_set(item, "selector,sub_text", "sub_2");
-	img = elm_image_add(parent);
-	/* Set the content in item content part */
-	eext_more_option_item_part_content_set(item, "item,icon", img);
-	snprintf(buf, sizeof(buf), "%s/music_controller_btn_shuffle_on.png", app_get_resource_path());
-	elm_image_file_set(img, buf, NULL);
-
-
-	item  = eext_more_option_item_append(parent);
-	eext_more_option_item_part_text_set(item, "selector,main_text", "exit");
-	img = elm_image_add(parent);
-	/* Set the content in item content part */
-	eext_more_option_item_part_content_set(item, "item,icon", img);
-	snprintf(buf, sizeof(buf), "%s/music_controller_btn_repeat_all.png", app_get_resource_path());
-	elm_image_file_set(img, buf, NULL);
-
-
-}
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
@@ -65,44 +30,20 @@ TBoardView::TBoardView() {
 
 	linesGame = &modelView->linesGame;
 
+	/* Base Layout */
+		layout = elm_layout_add(conform);
+		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		//elm_layout_theme_set(layout, "layout", "application", "default");
+		elm_layout_theme_set(layout, "layout", "drawer", "panel");
+		evas_object_show(layout);
 
-	//const char *part_name = ;
-/*
-	Evas_Object *image = elm_image_add(layout);
-	if (image == NULL) {
-		dlog_print(DLOG_ERROR, LOG_TAG, "failed to create an image object.");
-		return;
-	}
+		elm_object_content_set(conform, layout);
 
-	elm_object_part_content_set(layout, "elm.swallow.content", image);
-	char buf[1024];
-	snprintf(buf, sizeof(buf), "%s/png_image.png", app_get_resource_path());
-	elm_image_file_set(image, buf, NULL);
-
-*/
 	img = new TImage(layout);
 	elm_object_part_content_set(layout, "elm.swallow.content", img->myImage);
-/*
-	Evas_Object *bg;
-	//bg = evas_object_rectangle_add(evas_object_evas_get(conform));
-	//evas_object_color_set(bg, 0, 1.0, 0, 0);
-	bg = elm_bg_add(conform);
-	elm_bg_color_set(bg, 66, 162, 206);
-	evas_object_show(bg);
-	//img = new TImage(bg);
-	elm_object_part_content_set(layout, "elm.swallow.content", bg);
 
-*/
+	moreOption = new TMoreOption(layout,  "elm.swallow.right")
 
-	more_option = eext_more_option_add(layout);
-	evas_object_show(more_option);
-	elm_object_part_content_set(layout, "elm.swallow.right", more_option);
-
-	create_menu(more_option);
-//	elm_panel_toggle(more_option);
-	//elm_object_part_content_set(layout, "elm.swallow.content", more_option);
-	//elm_object_content_set(layout, more_option);
-//	elm_object_part_content_set(panes, "left", img->);
 
 	AttachGesture(img->GetImage());
 

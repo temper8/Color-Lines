@@ -15,6 +15,7 @@
 #include "MainModelView.h"
 #include "TImage.h"
 #include "TAnimator.h"
+#include "TMoreOption.h"
 
 class TPopupBox;
 class TLinesGame;
@@ -29,7 +30,7 @@ public:
 public:
 
 	TImage *img;
-
+    TMoreOption *moreOption;
 	virtual void OnResize(int width, int height);
 
 

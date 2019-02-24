@@ -6,16 +6,17 @@
  */
 
 #include "TAnimator.h"
-#include "TApp.h"
+
+#include "GameApp.h"
 #include "MainModelView.h"
 
 TAnimator::TAnimator() {
 	// TODO Auto-generated constructor stub
-	modelView = &TApp::instance()->modelView;
+	modelView = &GameApp::instance()->modelView;
 
 	modelView->animator = this;
 
-	linesGame = &TApp::instance()->modelView.linesGame;
+	linesGame = &GameApp::instance()->modelView.linesGame;
 }
 
 TAnimator::~TAnimator() {

@@ -15,18 +15,18 @@
 #include <Ecore.h>
 #include <Ecore_Evas.h>
 
+#include "GameApp.h"
 #include "TPopupBox\TExitPopupBox.h"
 #include "TPopupBox\TMenuPopupBox.h"
 #include "TPopupBox\TInfoBox.h"
 #include "TPopupBox\TGameOverBox.h"
 
-#include "TApp.h"
 
 
 TBoardView::TBoardView() {
 	// TODO Auto-generated constructor stub
 
-	modelView = &TApp::instance()->modelView;
+	modelView = &GameApp::instance()->modelView;
 
 	linesGame = &modelView->linesGame;
 

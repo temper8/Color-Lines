@@ -8,17 +8,17 @@
 #include <cmath>
 
 #include "TImage.h"
-#include "TApp.h"
 #include "TApplication.h"
 
 #include "TAnimator.h"
 
 #include "logger.h"
+#include "GameApp.h"
 
 TImage::TImage(Evas_Object *parent, const char *part):TCairoImage(parent, part) {
 	// TODO Auto-generated constructor stub
 
-	modelView = &TApp::instance()->modelView;
+	modelView = &GameApp::instance()->modelView;
 
 	linesGame = &modelView->linesGame;
 

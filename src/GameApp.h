@@ -5,8 +5,8 @@
  *      Author: Alex
  */
 
-#ifndef TAPP_H_
-#define TAPP_H_
+#ifndef GAMEAPP_H_
+#define GAMEAPP_H_
 
 #include "TApplication.h"
 #include "TView.h"
@@ -14,16 +14,16 @@
 #include "TBoardView.h"
 #include "MainModelView.h"
 
-class TApp: public TApplication {
+class GameApp: public TApplication {
 public:
-	TApp();
-	virtual ~TApp();
+	GameApp();
+	virtual ~GameApp();
 
 	MainModelView modelView;
 
 
 
-	static TApp *instance() { return static_cast<TApp*>(self); };
+	static GameApp *instance() { return static_cast<GameApp*>(self); };
 };
 
-#endif /* TAPP_H_ */
+#endif /* GAMEAPP_H_ */

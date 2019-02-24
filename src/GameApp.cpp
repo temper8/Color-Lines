@@ -5,15 +5,15 @@
  *      Author: Alex
  */
 
-#include "TApp.h"
+#include "GameApp.h"
 
 
-TApp::TApp() {
+GameApp::GameApp() {
 	// TODO Auto-generated constructor stub
 	myView = new TBoardView();
 }
 
-TApp::~TApp() {
+GameApp::~GameApp() {
 	// TODO Auto-generated destructor stub
 }
 

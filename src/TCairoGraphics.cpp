@@ -17,22 +17,22 @@
 
 
 
-TCairoGraphics::TCairoGraphics() {
+TCairoImage::TCairoImage() {
 	// TODO Auto-generated constructor stub
 
 }
 
-TCairoGraphics::~TCairoGraphics() {
+TCairoImage::~TCairoImage() {
 	// TODO Auto-generated destructor stub
 }
 
 void cairo_drawing(void *data, Evas_Object *o)
 {
-	TCairoGraphics *g = (TCairoGraphics*)data;
+	TCairoImage *g = (TCairoImage*)data;
 	g->Paint();
 }
 
-void TCairoGraphics::Create(Evas_Object *parent){
+void TCairoImage::Create(Evas_Object *parent){
 
 
 	myImage = evas_object_image_filled_add(evas_object_evas_get(parent));
@@ -46,7 +46,7 @@ void TCairoGraphics::Create(Evas_Object *parent){
     evas_object_image_pixels_get_callback_set(myImage, cairo_drawing, this);
 }
 
-void TCairoGraphics::Destroy(){
+void TCairoImage::Destroy(){
 	DBG("TCairoGraphics::Destroy");
 	if (mySurface) {
 		/* Destroy cairo canvas */
@@ -58,7 +58,7 @@ void TCairoGraphics::Destroy(){
 	}
 }
 
-void TCairoGraphics::Initialize(int width, int height){
+void TCairoImage::Initialize(int width, int height){
 
 
 	DBG("Initialize x:%d y:%d", width, height);
@@ -96,7 +96,7 @@ void TCairoGraphics::Initialize(int width, int height){
 
 
 
-void TCairoGraphics::Refresh()
+void TCairoImage::Refresh()
 {
     evas_object_image_pixels_dirty_set(myImage, EINA_TRUE);
 }

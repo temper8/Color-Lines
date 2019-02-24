@@ -11,10 +11,10 @@
 #include <cairo.h>
 #include <Elementary.h>
 
-class TCairoGraphics {
+class TCairoImage {
 public:
-	TCairoGraphics();
-	virtual ~TCairoGraphics();
+	TCairoImage();
+	virtual ~TCairoImage();
 
 	void Create(Evas_Object *obj);
 	void Destroy();

@@ -22,7 +22,7 @@ TImage::TImage(Evas_Object *conform){
 
 	linesGame = &modelView->linesGame;
 
-	TCairoGraphics::Create(conform);
+	TCairoImage::Create(conform);
 
 	//image = evas_object_image_filled_add(evas_object_evas_get(conform));
 

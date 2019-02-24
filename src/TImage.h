@@ -18,7 +18,7 @@
 #include "TCairoGraphics.h"
 
 class TAnimator;
-class TImage: public TCairoGraphics {
+class TImage: public TCairoImage {
 public:
 	TImage(Evas_Object *conform);
 	virtual ~TImage();

@@ -19,7 +19,10 @@ public:
 	TMoreOption(Evas_Object *parent, const char *part);
 	virtual ~TMoreOption();
 
+
+	void addItem(const char *mainText, const char *subText, const char *iconPath);
     Evas_Object *more_option = nullptr;
-}
+
+};
 
 #endif /* TMOREOPTION_H_ */

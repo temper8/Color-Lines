@@ -63,10 +63,10 @@ TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
 	elm_object_part_content_set(parent, part, more_option);
 
 	//create_menu(more_option);
-    addItem("Option1","op1",music_controller_btn_play.png);
-    addItem("Option2","op2",music_controller_btn_shuffle_on.png);
-    addItem("Option3","op3",music_controller_btn_repeat_all.png);
-    addItem("Option4","op4",music_controller_btn_play.png);
+    addItem("Option1","op1","music_controller_btn_play.png");
+    addItem("Option2","op2","music_controller_btn_shuffle_on.png");
+    addItem("Option3","op3","music_controller_btn_repeat_all.png");
+    addItem("Option4","op4","music_controller_btn_play.png");
 }
 
 TMoreOption::~TMoreOption(){

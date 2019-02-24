@@ -12,7 +12,11 @@
 
 #include "colorlines.h"
 
-#include <dlog.h>
+#include <Elementary.h>
+
+#include <functional>
+#include <map>
+
 
 class TMoreOption {
 public:
@@ -20,8 +24,14 @@ public:
 	virtual ~TMoreOption();
 
 
-	void addItem(const char *mainText, const char *subText, const char *iconPath);
+	void addItem(const char *mainText, const char *subText, const char *iconPath, int tag);
+
+	std::function<void(int)> OnItemClick;
+	void itemClick(Evas_Object *item);
+
+
     Evas_Object *more_option = nullptr;
+	std::map<Evas_Object *,int > items;
 
 };
 

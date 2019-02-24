@@ -44,6 +44,15 @@ TBoardView::TBoardView() {
 
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 
+	moreOption->OnItemClick = [this](int tag) {
+											//ClosePopupBox();
+											switch(tag) {
+												case 1: break;
+												case 2: NewGame(); break;
+												case 3: modelView->ShowHelp(); break;
+												case 4: ui_app_exit(); break;
+												}
+											};
 
 	AttachGesture(img->GetImage());
 

@@ -65,7 +65,7 @@ TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
     addItem("Play",nullptr,"music_controller_btn_play.png", 1);
     addItem("New Game",nullptr,"music_controller_btn_shuffle_on.png", 2);
     addItem("Help","about game","music_controller_btn_repeat_all.png", 3);
-    addItem("Exit",nullptr,"music_controller_btn_play.png", 4);
+    addItem("Exit",nullptr,"tw_ic_popup_btn_delete.png", 4);
 }
 
 TMoreOption::~TMoreOption(){

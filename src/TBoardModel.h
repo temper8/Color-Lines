@@ -5,15 +5,15 @@
  *      Author: Alex
  */
 
-#ifndef TBOARD_H_
-#define TBOARD_H_
+#ifndef TBOARDMODEL_H_
+#define TBOARDMODEL_H_
 
 #include <array>
 
-class TBoard {
+class TBoardModel {
 public:
-	TBoard();
-	virtual ~TBoard();
+	TBoardModel();
+	virtual ~TBoardModel();
 
 	void clear();
 	void save();
@@ -24,4 +24,4 @@ private:
 	std::array<std::array<int, 12>, 12> array;
 };
 
-#endif /* TBOARD_H_ */
+#endif /* TBOARDMODEL_H_ */

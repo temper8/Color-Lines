@@ -10,9 +10,7 @@
 
 #include <vector>
 
-#include "TBoard.h"
-//#include <array>
-
+#include "TBoardModel.h"
 #include "TPreferenceInt.h"
 
 struct TBall
@@ -45,7 +43,7 @@ public:
 public:
 
 	int sizeX, sizeY;
-	TBoard board;
+	TBoardModel board;
 	 //std::array<std::array<int, 12>, 12> square;
 	//int square[12][12];
 

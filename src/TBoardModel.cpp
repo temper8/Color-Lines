@@ -5,7 +5,7 @@
  *      Author: Alex
  */
 
-#include "TBoard.h"
+#include "TBoardModel.h"
 
 #include <string>
 #include <app_preference.h>
@@ -17,27 +17,27 @@
 
 static const char *key = "Board";
 
-TBoard::TBoard() {
+TBoardModel::TBoardModel() {
 	// TODO Auto-generated constructor stub
 
 }
 
-TBoard::~TBoard() {
+TBoardModel::~TBoardModel() {
 	// TODO Auto-generated destructor stub
 }
 
-void TBoard::clear(){
+void TBoardModel::clear(){
 	   for(auto &i: array) for(auto &k: i) k = 0;
 }
 
-void TBoard::save(){
+void TBoardModel::save(){
 	std::string out_str;
 	for(auto &i: array) for(auto &k: i) out_str = out_str + std::to_string(k);
 	preference_set_string(key, out_str.c_str());
 	dlog_print(DLOG_DEBUG, LOG_TAG, "out key %s out_str = %s.", key, out_str.c_str());
 }
 
-void TBoard::load(){
+void TBoardModel::load(){
 	bool existing;
 	int ret = preference_is_existing(key, &existing);
 	if (ret != PREFERENCE_ERROR_NONE) {

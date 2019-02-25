@@ -43,7 +43,7 @@ public:
 	void DrawHeaderBG();
 	void DrawScore(double x, double y, int score);
 	void DrawScore(double x, double y, const char* caption, int score, int aling);
-
+	void DrawScoreForCircle();
 
 	int xTranslation = 0;
 	double squareSize;

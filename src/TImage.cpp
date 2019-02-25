@@ -134,11 +134,12 @@ void TImage::CalcViewMarkup(){
 
 void TImage::DrawHeader() {
 
-	 DrawHeaderBG();
 
 	 if (TApplication::instance()->deviceType == DeviceType::mobile){
 		// DrawScore(20,60,linesBoard->record);
 		// DrawScore(myWidth - 60 ,60,linesBoard->score);
+		 DrawHeaderBG();
+
 		 DrawScore(left_margin, squareSize/2 + 12,"Best", linesGame->record, 0);
 		 DrawScore(myWidth, squareSize/2 + 12,"Score", linesGame->score, 1);//1);
 	 }
@@ -147,6 +148,9 @@ void TImage::DrawHeader() {
 
 }
 
+void TImage::DrawScoreForCircle(){
+
+}
 
 void TImage::DrawScore(double x, double y, const char* caption, int score, int aling){
 

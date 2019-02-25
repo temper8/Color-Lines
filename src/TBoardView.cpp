@@ -66,10 +66,12 @@ TBoardView::~TBoardView() {
 }
 
 void TBoardView::OnValueChenged(double z){
+	/*
 	animator.Freeze();
 	img->xTranslation += 5*z;
 	animator.state = TAnimator::State::Slipping;
 	img->Refresh();
+	*/
 }
 
 void TBoardView::OnResize(int width, int height){

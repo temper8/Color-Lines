@@ -53,9 +53,9 @@ TLinesGame::TLinesGame(int x, int y): counterGames("counterGames"), score("score
 	sizeX = x;
 	sizeY = y;
 	board.initSize(x, y);
-//	if (counterGames == 0)
+	if (counterGames == 0)
 		newGame();
-//	else restoreGame();
+	else restoreGame();
 
 }
 

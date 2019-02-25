@@ -38,7 +38,7 @@ void TBoardModel::clear(){
 
 void TBoardModel::save(){
 	std::string out_str;
-	for(auto &i: array) for(auto &k: i) out_str = out_str + std::to_string(k);
+	for(auto &i: array) for(auto &k: i) out_str.push_back((char)k + 48);
 	preference_set_string(key, out_str.c_str());
 	DBG("out key %s out_str = %s.", key, out_str.c_str());
 }

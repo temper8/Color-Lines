@@ -328,7 +328,7 @@ void TImage::DrawSquare(double x, double y){
 
 
 	//SetPatternForSquare(x + squareSize /2, y + squareSize/2, squareSize-4);
-	cairo_set_source_rgba(myCairo, 128.0/255.0, 128.0/255.0, 128.0/255.0, 0.35);
+	cairo_set_source_rgba(myCairo, 0.7, 0.7, 0.7, 0.25);
 	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
 	cairo_fill (myCairo);
 }

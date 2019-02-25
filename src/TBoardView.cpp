@@ -52,6 +52,7 @@ TBoardView::TBoardView() {
 											};
 
 	AttachGesture(img->GetImage());
+	TBezel::Attach(img->GetImage());
 
 	CreateContent();
 
@@ -64,6 +65,14 @@ TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
 
+void TBoardView::OnValueChenged(double z){
+	animator.Freeze();
+
+	//img->DrawBoardX(x-x0);
+	img->xTranslation += 5*z;
+	animator.state = TAnimator::State::Slipping;
+	img->Refresh();
+}
 
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;

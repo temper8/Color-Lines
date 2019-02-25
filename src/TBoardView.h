@@ -16,10 +16,11 @@
 #include "TImage.h"
 #include "TAnimator.h"
 #include "TMoreOption.h"
+#include "TBezel.h"
 
 class TPopupBox;
 class TLinesGame;
-class TBoardView: public TDrawingView {
+class TBoardView: public TDrawingView, public TBezel {
 public:
 	TBoardView();
 	virtual ~TBoardView();
@@ -58,9 +59,10 @@ public:
 	virtual void OnMomentumMove(int x1, int y1);
 	virtual void OnMomentumEnd(int x, int y);
 
-
+	virtual void OnValueChenged(double z);
   //  void closePopupBox();
   //  void showGameOverBox();
+	double vz = 0;
 
 private:
 

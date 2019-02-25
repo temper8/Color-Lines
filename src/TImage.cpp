@@ -94,10 +94,13 @@ void TImage::LoadBgImage(){
 	//  Load bg image, create surface from bg image
 
 	char buff[BUFLEN];
-    char *path = app_get_shared_resource_path();
+    //char *path = app_get_shared_resource_path();
+    //snprintf(buff, 300, "%s%s", path, "pat9.png");
+    //bg_image = cairo_image_surface_create_from_png(buff);
 
-    snprintf(buff, 300, "%s%s", path, "pat9.png");
-    bg_image = cairo_image_surface_create_from_png(buff);
+	char *path = app_get_resource_path();
+	snprintf(buff, 300, "%s/%s", path, "w1.png");
+	bg_image = cairo_image_surface_create_from_png(buff);
     free(path);
 }
 
@@ -118,7 +121,7 @@ void TImage::FillBackgroud(){
 
 void TImage::CalcViewMarkup(){
 
-	double BoardWidth = myWidth - 60;
+	double BoardWidth = myWidth - 80;
 
 	left_margin = ( myWidth - BoardWidth)/2;
 

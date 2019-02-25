@@ -144,7 +144,7 @@ void TImage::DrawHeader() {
 		 DrawScore(myWidth, squareSize/2 + 12,"Score", linesGame->score, 1);//1);
 	 }
 	 else
-		 DrawScore(myWidth /2 , squareSize/2 + 8,"Score", linesGame->score, 2);//1);
+		 DrawScore(myWidth /2 , squareSize/2 + 4,"Score", linesGame->score, 2);//1);
 
 }
 
@@ -161,14 +161,16 @@ void TImage::DrawScore(double x, double y, const char* caption, int score, int a
     double x2 = x;
 
     cairo_select_font_face(myCairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(myCairo, 3*squareSize/7);
+    cairo_set_font_size(myCairo, 3*squareSize/8);
 	cairo_text_extents_t extents;
 	cairo_text_extents (myCairo, text, &extents);
+
 	switch (aling){
 	case 1:x2 = x - extents.width; break;
 	case 2:x2 = x - extents.width/2;break;
 	}
-	double yy = y - extents.height - 8;
+
+	double yy = y - extents.height - 4;
     cairo_move_to(myCairo, x2, y);
     cairo_text_path(myCairo, text);
     cairo_set_source_rgb(myCairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
@@ -176,12 +178,14 @@ void TImage::DrawScore(double x, double y, const char* caption, int score, int a
 
 
 	cairo_select_font_face(myCairo, "Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(myCairo, 2*squareSize/7);
+    cairo_set_font_size(myCairo, 2*squareSize/8);
 	cairo_text_extents (myCairo, caption, &extents);
+
 	switch (aling){
 	case 1:x1 = x1 - extents.width; break;
 	case 2:x1 = x1 - extents.width/2;break;
 	}
+
     cairo_move_to(myCairo, x1, yy);
     cairo_text_path(myCairo, caption);
     cairo_set_source_rgb(myCairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);

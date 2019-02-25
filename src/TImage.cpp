@@ -144,7 +144,7 @@ void TImage::DrawHeader() {
 		 DrawScore(myWidth, squareSize/2 + 12,"Score", linesGame->score, 1);//1);
 	 }
 	 else
-		 DrawScore(myWidth /2 , squareSize/2 + 4,"Score", linesGame->score, 2);//1);
+		 DrawScore(myWidth /2 , squareSize/2 + 2,"Score", linesGame->score, 2);//1);
 
 }
 
@@ -173,7 +173,7 @@ void TImage::DrawScore(double x, double y, const char* caption, int score, int a
 	double yy = y - extents.height - 4;
     cairo_move_to(myCairo, x2, y);
     cairo_text_path(myCairo, text);
-    cairo_set_source_rgb(myCairo, 127 / 255.0, 127 / 255.0, 127 / 255.0);
+    cairo_set_source_rgb(myCairo, 0.7, 0.7, 0.7);
     cairo_fill(myCairo);
 
 

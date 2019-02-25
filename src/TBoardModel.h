@@ -31,6 +31,8 @@ public:
 	void save();
 	void load();
 
+	bool OutOfBoundary(int x, int y);
+
 	std::vector<TBall> getAllBalls();
 
 	std::array<int, 12> &operator[] (int index ) {return array[index];	};

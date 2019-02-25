@@ -47,7 +47,6 @@ public:
 	TBallsHolder ballsHolder;
 
 	void OffsetBoard(int dx);
-	bool OutOfBoundary(int x, int y);
 	void randThreeBalls();
 	bool initBalls;
 	std::vector<TBall> path;

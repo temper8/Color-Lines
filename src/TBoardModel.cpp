@@ -63,6 +63,15 @@ void TBoardModel::load(){
 	}
 }
 
+bool TBoardModel::OutOfBoundary(int x, int y){
+	if (x<1) return true;
+	if (y<1) return true;
+	if (x>sizeX) return true;
+	if (y>sizeY) return true;
+	if ((array[x][y]==10)) return true;
+	return false;
+}
+
 std::vector<TBall> TBoardModel::getAllBalls(){
 	std::vector<TBall> newBalls;
 	for(int i=1; i<= sizeX; i++)

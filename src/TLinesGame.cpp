@@ -63,13 +63,7 @@ TLinesGame::~TLinesGame() {
 	// TODO Auto-generated destructor stub
 }
 
-bool TLinesGame::OutOfBoundary(int x, int y){
-	if (x<1) return true;
-	if (y<1) return true;
-	if (x>sizeX) return true;
-	if (y>sizeY) return true;
-	return false;
-}
+
 
 void TLinesGame::newGame() {
 	counterGames+=1;

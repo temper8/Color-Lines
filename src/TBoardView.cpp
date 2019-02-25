@@ -67,8 +67,6 @@ TBoardView::~TBoardView() {
 
 void TBoardView::OnValueChenged(double z){
 	animator.Freeze();
-
-	//img->DrawBoardX(x-x0);
 	img->xTranslation += 5*z;
 	animator.state = TAnimator::State::Slipping;
 	img->Refresh();
@@ -123,7 +121,7 @@ void TBoardView::OnClick(int x, int y) {
 	int xx =(x-img->left_margin) / img->squareSize + 1;
 	int yy =(y-img->top_margin) / img->squareSize + 1;
 
-	if (linesGame->OutOfBoundary(xx, yy)) return;
+	if (linesGame->board.OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
     	animator.StartJumpingBall(xx,yy);
@@ -146,7 +144,7 @@ void TBoardView::OnMomentumStart(int x, int y) {
 	yy0=yy;
 	xxm=xx;
 	yym=yy;
-	if (linesGame->OutOfBoundary(xx, yy)) return;
+	if (linesGame->board.OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
     //	img->graphics.tx = x;
@@ -184,7 +182,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
 
 	if (animator.isBallSelected)  {
 		ClearPath();
-		if (linesGame->OutOfBoundary(xx, yy)) {
+		if (linesGame->board.OutOfBoundary(xx, yy)) {
 		//	img->graphics.goodPath = false;
 			return;
 		}
@@ -246,7 +244,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 
 	if (animator.isBallSelected)  {
 			animator.isBallSelected = false;
-			if (linesGame->OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)||animationOn){
+			if (linesGame->board.OutOfBoundary(xx, yy)||(linesGame->board[xx][yy]>0)||animationOn){
 				img->DrawBall(animator.selBall,1);
 				return;
 			}

@@ -127,7 +127,7 @@ void TAnimator::DelayStartShowAllBalls(){
 
 void TAnimator::startShowAllBalls(){
     //NewBalls = linesGame->makeListBalls();
-	image->balls = linesGame->makeListBalls();
+	image->balls = linesGame->board.getAllBalls();
 	StartTimeLine(State::NewBallAnimation);
 	ecore_timer_add(animation_time+animation_delay, [](void *data)	{  ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 }

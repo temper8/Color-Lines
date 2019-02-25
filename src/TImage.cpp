@@ -219,16 +219,6 @@ void TImage::DrawHeaderBG(){
 }
 
 
-void TImage::DrawBalls(){
-	for (int x = 0; x< linesGame->sizeX; x++)
-	for (int y = 0; y< linesGame->sizeY; y++) {
-			double xx = x*squareSize  + left_margin;
-			double yy = y*squareSize  + top_margin;
-			int c = linesGame->board[x+1][y+1];
-			if (c>0)
-				DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
-	}
-}
 
 void TImage::DrawBoardX(int translation){
 	//if (semaphor) return;
@@ -257,13 +247,25 @@ void TImage::DrawBoardX(int translation){
 	semaphor = false;
 }
 
+void TImage::DrawBalls(){
+	for (int x = 0; x< linesGame->sizeX; x++)
+	for (int y = 0; y< linesGame->sizeY; y++) {
+			double xx = x*squareSize  + left_margin;
+			double yy = y*squareSize  + top_margin;
+			int c = linesGame->board[x+1][y+1];
+			if ((c>0)&&(c<10))
+				DrawBall(xx + squareSize / 2, yy + squareSize / 2, c);
+	}
+}
+
 void TImage::DrawBoard(){
 
 	for (int x = 0; x< linesGame->sizeX; x++)
-		for (int y = 0; y< linesGame->sizeY; y++) {
+	for (int y = 0; y< linesGame->sizeY; y++) {
+			if (linesGame->board[x+1][y+1] == 10) continue;
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-			if (IsNotEdge(x,y)) DrawSquare(xx, yy);
+			DrawSquare(xx, yy);
 		}
 }
 

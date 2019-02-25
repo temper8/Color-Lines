@@ -13,15 +13,7 @@
 #include "TBoardModel.h"
 #include "TPreferenceInt.h"
 
-struct TBall
-{
-    int x;
-    int y;
-    int color;
-    TBall(int p_x, int p_y, int p_color) :x(p_x), y(p_y), color(p_color) {};
-    TBall(int p_x, int p_y) :x(p_x), y(p_y), color(0) {};
-    TBall() : x(0), y(0), color(0) {};
-};
+
 
 class TBallsHolder {
 public:
@@ -60,7 +52,7 @@ public:
 	bool initBalls;
 	std::vector<TBall> path;
 	void initPlayingField();
-	std::vector<TBall> makeListBalls();
+	//std::vector<TBall> makeListBalls();
 	void initSearch(TBall src);
 	int searchPath(TBall src, TBall dst);
 	int searchClosestPath(TBall src, TBall dst);

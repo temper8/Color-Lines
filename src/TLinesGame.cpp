@@ -24,7 +24,7 @@ void TBallsHolder::genNewBalls(){
 		balls[i] =  rand() % BallColors +1;
 	save();
 }
-
+/*
 std::vector<TBall> TLinesGame::makeListBalls(){
 	std::vector<TBall> newBalls;
 	for(int i=1; i<= sizeX; i++)
@@ -36,7 +36,7 @@ std::vector<TBall> TLinesGame::makeListBalls(){
 	initBalls = true;
 	return newBalls;
 }
-
+*/
 void TBallsHolder::load(){
 	balls[0] = holder % 10;
 	balls[1] = (holder/10) % 10;
@@ -52,6 +52,7 @@ TLinesGame::TLinesGame(int x, int y): counterGames("counterGames"), score("score
 	// TODO Auto-generated constructor stub
 	sizeX = x;
 	sizeY = y;
+	board.initSize(x, y);
 //	if (counterGames == 0)
 		newGame();
 //	else restoreGame();
@@ -90,9 +91,10 @@ void TLinesGame::restoreGame() {
 
 
 void TLinesGame::initPlayingField(){
+	board.clear();
 	for(int i=1; i<= sizeX; i++)
-	  for(int j=1; j<= sizeY; j++) {
-	      board[i][j] = 0;
+	for(int j=1; j<= sizeY; j++) {
+	      if (board[i][j] == 10) continue;
 	      int rnd =  rand() % (BallColors*3);
 	      if (rnd<BallColors)
 	    	  board[i][j] = 1 + rnd;
@@ -224,7 +226,7 @@ int TLinesGame::checkLines(){
  clearBalls.clear();
  for(int x = 1; x<=sizeX; x++)
  for(int y = 1; y<=sizeY; y++){
-   if ( board[x][y]>0){
+   if ((board[x][y]>0)&&(board[x][y]<10)){
 	   checkHorzLine(x,y);
        checkVertLine(x,y);
        checkDiag1Line(x,y);
@@ -318,7 +320,7 @@ void TLinesGame::addNextBalls(){
 	nextBalls.clear();
 	for(int x = 1; x<=sizeX; x++)
 	for(int y = 1; y<=sizeY; y++){
-	   if ( board[x][y] == 0){
+	   if ((board[x][y] == 0)&&( board[x][y] <10)){
 		   emptySquares.emplace_back(x,y);
 	   }
 	 }

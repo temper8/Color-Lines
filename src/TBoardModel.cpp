@@ -10,10 +10,7 @@
 #include <string>
 #include <app_preference.h>
 
-#define LOG_TAG "Color Lines"
-
-#include <dlog.h>
-
+#include "logger.h"
 
 static const char *key = "Board";
 
@@ -26,15 +23,24 @@ TBoardModel::~TBoardModel() {
 	// TODO Auto-generated destructor stub
 }
 
+void TBoardModel::initSize(int x, int y){
+	sizeX = x;
+	sizeY = y;
+}
+
 void TBoardModel::clear(){
 	   for(auto &i: array) for(auto &k: i) k = 0;
+	   array[1][1] = 10;
+	   array[sizeX][1] = 10;
+	   array[1][sizeY] = 10;
+	   array[sizeX][sizeY] = 10;
 }
 
 void TBoardModel::save(){
 	std::string out_str;
 	for(auto &i: array) for(auto &k: i) out_str = out_str + std::to_string(k);
 	preference_set_string(key, out_str.c_str());
-	dlog_print(DLOG_DEBUG, LOG_TAG, "out key %s out_str = %s.", key, out_str.c_str());
+	DBG("out key %s out_str = %s.", key, out_str.c_str());
 }
 
 void TBoardModel::load(){
@@ -50,9 +56,21 @@ void TBoardModel::load(){
 		char *str;
 		ret = preference_get_string(key, &str);
 		if (ret == PREFERENCE_ERROR_NONE) {
-			dlog_print(DLOG_DEBUG, LOG_TAG, "get key %s value = %s.", key, str);
+			DBG("get key %s value = %s.", key, str);
 			int i = 0;
 			for(auto &row: array) for(auto &k: row) k = (int)str[i++] - 48;
 		}
 	}
+}
+
+std::vector<TBall> TBoardModel::getAllBalls(){
+	std::vector<TBall> newBalls;
+	for(int i=1; i<= sizeX; i++)
+	  for(int j=1; j<= sizeY; j++) {
+	      if ((array[i][j]>0)&&(array[i][j]<10)){
+	      	  newBalls.emplace_back(i, j, array[i][j]);
+	      }
+	  }
+	//initBalls = true;
+	return newBalls;
 }

@@ -44,7 +44,7 @@ public:
 	void DrawScore(double x, double y, int score);
 	void DrawScore(double x, double y, const char* caption, int score, int aling);
 	void DrawScoreForCircle();
-
+	bool IsNotEdge(int x, int y);
 	int xTranslation = 0;
 	double squareSize;
 	double left_margin,top_margin;

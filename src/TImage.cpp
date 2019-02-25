@@ -121,7 +121,7 @@ void TImage::FillBackgroud(){
 
 void TImage::CalcViewMarkup(){
 
-	double BoardWidth = myWidth - 80;
+	double BoardWidth = myWidth - 56;
 
 	left_margin = ( myWidth - BoardWidth)/2;
 
@@ -263,8 +263,16 @@ void TImage::DrawBoard(){
 		for (int y = 0; y< linesGame->sizeY; y++) {
 			double xx = x*squareSize  + left_margin;
 			double yy = y*squareSize  + top_margin ;
-			DrawSquare(xx, yy);
+			if (IsNotEdge(x,y)) DrawSquare(xx, yy);
 		}
+}
+
+bool TImage::IsNotEdge(int x, int y){
+	if ((x == 0)&&(y==0)) return false;
+	if ((x == linesGame->sizeX-1)&&(y==0)) return false;
+	if ((x == 0)&&(y==linesGame->sizeY-1)) return false;
+	if ((x == linesGame->sizeX-1)&&(y==(linesGame->sizeY-1))) return false;
+	return true;
 }
 
 void TImage::DrawSquare(TBall p){

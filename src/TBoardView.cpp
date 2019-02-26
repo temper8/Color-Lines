@@ -209,7 +209,7 @@ void TBoardView::OnMomentumMove(int x, int y) {
         }
 
 	}
-	else
+/*	else
 	{
 		animator.Freeze();
 
@@ -218,11 +218,11 @@ void TBoardView::OnMomentumMove(int x, int y) {
 		animator.state = TAnimator::State::Slipping;
 		img->Refresh();
 	}
-
+*/
 };
 
 void TBoardView::OnMomentumEnd(int x, int y) {
-
+/*
 	if (animator.state == TAnimator::State::Slipping)
 	{
 		linesGame->OffsetBoard(img->xOffset);
@@ -234,7 +234,7 @@ void TBoardView::OnMomentumEnd(int x, int y) {
 		animator.Thaw();
 		return;
 	}
-
+*/
 	//img->graphics.ring =0;
 	//img->graphics.goodPath = false;
 	 int xx =(x-img->left_margin) / img->squareSize + 1;

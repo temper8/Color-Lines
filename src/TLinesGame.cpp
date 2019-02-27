@@ -68,9 +68,10 @@ TLinesGame::~TLinesGame() {
 void TLinesGame::newGame() {
 	counterGames+=1;
 	score = 0;
-	board.clear();
+	//board.clear();
 	initBalls = false;
-	initPlayingField();
+	//initPlayingField();
+	board.setRandomBalls(BallColors);
     ballsHolder.genNewBalls();
     addNextBalls();
     board.save();
@@ -83,7 +84,7 @@ void TLinesGame::restoreGame() {
 	//randThreeBalls();
 }
 
-
+/*
 void TLinesGame::initPlayingField(){
 	board.clear();
 	for(int i=1; i<= sizeX; i++)
@@ -94,7 +95,7 @@ void TLinesGame::initPlayingField(){
 	    	  board[i][j] = 1 + rnd;
 	  }
 }
-
+*/
 
 
 void TLinesGame::initSearch(TBall src){

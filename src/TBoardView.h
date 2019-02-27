@@ -64,6 +64,8 @@ public:
   //  void showGameOverBox();
 	double vz = 0;
 
+
+
 private:
 
    // TPopupBox* myPopupBox;

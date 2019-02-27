@@ -31,6 +31,9 @@ public:
 	void save();
 	void load();
 
+
+	void setRandomBalls(int nuberOfColors);
+
 	bool OutOfBoundary(int x, int y);
 
 	std::vector<TBall> getAllBalls();

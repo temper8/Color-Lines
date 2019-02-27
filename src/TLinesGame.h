@@ -50,7 +50,7 @@ public:
 	void randThreeBalls();
 	bool initBalls;
 	std::vector<TBall> path;
-	void initPlayingField();
+	//void initPlayingField();
 	//std::vector<TBall> makeListBalls();
 	void initSearch(TBall src);
 	int searchPath(TBall src, TBall dst);

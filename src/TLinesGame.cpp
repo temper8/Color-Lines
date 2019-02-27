@@ -63,8 +63,6 @@ TLinesGame::~TLinesGame() {
 	// TODO Auto-generated destructor stub
 }
 
-
-
 void TLinesGame::newGame() {
 	counterGames+=1;
 	score = 0;
@@ -78,24 +76,9 @@ void TLinesGame::newGame() {
 }
 
 void TLinesGame::restoreGame() {
-	//score = 0;
 	board.load();
 	initBalls = false;
-	//randThreeBalls();
 }
-
-/*
-void TLinesGame::initPlayingField(){
-	board.clear();
-	for(int i=1; i<= sizeX; i++)
-	for(int j=1; j<= sizeY; j++) {
-	      if (board[i][j] == 10) continue;
-	      int rnd =  rand() % (BallColors*3);
-	      if (rnd<BallColors)
-	    	  board[i][j] = 1 + rnd;
-	  }
-}
-*/
 
 
 void TLinesGame::initSearch(TBall src){

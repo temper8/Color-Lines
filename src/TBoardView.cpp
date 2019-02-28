@@ -40,6 +40,15 @@ TBoardView::TBoardView() {
 
 	img = new TImage(layout,"elm.swallow.content");
 
+
+	TGesture *gesture = new TGesture(layout);
+	gesture->Attach(img->GetImage());
+
+
+	gesture->FingerTapEvent = [this](int x, int y){ OnClick(x,y); };
+	//gesture->FingerTapEventHolder = std::mem_fn(&TBoardView::OnClick);
+	//auto  ff = std::mem_fn(&TBoardView::OnClick);
+
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 
 	moreOption->OnItemClick = [this](int tag) {
@@ -51,10 +60,10 @@ TBoardView::TBoardView() {
 												}
 											};
 
-	AttachGesture(img->GetImage());
+//	AttachGesture(img->GetImage());
 	TBezel::Attach(img->GetImage());
 
-	CreateContent();
+//	CreateContent();
 
 
 	animator.Initialize(img);

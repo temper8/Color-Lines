@@ -10,7 +10,6 @@
 
 #include "TApplication.h"
 #include "TView.h"
-#include "TDrawingView.h"
 #include "TBoardView.h"
 #include "MainModelView.h"
 

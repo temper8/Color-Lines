@@ -8,9 +8,9 @@
 #include "TGesture.h"
 #include "logger.h"
 
-TGesture::TGesture() {
+TGesture::TGesture(Evas_Object *obj) {
 	// TODO Auto-generated constructor stub
-
+	gesture_layer = elm_gesture_layer_add(obj);
 }
 
 TGesture::~TGesture() {
@@ -58,8 +58,10 @@ Evas_Event_Flags momentum_start(void *data, void *event)
 	Elm_Gesture_Momentum_Info *momentum_info = (Elm_Gesture_Momentum_Info *) event;
 
 	DBG( "momentum_start x:%d y:%d", momentum_info->mx, momentum_info->my);
+
+	 if (v->MomentumStartEventHolder ==nullptr) return EVAS_EVENT_FLAG_ON_HOLD;
 	if (momentum_info->n == 1)
-		v->OnMomentumStart(momentum_info->x1,momentum_info->y1);
+		v->MomentumStartEventHolder(momentum_info->x1,momentum_info->y1);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -72,8 +74,11 @@ Evas_Event_Flags momentum_move(void *data, void *event)
 	Elm_Gesture_Momentum_Info *momentum_info = (Elm_Gesture_Momentum_Info *) event;
 
 	DBG( "momentum_move x:%d y:%d", momentum_info->x2, momentum_info->y2);
+
+	if (v->MomentumMoveEventHolder ==nullptr) return EVAS_EVENT_FLAG_ON_HOLD;
+
 	if (momentum_info->n == 1)
-		v->OnMomentumMove(momentum_info->x2,momentum_info->y2);
+		v->MomentumMoveEventHolder(momentum_info->x2,momentum_info->y2);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -86,8 +91,11 @@ Evas_Event_Flags momentum_end(void *data, void *event)
 	Elm_Gesture_Momentum_Info *momentum_info = (Elm_Gesture_Momentum_Info *) event;
 
 	DBG( "momentum_end x:%d y:%d", momentum_info->x2, momentum_info->y2);
+
+	if (v->MomentumEndEventHolder ==nullptr) return EVAS_EVENT_FLAG_ON_HOLD;
+
 	if (momentum_info->n == 1)
-		v->OnMomentumEnd(momentum_info->x2,momentum_info->y2);
+		v->MomentumEndEventHolder(momentum_info->x2,momentum_info->y2);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -98,9 +106,11 @@ Evas_Event_Flags momentum_abort(void *data, void *event)
     // Get structure describing mouse event
 	Elm_Gesture_Momentum_Info *momentum_info = (Elm_Gesture_Momentum_Info *) event;
 
+	if (v->MomentumEndEventHolder ==nullptr) return EVAS_EVENT_FLAG_ON_HOLD;
+
 	DBG("momentum_abort x:%d y:%d", momentum_info->x2, momentum_info->y2);
 	if (momentum_info->n == 1)
-		v->OnMomentumEnd(momentum_info->x2,momentum_info->y2);
+		v->MomentumEndEventHolder(momentum_info->x2,momentum_info->y2);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -170,7 +180,7 @@ Evas_Event_Flags zoom_start(void *data, void *event)
 
    DBG("zoom_start z:%f", tap_info->zoom);
 
-	v->OnZoomStart();
+//	v->OnZoomStart();
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -182,7 +192,7 @@ Evas_Event_Flags zoom_move(void *data, void *event)
 	Elm_Gesture_Zoom_Info *line_info = (Elm_Gesture_Zoom_Info *) event;
 
    DBG( "zoom_move z:%f", line_info->zoom);
-    v->OnZoomMove(line_info->zoom);
+ //   v->OnZoomMove(line_info->zoom);
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
 
@@ -196,7 +206,7 @@ Evas_Event_Flags zoom_end(void *data, void *event)
 
 	DBG("zoom_end z:%f ", tap_info->zoom);
 
-	v->OnZoomEnd();
+//	v->OnZoomEnd();
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -210,7 +220,7 @@ Evas_Event_Flags zoom_abort(void *data, void *event)
 
 	DBG("line_abort z:%f", tap_info->zoom);
 
-	v->OnZoomAbort();
+//	v->OnZoomAbort();
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }
@@ -239,7 +249,8 @@ Evas_Event_Flags n_finger_tap_end(void *data, void *event)
 
  //   dlog_print(DLOG_DEBUG, LOG_TAG, " OnClick() x:%d y:%d", tap_info->x, tap_info->y);
 
-	v->OnFingerTap(tap_info->x,tap_info->y);
+    if (v->FingerTapEvent !=nullptr)
+    	v->FingerTapEvent(tap_info->x,tap_info->y);
 
 	return EVAS_EVENT_FLAG_ON_HOLD;
 }

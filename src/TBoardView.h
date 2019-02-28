@@ -10,17 +10,19 @@
 
 #include <string>
 
-#include "TDrawingView.h"
+
 #include "TLinesGame.h"
 #include "MainModelView.h"
 #include "TImage.h"
 #include "TAnimator.h"
 #include "TMoreOption.h"
 #include "TBezel.h"
+#include "TView.h"
+#include "TGesture.h"
 
 class TPopupBox;
 class TLinesGame;
-class TBoardView: public TDrawingView, public TBezel {
+class TBoardView: public TView, public TBezel {
 public:
 	TBoardView();
 	virtual ~TBoardView();
@@ -67,6 +69,8 @@ public:
 
 
 private:
+
+	TGesture *gesture;
 
    // TPopupBox* myPopupBox;
 

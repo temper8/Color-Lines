@@ -11,6 +11,7 @@
 #include <string>
 
 
+
 #include "TLinesGame.h"
 #include "MainModelView.h"
 #include "TImage.h"
@@ -69,6 +70,7 @@ public:
 
 
 private:
+
 
 	TGesture *gesture;
 

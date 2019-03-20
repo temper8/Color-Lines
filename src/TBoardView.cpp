@@ -15,6 +15,8 @@
 #include <Ecore.h>
 #include <Ecore_Evas.h>
 
+
+
 #include "GameApp.h"
 #include "TPopupBox\TExitPopupBox.h"
 #include "TPopupBox\TMenuPopupBox.h"
@@ -64,6 +66,7 @@ TBoardView::TBoardView() {
 	TBezel::Attach(img->GetImage());
 
 //	CreateContent();
+
 
 
 	animator.Initialize(img);
@@ -126,7 +129,6 @@ void TBoardView::OnBackKeyClick(){
 
 
 
-
 void TBoardView::OnClick(int x, int y) {
 	//if (BallSnakeRun) return;
 	int xx =(x-img->left_margin) / img->squareSize + 1;
@@ -135,6 +137,7 @@ void TBoardView::OnClick(int x, int y) {
 	if (linesGame->board.OutOfBoundary(xx, yy)) return;
 
     if (linesGame->board[xx][yy] > 0) {
+
     	animator.StartJumpingBall(xx,yy);
       //  startJumpingBallAnimator();
     }

@@ -7,6 +7,9 @@
 
 #ifndef TANIMATOR_H_
 #define TANIMATOR_H_
+
+#include <sound_manager.h>
+
 #include "TImage.h"
 
 class MainModelView;
@@ -55,6 +58,12 @@ public:
     double Pos;
     void StartTimeLine(State s);
     void Refresh(double pos);
+
+    int tone_type = 0;
+	int tone_player_id = 0;
+    sound_stream_info_h stream_info;
+	void InitSound();
+	Eina_Bool JumpBip();
 };
 
 #endif /* TANIMATOR_H_ */

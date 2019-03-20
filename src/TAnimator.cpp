@@ -10,6 +10,9 @@
 #include "GameApp.h"
 #include "MainModelView.h"
 
+#include <tone_player.h>
+#include <sound_manager.h>
+
 TAnimator::TAnimator() {
 	// TODO Auto-generated constructor stub
 	modelView = &GameApp::instance()->modelView;
@@ -17,10 +20,16 @@ TAnimator::TAnimator() {
 	modelView->animator = this;
 
 	linesGame = &GameApp::instance()->modelView.linesGame;
+
+	InitSound();
 }
 
 TAnimator::~TAnimator() {
 	// TODO Auto-generated destructor stub
+}
+
+void TAnimator::InitSound(){
+    sound_manager_create_stream_information(SOUND_STREAM_TYPE_NOTIFICATION, NULL, NULL, &stream_info);
 }
 
 
@@ -58,8 +67,25 @@ void TAnimator::StartJumpingBall(int x, int y){
 	selBall.x = x;
 	selBall.y = y;
 	selBall.color = 2;//linesGame->board[xx][yy];
+	if (!isBallSelected)
+		ecore_timer_add(1.0, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
 	isBallSelected = true;
 	Thaw();
+	tone_type++;
+	//tone_player_stop(tone_player_id);
+}
+
+Eina_Bool TAnimator::JumpBip(){
+
+    //tone_player_start(TONE_TYPE_SUP_CONGESTION, SOUND_TYPE_SYSTEM, 1000, &tone_player_id);
+	 //tone_player_start_new(TONE_TYPE_SUP_CONGESTION, stream_info, 1000, &tone_player_id);
+	 //tone_player_start_new(TONE_TYPE_SUP_CALL_WAITING, stream_info, 1000, &tone_player_id);
+
+	 tone_player_start_new((tone_type_e)tone_type, stream_info, 500, &tone_player_id);
+
+	 if (isBallSelected) return EINA_TRUE;
+
+	 return EINA_FALSE;
 }
 
 void TAnimator::StartMoveBallAnimation(int x, int y){

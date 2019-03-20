@@ -144,7 +144,11 @@ void TImage::DrawHeader() {
 		 DrawScore(myWidth, squareSize/2 + 12,"Score", linesGame->score, 1);//1);
 	 }
 	 else
+	 {
+		 DrawScore(myWidth /2, myHeight -2  ,"Best", linesGame->record, 2);
 		 DrawScore(myWidth /2 , squareSize/2 + 2,"Score", linesGame->score, 2);//1);
+	 }
+
 
 }
 

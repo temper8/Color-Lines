@@ -10,8 +10,6 @@
 #include "GameApp.h"
 #include "MainModelView.h"
 
-#include <tone_player.h>
-#include <sound_manager.h>
 
 TAnimator::TAnimator() {
 	// TODO Auto-generated constructor stub
@@ -21,17 +19,11 @@ TAnimator::TAnimator() {
 
 	linesGame = &GameApp::instance()->modelView.linesGame;
 
-	InitSound();
 }
 
 TAnimator::~TAnimator() {
 	// TODO Auto-generated destructor stub
 }
-
-void TAnimator::InitSound(){
-    sound_manager_create_stream_information(SOUND_STREAM_TYPE_NOTIFICATION, NULL, NULL, &stream_info);
-}
-
 
 void TAnimator::Initialize(TImage *img){
 	image = img;
@@ -81,7 +73,7 @@ Eina_Bool TAnimator::JumpBip(){
 	 //tone_player_start_new(TONE_TYPE_SUP_CONGESTION, stream_info, 1000, &tone_player_id);
 	 //tone_player_start_new(TONE_TYPE_SUP_CALL_WAITING, stream_info, 1000, &tone_player_id);
 
-	 tone_player_start_new((tone_type_e)tone_type, stream_info, 500, &tone_player_id);
+	soundPlayer.PlayTone((tone_type_e)tone_type);
 
 	 if (isBallSelected) return EINA_TRUE;
 

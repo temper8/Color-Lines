@@ -59,8 +59,11 @@ void TAnimator::StartJumpingBall(int x, int y){
 	selBall.x = x;
 	selBall.y = y;
 	selBall.color = 2;//linesGame->board[xx][yy];
-	if (!isBallSelected)
-		ecore_timer_add(1.0, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
+	//if (!isBallSelected)
+
+	if (timer != nullptr)
+		ecore_timer_del(timer);
+	timer = ecore_timer_add(1.0, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
 	isBallSelected = true;
 	Thaw();
 	soundPlayer.PlayWav();
@@ -68,11 +71,12 @@ void TAnimator::StartJumpingBall(int x, int y){
 
 Eina_Bool TAnimator::JumpBip(){
 
+	if (!isBallSelected)
+		return EINA_FALSE;
+
 	soundPlayer.PlayWav();
 
-	if (isBallSelected) return EINA_TRUE;
-
-	 return EINA_FALSE;
+	return EINA_TRUE;
 }
 
 void TAnimator::StartMoveBallAnimation(int x, int y){

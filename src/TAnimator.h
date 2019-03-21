@@ -60,6 +60,7 @@ public:
     void StartTimeLine(State s);
     void Refresh(double pos);
 
+    Ecore_Timer *timer = nullptr;
     TSoundPlayer soundPlayer;
     int tone_type = 0;
 	Eina_Bool JumpBip();

@@ -63,19 +63,14 @@ void TAnimator::StartJumpingBall(int x, int y){
 		ecore_timer_add(1.0, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
 	isBallSelected = true;
 	Thaw();
-	tone_type++;
-	//tone_player_stop(tone_player_id);
+	soundPlayer.PlayWav();
 }
 
 Eina_Bool TAnimator::JumpBip(){
 
-    //tone_player_start(TONE_TYPE_SUP_CONGESTION, SOUND_TYPE_SYSTEM, 1000, &tone_player_id);
-	 //tone_player_start_new(TONE_TYPE_SUP_CONGESTION, stream_info, 1000, &tone_player_id);
-	 //tone_player_start_new(TONE_TYPE_SUP_CALL_WAITING, stream_info, 1000, &tone_player_id);
+	soundPlayer.PlayWav();
 
-	soundPlayer.PlayTone((tone_type_e)tone_type);
-
-	 if (isBallSelected) return EINA_TRUE;
+	if (isBallSelected) return EINA_TRUE;
 
 	 return EINA_FALSE;
 }

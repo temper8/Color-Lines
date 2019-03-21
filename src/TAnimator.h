@@ -58,7 +58,10 @@ public:
 
     double Pos;
     void StartTimeLine(State s);
-    void Refresh(double pos);
+    void StartMoveSound(int l);
+    void StopPlaySound();
+
+    Eina_Bool Refresh(double pos);
 
     Ecore_Timer *timer = nullptr;
     TSoundPlayer soundPlayer;

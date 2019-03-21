@@ -46,12 +46,13 @@ void TAnimator::Thaw(){
 
 void TAnimator::StartTimeLine(State s){
 	state = s;
-	ecore_animator_timeline_add (animation_time,  [](void *data, double pos){((TAnimator *) data)->Refresh(pos); return EINA_TRUE;}, this);
+	ecore_animator_timeline_add (animation_time,  [](void *data, double pos){return ((TAnimator *) data)->Refresh(pos); }, this);
 }
 
-void TAnimator::Refresh(double pos){
+Eina_Bool TAnimator::Refresh(double pos){
    	Pos =pos;
    	image->Refresh();
+    return EINA_TRUE;
 }
 
 
@@ -71,7 +72,7 @@ void TAnimator::StartJumpingBall(int x, int y){
 
 Eina_Bool TAnimator::JumpBip(){
 
-	if (!isBallSelected)
+	if (!(isBallSelected||(state == State::SnakeAnimation)))
 		return EINA_FALSE;
 
 	soundPlayer.PlayWav();
@@ -80,9 +81,8 @@ Eina_Bool TAnimator::JumpBip(){
 }
 
 void TAnimator::StartMoveBallAnimation(int x, int y){
-    //TBall destSquare(x,y);
+
 	Freeze();
-	//state = State::Default;
 
     destBall.x = x;
     destBall.y = y;
@@ -95,11 +95,29 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 		linesGame->path.clear();
 
 		StartTimeLine(State::SnakeAnimation);
+		StartMoveSound(image->SnakeBalls.size());
+
 		ecore_timer_add(animation_time+animation_delay, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 }
 
+void TAnimator::StartMoveSound(int l){
+	if (timer != nullptr)
+			ecore_timer_del(timer);
+	timer = ecore_timer_add((animation_time)/l, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
+	ecore_timer_add(animation_time/2, [](void *data){((TAnimator *) data)->StopPlaySound();  return EINA_FALSE;}, this);
+}
+
+void TAnimator::StopPlaySound(){
+	if (timer != nullptr)
+			ecore_timer_del(timer);
+}
+
 void TAnimator::AfterMoveBall(){
+
+	if (timer != nullptr)
+			ecore_timer_del(timer);
+
 	linesGame->board[destBall.x][destBall.y] = linesGame->board[selBall.x][selBall.y];
 	linesGame->board[selBall.x][selBall.y] = 0;
 	image->ClearSnake();
@@ -120,7 +138,6 @@ void TAnimator::AfterMoveBall(){
 
 		ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->state = State::DefaultWithBalls; ((TAnimator *)data)->image->Refresh(); return EINA_FALSE; }, this);
 	}
-	//img->DrawHeader();
 }
 
 void TAnimator::AfterAppearanceNewBall(){

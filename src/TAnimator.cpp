@@ -67,7 +67,7 @@ void TAnimator::StartJumpingBall(int x, int y){
 	timer = ecore_timer_add(1.0, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
 	isBallSelected = true;
 	Thaw();
-	soundPlayer.PlayWav();
+	soundPlayer.PlayFocus();
 }
 
 Eina_Bool TAnimator::JumpBip(){
@@ -75,7 +75,7 @@ Eina_Bool TAnimator::JumpBip(){
 	if (!(isBallSelected||(state == State::SnakeAnimation)))
 		return EINA_FALSE;
 
-	soundPlayer.PlayWav();
+	soundPlayer.PlayJump();
 
 	return EINA_TRUE;
 }
@@ -95,8 +95,8 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 		linesGame->path.clear();
 
 		StartTimeLine(State::SnakeAnimation);
-		StartMoveSound(image->SnakeBalls.size());
-
+		//StartMoveSound(image->SnakeBalls.size());
+		soundPlayer.PlayMove();
 		ecore_timer_add(animation_time+animation_delay, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 }
@@ -133,7 +133,7 @@ void TAnimator::AfterMoveBall(){
 
 	}
 	else {
-
+		soundPlayer.PlayDestroy();
 		StartTimeLine(State::DeleteBallsAnimation);
 
 		ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->state = State::DefaultWithBalls; ((TAnimator *)data)->image->Refresh(); return EINA_FALSE; }, this);

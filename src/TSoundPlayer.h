@@ -17,6 +17,13 @@ public:
 	TSoundPlayer();
 	virtual ~TSoundPlayer();
 
+	void PlayFocus();
+	void PlayJump();
+	void PlayMove();
+	void PlayDestroy();
+
+private:
+	void SetWavPath(char *sound);
 	void PlayWav();
 	void PlayTone(tone_type_e tone);
     int tone_type = 0;

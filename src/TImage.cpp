@@ -57,10 +57,11 @@ void TImage::Paint(){
 		DrawBoard();
 		DrawBalls();
 		DrawNextBalls();
-		if(animator->isBallSelected)
-				JumpingBall();
 		break;
 
+	case TAnimator::State::JampingTheBall:
+		JumpingBall(animator->Pos);
+	break;
 
 	case TAnimator::State::Slipping:
 		FillBackgroud();
@@ -443,9 +444,9 @@ void TImage::disappearanceLines(double pos){
 	}
 }
 
-void TImage::JumpingBall(){
+void TImage::JumpingBall(double pos){
 
-	tick +=0.25;
+	tick =pos;
 
 	double x = (animator->selBall.x-1)*squareSize  + left_margin;
 	double y = (animator->selBall.y-1)*squareSize  + top_margin;

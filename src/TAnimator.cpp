@@ -28,8 +28,8 @@ TAnimator::~TAnimator() {
 void TAnimator::Initialize(TImage *img){
 	image = img;
 	image->animator = this;
-	animator = ecore_animator_add([](void *data){((TImage *) data)->Refresh(); return EINA_TRUE;}, img);
-	ecore_animator_freeze(animator);
+	//animator = ecore_animator_add([](void *data){((TImage *) data)->Refresh(); return EINA_TRUE;}, img);
+	//ecore_animator_freeze(animator);
 
 	selBall.x = 0;
 	selBall.y = 0;
@@ -62,27 +62,35 @@ void TAnimator::StartJumpingBall(int x, int y){
 	selBall.color = 2;//linesGame->board[xx][yy];
 	//if (!isBallSelected)
 
-	if (timer != nullptr)
-		ecore_timer_del(timer);
-	timer = ecore_timer_add(1.0, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
+	//Thaw();
 	isBallSelected = true;
-	Thaw();
-	soundPlayer.PlayFocus();
+	StopJumpingTheBall();
+	StartJumpingTheBall();
 }
 
-Eina_Bool TAnimator::JumpBip(){
-
-	if (!(isBallSelected||(state == State::SnakeAnimation)))
-		return EINA_FALSE;
-
-	soundPlayer.PlayJump();
-
+Eina_Bool TAnimator::OneJump(){
+	state = State::JampingTheBall;
+	animator = ecore_animator_timeline_add (jumping_time,  [](void *data, double pos){return ((TAnimator *) data)->Refresh(pos); }, this);
+	soundPlayer.PlayFocus();
 	return EINA_TRUE;
+}
+
+Eina_Bool TAnimator::StartJumpingTheBall(){
+	OneJump();
+	timer = ecore_timer_add(jumping_time, [](void *data){return ((TAnimator *) data)->OneJump(); },	this);
+	return EINA_TRUE;
+}
+
+void TAnimator::StopJumpingTheBall(){
+	if (timer != nullptr)
+			ecore_timer_del(timer);
+	if (animator!=nullptr)
+		ecore_animator_del(animator);
 }
 
 void TAnimator::StartMoveBallAnimation(int x, int y){
 
-	Freeze();
+	//Freeze();
 
     destBall.x = x;
     destBall.y = y;
@@ -94,24 +102,18 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 		image->SnakeBalls = linesGame->path;
 		linesGame->path.clear();
 
+		StopJumpingTheBall();
+
 		StartTimeLine(State::SnakeAnimation);
-		//StartMoveSound(image->SnakeBalls.size());
+
 		soundPlayer.PlayMove();
+
 		ecore_timer_add(animation_time+animation_delay, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 }
 
-void TAnimator::StartMoveSound(int l){
-	if (timer != nullptr)
-			ecore_timer_del(timer);
-	timer = ecore_timer_add((animation_time)/l, [](void *data){return ((TAnimator *) data)->JumpBip(); }, this);
-	ecore_timer_add(animation_time/2, [](void *data){((TAnimator *) data)->StopPlaySound();  return EINA_FALSE;}, this);
-}
 
-void TAnimator::StopPlaySound(){
-	if (timer != nullptr)
-			ecore_timer_del(timer);
-}
+
 
 void TAnimator::AfterMoveBall(){
 

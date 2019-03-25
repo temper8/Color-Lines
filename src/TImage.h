@@ -65,7 +65,7 @@ public:
 
 	double tick = 0;
 
-	void JumpingBall();
+	void JumpingBall(double pos);
 
 	void ClearSnake();
 	void DrawSnake(double pos);

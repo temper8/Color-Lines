@@ -446,17 +446,14 @@ void TImage::disappearanceLines(double pos){
 
 void TImage::JumpingBall(double pos){
 
-	tick =pos;
-
 	double x = (animator->selBall.x-1)*squareSize  + left_margin;
 	double y = (animator->selBall.y-1)*squareSize  + top_margin;
 
 	DrawSquare(x,y);
 	x = x + squareSize / 2 ;
-	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(tick))) - 1;
+	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(pos*M_PI))) - 1;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	DrawBall(x,y,linesGame->board[animator->selBall.x][animator->selBall.y]);
-//	cairo_surface_flush(mySurface);
 }
 
 

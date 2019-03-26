@@ -12,22 +12,13 @@
 #include <system_settings.h>
 #include <efl_extension.h>
 
-#if TIZEN_API == 3
-
-const char *test_str = PLATFORM_VER;
-
-#else
-
-const char *test_str = "none";
-
-#endif
-
-
 
 TSoundPlayer::TSoundPlayer() {
 
 	// TODO Auto-generated constructor stub
+#if TIZEN_API == 3
 	  sound_manager_create_stream_information(SOUND_STREAM_TYPE_NOTIFICATION  , NULL, NULL, &stream_info);
+#endif
 	  SetWavPath("focus.wav");
 }
 
@@ -36,7 +27,9 @@ TSoundPlayer::~TSoundPlayer() {
 }
 
 void TSoundPlayer::PlayTone(tone_type_e tone){
+#if TIZEN_API == 3
 	 tone_player_start_new(tone, stream_info, 500, &tone_player_id);
+#endif
 }
 
 void TSoundPlayer::SetWavPath(char *sound){
@@ -45,8 +38,11 @@ void TSoundPlayer::SetWavPath(char *sound){
 
 void TSoundPlayer::PlayWav(){
 	 int ret;
-
+#if TIZEN_API == 3
 	 ret = wav_player_start_new(wav_path, stream_info, nullptr, (void*)wav_path, &wav_player_id);
+#else
+	 ret = wav_player_start(wav_path,  SOUND_TYPE_NOTIFICATION, nullptr, (void*)wav_path, &wav_player_id);
+#endif
 }
 
 void TSoundPlayer::PlayFocus(){

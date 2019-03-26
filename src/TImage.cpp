@@ -451,7 +451,7 @@ void TImage::JumpingBall(double pos){
 
 	DrawSquare(x,y);
 	x = x + squareSize / 2 ;
-	y = y + squareSize / 2 + squareSize / 8*(1-std::abs(cos(pos*M_PI))) - 1;
+	y = y + squareSize / 2 + (1-std::abs(cos(pos*M_PI)))*squareSize / 10;
 	// y = y + squareSize / 2 + 5*ecore_animator_pos_map((sin(tick)+1)/2,ECORE_POS_MAP_BOUNCE , 2,  4  );
 	DrawBall(x,y,linesGame->board[animator->selBall.x][animator->selBall.y]);
 }

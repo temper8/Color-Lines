@@ -57,6 +57,12 @@ Eina_Bool TAnimator::Refresh(double pos){
 
 
 void TAnimator::StartJumpingBall(int x, int y){
+	if (state == State::JampingTheBall)
+	{
+		StopJumpingTheBall();
+		image->JumpingBall(0.0);
+	}
+
 	selBall.x = x;
 	selBall.y = y;
 	selBall.color = 2;//linesGame->board[xx][yy];
@@ -64,7 +70,7 @@ void TAnimator::StartJumpingBall(int x, int y){
 
 	//Thaw();
 	isBallSelected = true;
-	StopJumpingTheBall();
+
 	StartJumpingTheBall();
 }
 

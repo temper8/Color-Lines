@@ -71,7 +71,8 @@ void TAnimator::StartJumpingBall(int x, int y){
 Eina_Bool TAnimator::OneJump(){
 	state = State::JampingTheBall;
 	animator = ecore_animator_timeline_add (jumping_time,  [](void *data, double pos){return ((TAnimator *) data)->Refresh(pos); }, this);
-	soundPlayer.PlayFocus();
+	ecore_timer_add(jumping_time/2, [](void *data){ ((TSoundPlayer *) data)->PlayFocus();return EINA_FALSE; },	&soundPlayer);
+
 	return EINA_TRUE;
 }
 

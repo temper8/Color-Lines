@@ -5,15 +5,29 @@
  *      Author: Alex
  */
 
+#include <colorlines.h>
 #include "TSoundPlayer.h"
 
 #include <app.h>
 #include <system_settings.h>
 #include <efl_extension.h>
 
+#if TIZEN_API == 3
+
+const char *test_str = PLATFORM_VER;
+
+#else
+
+const char *test_str = "none";
+
+#endif
+
+
+
 TSoundPlayer::TSoundPlayer() {
+
 	// TODO Auto-generated constructor stub
-	  sound_manager_create_stream_information(SOUND_STREAM_TYPE_NOTIFICATION, NULL, NULL, &stream_info);
+	  sound_manager_create_stream_information(SOUND_STREAM_TYPE_NOTIFICATION  , NULL, NULL, &stream_info);
 	  SetWavPath("focus.wav");
 }
 

@@ -12,7 +12,7 @@
 
 void TMoreOption::addItem(const char *mainText, const char *subText, const char *iconPath, int tag){
 	char buf[1024];
-
+#ifdef WEARABLE
 	/* Create the new item */
 	Eext_Object_Item *item  = eext_more_option_item_append(more_option);
 	eext_more_option_item_part_text_set(item, "selector,main_text", mainText);
@@ -23,6 +23,7 @@ void TMoreOption::addItem(const char *mainText, const char *subText, const char 
 	snprintf(buf, sizeof(buf), "%s/%s", app_get_resource_path(), iconPath);
 	elm_image_file_set(img, buf, NULL);   
 	items.insert(std::make_pair((Evas_Object*)item, tag));
+#endif
 }
 
 void TMoreOption::itemClick(Evas_Object *item){
@@ -31,7 +32,7 @@ void TMoreOption::itemClick(Evas_Object *item){
 	//close();
 	if (OnItemClick!=nullptr) OnItemClick(tag);
 }
-
+#ifdef WEARABLE
 static void _item_selected_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	DBG("itemSelect!!");
@@ -57,8 +58,10 @@ static void _more_option_closed(void *user_data, Evas_Object *obj, void *event_i
 	TMoreOption *mo = (TMoreOption *)user_data;
 	if (mo->OnClosed!=nullptr) mo->OnClosed();
 }
+#endif
 
 TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
+#ifdef WEARABLE
 	more_option = eext_more_option_add(parent);
 	elm_panel_hidden_set(more_option, EINA_TRUE);
 	//evas_object_show(more_option);
@@ -77,6 +80,7 @@ TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
     addItem("New Game",nullptr,"baseline_add_circle_black_18dp.png", 2);
     addItem("Help","About game","baseline_help_black_18dp.png", 3);
   //  addItem("Exit",nullptr,"tw_ic_popup_btn_delete.png", 4);
+#endif
 }
 
 TMoreOption::~TMoreOption(){

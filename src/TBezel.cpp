@@ -5,6 +5,7 @@
  *      Author: Alex
  */
 
+#include <colorlines.h>
 #include "TBezel.h"
 #include "logger.h"
 #include <efl_extension.h>
@@ -21,6 +22,8 @@ TBezel::~TBezel() {
 	// TODO Auto-generated destructor stub
 }
 
+#ifdef WEARABLE
+
 static  Eina_Bool eext_rotary_event_cb(void *data, Evas_Object *obj,  Eext_Rotary_Event_Info *info){
 	TBezel *v = (TBezel *) data;
 	DBG("bezel eext_rotary_event_cb");
@@ -34,6 +37,7 @@ static  Eina_Bool eext_rotary_event_cb(void *data, Evas_Object *obj,  Eext_Rotar
 	   }
 	return EINA_TRUE;
 }
+#endif
 
 bool TBezel::isSupportBezel(){
 	bool value;
@@ -53,9 +57,10 @@ bool TBezel::isSupportBezel(){
 
 
 void TBezel::Attach(Evas_Object *obj){
+#ifdef WEARABLE
 	if (isSupportBezel()){
 		eext_rotary_object_event_activated_set(obj, EINA_TRUE);
 			eext_rotary_object_event_callback_add(obj, eext_rotary_event_cb, this);
 	}
-
+#endif
 }

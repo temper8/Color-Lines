@@ -8,7 +8,7 @@
 #include <dlog.h>
 
 #ifdef __EFL_EXTENSION_MORE_OPTION_H__
-#define Wearable
+#define WEARABLE
 #endif
 
 #define TIZEN_API 2

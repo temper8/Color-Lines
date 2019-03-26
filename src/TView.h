@@ -29,7 +29,9 @@ public:
 	Evas_Object *nf = nullptr;
 	Evas_Object *more_option = nullptr;
 
+#ifdef WEARABLE
 	Eext_Circle_Surface *circle_surface = nullptr;
+#endif
 
 	virtual void OnResize(int width, int height) {};
 

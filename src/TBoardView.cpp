@@ -53,6 +53,9 @@ TBoardView::TBoardView() {
 
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 
+	moreOption->OnOpened = [this]() {animator.Freeze();};
+	moreOption->OnClosed = [this]() {animator.Thaw();};
+
 	moreOption->OnItemClick = [this](int tag) {
 											switch(tag) {
 												case 1: break;

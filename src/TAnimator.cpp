@@ -37,11 +37,17 @@ void TAnimator::Initialize(TImage *img){
 }
 
 void TAnimator::Freeze(){
-	ecore_animator_freeze(animator);
+	if (animator!=nullptr)
+		ecore_animator_freeze(animator);
+	if (timer != nullptr)
+		ecore_timer_freeze(timer);
 }
 
 void TAnimator::Thaw(){
-	ecore_animator_thaw(animator);
+	if (animator!=nullptr)
+		ecore_animator_thaw(animator);
+	if (timer != nullptr)
+		ecore_timer_thaw(timer);
 }
 
 void TAnimator::StartTimeLine(State s){
@@ -161,6 +167,7 @@ void TAnimator::AfterAppearanceNewBall(){
 }
 
 void TAnimator::DelayStartShowAllBalls(){
+	StopJumpingTheBall();
 	state = State::Default;
 	image->Refresh();
 	selBall.x = 0;

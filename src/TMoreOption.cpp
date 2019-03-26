@@ -46,6 +46,17 @@ static void _item_clicked_cb(void *user_data, Evas_Object *obj, void *event_info
 	mo->itemClick((Evas_Object *)event_info);
 }
 
+static void _more_option_opened(void *user_data, Evas_Object *obj, void *event_info)
+{
+	TMoreOption *mo = (TMoreOption *)user_data;
+	if (mo->OnOpened!=nullptr) mo->OnOpened();
+}
+
+static void _more_option_closed(void *user_data, Evas_Object *obj, void *event_info)
+{
+	TMoreOption *mo = (TMoreOption *)user_data;
+	if (mo->OnClosed!=nullptr) mo->OnClosed();
+}
 
 TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
 	more_option = eext_more_option_add(parent);
@@ -54,8 +65,8 @@ TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
 	elm_object_part_content_set(parent, part, more_option);
 
 	/* Add smart callback */
-	//evas_object_smart_callback_add(more_option, "more,option,opened", _more_option_opened, NULL);
-	//evas_object_smart_callback_add(more_option, "more,option,closed", _more_option_closed, NULL);
+	evas_object_smart_callback_add(more_option, "more,option,opened", _more_option_opened, this);
+	evas_object_smart_callback_add(more_option, "more,option,closed", _more_option_closed, this);
 
 	evas_object_smart_callback_add(more_option, "item,clicked", _item_clicked_cb, this);
 	evas_object_smart_callback_add(more_option, "item,selected", _item_selected_cb, this);

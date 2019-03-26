@@ -26,6 +26,9 @@ public:
 
 	void addItem(const char *mainText, const char *subText, const char *iconPath, int tag);
 
+
+	std::function<void()> OnOpened;
+	std::function<void()> OnClosed;
 	std::function<void(int)> OnItemClick;
 	void itemClick(Evas_Object *item);
 

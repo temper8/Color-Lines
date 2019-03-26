@@ -53,11 +53,7 @@ public:
     TLinesGame* linesGame;
 
     std::vector<TBall> balls;
-	//std::vector<TBall> NewBalls;
 	std::vector<TBall> SnakeBalls;
-
-   // TBall selBall;
-   // TBall destSquare;
 
     static constexpr const double animation_pause = 0.2;
     static constexpr const double animation_time = 0.4;

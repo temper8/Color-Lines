@@ -67,7 +67,7 @@ TBoardView::TBoardView() {
 												}
 											};
 
-//	AttachGesture(img->GetImage());
+
 	bezel.Attach(img->GetImage());
 
 	bezel.OnValueChenged = [this](double z) {
@@ -75,9 +75,6 @@ TBoardView::TBoardView() {
 		animator.state = TAnimator::State::Slipping;
 		img->Refresh();
 	};
-//	CreateContent();
-
-
 
 	animator.Initialize(img);
 	animator.DelayStartShowAllBalls();

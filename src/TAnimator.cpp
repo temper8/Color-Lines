@@ -159,6 +159,7 @@ void TAnimator::AfterAppearanceNewBall(){
 
 	if (linesGame->checkLines() > 0 )
 	{
+		soundPlayer.PlayDestroy();
 		StartTimeLine(State::DeleteBallsAnimation);
 	}
 	linesGame->addNextBalls();

@@ -15,7 +15,7 @@
 
 TBezel::TBezel() {
 	// TODO Auto-generated constructor stub
-
+	isSupportBezel = CheckSupportBezel();
 }
 
 TBezel::~TBezel() {
@@ -27,6 +27,7 @@ TBezel::~TBezel() {
 static  Eina_Bool eext_rotary_event_cb(void *data, Evas_Object *obj,  Eext_Rotary_Event_Info *info){
 	TBezel *v = (TBezel *) data;
 	DBG("bezel eext_rotary_event_cb");
+	if (!v->isSupportBezel) return EINA_TRUE;
 	if (v->OnValueChenged == nullptr) return EINA_TRUE;
 
 	if (info->direction == EEXT_ROTARY_DIRECTION_CLOCKWISE)
@@ -41,11 +42,9 @@ static  Eina_Bool eext_rotary_event_cb(void *data, Evas_Object *obj,  Eext_Rotar
 }
 #endif
 
-bool TBezel::isSupportBezel(){
+bool TBezel::CheckSupportBezel(){
 	bool value;
-	int ret;
-
-	ret = system_info_get_platform_bool("http://tizen.org/feature/input.rotating_bezel", &value);
+	int ret = system_info_get_platform_bool("http://tizen.org/feature/input.rotating_bezel", &value);
 	if (ret != SYSTEM_INFO_ERROR_NONE) {
 	        /* Error handling */
 
@@ -60,9 +59,9 @@ bool TBezel::isSupportBezel(){
 
 void TBezel::Attach(Evas_Object *obj){
 #ifdef WEARABLE
-	if (isSupportBezel()){
+	if (isSupportBezel){
 		eext_rotary_object_event_activated_set(obj, EINA_TRUE);
-			eext_rotary_object_event_callback_add(obj, eext_rotary_event_cb, this);
+		eext_rotary_object_event_callback_add(obj, eext_rotary_event_cb, this);
 	}
 #endif
 }

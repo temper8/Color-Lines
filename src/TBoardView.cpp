@@ -86,16 +86,6 @@ TBoardView::TBoardView() {
 TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
-/*
-void TBoardView::OnValueChenged(double z){
-
-	animator.Freeze();
-	img->xTranslation += 5*z;
-	animator.state = TAnimator::State::Slipping;
-	img->Refresh();
-
-}
-*/
 
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;

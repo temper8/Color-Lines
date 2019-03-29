@@ -21,12 +21,14 @@ public:
 	virtual ~TBezel();
 
 	void Attach(Evas_Object *obj);
-	bool isSupportBezel();
+
+	bool isSupportBezel;
 
 public:
-//	virtual void OnValueChenged(double z) = 0;
 
 	 std::function<void(double)> OnValueChenged = nullptr;
+private:
+	 bool CheckSupportBezel();
 };
 
 #endif /* TBEZEL_H_ */

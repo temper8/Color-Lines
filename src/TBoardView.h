@@ -62,9 +62,6 @@ public:
 	virtual void OnMomentumMove(int x1, int y1);
 	virtual void OnMomentumEnd(int x, int y);
 
-//	virtual void OnValueChenged(double z);
-  //  void closePopupBox();
-  //  void showGameOverBox();
 	double vz = 0;
 
 
@@ -73,8 +70,6 @@ private:
 
 	TBezel bezel;
 	TGesture *gesture;
-
-   // TPopupBox* myPopupBox;
 
 	virtual void OnMenuKeyClick();
 	virtual void OnBackKeyClick();

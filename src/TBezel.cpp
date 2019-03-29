@@ -27,6 +27,8 @@ TBezel::~TBezel() {
 static  Eina_Bool eext_rotary_event_cb(void *data, Evas_Object *obj,  Eext_Rotary_Event_Info *info){
 	TBezel *v = (TBezel *) data;
 	DBG("bezel eext_rotary_event_cb");
+	if (v->OnValueChenged == nullptr) return EINA_TRUE;
+
 	if (info->direction == EEXT_ROTARY_DIRECTION_CLOCKWISE)
 	   {
 		 v->OnValueChenged(1.0);

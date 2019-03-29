@@ -13,6 +13,8 @@
 #include <system_settings.h>
 #include <efl_extension.h>
 
+#include <functional>
+
 class TBezel {
 public:
 	TBezel();
@@ -20,8 +22,11 @@ public:
 
 	void Attach(Evas_Object *obj);
 	bool isSupportBezel();
+
 public:
-	virtual void OnValueChenged(double z) = 0;
+//	virtual void OnValueChenged(double z) = 0;
+
+	 std::function<void(double)> OnValueChenged = nullptr;
 };
 
 #endif /* TBEZEL_H_ */

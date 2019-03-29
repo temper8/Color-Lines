@@ -23,7 +23,7 @@
 
 class TPopupBox;
 class TLinesGame;
-class TBoardView: public TView, public TBezel {
+class TBoardView: public TView{
 public:
 	TBoardView();
 	virtual ~TBoardView();
@@ -62,7 +62,7 @@ public:
 	virtual void OnMomentumMove(int x1, int y1);
 	virtual void OnMomentumEnd(int x, int y);
 
-	virtual void OnValueChenged(double z);
+//	virtual void OnValueChenged(double z);
   //  void closePopupBox();
   //  void showGameOverBox();
 	double vz = 0;
@@ -71,7 +71,7 @@ public:
 
 private:
 
-
+	TBezel bezel;
 	TGesture *gesture;
 
    // TPopupBox* myPopupBox;

@@ -43,6 +43,8 @@ TBoardView::TBoardView() {
 	img = new TImage(layout,"elm.swallow.content");
 
 
+
+
 	TGesture *gesture = new TGesture(layout);
 	gesture->Attach(img->GetImage());
 
@@ -66,8 +68,13 @@ TBoardView::TBoardView() {
 											};
 
 //	AttachGesture(img->GetImage());
-	TBezel::Attach(img->GetImage());
+	bezel.Attach(img->GetImage());
 
+	bezel.OnValueChenged = [this](double z) {
+		img->xTranslation += 5*z;
+		animator.state = TAnimator::State::Slipping;
+		img->Refresh();
+	};
 //	CreateContent();
 
 
@@ -79,15 +86,16 @@ TBoardView::TBoardView() {
 TBoardView::~TBoardView() {
 	// TODO Auto-generated destructor stub
 }
-
+/*
 void TBoardView::OnValueChenged(double z){
-	/*
+
 	animator.Freeze();
 	img->xTranslation += 5*z;
 	animator.state = TAnimator::State::Slipping;
 	img->Refresh();
-	*/
+
 }
+*/
 
 void TBoardView::OnResize(int width, int height){
 	if ((width < 2)||(height < 2)) return;

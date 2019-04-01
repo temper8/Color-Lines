@@ -63,7 +63,7 @@ public:
 
     double Pos;
     void StartTimeLineAnimator(State s);
-
+    void AddNewBalls();
 
 
     Eina_Bool Refresh(double pos);

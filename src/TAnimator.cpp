@@ -161,11 +161,19 @@ void TAnimator::AfterAppearanceNewBall(){
 	{
 		soundPlayer.PlayDestroy();
 		StartTimeLineAnimator(State::DeleteBallsAnimation);
+		ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->AddNewBalls(); return EINA_FALSE; }, this);
 	}
+	else {
+		AddNewBalls();
+	}
+}
+
+void  TAnimator::AddNewBalls(){
 	linesGame->addNextBalls();
 	state = State::DefaultWithBalls;
 	image->Refresh();
 }
+
 
 void TAnimator::DelayStartShowAllBalls(){
 	StopJumpingTheBall();

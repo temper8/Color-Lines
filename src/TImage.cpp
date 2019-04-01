@@ -427,10 +427,8 @@ void TImage::DrawNextBalls(){
 }
 
 void TImage::AppearanceNewBall(double pos) {
-	if (pos<0.99) {
 		for ( TBall p : balls )
 				DrawBall(p,  pos);
-	}
 }
 
 void TImage::disappearanceLines(double pos){

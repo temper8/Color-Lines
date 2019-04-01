@@ -100,21 +100,46 @@ void TImage::LoadBgImage(){
     //bg_image = cairo_image_surface_create_from_png(buff);
 
 	char *path = app_get_resource_path();
-	snprintf(buff, 300, "%s/%s", path, "w1.png");
+//	snprintf(buff, 300, "%s/%s", path, "w1.png");
+	snprintf(buff, 300, "%s/%s", path, "blueprint.png");
 	bg_image = cairo_image_surface_create_from_png(buff);
     free(path);
 }
 
+cairo_pattern_t * TImage::CreateBGPattern(double x,double y, double radius, int color){
+
+	double r,g,b;
+	switch (color) {
+	case 0: r = 0.5; g = 0.5, b = 0.5; break;
+	case 1: r = 1.0; g = 0.2, b = 0.2; break;
+	case 2: r = 0.2; g = 1.0, b = 0.2; break;
+	case 3: r = 0.0; g =  62.0/255.0, b =  145.0/255.0; break;
+	case 4: r = 1.0; g = 1.0, b = 0.2; break;
+	case 5: r = 1.0; g = 0.0, b = 1.0; break;
+	case 6: r = 0.0; g = 1.0, b = 1.0; break;
+	case 7: r = 1.0; g = 1.0, b = 1.0; break;
+
+	default:
+		r = 0.0; g = 0.0, b = 0.0;
+
+	}
+
+	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x , y - myHeight/2,radius/2 , x, y- myHeight/2, 2*radius);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.5, 0, 80.0/255.0, 163.0/255.0);
+	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r, g, b);
+
+	return pattern1;
+}
 
 void TImage::FillBackgroud(){
 
 	cairo_set_source_rgb(myCairo, 0.5, 0.5, 1.0);
 	cairo_paint(myCairo);
 
-	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
-
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	cairo_pattern_t *pattern1 = CreateBGPattern(myWidth, myHeight, myWidth/2, 3);
 	cairo_set_source(myCairo, pattern1);
-	cairo_pattern_set_extend(cairo_get_source(myCairo), CAIRO_EXTEND_REPEAT);
+	//cairo_pattern_set_extend(cairo_get_source(myCairo), CAIRO_EXTEND_REPEAT);
 	cairo_rectangle(myCairo, 0, 0, myWidth, myHeight);
 	cairo_fill(myCairo);
 
@@ -324,10 +349,11 @@ void TImage::SetPatternForSquare(int x, int y, int r){
 
 void TImage::DrawSquare(double x, double y){
 
-	cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	//cairo_pattern_t *pattern1 = cairo_pattern_create_for_surface(bg_image);
+	cairo_pattern_t *pattern1 = CreateBGPattern(myWidth, myHeight, myWidth/2, 3);
 
 	cairo_set_source(myCairo, pattern1);
-	cairo_pattern_set_extend(cairo_get_source(myCairo), CAIRO_EXTEND_REPEAT);
+	//cairo_pattern_set_extend(cairo_get_source(myCairo), CAIRO_EXTEND_REPEAT);
 	DrawRoundRectangle(x+2, y+2, squareSize-4, squareSize-4, 5);
 	cairo_fill(myCairo);
 

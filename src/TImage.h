@@ -39,7 +39,10 @@ public:
 	void SetColor(int color);
 	void SetPattern(double x,double y, int radius, int color);
 	void DrawBall(double x, double y, double r, int color);
+
 	void FillBackgroud();
+	cairo_pattern_t *  CreateBGPattern(double x,double y, double radius, int color);
+
 	void DrawHeaderBG();
 	void DrawScore(double x, double y, int score);
 	void DrawScore(double x, double y, const char* caption, int score, int aling);

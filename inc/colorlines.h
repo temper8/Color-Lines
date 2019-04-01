@@ -11,6 +11,6 @@
 #define WEARABLE
 #endif
 
-#define TIZEN_API 2
+#define TIZEN_API 3
 
 #endif /* __colorlines_H__ */

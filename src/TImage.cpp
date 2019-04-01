@@ -113,7 +113,7 @@ cairo_pattern_t * TImage::CreateBGPattern(double x,double y, double radius, int 
 	case 0: r = 0.5; g = 0.5, b = 0.5; break;
 	case 1: r = 1.0; g = 0.2, b = 0.2; break;
 	case 2: r = 0.2; g = 1.0, b = 0.2; break;
-	case 3: r = 0.0; g =  62.0/255.0, b =  145.0/255.0; break;
+	case 3: r = 0.0; g =  54.0/255.0, b =  134.0/255.0; break;
 	case 4: r = 1.0; g = 1.0, b = 0.2; break;
 	case 5: r = 1.0; g = 0.0, b = 1.0; break;
 	case 6: r = 0.0; g = 1.0, b = 1.0; break;
@@ -125,7 +125,7 @@ cairo_pattern_t * TImage::CreateBGPattern(double x,double y, double radius, int 
 	}
 
 	cairo_pattern_t *pattern1 = cairo_pattern_create_radial (x , y - myHeight/2,radius/2 , x, y- myHeight/2, 2*radius);
-	cairo_pattern_add_color_stop_rgb(pattern1, 0.5, 0, 80.0/255.0, 163.0/255.0);
+	cairo_pattern_add_color_stop_rgb(pattern1, 0.7, 0, 80.0/255.0, 163.0/255.0);
 	cairo_pattern_add_color_stop_rgb(pattern1, 1.0, r, g, b);
 
 	return pattern1;

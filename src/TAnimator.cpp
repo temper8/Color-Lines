@@ -50,7 +50,7 @@ void TAnimator::Thaw(){
 		ecore_timer_thaw(timer);
 }
 
-void TAnimator::StartTimeLine(State s){
+void TAnimator::StartTimeLineAnimator(State s){
 	state = s;
 	ecore_animator_timeline_add (animation_time,  [](void *data, double pos){return ((TAnimator *) data)->Refresh(pos); }, this);
 }
@@ -117,7 +117,7 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 
 		StopJumpingTheBall();
 
-		StartTimeLine(State::SnakeAnimation);
+		StartTimeLineAnimator(State::SnakeAnimation);
 
 		soundPlayer.PlayMove();
 
@@ -139,7 +139,7 @@ void TAnimator::AfterMoveBall(){
 	if (linesGame->checkLines() == 0 )	{
 			image->balls = linesGame->addNewBalls();
 
-			StartTimeLine(State::NewBallAnimation);
+			StartTimeLineAnimator(State::NewBallAnimation);
 
 			if (linesGame->gameOver()) {
 				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
@@ -149,7 +149,7 @@ void TAnimator::AfterMoveBall(){
 	}
 	else {
 		soundPlayer.PlayDestroy();
-		StartTimeLine(State::DeleteBallsAnimation);
+		StartTimeLineAnimator(State::DeleteBallsAnimation);
 
 		ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->state = State::DefaultWithBalls; ((TAnimator *)data)->image->Refresh(); return EINA_FALSE; }, this);
 	}
@@ -160,7 +160,7 @@ void TAnimator::AfterAppearanceNewBall(){
 	if (linesGame->checkLines() > 0 )
 	{
 		soundPlayer.PlayDestroy();
-		StartTimeLine(State::DeleteBallsAnimation);
+		StartTimeLineAnimator(State::DeleteBallsAnimation);
 	}
 	linesGame->addNextBalls();
 	state = State::DefaultWithBalls;
@@ -179,7 +179,7 @@ void TAnimator::DelayStartShowAllBalls(){
 void TAnimator::startShowAllBalls(){
     //NewBalls = linesGame->makeListBalls();
 	image->balls = linesGame->board.getAllBalls();
-	StartTimeLine(State::NewBallAnimation);
+	StartTimeLineAnimator(State::NewBallAnimation);
 	ecore_timer_add(animation_time+animation_delay, [](void *data)	{  ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);
 }
 

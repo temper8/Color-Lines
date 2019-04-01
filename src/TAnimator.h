@@ -62,7 +62,7 @@ public:
 
 
     double Pos;
-    void StartTimeLine(State s);
+    void StartTimeLineAnimator(State s);
 
 
 

@@ -41,26 +41,26 @@ void TSoundPlayer::PlayWav(){
 #if TIZEN_API == 3
 	 ret = wav_player_start_new(wav_path, stream_info, nullptr, (void*)wav_path, &wav_player_id);
 #else
-	 ret = wav_player_start(wav_path,  SOUND_TYPE_NOTIFICATION, nullptr, (void*)wav_path, &wav_player_id);
+	 ret = wav_player_start(wav_path,  SOUND_TYPE_MEDIA, nullptr, (void*)wav_path, &wav_player_id);
 #endif
 }
 
 void TSoundPlayer::PlayFocus(){
-	SetWavPath("focus.wav");
+	SetWavPath("ping.wav");
 	PlayWav();
 }
 
 
 void TSoundPlayer::PlayJump(){
-	SetWavPath("jump.wav");
+	SetWavPath("j1.wav");
 	PlayWav();
 }
 
 void TSoundPlayer::PlayMove(){
-	SetWavPath("move.wav");
+	SetWavPath("move3.wav");
 	PlayWav();
 }
 void TSoundPlayer::PlayDestroy(){
-	SetWavPath("destroy.wav");
+	SetWavPath("d3.wav");
 	PlayWav();
 }

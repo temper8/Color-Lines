@@ -22,17 +22,7 @@ TImage::TImage(Evas_Object *parent, const char *part):TCairoImage(parent, part) 
 
 	linesGame = &modelView->linesGame;
 
-//	TCairoImage::Create(conform);
-
-	//image = evas_object_image_filled_add(evas_object_evas_get(conform));
-
-//	elm_object_part_content_set(layout, "elm.swallow.content", image);
-	//evas_object_event_callback_add(image, EVAS_CALLBACK_RESIZE, win_resize_cb2, this);
-	//evas_object_show(image);
-
-	//graphics.setParentImage(image);
-
-	LoadBgImage();
+	//LoadBgImage();
 	DBG("TImage::Construktor");
 }
 

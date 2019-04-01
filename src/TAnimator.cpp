@@ -121,7 +121,7 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 
 		soundPlayer.PlayMove();
 
-		ecore_timer_add(animation_time+animation_delay, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
+		ecore_timer_add(animation_time, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 }
 

@@ -46,21 +46,21 @@ void TSoundPlayer::PlayWav(){
 }
 
 void TSoundPlayer::PlayFocus(){
-	SetWavPath("ping.wav");
+	SetWavPath("jump.wav");
 	PlayWav();
 }
 
 
 void TSoundPlayer::PlayJump(){
-	SetWavPath("j1.wav");
+	SetWavPath("jump.wav");
 	PlayWav();
 }
 
 void TSoundPlayer::PlayMove(){
-	SetWavPath("move3.wav");
+	SetWavPath("move.wav");
 	PlayWav();
 }
 void TSoundPlayer::PlayDestroy(){
-	SetWavPath("d3.wav");
+	SetWavPath("destroy.wav");
 	PlayWav();
 }

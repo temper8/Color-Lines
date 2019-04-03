@@ -107,11 +107,12 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 
     destBall.x = x;
     destBall.y = y;
-	isBallSelected = false;
+
 	linesGame->initSearch(selBall);
 
 	if (linesGame->searchPath(selBall,destBall) >0) {
 
+		isBallSelected = false;
 		image->SnakeBalls = linesGame->path;
 		linesGame->path.clear();
 

@@ -21,9 +21,10 @@ public:
 	void PlayJump();
 	void PlayMove();
 	void PlayDestroy();
+	void PlayWav(const char *sound);
 
 private:
-	void SetWavPath(char *sound);
+	void SetWavPath(const char *sound);
 	void PlayWav();
 	void PlayTone(tone_type_e tone);
     int tone_type = 0;

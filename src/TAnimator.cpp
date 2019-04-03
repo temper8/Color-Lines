@@ -123,6 +123,9 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 
 		ecore_timer_add(animation_time, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
+	else {
+		soundPlayer.PlayWav("error.wav");
+	}
 }
 
 
@@ -142,6 +145,7 @@ void TAnimator::AfterMoveBall(){
 			StartTimeLineAnimator(State::NewBallAnimation);
 
 			if (linesGame->gameOver()) {
+				soundPlayer.PlayWav("finish.wav");
 				ecore_timer_add(animation_time, [](void *data)	{ ((MainModelView *)data)->ShowGameOverBox(); return EINA_FALSE; }, modelView);
 			}
 			ecore_timer_add(animation_time+animation_delay, [](void *data)	{ ((TAnimator *)data)->AfterAppearanceNewBall(); return EINA_FALSE; }, this);

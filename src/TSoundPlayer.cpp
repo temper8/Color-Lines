@@ -32,7 +32,7 @@ void TSoundPlayer::PlayTone(tone_type_e tone){
 #endif
 }
 
-void TSoundPlayer::SetWavPath(char *sound){
+void TSoundPlayer::SetWavPath(const char *sound){
 	 snprintf(wav_path, sizeof(wav_path), "%s/sound/%s", app_get_resource_path(), sound);
 }
 
@@ -44,6 +44,12 @@ void TSoundPlayer::PlayWav(){
 	 ret = wav_player_start(wav_path,  SOUND_TYPE_MEDIA, nullptr, (void*)wav_path, &wav_player_id);
 #endif
 }
+
+void TSoundPlayer::PlayWav(const char *sound){
+	SetWavPath(sound);
+	PlayWav();
+}
+
 
 void TSoundPlayer::PlayFocus(){
 	SetWavPath("jump.wav");

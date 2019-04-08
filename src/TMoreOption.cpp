@@ -29,6 +29,15 @@ void setCheckIcon(Evas_Object *img){
 
 }
 
+void setCheckText(Evas_Object *item){
+	MainModelView *m = &GameApp::instance()->modelView;
+	if (m->animator->soundPlayer.isSoundEnabled == 0)
+		eext_more_option_item_part_text_set((Eext_Object_Item*)item, "selector,sub_text", "On");
+	else
+		eext_more_option_item_part_text_set((Eext_Object_Item*)item, "selector,sub_text", "Off");
+
+}
+
 void TMoreOption::addItem(const char *mainText, const char *subText, const char *iconPath, int tag){
 
 
@@ -51,14 +60,13 @@ void TMoreOption::addCheckItem(const char *mainText, const char *subText, int ta
 	/// Create the new check item
 	Eext_Object_Item *item  = eext_more_option_item_append(more_option);
 	eext_more_option_item_part_text_set(item, "selector,main_text", mainText);
-	eext_more_option_item_part_text_set(item, "selector,sub_text", subText);
+//	eext_more_option_item_part_text_set(item, "selector,sub_text", subText);
+
+	setCheckText((Evas_Object *)item);
+
 	Evas_Object *img  = elm_image_add(more_option);
-
-	/* Set the content in item content part */
 	eext_more_option_item_part_content_set(item, "item,icon", img);
-
 	setCheckIcon(img);
-	//setIcon(img, "baseline_play_circle_filled_black_18dp.png");
 
 	items.insert(std::make_pair((Evas_Object*)item, tag));
 }
@@ -78,6 +86,7 @@ void TMoreOption::checkItemClick(Evas_Object *item){
 		//setIcon(image, "baseline_music_note_black_18dp.png");
 	}
 	setCheckIcon(image);
+	setCheckText(item);
 }
 
 

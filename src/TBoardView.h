@@ -34,7 +34,11 @@ public:
 public:
 
 	TImage *img;
+
+#ifdef WEARABLE
     TMoreOption *moreOption;
+#endif
+
 	virtual void OnResize(int width, int height);
 
 

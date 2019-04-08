@@ -53,6 +53,7 @@ TBoardView::TBoardView() {
 	//gesture->FingerTapEventHolder = std::mem_fn(&TBoardView::OnClick);
 	//auto  ff = std::mem_fn(&TBoardView::OnClick);
 
+#ifdef WEARABLE
 	moreOption = new TMoreOption(layout,  "elm.swallow.right");
 
 	moreOption->OnOpened = [this]() {animator.Freeze();};
@@ -66,6 +67,7 @@ TBoardView::TBoardView() {
 												case 4: ui_app_exit(); break;
 												}
 											};
+#endif
 
 
 	bezel.Attach(img->GetImage());

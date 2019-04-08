@@ -17,7 +17,7 @@
 #include <functional>
 #include <map>
 
-
+#ifdef WEARABLE
 class TMoreOption {
 public:
 	TMoreOption(Evas_Object *parent, const char *part);
@@ -40,5 +40,5 @@ public:
 
 
 };
-
+#endif
 #endif /* TMOREOPTION_H_ */

@@ -41,11 +41,11 @@ void TMoreOption::checkItemClick(Evas_Object *item){
 	if (m->animator->soundPlayer.isSoundEnabled == 0)
 	{
 		m->animator->soundPlayer.isSoundEnabled = 1;
-		setIcon(image, "baseline_play_circle_filled_black_18dp.png");
+		setIcon(image, "baseline_music_off_black_18dp.png");
 	}
 	else {
 		m->animator->soundPlayer.isSoundEnabled = 0;
-		setIcon(image, "baseline_add_circle_black_18dp.png");
+		setIcon(image, "baseline_music_note_black_18dp.png");
 	}
 
 }

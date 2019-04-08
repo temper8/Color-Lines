@@ -13,7 +13,7 @@
 #include <efl_extension.h>
 
 
-TSoundPlayer::TSoundPlayer() {
+TSoundPlayer::TSoundPlayer():isSoundEnabled("IsSoundEnabled") {
 
 	// TODO Auto-generated constructor stub
 #if TIZEN_API == 3
@@ -38,6 +38,7 @@ void TSoundPlayer::SetWavPath(const char *sound){
 
 void TSoundPlayer::PlayWav(){
 	 int ret;
+	 if (isSoundEnabled>0) return;
 #if TIZEN_API == 3
 	 ret = wav_player_start_new(wav_path, stream_info, nullptr, (void*)wav_path, &wav_player_id);
 #else

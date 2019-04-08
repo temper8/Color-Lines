@@ -8,10 +8,8 @@
 #include "TMoreOption.h"
 
 #include "logger.h"
-#include <tizen.h>
-#include <Elementary.h>
-#include <efl_extension.h>
-#include <app.h>
+
+#include "GameApp.h"
 
 void TMoreOption::setIcon(Evas_Object *img, const char* icon){
 	char buf[1024];
@@ -39,7 +37,17 @@ void TMoreOption::addItem(const char *mainText, const char *subText, const char 
 void TMoreOption::checkItemClick(Evas_Object *item){
 	Evas_Object *image =  eext_more_option_item_part_content_get((Eext_Object_Item*)item, "item,icon");
 	if (image == NULL) return;
-	setIcon(image, "baseline_play_circle_filled_black_18dp.png");
+	MainModelView *m = &GameApp::instance()->modelView;
+	if (m->animator->soundPlayer.isSoundEnabled == 0)
+	{
+		m->animator->soundPlayer.isSoundEnabled = 1;
+		setIcon(image, "baseline_play_circle_filled_black_18dp.png");
+	}
+	else {
+		m->animator->soundPlayer.isSoundEnabled = 0;
+		setIcon(image, "baseline_add_circle_black_18dp.png");
+	}
+
 }
 
 

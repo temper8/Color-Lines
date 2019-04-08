@@ -8,6 +8,8 @@
 #ifndef TSOUNDPLAYER_H_
 #define TSOUNDPLAYER_H_
 
+#include "TPreferenceInt.h"
+
 #include <sound_manager.h>
 #include <tone_player.h>
 #include <wav_player.h>
@@ -23,6 +25,8 @@ public:
 	void PlayDestroy();
 	void PlayWav(const char *sound);
 
+	TPreferenceInt isSoundEnabled;
+
 private:
 	void SetWavPath(const char *sound);
 	void PlayWav();
@@ -30,6 +34,7 @@ private:
     int tone_type = 0;
 	int tone_player_id = 0;
 	int wav_player_id = 0;
+
 #if TIZEN_API == 3
     sound_stream_info_h stream_info;
 #endif

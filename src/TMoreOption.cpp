@@ -14,10 +14,19 @@
 #ifdef WEARABLE
 
 
-void TMoreOption::setIcon(Evas_Object *img, const char* icon){
+void setIcon(Evas_Object *img, const char* icon){
 	char buf[1024];
 	snprintf(buf, sizeof(buf), "%s/%s", app_get_resource_path(), icon);
 	elm_image_file_set(img, buf, NULL);
+}
+
+void setCheckIcon(Evas_Object *img){
+	MainModelView *m = &GameApp::instance()->modelView;
+	if (m->animator->soundPlayer.isSoundEnabled == 0)
+		setIcon(img, "baseline_music_note_black_18dp.png");
+	else
+		setIcon(img, "baseline_music_off_black_18dp.png");
+
 }
 
 void TMoreOption::addItem(const char *mainText, const char *subText, const char *iconPath, int tag){
@@ -37,6 +46,24 @@ void TMoreOption::addItem(const char *mainText, const char *subText, const char 
 
 }
 
+void TMoreOption::addCheckItem(const char *mainText, const char *subText, int tag){
+
+	/// Create the new check item
+	Eext_Object_Item *item  = eext_more_option_item_append(more_option);
+	eext_more_option_item_part_text_set(item, "selector,main_text", mainText);
+	eext_more_option_item_part_text_set(item, "selector,sub_text", subText);
+	Evas_Object *img  = elm_image_add(more_option);
+
+	/* Set the content in item content part */
+	eext_more_option_item_part_content_set(item, "item,icon", img);
+
+	setCheckIcon(img);
+	//setIcon(img, "baseline_play_circle_filled_black_18dp.png");
+
+	items.insert(std::make_pair((Evas_Object*)item, tag));
+}
+
+
 void TMoreOption::checkItemClick(Evas_Object *item){
 	Evas_Object *image =  eext_more_option_item_part_content_get((Eext_Object_Item*)item, "item,icon");
 	if (image == NULL) return;
@@ -44,13 +71,13 @@ void TMoreOption::checkItemClick(Evas_Object *item){
 	if (m->animator->soundPlayer.isSoundEnabled == 0)
 	{
 		m->animator->soundPlayer.isSoundEnabled = 1;
-		setIcon(image, "baseline_music_off_black_18dp.png");
+		//setIcon(image, "baseline_music_off_black_18dp.png");
 	}
 	else {
 		m->animator->soundPlayer.isSoundEnabled = 0;
-		setIcon(image, "baseline_music_note_black_18dp.png");
+		//setIcon(image, "baseline_music_note_black_18dp.png");
 	}
-
+	setCheckIcon(image);
 }
 
 
@@ -113,7 +140,7 @@ TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
     addItem("Play","Continue game","baseline_play_circle_filled_black_18dp.png", 1);
     addItem("New Game",nullptr,"baseline_add_circle_black_18dp.png", 2);
     addItem("Help","About game","baseline_help_black_18dp.png", 3);
-    addItem("Sound On","Enable sound","baseline_help_black_18dp.png", 4);
+    addCheckItem("Sound","On/Off", 4);
   //  addItem("Exit",nullptr,"tw_ic_popup_btn_delete.png", 4);
 
 }

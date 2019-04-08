@@ -25,14 +25,14 @@ public:
 
 
 	void addItem(const char *mainText, const char *subText, const char *iconPath, int tag);
-
+	void addCheckItem(const char *mainText, const char *subText, int tag);
 
 	std::function<void()> OnOpened;
 	std::function<void()> OnClosed;
 	std::function<void(int)> OnItemClick;
 	void itemClick(Evas_Object *item);
 	void checkItemClick(Evas_Object *item);
-	void setIcon(Evas_Object *img, const char* icon);
+	//void setIcon(Evas_Object *img, const char* icon);
 
     Evas_Object *more_option = nullptr;
 	std::map<Evas_Object *,int > items;

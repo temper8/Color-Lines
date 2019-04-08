@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.colorlines" version="0.4.1">
-    <author email="temper8@gmail.com">alex</author>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="3.0" package="org.tizen.colorlines" version="1.0.0">
+    <author email="temper8@gmail.com">Alexander Kryzhanovskiy</author>
     <profile name="wearable"/>
     <ui-application appid="org.tizen.colorlines" exec="colorlines" multiple="false" nodisplay="false" taskmanage="true" type="capp">
         <label>Color Lines</label>

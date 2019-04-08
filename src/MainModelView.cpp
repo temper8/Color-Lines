@@ -76,8 +76,9 @@ void MainModelView::ShowHelp(){
 	popupBox->show();
 }
 void MainModelView::ShowGameOverBox(){
+	linesGame.newGame();
 	TPopupBox* popupBox = TPopupBoxFactory::CreateGameOverBox();
-	popupBox->OnBtnClick = [this](int tag) {if (tag==2) NewGame(); else ui_app_exit(); };
+	popupBox->OnBtnClick = [this](int tag) {if (tag==2) animator->DelayStartShowAllBalls(); else ui_app_exit(); };
 	popupBox->show();
 }
 

@@ -125,7 +125,7 @@ void TAnimator::StartMoveBallAnimation(int x, int y){
 		ecore_timer_add(animation_time, [](void *data){((TAnimator *) data)->AfterMoveBall();  return EINA_FALSE;}, this);
 	}
 	else {
-		soundPlayer.PlayWav("error.wav");
+		soundPlayer.PlayError();
 	}
 }
 

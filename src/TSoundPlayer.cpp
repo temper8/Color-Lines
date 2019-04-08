@@ -71,3 +71,9 @@ void TSoundPlayer::PlayDestroy(){
 	SetWavPath("destroy.wav");
 	PlayWav();
 }
+
+
+void TSoundPlayer::PlayError(){
+	SetWavPath("error-sound.wav");
+	PlayWav();
+}

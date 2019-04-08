@@ -22,6 +22,7 @@ public:
 	void PlayFocus();
 	void PlayJump();
 	void PlayMove();
+	void PlayError();
 	void PlayDestroy();
 	void PlayWav(const char *sound);
 

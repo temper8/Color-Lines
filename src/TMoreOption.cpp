@@ -138,7 +138,7 @@ TMoreOption::TMoreOption(Evas_Object *parent, const char *part){
 
 	//create_menu(more_option);
     addItem("Play","Continue game","baseline_play_circle_filled_black_18dp.png", 1);
-    addItem("New Game",nullptr,"baseline_add_circle_black_18dp.png", 2);
+    addItem("New Game",nullptr,"baseline_replay_black_18dp.png", 2);
     addItem("Help","About game","baseline_help_black_18dp.png", 3);
     addCheckItem("Sound","On/Off", 4);
   //  addItem("Exit",nullptr,"tw_ic_popup_btn_delete.png", 4);

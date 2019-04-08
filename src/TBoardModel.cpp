@@ -86,11 +86,17 @@ std::vector<TBall> TBoardModel::getAllBalls(){
 
 void TBoardModel::setRandomBalls(int nuberOfColors){
 	clear();
+	int BallsCount = 0;
 	for(int i=1; i<= sizeX; i++)
 	for(int j=1; j<= sizeY; j++) {
 	      if (array[i][j] == 10) continue;
 	      int rnd =  rand() % (nuberOfColors*3);
+	      if (BallsCount > 6) break;
 	      if (rnd<nuberOfColors)
+	      {
 	    	  array[i][j] = 1 + rnd;
+	    	  BallsCount++;
+	      }
+
 	  }
 }

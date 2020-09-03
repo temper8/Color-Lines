@@ -56,7 +56,7 @@ public:
 
 	static TApplication *self;
 
-	DeviceType deviceType = DeviceType::mobile;
+	DeviceType deviceType = DeviceType::wearable;//DeviceType::mobile;
 	bool isSupportBezel();
 
 	TView* myView;

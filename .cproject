@@ -122,6 +122,12 @@
 									<listOptionValue builtIn="false" value="${RS_COMPILER_MISC}"/>
 									<listOptionValue builtIn="false" value=" -fPIE"/>
 									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
+									<listOptionValue builtIn="false" value="--param=ssp-buffer-size=4"/>
+									<listOptionValue builtIn="false" value="-fasynchronous-unwind-tables"/>
+									<listOptionValue builtIn="false" value="-fno-omit-frame-pointer"/>
+									<listOptionValue builtIn="false" value="-msse4.2"/>
+									<listOptionValue builtIn="false" value="-m32"/>
+									<listOptionValue builtIn="false" value="-mfpmath=sse"/>
 								</option>
 								<option id="sbi.gnu.cpp.compiler.option.preprocessor.def.deprecation.623848873" name="Defined symbols (-D)" superClass="sbi.gnu.cpp.compiler.option.preprocessor.def.deprecation" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="TIZEN_DEPRECATION"/>
@@ -232,6 +238,12 @@
 									<listOptionValue builtIn="false" value="${RS_COMPILER_MISC}"/>
 									<listOptionValue builtIn="false" value=" -fPIE"/>
 									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
+									<listOptionValue builtIn="false" value="--param=ssp-buffer-size=4"/>
+									<listOptionValue builtIn="false" value="-fasynchronous-unwind-tables"/>
+									<listOptionValue builtIn="false" value="-fno-omit-frame-pointer"/>
+									<listOptionValue builtIn="false" value="-msse4.2"/>
+									<listOptionValue builtIn="false" value="-m32"/>
+									<listOptionValue builtIn="false" value="-mfpmath=sse"/>
 								</option>
 								<option id="sbi.gnu.c.compiler.option.preprocessor.def.symbols.deprecation.833236785" name="Defined symbols (-D)" superClass="sbi.gnu.c.compiler.option.preprocessor.def.symbols.deprecation" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="TIZEN_DEPRECATION"/>
@@ -405,6 +417,12 @@
 									<listOptionValue builtIn="false" value="${RS_COMPILER_MISC}"/>
 									<listOptionValue builtIn="false" value=" -fPIE"/>
 									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
+									<listOptionValue builtIn="false" value="--param=ssp-buffer-size=4"/>
+									<listOptionValue builtIn="false" value="-fasynchronous-unwind-tables"/>
+									<listOptionValue builtIn="false" value="-fno-omit-frame-pointer"/>
+									<listOptionValue builtIn="false" value="-msse4.2"/>
+									<listOptionValue builtIn="false" value="-m32"/>
+									<listOptionValue builtIn="false" value="-mfpmath=sse"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.include.paths.818642664" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
@@ -511,6 +529,12 @@
 									<listOptionValue builtIn="false" value="${RS_COMPILER_MISC}"/>
 									<listOptionValue builtIn="false" value=" -fPIE"/>
 									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
+									<listOptionValue builtIn="false" value="--param=ssp-buffer-size=4"/>
+									<listOptionValue builtIn="false" value="-fasynchronous-unwind-tables"/>
+									<listOptionValue builtIn="false" value="-fno-omit-frame-pointer"/>
+									<listOptionValue builtIn="false" value="-msse4.2"/>
+									<listOptionValue builtIn="false" value="-m32"/>
+									<listOptionValue builtIn="false" value="-mfpmath=sse"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.paths.1777949738" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>

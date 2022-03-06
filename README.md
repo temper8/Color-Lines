@@ -1,6 +1,8 @@
 # Tizen Color Lines #
 
-Native app for Tizen Studio. 
+This simple app for Tizen. Perhaps interesting is the idea of с++ wrapper around native tizen api.  
+
+![](C:\Users\Alex\Color-Lines\screenshot.png)
 
 Game rules:
 
@@ -28,27 +30,9 @@ Pleasant entertainment!
 
 
 * Version 0.2.0 Added the ability to move balls using drag and drop. Исправил ошибку с падением на старте из-за преждевременного запуска аниматора 
- 
+
 * Version 0.1.1 downgrade api to 2.3 api, refactoring and update help.en
+
 * Version 0.1.0 first release for 2.4 api
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+  

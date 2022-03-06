@@ -2,7 +2,7 @@
 
 This simple app for Tizen. Perhaps interesting is the idea of с++ wrapper around native tizen api.  
 
-![](C:\Users\Alex\Color-Lines\screenshot.png)
+![](screenshot.png)
 
 Game rules:
 
